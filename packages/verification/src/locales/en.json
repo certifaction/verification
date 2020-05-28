@@ -1,0 +1,63 @@
+{
+  "verification": {
+    "box": {
+      "label1": "Drag & drop or click to select a PDF document from your device.",
+      "label2": "Your documents won't be uploaded or saved."
+    },
+    "demo": {
+      "clickToVerify": "Click to verify",
+      "doc1Filename": "Demo_Document.pdf",
+      "doc1Issuer": "Certifaction Academy",
+      "docUnverifiedFilename": "Demo_Document_Uncertified.pdf",
+      "title": "Demo documents"
+    },
+    "result": {
+      "title": "Verification result",
+      "expertInfo": {
+        "hide": "Hide expert info",
+        "show": "Show expert info"
+      },
+      "meta": {
+        "contract": "Contract",
+        "issuer": "Issuer",
+        "issuerVerifiedBy": "Issuer verified by",
+        "issuerVerifiedByInformation": "This service provider has subjected the issuer to careful scrutiny. Only authorized individuals are able to request the verification of their organization’s identity.",
+        "issuerAddress": "Issuer address",
+        "fingerprint": "File Hash Value",
+        "registrationDate": "Registration date",
+        "revocationDate": "Revocation date",
+        "registrationTransaction": "Registration transaction",
+        "revocationTransaction": "Revocation transaction"
+      },
+      "technicalProblem": {
+        "status": "Technical problems",
+        "message": "Due to temporary technical problems we are currently unable to verify your document.<br />Our team has already been notified automatically and is working to fix the issue.<br />Please try again a bit later.<br />We apologize for the inconvenience.",
+        "offchainMessage": "Due to temporary technical problems we are currently unable to deliver a complete verification result. Please try again a bit later."
+      },
+      "notFound": {
+        "status": "File could not be verified",
+        "message": "This file could not be found in Certifaction's blockchain records.<br />Please note that this is not proof that it has been forged. The file may have been altered unintentionally or there could be a technical problem. Try again in a few minutes or contact the issuer indicated in the file."
+      },
+      "revokedUnverified": {
+        "status": "This file is authentic but has been revoked and the issuer is not verified",
+        "message": "This file was originally registered in this exact form by the issuer but since has been revoked using the Certifaction technology.<br />It may or may not have been replaced by a newer version. Please contact the issuer for further information.<br />Caution: The identity of the above issuer has been self-declared, which means it has not been verified by Certifaction or our trusted partners. If you are unsure about this file's origin, please contact the alleged issuer."
+      },
+      "revoked": {
+        "status": "This file is authentic but has been revoked",
+        "message": "This file was originally registered in this exact form by the issuer but since has been revoked using the Certifaction technology.<br />It may or may not have been replaced by a newer version. Please contact the issuer for further information."
+      },
+      "processing": {
+        "message": "This file in this exact form is in the process of being registered on the Ethereum blockchain through Certifaction by the above issuer.<br />Please check back in a few minutes",
+        "status": "This file is being processed..."
+      },
+      "selfDeclared": {
+        "status": "This is an authentic file from an unverified issuer",
+        "message": "Caution: This file has been registered in this exact form on the Ethereum blockchain using the Certifaction technology.<br />However, the identity of the above issuer has been self-declared, which means it has not been verified by Certifaction or our trusted partners. If you are unsure about this file's origin, please contact the alleged issuer."
+      },
+      "verified": {
+        "status": "This file is authentic",
+        "message": "This file has been registered in this exact form on the Ethereum blockchain by the above issuer using the Certifaction technology.<br />The issuer's identity has been verified by Certifaction or our trusted partners."
+      }
+    }
+  }
+}

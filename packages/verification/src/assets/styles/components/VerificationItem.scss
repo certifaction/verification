@@ -1,0 +1,244 @@
+/*!
+ *   Copyright (c) 2020 Certifaction AG
+ *
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy
+ *   of this software and associated documentation files (the "Software"), to deal
+ *   in the Software without restriction, including without limitation the rights
+ *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *   copies of the Software, and to permit persons to whom the Software is
+ *   furnished to do so, subject to the following conditions:
+ *
+ *   The above copyright notice and this permission notice shall be included in all
+ *   copies or substantial portions of the Software.
+ *
+ *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *   SOFTWARE.
+ */
+
+.verification-item-list {
+  .item-container {
+    max-width: 100%;
+  }
+}
+
+.verification-item {
+  background: white;
+  position: relative;
+  margin: 0 auto;
+  margin-left: $spacer * .75;
+  margin-right: $spacer * .75;
+  margin-top: $spacer * 1.5;
+  box-shadow: $box-shadow-standard;
+  max-width: 370px;
+  overflow: hidden;
+
+  &.expanded {
+    .item-footer {
+      margin-top: -250px;
+      height: calc(400px - 1rem);
+      padding-top: 1rem;
+      position: relative;
+      background: white;
+      box-shadow: 0 -10px 20px -10px rgba(0, 0, 0, .2);
+    }
+  }
+
+  .stacked-title {
+    color: $gray-600;
+    font-weight: 400;
+    font-size: 13px;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: block;
+  }
+
+  .verification-entry {
+    padding: 0 0 $spacer * .5 0;
+  }
+
+  .offchain-error {
+    margin-top: 15px;
+    .mdi {
+      color: red;
+      font-size: 24px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    .offchain-error-title {
+      font-weight: bold;
+    }
+    .offchain-error-description {
+      display: inline-block;
+    }
+  }
+
+  .loading-spinner {
+    padding: $spacer * 1.5 $spacer;
+  }
+
+  .item-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: $spacer * .75 $spacer * 1.5 $spacer * .75 $spacer * 1.5;
+    line-height: 32px;
+    border-bottom: 1px solid $border-color;
+
+    .mdi {
+      line-height: 32px;
+      font-size: 28px;
+    }
+
+    .title {
+      width: 245px;
+    }
+
+    .filename {
+      color: $text-muted;
+      font-size: $font-size-small;
+      line-height: $line-height;
+      overflow-wrap: break-word;
+    }
+
+    .icon {
+      margin-right: $spacer * .55;
+      i {
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-size: cover;
+        img {
+          width: 16px;
+          height: 16px;
+          margin: 0 auto 0 8px;
+        }
+      }
+      .icon-not-found {
+        background-image: url('./../img/not-found.png')
+      }
+      .icon-unverified {
+        background-image: url('./../img/unverified.png')
+      }
+      .icon-progress {
+        background-image: url('./../img/unverified-empty.png')
+      }
+      .icon-verified {
+        background-image: url('./../img/verified.png')
+      }
+      .icon-revoked {
+        background-image: url('./../img/revoked.png')
+      }
+    }
+  }
+
+  .hash {
+    display: flex;
+    align-items: center;
+    .content {
+      max-width: 300px;
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .mdi {
+      margin-left: 5px;
+      vertical-align: middle;
+      display: block;
+    }
+  }
+
+  .verification-info, .advanced-info {
+    padding-top: $spacer * .75;
+    padding-bottom: $spacer * .25;
+    font-weight: 500;
+  }
+
+  .item-body {
+    padding: $spacer * .75 $spacer * 1.5;
+    border-bottom: 1px solid $border-color;
+
+    .status {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .description {
+      color: $text-muted;
+      font-size: 14px;
+      &::before {
+        border-top: 3px solid $body-color;
+        padding-bottom: $spacer * .5;
+        content: " ";
+        display: block;
+        width: 60px;
+      }
+    }
+  }
+
+  .item-footer {
+    vertical-align: middle;
+    padding: 0 $spacer * 1.5;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+
+    .footer-content {
+      display: none;
+    }
+
+    .advanced-toggler {
+      color: $primary;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      &:hover {
+        color: $gray-700;
+      }
+      .toggler {
+        display: block;
+        padding-right: 10px;
+      }
+      &:focus {
+        outline: 0;
+        border: none;
+      }
+    }
+
+    .advanced-info {
+      overflow-wrap: break-word;
+      h3 {
+        color: $body-color;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .item-container {
+    max-width: 100%;
+    .verification-item {
+      margin-left: 0;
+      margin-right: 0;
+      .item-header, .item-footer, .item-body {
+        padding: 1rem;
+      }
+      .item-body {
+        .status {
+          font-size: 0.9rem;
+        }
+      }
+      .hash {
+        .content {
+          max-width: 160px;
+        }
+      }
+    }
+  }
+}

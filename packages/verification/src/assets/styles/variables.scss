@@ -1,0 +1,67 @@
+/*!
+ *   Copyright (c) 2020 Certifaction AG
+ *
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy
+ *   of this software and associated documentation files (the "Software"), to deal
+ *   in the Software without restriction, including without limitation the rights
+ *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *   copies of the Software, and to permit persons to whom the Software is
+ *   furnished to do so, subject to the following conditions:
+ *
+ *   The above copyright notice and this permission notice shall be included in all
+ *   copies or substantial portions of the Software.
+ *
+ *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *   SOFTWARE.
+ */
+
+// COLORS
+$gray-50: #f8f9fa;
+$gray-100: #f2f4f6 !default;
+$gray-110: #f9fafb !default;
+$gray-150: #eff2f6 !default;
+$gray-180: #edf0f3 !default;
+$gray-200: #ebedf1 !default;
+$gray-250: #e7e9ec !default;
+$gray-300: #d1d7dd !default;
+$gray-350: #d9dbdf !default;
+$gray-400: #BEC4CA !default;
+$gray-450: #c1c3c6 !default;
+$gray-500: #90939a !default;
+$gray-550: #8b8d95 !default;
+$gray-600: #808993 !default;
+$gray-700: #203346 !default;
+$gray-800: #343435 !default;
+$gray-900: #212122 !default;
+
+$primary: #0062c7 !default;
+
+$body-color: $gray-900;
+$text-muted: $gray-600;
+$border-color: $gray-200;
+
+// FONTS
+$body-font-family: 'Work Sans', Arial, sans-serif;
+$headings-font-family: 'Work Sans', Arial, sans-serif;
+$font-size-normal: 1rem;
+$font-size-small: 13px;
+$line-height: 1.5;
+
+$font-size-h1: 1.25rem;
+$font-size-h2: 1rem;
+
+// SPACING
+$spacer: 1.5rem;
+
+// Shadows
+$box-shadow-standard: 0px 1px 30px rgba($gray-700, .15) !default;
+
+// Verification Items
+$verification-box-border: 9px dashed $gray-300;
+$verification-box-title-color: $gray-700;
+$verification-box-subtitle-color: $gray-500;

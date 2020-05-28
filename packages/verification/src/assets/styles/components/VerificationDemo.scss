@@ -1,0 +1,67 @@
+.verification-demo {
+  text-align: center;
+
+  .sample-docs {
+    h3 {
+      font-weight: 500 !important;
+      padding-bottom: 0px;
+    }
+  }
+
+  .paperbox {
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacer * 2;
+  }
+
+  .papers {
+
+    .papers-inner {
+      width: 150px;
+      height: 100px;
+      margin: 0;
+      margin-bottom: -2rem;
+    }
+
+    .paper {
+      text-align: center;
+      margin: $spacer * .5 auto;
+      width: 72px;
+      height: 100px;
+      padding-top: 10px;
+      background: white;
+      box-shadow: 1px 3px 15px rgba(0, 0, 0, .2);
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 1px 3px 20px rgba(0, 0, 0, .3);
+      }
+
+      .lines {
+        padding-top: 0px;
+      }
+
+      .line-short, .line-long {
+        background: $gray-200;
+        height: 7px;
+        margin-bottom: 4px;
+        margin-left: 10px;
+      }
+
+      .line-short {
+        width: 20px;
+      }
+
+      .line-long {
+        width: 52px;
+      }
+
+      i {
+        font-size: 1.5rem;
+        color: $gray-400;
+      }
+    }
+  }
+}
