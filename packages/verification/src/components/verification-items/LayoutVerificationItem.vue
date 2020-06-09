@@ -50,8 +50,8 @@
           <span class="stacked-title">{{ $t('verification.result.meta.issuerVerifiedBy') }}</span>
           {{ verificationItem.issuerVerifiedBy }}
           <i class="mdi mdi-information-outline mdi-16px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
-          <div class="issuer-image">
-            <img v-if="verificationItem.issuerVerifiedImg" :src="verificationItem.issuerVerifiedImg" />
+          <div class="issuer-image" v-if="verificationItem.issuerVerifiedImg">
+            <img :src="verificationItem.issuerVerifiedImg" alt="" />
           </div>
         </div>
         <div class="verification-entry issuer_name"
