@@ -41,21 +41,23 @@
       <div class="verification-info" key="info" v-else>
         <div class="verification-entry issuer_name"
              v-if="verificationItem.issuerName">
+          <span class="stacked-title">{{ $t('verification.result.meta.issuer') }}</span>
           {{ verificationItem.issuerName }}
           <!--<img v-if="verificationItem.issuerVerified" src="./../../assets/img/verified-tick.png" alt="Verified" />-->
-          <span class="stacked-title">{{ $t('verification.result.meta.issuer') }}</span>
         </div>
-        <div class="verification-entry issuer_name"
+        <div class="verification-entry issuer-verifiedby"
              v-if="verificationItem.issuerVerifiedBy">
-          {{ $t('verification.result.meta.issuerVerifiedBy') }} {{ verificationItem.issuerVerifiedBy }}
-          <i class="mdi mdi-information-outline mdi-18px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
-          <br>
-          <img v-if="verificationItem.issuerVerifiedImg" :src="'/img/'+verificationItem.issuerVerifiedImg" height="21"/>
+          <span class="stacked-title">{{ $t('verification.result.meta.issuerVerifiedBy') }}</span>
+          {{ verificationItem.issuerVerifiedBy }}
+          <i class="mdi mdi-information-outline mdi-16px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
+          <div class="issuer-image" v-if="verificationItem.issuerVerifiedImg">
+            <img :src="verificationItem.issuerVerifiedImg" alt="" />
+          </div>
         </div>
         <div class="verification-entry issuer_name"
              v-if="verificationItem.issuerVerified && !verificationItem.issuerVerifiedBy">
           {{ $t('verification.result.meta.issuerVerifiedBy') }} Certifaction AG
-          <i class="mdi mdi-information-outline mdi-18px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
+          <i class="mdi mdi-information-outline mdi-16px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
           <br>
           <br>
         </div>

@@ -55,7 +55,7 @@
         "message": "Caution: This file has been registered in this exact form on the Ethereum blockchain using the Certifaction technology.<br />However, the identity of the above issuer has been self-declared, which means it has not been verified by Certifaction or our trusted partners. If you are unsure about this file's origin, please contact the alleged issuer."
       },
       "verified": {
-        "status": "This file is authentic",
+        "status": "This file is authentic and from a verified issuer",
         "message": "This file has been registered in this exact form on the Ethereum blockchain by the above issuer using the Certifaction technology.<br />The issuer's identity has been verified by Certifaction or our trusted partners."
       }
     }
