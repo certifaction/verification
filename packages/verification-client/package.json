@@ -1,7 +1,7 @@
 {
   "name": "@certifaction/verification-client",
   "description": "Provides a client that can verify a hash against the certifaction Ethereum smart contract.",
-  "version": "1.1.10",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
