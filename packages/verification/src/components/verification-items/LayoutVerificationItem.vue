@@ -62,14 +62,14 @@
           <br>
         </div>
         <div class="verification-entry registration_date"
-             v-if="verificationItem.registrationBlock">{{
-          moment.unix(verificationItem.registrationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }} <span
-            class="stacked-title">{{ $t('verification.result.meta.registrationDate') }}</span>
+             v-if="verificationItem.registrationBlock">
+          <span class="stacked-title">{{ $t('verification.result.meta.registrationDate') }}</span>
+          {{moment.unix(verificationItem.registrationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }}
         </div>
         <div class="verification-entry revocationDate"
              v-if="verificationItem.revocationBlock">
-          {{ moment.unix(verificationItem.revocationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }} <span
-          class="stacked-title">{{ $t('verification.result.meta.revocationDate') }}</span>
+          <span class="stacked-title">{{ $t('verification.result.meta.revocationDate') }}</span>
+          {{ moment.unix(verificationItem.revocationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }}
         </div>
       </div>
     </transition>
