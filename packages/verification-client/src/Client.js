@@ -34,6 +34,9 @@
 import Eth from 'web3-eth'
 import {hexToUtf8, hexToBytes} from 'web3-utils'
 import SmartContractABI from './SmartContract.abi'
+import ClaimSmartContractABI from './ClaimSmartContract.abi'
+import axios from 'axios'
+
 
 export default class Client {
 
@@ -43,14 +46,35 @@ export default class Client {
    * @param {string} providerUrl
    * @param {string} contractAddress
    */
-  constructor (providerUrl, contractAddress) {
+  constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey) {
     this.providerUrl = providerUrl
     this.contractAddress = contractAddress
+    this.acceptedIssuerKey = acceptedIssuerKey
     this.eth = new Eth(this.providerUrl)
     this.contract = new this.eth.Contract(
       SmartContractABI,
       this.contractAddress,
     )
+    this.claimContractAddress = claimContractAddress
+    this.claimContract = new this.eth.Contract(
+        ClaimSmartContractABI,
+        this.claimContractAddress,
+    )
+  }
+  /**
+   * Verifies a file hash on the smart contract
+   * @param {string} hash
+   * @return {FileVerification}
+   */
+  async verifyFile(hash) {
+    var fileVerification = this.verifyFileClaimBased(hash)
+
+    //If claim-based (verifyFileClaimBased) returns results, use validated infos
+    if (fileVerification.issuer==undefined){
+      //If not, try verifyFileContractBased instead and use those infos
+      fileVerification = this.verifyFileContractBased(hash)
+    }
+    return fileVerification
   }
 
   /**
@@ -58,7 +82,7 @@ export default class Client {
    * @param {string} hash
    * @return {FileVerification}
    */
-  async verifyFile (hash) {
+  async verifyFileContractBased (hash) {
     return new Promise((resolve, reject) => {
       this.contract.methods.verifyFile(hash).call({}, function (err, res) {
         if (err) {
@@ -94,6 +118,137 @@ export default class Client {
         }
       })
     })
+  }
+
+  /**
+   * Verifies a file hash based on claims
+   * @param {string} hash
+   * @return {FileVerification}
+   */
+  async verifyFileClaimBased (hash) {
+    return new Promise((resolve, reject) => {
+      // Get Events for Filehash
+      resolve(this.resolveAndValidateFileClaim(hash))
+    })
+  }
+
+  async resolveAndValidateFileClaim(hash, acceptAnyIssuer) {
+    // Get Events for Filehash
+    const fileEvents = await this.claimContract.getPastEvents(
+        'Claim', {
+          filter: {file: hash},
+          fromBlock: 0,
+        })
+
+    var aLen = fileEvents.length;
+
+    var registered, revoked=false
+    var issuerHash, issuerName
+    var issuerVerified
+    var expiry, issuerImg
+
+    // For Each Event
+    for (var i = 0; i < aLen; i++) {
+
+      //Get Claim Hash from Event
+      let fileHash=fileEvents[i].returnValues.file
+      let claimHash=fileEvents[i].returnValues.hash
+      console.log(fileHash+" >> "+claimHash)
+
+
+      //Get Claim from endpoint for Claimhash
+      var claim = this.getRawClaim(claimHash)
+
+      //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
+      if (claim.id === "cert:hash:"+fileHash) {
+
+        //Get Issuer Hash from Address from Signature
+        issuerHash=this.verifySignatureAndGetPubkey(claim, claim.signature)
+        issuerName=this.resolveAndVerifyIssuerIdentitiy(issuerHash)
+        if (issuerName != undefined){
+          issuerVerified=true
+        }
+
+        if (claim.scope=="RegisterFile"){
+          registered=true
+          revoked=false
+        }else if (claim.scope=="RevokeFile"){
+          revoked=true
+        }
+      }
+
+    }
+    return {expiry, issuerHash, issuerImg, issuerName, issuerVerified, revoked}
+  }
+
+  async resolveAndVerifyIssuerIdentitiy (hash) {
+    // Get Events for Filehash
+    const identitiyEvents = await this.claimContract.getPastEvents(
+        'Claim', {
+          filter: {file: hash},
+          fromBlock: 0,
+        })
+
+    var aLen = identitiyEvents.length;
+
+    // For Each Event
+    for (var i = 0; i < aLen; i++) {
+
+      //Get Claim Hash from Event
+      let identityHash=identitiyEvents[i].returnValues.file
+      let claimHash=identitiyEvents[i].returnValues.hash
+      console.log(identityHash+" >> "+claimHash)
+
+
+      //Get Claim from endpoint for Claimhash
+      var claim = this.getRawClaim(claimHash)
+
+      //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
+      if (claim.id === "cert:addr:0x"+identityHash) {
+
+        //Get Issuer Hash from Address from Signature
+        let issuerHash=this.verifySignatureAndGetPubkey(claim, claim.signature)
+
+        //Only Certifaction is allowed to issue ID claims
+        if (issuerHash==this.acceptedIssuerKey){
+          return claim.name
+        }
+      }
+    }
+  }
+
+  async getRawClaim(claimhash){
+    try {
+      var claim
+      const res =  await axios.get(`https://api.certifaction.io/claim/${claimhash}`)
+      if (res.status === 200) {
+        claim = res.data
+        return claim
+      }
+      throw new Error(`Unexpected status ${res.status}`)
+    } catch (e) {
+      if (e.response && e.response.status === 404) {
+        return null
+      }
+      throw e
+    }
+  }
+
+
+  verifySignatureAndGetPubkey(){
+    let elliptic = require('elliptic');
+    let sha3 = require('js-sha3');
+    let ec = new elliptic.ec('secp256k1');
+
+    let pubKeyRecovered = ec.recoverPubKey(
+        hexToDecimal(msgHash), signature, signature.recoveryParam, "hex");
+    let issuerAddress=pubKeyRecovered.encodeCompressed("hex")
+    console.log("Recovered issuer address:", issuerAddress);
+
+    let validSig = ec.verify(msgHash, signature, pubKeyRecovered);
+    if (validSig) {
+      return issuerAddress
+    }
   }
 
   /**

@@ -24,7 +24,9 @@ import Client from '../src/Client'
 
 const client = new Client(
   'wss://ropsten.infura.io/ws/v3/4876e0df8d31475799c8239ba2538c4c',
-  '0xec70947cbb9bbf8b94acaeca861ddbc933b3c789')
+    '0xec70947cbb9bbf8b94acaeca861ddbc933b3c789',
+    '0x4bb056574fc19d089e98814d2c8447b2a203b639',
+    '0xd88319a418cf65544f470cacd728b2420e100d20',)
 
 describe('Client', function () {
   it('should verify a registered hash', async function (done) {
@@ -39,6 +41,14 @@ describe('Client', function () {
     const res = await client.verifyFile(
       '0xde9b4cf10e72330f5926b26398ba5ffb63b8640407ba30370f21740e16a4484d')
     expect(res.issuer).toBe(null)
+    done()
+  })
+
+  it('should verify a registered hash based on claims only', async function (done) {
+    const res = await client.verifyFile(
+        '0x5555ee860399458906e048591c5d12288ae572aef0fc4500d59dc6390b16c276')
+    expect(res).toHaveProperty('issuer')
+    expect(res.issuer).not.toBe(null)
     done()
   })
 
