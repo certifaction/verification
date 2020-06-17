@@ -157,7 +157,13 @@ export default class Client {
 
 
       //Get Claim from endpoint for Claimhash
-      var claim = this.getRawClaim(claimHash)
+      try {
+        var claim = await this.getRawClaim(claimHash)
+      } catch (e) {
+        console.log(e)
+        break
+      }
+      console.log(claim)
 
       //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
       if (claim.id === "cert:hash:"+fileHash) {
@@ -178,6 +184,7 @@ export default class Client {
       }
 
     }
+    console.log(expiry, issuerHash, issuerImg, issuerName, issuerVerified, revoked)
     return {expiry, issuerHash, issuerImg, issuerName, issuerVerified, revoked}
   }
 
@@ -220,7 +227,7 @@ export default class Client {
   async getRawClaim(claimhash){
     try {
       var claim
-      const res =  await axios.get(`https://api.certifaction.io/claim/${claimhash}`)
+      const res =  await axios.get(`https://api.dev.testnet.certifaction.io/claim/${claimhash}`)
       if (res.status === 200) {
         claim = res.data
         return claim

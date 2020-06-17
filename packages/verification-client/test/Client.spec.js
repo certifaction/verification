@@ -46,7 +46,7 @@ describe('Client', function () {
 
   it('should verify a registered hash based on claims only', async function (done) {
     const res = await client.verifyFile(
-        '0x5555ee860399458906e048591c5d12288ae572aef0fc4500d59dc6390b16c276')
+        '0x0be52e65121a2761a837ba5b6702a0961b71b57e4f523739bdca8bdfb026fce5')
     expect(res).toHaveProperty('issuer')
     expect(res.issuer).not.toBe(null)
     done()
