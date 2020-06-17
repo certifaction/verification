@@ -166,19 +166,22 @@ export default class Client {
       console.log(claim)
 
       //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-      if (claim.id === "cert:hash:"+fileHash) {
+      if (claim["@id"] === "cert:hash:"+fileHash) {
+        console.log("Hash matching")
 
         //Get Issuer Hash from Address from Signature
-        issuerHash=this.verifySignatureAndGetPubkey(claim, claim.signature)
+        issuerHash=await this.verifySignatureAndGetPubkey(claim, claim.signature)
         issuerName=this.resolveAndVerifyIssuerIdentitiy(issuerHash)
         if (issuerName != undefined){
           issuerVerified=true
         }
 
-        if (claim.scope=="RegisterFile"){
+        if (claim.scope=="register"){
+          console.log("Is registration claim")
           registered=true
           revoked=false
-        }else if (claim.scope=="RevokeFile"){
+        }else if (claim.scope=="revoke"){
+          console.log("Is revocation claim")
           revoked=true
         }
       }
@@ -242,20 +245,32 @@ export default class Client {
   }
 
 
-  verifySignatureAndGetPubkey(){
-    let elliptic = require('elliptic');
-    let sha3 = require('js-sha3');
-    let ec = new elliptic.ec('secp256k1');
+  async verifySignatureAndGetPubkey(claim){
+    const EthCrypto = require('eth-crypto')
+    console.log(claim.proof.signatureValue)
 
-    let pubKeyRecovered = ec.recoverPubKey(
-        hexToDecimal(msgHash), signature, signature.recoveryParam, "hex");
-    let issuerAddress=pubKeyRecovered.encodeCompressed("hex")
-    console.log("Recovered issuer address:", issuerAddress);
+    let decomSignature = EthCrypto.hex.decompress(claim.proof.signatureValue, true)
+    console.log("Decompressed Signature: "+decomSignature)
 
-    let validSig = ec.verify(msgHash, signature, pubKeyRecovered);
-    if (validSig) {
-      return issuerAddress
-    }
+    delete claim.proof.signatureValue
+    console.log("Unsigned JSON Claim Object: "+claim)
+
+    let JSONstring = JSON.stringify(claim)
+    console.log("Unsigned JSON Claim String: "+JSONstring)
+
+    let unsignedClaimHash=EthCrypto.hash.keccak256(JSONstring)
+    console.log("Unsigned ClaimHash: "+unsignedClaimHash)
+
+    const signer = EthCrypto.recoverPublicKey(
+        decomSignature,unsignedClaimHash)
+    const addressCalc = EthCrypto.publicKey.toAddress(signer)
+    console.log("Recovered issuer address (calc):", addressCalc)
+
+    const address = EthCrypto.recover(
+        decomSignature,unsignedClaimHash)
+    console.log("Recovered issuer address:", address)
+
+    return address
   }
 
   /**
