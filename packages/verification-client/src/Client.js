@@ -67,7 +67,7 @@ export default class Client {
    * @return {FileVerification}
    */
   async verifyFile(hash) {
-    var fileVerification = this.verifyFileClaimBased(hash)
+    var fileVerification = await this.verifyFileClaimBased(hash)
 
     //If claim-based (verifyFileClaimBased) returns results, use validated infos
     if (fileVerification.issuer==undefined){
@@ -126,10 +126,8 @@ export default class Client {
    * @return {FileVerification}
    */
   async verifyFileClaimBased (hash) {
-    return new Promise((resolve, reject) => {
-      // Get Events for Filehash
-      resolve(this.resolveAndValidateFileClaim(hash))
-    })
+    let result=await this.resolveAndValidateFileClaim(hash)
+    return result
   }
 
   async resolveAndValidateFileClaim(hash, acceptAnyIssuer) {
@@ -143,52 +141,92 @@ export default class Client {
     var aLen = fileEvents.length;
 
     var registered, revoked=false
-    var issuerHash, issuerName
+    var issuerAddr, issuerName
     var issuerVerified
     var expiry, issuerImg
 
+
+    console.log(aLen+" event(s) found on Blockchain for File "+hash)
     // For Each Event
     for (var i = 0; i < aLen; i++) {
+
+      console.log("---------")
+      console.log("Processing event #"+(i+1))
 
       //Get Claim Hash from Event
       let fileHash=fileEvents[i].returnValues.file
       let claimHash=fileEvents[i].returnValues.hash
-      console.log(fileHash+" >> "+claimHash)
+      if (fileHash == hash){
+        console.log("Event is for File.")
+        console.log(fileEvents[i])
+        console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvents[i].transactionHash)
+        console.log("File is associated with Claim Hash: "+claimHash)
 
 
-      //Get Claim from endpoint for Claimhash
-      try {
-        var claim = await this.getRawClaim(claimHash)
-      } catch (e) {
-        console.log(e)
-        break
-      }
-      console.log(claim)
-
-      //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-      if (claim["@id"] === "cert:hash:"+fileHash) {
-        console.log("Hash matching")
-
-        //Get Issuer Hash from Address from Signature
-        issuerHash=await this.verifySignatureAndGetPubkey(claim, claim.signature)
-        issuerName=this.resolveAndVerifyIssuerIdentitiy(issuerHash)
-        if (issuerName != undefined){
-          issuerVerified=true
+        //Get Claim from endpoint for Claimhash
+        try {
+          var claim = await this.getRawClaim(claimHash)
+        } catch (e) {
+          console.error("Could not retrieve Claim by Hash, discarding.")
+          console.error(e)
+          continue
         }
+        let claimString = JSON.stringify(claim)
+        console.log("Raw JSON Claim: "+claimString)
 
-        if (claim.scope=="register"){
-          console.log("Is registration claim")
-          registered=true
-          revoked=false
-        }else if (claim.scope=="revoke"){
-          console.log("Is revocation claim")
-          revoked=true
+        //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
+        if (claim["@id"] === "cert:hash:"+fileHash) {
+          console.log("Hashes matching, Claim is for this File.")
+
+          //Get Issuer Hash from Address from Signature
+          issuerAddr=await this.verifySignatureAndGetPubkey(claim, claim.signature)
+          console.log("Recovered Signer address:", issuerAddr)
+
+          if (issuerAddr == claim.proof.creator){
+            console.log("Signer Address matches Claim Creator attribute")
+          }else{
+            console.error("Signer Address does NOT match Claim Creator attribute, discarding.")
+            issuerAddr=null
+            continue
+          }
+
+          issuerName=await this.resolveAndVerifyIssuerIdentitiy(issuerAddr)
+          if (issuerName != undefined){
+            issuerVerified=true
+          }
+
+          if (claim.scope=="register"){
+            console.log("Is a registration claim!")
+            registered=true
+            revoked=false
+          }else if (claim.scope=="revoke"){
+            console.log("Is revocation claim")
+            revoked=true
+          }else{
+            console.error("Is an unkown claim type, discarding.")
+            continue
+          }
+        }else{
+          console.error("Hashes NOT matching, Claim is NOT for this File, discarding.")
+          continue
         }
+      }else{
+        console.error("Hashes NOT matching, Event is not for this File, discarding.")
+        continue
       }
 
     }
-    console.log(expiry, issuerHash, issuerImg, issuerName, issuerVerified, revoked)
-    return {expiry, issuerHash, issuerImg, issuerName, issuerVerified, revoked}
+    console.log("Consolidated Verification Result for File "+hash+":")
+    console.log("IssuerAddr: "+issuerAddr+
+        "\nIssuerName: "+issuerName+
+        "\nIssuerVerified: "+issuerVerified+
+        "\nRegistered: "+registered+
+        "\nExpiry: "+expiry+
+        "\nRevoked: "+revoked)
+
+    let issuer=issuerAddr
+
+    return {expiry, issuer, issuerImg, issuerName, issuerVerified, revoked}
   }
 
   async resolveAndVerifyIssuerIdentitiy (hash) {
@@ -230,6 +268,7 @@ export default class Client {
   async getRawClaim(claimhash){
     try {
       var claim
+      console.log("Retrieving Claim from https://api.dev.testnet.certifaction.io/claim/"+claimhash)
       const res =  await axios.get(`https://api.dev.testnet.certifaction.io/claim/${claimhash}`)
       if (res.status === 200) {
         claim = res.data
@@ -247,28 +286,31 @@ export default class Client {
 
   async verifySignatureAndGetPubkey(claim){
     const EthCrypto = require('eth-crypto')
-    console.log(claim.proof.signatureValue)
+    console.log("Verifying Signature...")
 
-    let decomSignature = EthCrypto.hex.decompress(claim.proof.signatureValue, true)
-    console.log("Decompressed Signature: "+decomSignature)
+
+    // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
+    let plainSignature=claim.proof.signatureValue.slice(0, 128)
+    let recoveryId=claim.proof.signatureValue.slice(128,130)
+    let fixedRecoveryId=parseInt(recoveryId, 16)+27
+    let ethereuSignature="0x"+plainSignature+(fixedRecoveryId.toString(16))
+    console.log("Signature Value (Hex): "+ethereuSignature)
 
     delete claim.proof.signatureValue
-    console.log("Unsigned JSON Claim Object: "+claim)
-
     let JSONstring = JSON.stringify(claim)
-    console.log("Unsigned JSON Claim String: "+JSONstring)
+    console.log("Unsigned JSON Claim: "+JSONstring)
 
     let unsignedClaimHash=EthCrypto.hash.keccak256(JSONstring)
     console.log("Unsigned ClaimHash: "+unsignedClaimHash)
 
-    const signer = EthCrypto.recoverPublicKey(
-        decomSignature,unsignedClaimHash)
-    const addressCalc = EthCrypto.publicKey.toAddress(signer)
-    console.log("Recovered issuer address (calc):", addressCalc)
+    //const signer = EthCrypto.recoverPublicKey(
+    //    decomSignature,unsignedClaimHash)
+    //console.log("Recovered issuer pub key:", addressCalc)
+    //const addressCalc = EthCrypto.publicKey.toAddress(signer)
+    //console.log("Recovered issuer address (calc):", addressCalc)
 
     const address = EthCrypto.recover(
-        decomSignature,unsignedClaimHash)
-    console.log("Recovered issuer address:", address)
+        ethereuSignature,unsignedClaimHash)
 
     return address
   }
