@@ -20,27 +20,42 @@
  * SOFTWARE.
  */
 
-import { Client, ClaimClient } from '@certifaction/verification-client'
-
-const providerUrl = process.env.VUE_APP_PROVIDER_URL ||
-  'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c'
-const contractAddress = process.env.VUE_APP_CONTRACT_ADDRESS ||
-  '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'
-
-const certifactionAPIUrl = process.env.VUE_APP_CERTIFACTION_API_URL || 'https://api.certifaction.io/'
-
-const claimFF = !!((process.env.VUE_APP_CLAIM_FF && process.env.VUE_APP_CLAIM_FF === 'true'))
-let client = new Client(providerUrl, contractAddress)
-if (claimFF) {
-  console.log('Feature Flag CLAIM_FF activated. Using ClaimClient')
-
-  client = new ClaimClient(
-    providerUrl,
-    contractAddress,
-    '0x4bb056574fc19d089e98814d2c8447b2a203b639',
-    '0xd88319a418cf65544f470cacd728b2420e100d20',
-    certifactionAPIUrl
-  )
-}
-
-export default client
+export default [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "file",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "Claim",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "files",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "hashes",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "registerClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

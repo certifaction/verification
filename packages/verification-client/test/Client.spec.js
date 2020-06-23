@@ -20,14 +20,14 @@
  * SOFTWARE.
  */
 
-import Client from '../src/Client'
+import Claim from '../src/Client'
 
-const client = new Client(
+const client = new Claim(
   'wss://ropsten.infura.io/ws/v3/4876e0df8d31475799c8239ba2538c4c',
-  '0xec70947cbb9bbf8b94acaeca861ddbc933b3c789')
+    '0xec70947cbb9bbf8b94acaeca861ddbc933b3c789')
 
-describe('Client', function () {
-  it('should verify a registered hash', async function (done) {
+  describe('Client', function () {
+   it('should verify a registered hash', async function (done) {
     const res = await client.verifyFile(
       '0x0054f251825dcda879ab6f3dd1e3dd134db01c1a9d1b733775c956b7f179bd0b')
     expect(res).toHaveProperty('issuer')
