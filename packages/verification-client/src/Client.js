@@ -49,10 +49,11 @@ export default class Client {
    * @param {claimContractAddress} claim contract address in HEX format (ex. 0x010...)
    * @param {acceptedIssuerKey} in HEX format (ex. 0x010...)
    */
-  constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey) {
+  constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey, certifactionAPIUrl) {
     this.providerUrl = providerUrl
     this.contractAddress = contractAddress
     this.acceptedIssuerKey = acceptedIssuerKey
+    this.certifactionAPIUrl = certifactionAPIUrl
     this.eth = new Eth(this.providerUrl)
     this.contract = new this.eth.Contract(
       SmartContractABI,
@@ -89,36 +90,36 @@ export default class Client {
     return new Promise((resolve, reject) => {
       this.contract.methods.verifyFile(hash).call({}, function (err, res) {
         if (err) {
-          reject(err)
-        } else {
-          let {
-            issuer,
-            issuerName,
-            issuerImg,
-            issuerVerified,
-            revoked,
-            expiry,
-          } = res
-
-          // Let's nullify all empty hex strings for beauty
-          const nullValue40 = '0x0000000000000000000000000000000000000000'
-          const nullValue64 = '0x0000000000000000000000000000000000000000000000000000000000000000'
-
-          // Transform from hex representation
-          issuer = issuer === nullValue40 ? null : issuer
-          issuerName = issuerName === nullValue40 ? null : hexToUtf8(issuerName)
-          issuerImg = issuerImg === nullValue64 ? null : hexToBytes(issuerImg)
-          expiry = expiry._hex === '0x00' ? null : expiry._hex
-
-          resolve({
-            issuer,
-            issuerName,
-            issuerImg,
-            issuerVerified,
-            revoked,
-            expiry,
-          })
+          return reject(err)
         }
+
+        let {
+          issuer,
+          issuerName,
+          issuerImg,
+          issuerVerified,
+          revoked,
+          expiry,
+        } = res
+
+        // Let's nullify all empty hex strings for beauty
+        const nullValue40 = '0x0000000000000000000000000000000000000000'
+        const nullValue64 = '0x0000000000000000000000000000000000000000000000000000000000000000'
+
+        // Transform from hex representation
+        issuer = issuer === nullValue40 ? null : issuer
+        issuerName = issuerName === nullValue40 ? null : hexToUtf8(issuerName)
+        issuerImg = issuerImg === nullValue64 ? null : hexToBytes(issuerImg)
+        expiry = expiry._hex === '0x00' ? null : expiry._hex
+
+        resolve({
+          issuer,
+          issuerName,
+          issuerImg,
+          issuerVerified,
+          revoked,
+          expiry,
+        })
       })
     })
   }
@@ -151,73 +152,68 @@ export default class Client {
     // For Each Event
     for (const fileEvent of fileEvents) {
 
-
       console.log("---------")
-      console.log("Processing event #"+(i+1))
 
       //Get Claim Hash from Event
       let fileHash = fileEvent.returnValues.file
       let claimHash = fileEvent.returnValues.hash
-      if (fileHash == hash){
-        console.log("Event is for File.")
-        console.log(fileEvent)
-        console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvent.transactionHash)
-        console.log("File is associated with Claim Hash: "+claimHash)
-
-
-        //Get Claim from endpoint for Claimhash
-        let claim;
-        try {
-          claim = await this.getRawClaim(claimHash)
-        } catch (e) {
-          console.error("Could not retrieve Claim by Hash, discarding.", e)
-          continue;
-        }
-        let claimString = JSON.stringify(claim)
-        console.log("Raw JSON Claim: "+claimString)
-
-        //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-        if (claim["@id"] === "cert:hash:"+fileHash) {
-          console.log("Hashes matching, Claim is for this File.")
-
-          //Get Issuer Hash from Address from Signature
-          issuerAddr=await this.verifySignatureAndGetPubkey(claim, claim.signature)
-          console.log("Recovered Signer address:", issuerAddr)
-
-          if (issuerAddr == claim.proof.creator){
-            console.log("Signer Address matches Claim Creator attribute")
-          }else{
-            console.error("Signer Address does NOT match Claim Creator attribute, discarding.")
-            issuerAddr=null
-            continue;
-          }
-
-          issuerName=await this.resolveAndVerifyIssuerIdentity(issuerAddr)
-          if (issuerName != undefined){
-            issuerVerified=true
-          }
-
-          if (claim.scope=="register"){
-            console.log("Is a registration claim!")
-            registered=true
-            revoked=false
-          }else if (claim.scope=="revoke"){
-            console.log("Is revocation claim")
-            revoked=true
-          }else{
-            console.error("Is an unknown claim type, discarding.")
-            continue
-          }
-        }else{
-          console.error("Hashes NOT matching, Claim is NOT for this File, discarding.")
-          continue
-        }
-      }else{
+      if (fileHash != hash){
         console.error("Hashes NOT matching, Event is not for this File, discarding.")
         continue
       }
 
+      console.log("Event is for File.")
+      console.log(fileEvent)
+      console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvent.transactionHash)
+      console.log("File is associated with Claim Hash: "+claimHash)
+
+      //Get Claim from endpoint for Claimhash
+      let claim;
+      try {
+        claim = await this.getRawClaim(claimHash)
+      } catch (e) {
+        console.error("Could not retrieve Claim by Hash, discarding.", e)
+        continue;
+      }
+      let claimString = JSON.stringify(claim)
+      console.log("Raw JSON Claim: "+claimString)
+
+      //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
+      if (claim["@id"] !== "cert:hash:"+fileHash) {
+        console.error("Hashes NOT matching, Claim is NOT for this File, discarding.")
+        continue
+      }
+      console.log("Hashes matching, Claim is for this File.")
+
+      //Get Issuer Hash from Address from Signature
+      issuerAddr=await this.verifySignatureAndGetPubkey(claim, claim.signature)
+      console.log("Recovered Signer address:", issuerAddr)
+
+      if (issuerAddr != claim.proof.creator){
+        console.error("Signer Address does NOT match Claim Creator attribute, discarding.")
+        issuerAddr=null
+        continue;
+      }
+      console.log("Signer Address matches Claim Creator attribute")
+
+      issuerName=await this.resolveAndVerifyIssuerIdentity(issuerAddr)
+      if (issuerName != undefined){
+        issuerVerified=true
+      }
+
+      if (claim.scope=="register"){
+        console.log("Is a registration claim!")
+        registered=true
+        revoked=false
+      }else if (claim.scope=="revoke"){
+        console.log("Is revocation claim")
+        revoked=true
+      }else{
+        console.error("Is an unknown claim type, discarding.")
+        continue
+      }
     }
+
     console.log("Consolidated Verification Result for File "+hash+":")
     console.log("IssuerAddr: "+issuerAddr+
         "\nIssuerName: "+issuerName+
@@ -266,12 +262,9 @@ export default class Client {
 
   async getRawClaim(claimhash){
     try {
-      let claim;
-      console.log("Retrieving Claim from https://api.dev.testnet.certifaction.io/claim/"+claimhash)
-      const res =  await axios.get(`https://api.dev.testnet.certifaction.io/claim/${claimhash}`)
+      const res =  await axios.get(`${this.certifactionAPIUrl}claim/${claimhash}`)
       if (res.status === 200) {
-        claim = res.data
-        return claim
+        return res.data
       }
       throw new Error(`Unexpected status ${res.status}`)
     } catch (e) {
@@ -286,7 +279,6 @@ export default class Client {
   async verifySignatureAndGetPubkey(claim){
 
     console.log("Verifying Signature...")
-
 
     // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
     let plainSignature=claim.proof.signatureValue.slice(0, 128)

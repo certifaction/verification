@@ -26,7 +26,10 @@ const providerUrl = process.env.VUE_APP_PROVIDER_URL ||
   'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c'
 const contractAddress = process.env.VUE_APP_CONTRACT_ADDRESS ||
   '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'
+const certifactionAPIUrl = process.env.VUE_APP_CERTIFACTION_API_URL || 'https://api.certifaction.io/'
 
 export default new Client(providerUrl, contractAddress,
   '0x4bb056574fc19d089e98814d2c8447b2a203b639',
-  '0xd88319a418cf65544f470cacd728b2420e100d20',)
+  '0xd88319a418cf65544f470cacd728b2420e100d20',
+  certifactionAPIUrl
+)
