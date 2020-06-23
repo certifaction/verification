@@ -36,6 +36,7 @@ import {hexToUtf8, hexToBytes} from 'web3-utils'
 import SmartContractABI from './SmartContract.abi'
 import ClaimSmartContractABI from './ClaimSmartContract.abi'
 import axios from 'axios'
+import EthCrypto from 'eth-crypto'
 
 
 export default class Client {
@@ -285,7 +286,7 @@ export default class Client {
 
 
   async verifySignatureAndGetPubkey(claim){
-    const EthCrypto = require('eth-crypto')
+
     console.log("Verifying Signature...")
 
 
