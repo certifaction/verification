@@ -46,6 +46,8 @@ export default class Client {
    * @constructor
    * @param {string} providerUrl
    * @param {string} contractAddress
+   * @param {claimContractAddress} claim contract address in HEX format (ex. 0x010...)
+   * @param {acceptedIssuerKey} in HEX format (ex. 0x010...)
    */
   constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey) {
     this.providerUrl = providerUrl
@@ -68,7 +70,7 @@ export default class Client {
    * @return {FileVerification}
    */
   async verifyFile(hash) {
-    var fileVerification = await this.verifyFileClaimBased(hash)
+    let fileVerification = await this.verifyFileClaimBased(hash);
 
     //If claim-based (verifyFileClaimBased) returns results, use validated infos
     if (fileVerification.issuer==undefined){
@@ -131,7 +133,7 @@ export default class Client {
     return result
   }
 
-  async resolveAndValidateFileClaim(hash, acceptAnyIssuer) {
+  async resolveAndValidateFileClaim(hash) {
     // Get Events for Filehash
     const fileEvents = await this.claimContract.getPastEvents(
         'Claim', {
@@ -139,38 +141,37 @@ export default class Client {
           fromBlock: 0,
         })
 
-    var aLen = fileEvents.length;
-
-    var registered, revoked=false
-    var issuerAddr, issuerName
-    var issuerVerified
-    var expiry, issuerImg
+    let registered, revoked = false;
+    let issuerAddr, issuerName;
+    let issuerVerified;
+    let expiry, issuerImg;
 
 
-    console.log(aLen+" event(s) found on Blockchain for File "+hash)
+    console.log(fileEvents.length+" event(s) found on Blockchain for File "+hash)
     // For Each Event
-    for (var i = 0; i < aLen; i++) {
+    for (const fileEvent of fileEvents) {
+
 
       console.log("---------")
       console.log("Processing event #"+(i+1))
 
       //Get Claim Hash from Event
-      let fileHash=fileEvents[i].returnValues.file
-      let claimHash=fileEvents[i].returnValues.hash
+      let fileHash = fileEvent.returnValues.file
+      let claimHash = fileEvent.returnValues.hash
       if (fileHash == hash){
         console.log("Event is for File.")
-        console.log(fileEvents[i])
-        console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvents[i].transactionHash)
+        console.log(fileEvent)
+        console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvent.transactionHash)
         console.log("File is associated with Claim Hash: "+claimHash)
 
 
         //Get Claim from endpoint for Claimhash
+        let claim;
         try {
-          var claim = await this.getRawClaim(claimHash)
+          claim = await this.getRawClaim(claimHash)
         } catch (e) {
-          console.error("Could not retrieve Claim by Hash, discarding.")
-          console.error(e)
-          continue
+          console.error("Could not retrieve Claim by Hash, discarding.", e)
+          continue;
         }
         let claimString = JSON.stringify(claim)
         console.log("Raw JSON Claim: "+claimString)
@@ -188,10 +189,10 @@ export default class Client {
           }else{
             console.error("Signer Address does NOT match Claim Creator attribute, discarding.")
             issuerAddr=null
-            continue
+            continue;
           }
 
-          issuerName=await this.resolveAndVerifyIssuerIdentitiy(issuerAddr)
+          issuerName=await this.resolveAndVerifyIssuerIdentity(issuerAddr)
           if (issuerName != undefined){
             issuerVerified=true
           }
@@ -204,7 +205,7 @@ export default class Client {
             console.log("Is revocation claim")
             revoked=true
           }else{
-            console.error("Is an unkown claim type, discarding.")
+            console.error("Is an unknown claim type, discarding.")
             continue
           }
         }else{
@@ -230,33 +231,30 @@ export default class Client {
     return {expiry, issuer, issuerImg, issuerName, issuerVerified, revoked}
   }
 
-  async resolveAndVerifyIssuerIdentitiy (hash) {
+  async resolveAndVerifyIssuerIdentity (hash) {
     // Get Events for Filehash
-    const identitiyEvents = await this.claimContract.getPastEvents(
+    const identityEvents = await this.claimContract.getPastEvents(
         'Claim', {
           filter: {file: hash},
           fromBlock: 0,
         })
 
-    var aLen = identitiyEvents.length;
-
-    // For Each Event
-    for (var i = 0; i < aLen; i++) {
+    for (const identityEvent of identityEvents) {
 
       //Get Claim Hash from Event
-      let identityHash=identitiyEvents[i].returnValues.file
-      let claimHash=identitiyEvents[i].returnValues.hash
+      let identityHash = identityEvent.returnValues.file
+      let claimHash = identityEvent.returnValues.hash
       console.log(identityHash+" >> "+claimHash)
 
 
       //Get Claim from endpoint for Claimhash
-      var claim = this.getRawClaim(claimHash)
+      const claim = this.getRawClaim(claimHash)
 
       //Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
       if (claim.id === "cert:addr:0x"+identityHash) {
 
         //Get Issuer Hash from Address from Signature
-        let issuerHash=this.verifySignatureAndGetPubkey(claim, claim.signature)
+        const issuerHash=this.verifySignatureAndGetPubkey(claim, claim.signature)
 
         //Only Certifaction is allowed to issue ID claims
         if (issuerHash==this.acceptedIssuerKey){
@@ -268,7 +266,7 @@ export default class Client {
 
   async getRawClaim(claimhash){
     try {
-      var claim
+      let claim;
       console.log("Retrieving Claim from https://api.dev.testnet.certifaction.io/claim/"+claimhash)
       const res =  await axios.get(`https://api.dev.testnet.certifaction.io/claim/${claimhash}`)
       if (res.status === 200) {
@@ -303,12 +301,6 @@ export default class Client {
 
     let unsignedClaimHash=EthCrypto.hash.keccak256(JSONstring)
     console.log("Unsigned ClaimHash: "+unsignedClaimHash)
-
-    //const signer = EthCrypto.recoverPublicKey(
-    //    decomSignature,unsignedClaimHash)
-    //console.log("Recovered issuer pub key:", addressCalc)
-    //const addressCalc = EthCrypto.publicKey.toAddress(signer)
-    //console.log("Recovered issuer address (calc):", addressCalc)
 
     const address = EthCrypto.recover(
         ethereuSignature,unsignedClaimHash)
