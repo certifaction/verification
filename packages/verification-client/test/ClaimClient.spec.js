@@ -20,27 +20,40 @@
  * SOFTWARE.
  */
 
-import { Client, ClaimClient } from '@certifaction/verification-client'
+import ClaimClient from '../src/ClaimClient'
 
-const providerUrl = process.env.VUE_APP_PROVIDER_URL ||
-  'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c'
-const contractAddress = process.env.VUE_APP_CONTRACT_ADDRESS ||
-  '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'
-
-const certifactionAPIUrl = process.env.VUE_APP_CERTIFACTION_API_URL || 'https://api.certifaction.io/'
-
-const claimFF = process.env.VUE_APP_CLAIM_FF || false
-let client = new Client(providerUrl, contractAddress)
-if (claimFF) {
-  console.log('Feature Flag CLAIM_FF activated. Using ClaimClient')
-
-  client = new ClaimClient(
-    providerUrl,
-    contractAddress,
+const claimClient = new ClaimClient(
+  'wss://ropsten.infura.io/ws/v3/4876e0df8d31475799c8239ba2538c4c',
+    '0xec70947cbb9bbf8b94acaeca861ddbc933b3c789',
     '0x4bb056574fc19d089e98814d2c8447b2a203b639',
     '0xd88319a418cf65544f470cacd728b2420e100d20',
-    certifactionAPIUrl
-  )
-}
+  null)
 
-export default client
+  describe('ClientClient', function () {
+   it('should verify a registered hash', async function (done) {
+    const res = await claimClient.verifyFile(
+      '0x0054f251825dcda879ab6f3dd1e3dd134db01c1a9d1b733775c956b7f179bd0b')
+    expect(res).toHaveProperty('issuer')
+    expect(res.issuer).not.toBe(null)
+    done()
+  })
+
+  it('should return nullified object for an unregistered hash', async function (done) {
+    const res = await claimClient.verifyFile(
+      '0xde9b4cf10e72330f5926b26398ba5ffb63b8640407ba30370f21740e16a4484d')
+    expect(res.issuer).toBe(null)
+    done()
+  })
+
+  it('should verify a registered hash based on claims only', async function (done) {
+    const res = await claimClient.verifyFile(
+        '0x0be52e65121a2761a837ba5b6702a0961b71b57e4f523739bdca8bdfb026fce5')
+    expect(res).toHaveProperty('issuer')
+    expect(res.issuer).not.toBe(null)
+    done()
+  })
+
+  afterAll(() => {
+    claimClient.close()
+  })
+})

@@ -22,9 +22,10 @@
 
 import SmartContractABI from './SmartContract.abi'
 import Client from './Client'
+import ClaimClient from './ClaimClient'
 
-export default Client
 export {
   Client,
+  ClaimClient,
   SmartContractABI
 }
