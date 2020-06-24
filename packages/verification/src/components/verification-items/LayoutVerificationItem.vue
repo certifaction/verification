@@ -49,7 +49,7 @@
              v-if="verificationItem.issuerVerifiedBy">
           <span class="stacked-title">{{ $t('verification.result.meta.issuerVerifiedBy') }}</span>
           {{ verificationItem.issuerVerifiedBy }}
-          <i class="mdi mdi-information-outline mdi-16px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
+          <i class="mdi mdi-information-outline mdi-16px" v-tooltip="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
           <div class="issuer-image" v-if="verificationItem.issuerVerifiedImg">
             <img :src="verificationItem.issuerVerifiedImg" alt="" />
           </div>
@@ -57,7 +57,7 @@
         <div class="verification-entry issuer_name"
              v-if="verificationItem.issuerVerified && !verificationItem.issuerVerifiedBy">
           {{ $t('verification.result.meta.issuerVerifiedBy') }} Certifaction AG
-          <i class="mdi mdi-information-outline mdi-16px" v-tooltip.right="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
+          <i class="mdi mdi-information-outline mdi-16px" v-tooltip="$t('verification.result.meta.issuerVerifiedByInformation')"></i>
           <br>
           <br>
         </div>
