@@ -27,7 +27,7 @@
     "js-sha3": "^0.8.0",
     "lerna": "^3.0.3",
     "moment": "^2.24.0",
-    "v-tooltip": "^2.0.2",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.10",
     "vue-cli-plugin-moment": "^0.1.1",
     "vue-i18n": "^8.11.2",
