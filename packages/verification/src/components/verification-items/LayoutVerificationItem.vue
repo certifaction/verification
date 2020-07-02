@@ -64,12 +64,12 @@
         <div class="verification-entry registration_date"
              v-if="verificationItem.registrationBlock">
           <span class="stacked-title">{{ $t('verification.result.meta.registrationDate') }}</span>
-          {{moment.unix(verificationItem.registrationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }}
+          {{moment.unix(verificationItem.registrationBlock.timestamp).format('LLL') }}
         </div>
         <div class="verification-entry revocationDate"
              v-if="verificationItem.revocationBlock">
           <span class="stacked-title">{{ $t('verification.result.meta.revocationDate') }}</span>
-          {{ moment.unix(verificationItem.revocationBlock.timestamp).format('MMMM Do YYYY, h:mm:ss a') }}
+          {{ moment.unix(verificationItem.revocationBlock.timestamp).format('LLL') }}
         </div>
       </div>
     </transition>
@@ -139,6 +139,7 @@
 
 <script>
 import moment from 'moment'
+import 'moment/locale/de'
 import Spinner from 'vue-simple-spinner'
 import Vue from 'vue'
 import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
@@ -173,6 +174,9 @@ export default {
     isLoaded () {
       return this.verificationItem.loaded === true
     }
+  },
+  created() {
+    moment.locale(this.$i18n.locale)
   }
 }
 </script>
