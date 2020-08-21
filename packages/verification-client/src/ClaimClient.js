@@ -46,8 +46,9 @@ export default class ClaimClient {
    * @constructor
    * @param {string} providerUrl
    * @param {string} contractAddress
-   * @param {claimContractAddress} claim contract address in HEX format (ex. 0x010...)
-   * @param {acceptedIssuerKey} in HEX format (ex. 0x010...)
+   * @param {string} claimContractAddress claim contract address in HEX format (ex. 0x010...)
+   * @param {string} acceptedIssuerKey in HEX format (ex. 0x010...)
+   * @param {string} certifactionAPIUrl
    */
   constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey, certifactionAPIUrl) {
     console.log('Claim client instantiated! No production!!!!')
