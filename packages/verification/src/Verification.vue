@@ -58,6 +58,7 @@
     <verification-drop-box @filesDropped="verify" @drop="drop"/>
     <div class="verification-item-list" ref="results">
       <verification-item v-for="verificationItem in filteredVerificationItems"
+                         :key="verificationItem.hash"
                          :verificationItem="verificationItem"/>
     </div>
   </div>
@@ -181,13 +182,13 @@ export default {
                 const offchainVerification = await this.offchainVerifier.verify(hash)
                 if (!verification.issuer) {
                   // File not found on blockchain
-                  if (offchainVerification) {
+                  if (offchainVerification && ['registering', 'revoking'].indexOf(offchainVerification.status) !== -1) {
                     Vue.set(this.verificationItems, i, Object.assign(this.verificationItems[i], offchainVerification))
                   }
                 }
                 if (offchainVerification) {
                   // If it's already verified on blockchain, do not override all values; just issuerName & address can be taken from off-chain information
-                  if (!this.verificationItems[i].issuerName && offchainVerification.issuerName) {
+                  if (!this.verificationItems[i].issuerName && offchainVerification.issuerName && offchainVerification.status === 'registered') {
                     this.verificationItems[i].issuerName = offchainVerification.issuerName
                     this.verificationItems[i].issuerVerified = offchainVerification.issuerVerified
                     this.verificationItems[i].issuerVerifiedBy = offchainVerification.issuerVerifiedBy
