@@ -77,9 +77,10 @@ export default class ClaimClient {
     let fileVerification = await this.verifyFileClaimBased(hash);
 
     //If claim-based (verifyFileClaimBased) returns results, use validated infos
-    if (fileVerification.issuer==undefined){
+    if (fileVerification.issuer === undefined) {
       //If not, try verifyFileContractBased instead and use those infos
-      fileVerification = this.verifyFileContractBased(hash)
+      console.log('no claims found, fallback to contract based verification')
+      fileVerification = await this.verifyFileContractBased(hash)
     }
     return fileVerification
   }
