@@ -68,13 +68,13 @@
   .issuer-image {
     position: absolute;
     top: 0;
-    width: 64px;
-    height: 64px;
+    height: 52px;
     display: inline-block;
     margin-left: 10px;
 
     img {
-      width: 100%;
+      display: block;
+      width: auto;
       height: 100%;
     }
   }
