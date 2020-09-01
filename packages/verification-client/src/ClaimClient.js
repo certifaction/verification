@@ -51,7 +51,7 @@ export default class ClaimClient {
    * @param {string} certifactionAPIUrl
    */
   constructor (providerUrl, contractAddress, claimContractAddress, acceptedIssuerKey, certifactionAPIUrl) {
-    console.log('Claim client instantiated! No production!!!!')
+    console.log('Certifaction claim client instantiated!')
     this.providerUrl = providerUrl
     this.contractAddress = contractAddress
     this.acceptedIssuerKey = acceptedIssuerKey
@@ -66,6 +66,7 @@ export default class ClaimClient {
         ClaimSmartContractABI,
         this.claimContractAddress,
     )
+    this.ethScanUrl = 'https://' + ((this.providerUrl.indexOf('ropsten') >= 0) ? 'ropsten.etherscan.io' : 'etherscan.io')
   }
   /**
    * Verifies a file hash on the smart contract
@@ -73,13 +74,13 @@ export default class ClaimClient {
    * @return {FileVerification}
    */
   async verifyFile(hash) {
-    console.log('ok, verifying now')
+    console.log('Ok, verifying now...')
     let fileVerification = await this.verifyFileClaimBased(hash);
 
     //If claim-based (verifyFileClaimBased) returns results, use validated infos
     if (fileVerification.issuer === undefined) {
       //If not, try verifyFileContractBased instead and use those infos
-      console.log('no claims found, fallback to contract based verification')
+      console.log('No claims found, fallback to contract based verification')
       fileVerification = await this.verifyFileContractBased(hash)
     }
     return fileVerification
@@ -162,13 +163,13 @@ export default class ClaimClient {
       let fileHash = fileEvent.returnValues.file
       let claimHash = fileEvent.returnValues.hash
       if (fileHash != hash){
-        console.error("Hashes NOT matching, Event is not for this File, discarding.")
+        console.error("Hashes NOT matching, event is not for this File, discarding.")
         continue
       }
 
       console.log("Event is for File.")
-      console.log(fileEvent)
-      console.log("Etherscan link to Tx: https://ropsten.etherscan.io/tx/"+fileEvent.transactionHash)
+      console.log("File event: ", fileEvent)
+      console.log("Etherscan link to Tx: " + this.ethScanUrl + "/tx/"+fileEvent.transactionHash)
       console.log("File is associated with Claim Hash: "+claimHash)
 
       //Get Claim from endpoint for Claimhash
@@ -211,11 +212,11 @@ export default class ClaimClient {
       }
 
       if (claim.scope=="register"){
-        console.log("Is a registration claim!")
+        console.log("It's a registration claim!")
         registered=true
         revoked=false
       }else if (claim.scope=="revoke"){
-        console.log("Is revocation claim")
+        console.log("It's a revocation claim")
         revoked=true
       }else{
         console.error("Is an unknown claim type, discarding.")

@@ -25,11 +25,11 @@ import { Client, ClaimClient } from '@certifaction/verification-client'
 const providerUrl = process.env.VUE_APP_PROVIDER_URL ||
   'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c'
 const contractAddress = process.env.VUE_APP_CONTRACT_ADDRESS ||
-  '0xcc1ef3053681352e5b5f83abea72011825afed35'
+  '0xf73e27c5008ff487803d2337fc3ac4016f6526e4'
 const claimContractAddress = process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS ||
-  '0xe24A7F24954a68B0f9B0862cFF83b817D9f63409'
+  '0x5532ba4add77dd25fa11acc5a84e5f183f57525e'
 const acceptedIssuerKey = process.env.VUE_APP_ACCEPTED_ISSUER_KEY ||
-  '0xd88319a418cf65544f470cacd728b2420e100d20'
+  '0x3b031733e215e4edf7565e11f2aba907a826aadc'
 
 const certifactionAPIUrl = process.env.VUE_APP_CERTIFACTION_API_URL || 'https://api.certifaction.io/'
 
