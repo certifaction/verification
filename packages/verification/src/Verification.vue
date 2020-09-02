@@ -188,7 +188,7 @@ export default {
                 }
                 if (offchainVerification) {
                   // If it's already verified on blockchain, do not override all values; just issuerName & address can be taken from off-chain information
-                  if (!this.verificationItems[i].issuerName && offchainVerification.issuerName && offchainVerification.status === 'registered') {
+                  if (!this.verificationItems[i].issuerName && offchainVerification.issuerName && ['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) !== -1) {
                     this.verificationItems[i].issuerName = offchainVerification.issuerName
                     this.verificationItems[i].issuerVerified = offchainVerification.issuerVerified
                     this.verificationItems[i].issuerVerifiedBy = offchainVerification.issuerVerifiedBy
