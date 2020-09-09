@@ -38,6 +38,9 @@ import ClaimSmartContractABI from './ClaimSmartContract.abi'
 import axios from 'axios'
 import EthCrypto from 'eth-crypto'
 
+// Let's nullify all empty hex strings for beauty
+const nullValue40 = '0x0000000000000000000000000000000000000000'
+const nullValue64 = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
 export default class ClaimClient {
 
@@ -68,6 +71,7 @@ export default class ClaimClient {
     )
     this.ethScanUrl = 'https://' + ((this.providerUrl.indexOf('ropsten') >= 0) ? 'ropsten.etherscan.io' : 'etherscan.io')
   }
+
   /**
    * Verifies a file hash on the smart contract
    * @param {string} hash
@@ -83,6 +87,17 @@ export default class ClaimClient {
       console.log('No claims found, fallback to contract based verification')
       fileVerification = await this.verifyFileContractBased(hash)
     }
+
+    if (fileVerification.issuerVerified === undefined && fileVerification.issuer !== undefined) {
+      console.log('Issuer not verified by claims, try to verify by contract...')
+      const verifiedIssuer = await this.verifyIssuerByContract(fileVerification.issuer)
+      if (verifiedIssuer.issuerVerified === true) {
+        fileVerification.issuerName = verifiedIssuer.issuerName
+        fileVerification.issuerImg = verifiedIssuer.issuerImg
+        fileVerification.issuerVerified = verifiedIssuer.issuerVerified
+      }
+    }
+
     return fileVerification
   }
 
@@ -106,10 +121,6 @@ export default class ClaimClient {
           revoked,
           expiry,
         } = res
-
-        // Let's nullify all empty hex strings for beauty
-        const nullValue40 = '0x0000000000000000000000000000000000000000'
-        const nullValue64 = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
         // Transform from hex representation
         issuer = issuer === nullValue40 ? null : issuer
@@ -137,6 +148,28 @@ export default class ClaimClient {
   async verifyFileClaimBased (hash) {
     let result=await this.resolveAndValidateFileClaim(hash)
     return result
+  }
+
+  async verifyIssuerByContract(issuerAddr) {
+    return new Promise((resolve, reject) => {
+      this.contract.methods.verifyIssuer(issuerAddr).call({}, function(err, res) {
+        if (err) {
+          return reject(err)
+        }
+
+        let {
+          issuerVerified,
+          issuerName,
+          issuerImg
+        } = res
+
+        // Transform from hex representation
+        issuerName = issuerName === nullValue40 ? null : hexToUtf8(issuerName)
+        issuerImg = issuerImg === nullValue64 ? null : hexToBytes(issuerImg)
+
+        resolve({ issuerName, issuerImg, issuerVerified })
+      })
+    })
   }
 
   async resolveAndValidateFileClaim(hash) {
