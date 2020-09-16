@@ -121,7 +121,7 @@
             <span
               class="stacked-title advanced_info--title">{{ $t('verification.result.meta.registrationTransaction') }}</span>
           </div>
-          <div v-else-if="verificationItem.onBlockchain" class="verification-entry registration-hash">
+          <div v-else-if="!verificationItem.onBlockchain" class="verification-entry registration-hash">
             <div class="status" v-html="$t('verification.result.processing.status')"/>
             <span
               class="stacked-title advanced_info--title">{{ $t('verification.result.meta.registrationTransaction') }}</span>
