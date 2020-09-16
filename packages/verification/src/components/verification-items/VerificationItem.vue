@@ -35,7 +35,6 @@ import VerificationItemRevoked from './VerificationItemRevoked'
 import VerificationItemRevokedUnverified from './VerificationItemRevokedUnverified'
 import VerificationItemUnverifiedIssuer from './VerificationItemUnverifiedIssuer'
 import VerificationItemVerified from './VerificationItemVerified'
-import VerificationItemProcessing from './VerificationItemProcessing'
 import VerificationItemTechnicalProblem from './VerificationItemTechnicalProblem'
 
 export default {
@@ -47,7 +46,6 @@ export default {
     VerificationItemNotFound,
     VerificationItemUnverifiedIssuer,
     VerificationItemVerified,
-    VerificationItemProcessing,
     VerificationItemTechnicalProblem
   },
   props: {
@@ -73,14 +71,8 @@ export default {
         case VERIFICATION_TYPES.V_NOT_FOUND:
           return 'VerificationItemNotFound'
         case VERIFICATION_TYPES.V_SELF_DECLARED:
-          if (!this.verificationItem.onBlockchain) {
-            return 'VerificationItemProcessing'
-          }
           return 'VerificationItemUnverifiedIssuer'
         case VERIFICATION_TYPES.V_VERIFIED:
-          if (!this.verificationItem.onBlockchain) {
-            return 'VerificationItemProcessing'
-          }
           return 'VerificationItemVerified'
       }
       return 'VerificationItemTechnicalProblem'
