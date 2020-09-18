@@ -1,0 +1,72 @@
+@import "../settings/variables";
+
+.certifaction-verification {
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-normal;
+
+    *,
+    :before,
+    :after {
+        box-sizing: border-box;
+    }
+
+    .expand-enter-active {
+        transition: all .2s ease;
+    }
+
+    .expand-leave-active {
+        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .expand-enter,
+    .expand-leave-to {
+        transform: scale(0);
+    }
+
+    .md-icon {
+        display: block;
+        width: 24px;
+        height: 24px;
+
+        &.inline {
+            display: inline-block;
+        }
+    }
+
+    @import "loader/dot_circle";
+
+    .btn-link {
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: $font-size-small;
+    }
+
+    @import "verification/demo";
+    @import "verification/dropbox";
+    @import "verification/item_list";
+
+    .powered-by {
+        margin: $spacer * 2.5 auto $spacer;
+        width: 130px;
+        font-size: $font-size-small;
+        text-align: center;
+
+        .label {
+            display: inline-block;
+            margin-bottom: $spacer * .25;
+            color: $text-muted;
+        }
+
+        a {
+            display: block;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
