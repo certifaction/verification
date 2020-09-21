@@ -1,14 +1,10 @@
 {
-  "name": "certifaction",
-  "private": true,
-  "license": "MIT",
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "lerna": "^3.22.1"
-  },
-  "dependencies": {
-    "vue": "^2.6.10"
-  }
+    "name": "@certifaction/verification",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "devDependencies": {
+        "lerna": "^3.22.1"
+    }
 }

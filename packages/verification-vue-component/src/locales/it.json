@@ -1,0 +1,60 @@
+{
+    "verification": {
+        "dropbox": {
+            "title": "Trascini un PDF in questo campo o clicchi per selezionare un PDF dal suo dispositivo.",
+            "subtitle": "I suoi documenti non vengono né caricati né salvati."
+        },
+        "result": {
+            "title": "Risultato della verifica",
+            "expertInfo": {
+                "hide": "Nascondere info avanzate",
+                "show": "Mostrare info avanzate"
+            },
+            "issuer": "Emittente",
+            "meta": {
+                "contract": "Contratto",
+                "issuer": "Emittente",
+                "issuerVerifiedBy": "Verificato da",
+                "issuerVerifiedByInformation": "Questo fornitore ha sottoposto l’emittente a una scrupolosa verifica. Solo persone autorizzate possono richiedere la verifica dell’identità della loro organizzazione.",
+                "issuerAddress": "Indirizzo emittente",
+                "fingerprint": "Valore hash del documento",
+                "registrationDate": "Data di emissione",
+                "registrationTransaction": "Transazione emissione",
+                "revocationTransaction": "Transazione annullamento",
+                "revocationDate": "Data annullamento"
+            },
+            "technicalProblem": {
+                "status": "Guasto tecnico, nessuna verifica possibile",
+                "message": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento.<br />I nostri collaboratori hanno ricevuto una notifica automatica e provvederanno a risolvere il problema a breve.<br />La preghiamo di riprovare più tardi.<br />Ci scusiamo per il disagio.",
+                "offchainMessage": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento.<br />I nostri collaboratori hanno ricevuto una notifica automatica e provvederanno a risolvere il problema a breve.<br />La preghiamo di riprovare più tardi.<br />Ci scusiamo per il disagio."
+            },
+            "notFound": {
+                "status": "Non è stato possibile verificare il documento",
+                "message": "Non è stato possibile trovare questo documento sulla blockchain.<br />Attenzione: probabilmente il documento è stato modificato inavvertitamente oppure è presente un problema tecnico.<br />Si consiglia di contattare direttamente l’emittente."
+            },
+            "revokedUnverified": {
+                "status": "Questo documento è stato revocato. L’emittente non è verificato.",
+                "message": "Questo documento era stato effettivamente certificato dall’emittente specificato di seguito, ma nel frattempo è stato revocato.<br />Probabilmente è stato sostituito da una versione più recente. Per ulteriori informazioni la preghiamo di rivolgersi all’emittente.<br /><strong>Attenzione:</strong> questo emittente non è stato verificato dal team Certifaction.<br />Si tratta solo di un’autodichiarazione d’identità.<br />Sia prudente e, nel dubbio, si rivolga direttamente all’emittente."
+            },
+            "revoked": {
+                "status": "Questo documento è stato revocato.",
+                "message": "Questo documento era stato effettivamente certificato dall’emittente specificato di seguito, ma nel frattempo è stato revocato.<br />Probabilmente è stato sostituito da una versione più recente.<br />Per ulteriori informazioni la preghiamo di rivolgersi all’emittente."
+            },
+            "processing": {
+                "message": "L’emittente indicato registra questo documento esattamente in questa forma sulla blockchain di Ethereum con Certifaction.<br />La preghiamo di riprovare tra qualche minuto per ricevere un risultato completo.",
+                "status": "Documento ancora in elaborazione..."
+            },
+            "selfDeclared": {
+                "status": "Il documento è autentico. L’emittente però non è verificato.",
+                "message": "<strong>Attenzione:</strong> questo emittente non è stato verificato dal team Certifaction.<br />Si tratta solo di un’autodichiarazione d’identità.<br />Sia prudente e, nel dubbio, si rivolga direttamente all’emittente."
+            },
+            "verified": {
+                "status": "Questo documento è autentico e proviene da un emittente verificato.",
+                "message": "Questo documento è stato certificato esattamente in questa forma dall’emittente specificato e nel momento indicato.<br />Certifaction ha trovato la voce corrispondente nella blockchain di Ethereum, che è sicura e immodificabile.<br />L’identità dell’emittente è stata verificata da Certifaction."
+            }
+        },
+        "poweredBy": {
+            "label": "Powered by"
+        }
+    }
+}

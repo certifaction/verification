@@ -1,0 +1,60 @@
+{
+    "verification": {
+        "dropbox": {
+            "title": "Faites glisser un PDF dans ce champ ou cliquez pour sélectionner un PDF à partir de votre appareil.",
+            "subtitle": "Vos documents ne seront ni téléchargés ni enregistrés."
+        },
+        "result": {
+            "title": "Résultat de la vérification",
+            "expertInfo": {
+                "hide": "Cacher les informations avancées",
+                "show": "Afficher les informations avancées"
+            },
+            "issuer": "Émetteur",
+            "meta": {
+                "contract": "Contrat",
+                "issuer": "Émetteur",
+                "issuerVerifiedBy": "Vérifié par",
+                "issuerVerifiedByInformation": "Ce prestataire de services a soumis l’émetteur à un examen approfondi. Seules les personnes autorisées peuvent demander la vérification de l’identité de leur organisation.",
+                "issuerAddress": "Adresse de l’émetteur",
+                "fingerprint": "Valeur de hachage du document",
+                "registrationDate": "Date d’émission",
+                "registrationTransaction": "Opération d’émission",
+                "revocationTransaction": "Opération d’annulation",
+                "revocationDate": "Date d’annulation"
+            },
+            "technicalProblem": {
+                "status": "Problème technique – aucune vérification possible",
+                "message": "En raison d’un problème technique temporaire, nous sommes actuellement dans l’impossibilité de vérifier votre document.<br />Nos collaborateurs ont été automatiquement avertis et résoudront le problème sous peu.<br />Veuillez réessayer plus tard.<br />Nous vous prions de bien vouloir nous excuser pour ce désagrément.",
+                "offchainMessage": "En raison d’un problème technique temporaire, nous sommes actuellement dans l’impossibilité de vérifier votre document.<br />Nos collaborateurs ont été automatiquement avertis et résoudront le problème sous peu.<br />Veuillez réessayer plus tard.<br />Nous vous prions de bien vouloir nous excuser pour ce désagrément."
+            },
+            "notFound": {
+                "status": "Le document n’a pas pu être vérifié",
+                "message": "Nous n’avons pas pu trouver ce document dans nos entrées de blockchain.<br />Attention: peut-être que le document a été modifié involontairement ou qu’un problème technique est survenu.<br />Nous vous conseillons de contacter directement l’émetteur."
+            },
+            "revokedUnverified": {
+                "status": "Ce document a été révoqué. L’émetteur n’est pas vérifié.",
+                "message": "Ce document a bien été certifié par l’émetteur mentionné ci-dessous, mais a été révoqué entre-temps.<br /> Il est possible qu’il ait été remplacé par une version plus récente. Pour plus d’informations, veuillez contacter l’émetteur.<br /><strong>Attention:</strong> cet émetteur n’a pas été vérifié par l’équipe Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
+            },
+            "revoked": {
+                "status": "Ce document a été révoqué.",
+                "message": "Ce document a bien été certifié par l’émetteur mentionné ci-dessous, mais a été révoqué entre-temps.<br /> Il est possible qu’il ait été remplacé par une version plus récente.<br />Pour plus d’informations, veuillez contacter l’émetteur."
+            },
+            "processing": {
+                "message": "Ce document, sous cette forme précise, est actuellement enregistré par l’émetteur indiqué avec Certifaction sur la blockchain Ethereum. <br />Veuillez réessayer dans quelques minutes pour obtenir un résultat complet.",
+                "status": "Document toujours en cours de traitement..."
+            },
+            "selfDeclared": {
+                "status": "Le document est authentique. Mais l’émetteur n’est pas vérifié.",
+                "message": "<strong>Attention:</strong> cet émetteur n’a pas été vérifié par l’équipe Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
+            },
+            "verified": {
+                "status": "Ce document est authentique et provient d’un émetteur vérifié.",
+                "message": "Ce document, sous cette forme précise, a été certifié par l’émetteur indiqué à l’heure indiquée.<br />Certifaction a pu trouver l’entrée correspondante dans la blockchain Ethereum sécurisé et inaltérable.<br />L’identité de l’émetteur a été vérifiée par Certifaction"
+            }
+        },
+        "poweredBy": {
+            "label": "Powered by"
+        }
+    }
+}
