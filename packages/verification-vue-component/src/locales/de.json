@@ -63,8 +63,8 @@
                 "message": "Dieses Dokument wurde tatsächlich vom untengenannten Aussteller zertifiziert, ist aber inzwischen widerrufen worden.<br />Möglicherweise ist es durch eine neuere Version ersetzt worden.<br />Für weitere Informationen wenden Sie sich bitte an den Aussteller."
             },
             "processing": {
-                "message": "Dieses Dokument in exakt dieser Form wird gerade durch den angegebenen Austeller mit Certifaction auf der Ethereum-Blockchain registriert.<br />Bitte versuchen Sie es in ein paar Minuten noch einmal, um ein vollständiges Resultat zu erhalten.",
-                "status": "Dokument noch in Bearbeitung..."
+                "status": "Dokument noch in Bearbeitung...",
+                "message": "Dieses Dokument in exakt dieser Form wird gerade durch den angegebenen Austeller mit Certifaction auf der Ethereum-Blockchain registriert.<br />Bitte versuchen Sie es in ein paar Minuten noch einmal, um ein vollständiges Resultat zu erhalten."
             },
             "selfDeclared": {
                 "status": "Dokument ist authentisch. Der Aussteller ist aber nicht verifiziert.",
@@ -72,7 +72,7 @@
             },
             "verified": {
                 "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller.",
-                "message": "Dieses Dokument in exakt dieser Form wurde vom genannten Aussteller zum genannten Zeitpunkt zertifiziert.<br />Certifaction konnte den entsprechenden Eintrag in der sicheren und unveränderbaren Ethereum-Blockchain finden.<br />Die Identität des Ausstellers wurde durch Certifaction überprüft."
+                "message": "Dieses Dokument in exakt dieser Form wurde vom genannten Aussteller zertifiziert.<br />Certifaction konnte den entsprechenden Registereintrag finden.<br />Die Identität des Ausstellers wurde durch Certifaction überprüft."
             }
         },
         "poweredBy": {
