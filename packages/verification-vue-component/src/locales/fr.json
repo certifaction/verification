@@ -41,16 +41,16 @@
                 "message": "Ce document a bien été certifié par l’émetteur mentionné ci-dessous, mais a été révoqué entre-temps.<br /> Il est possible qu’il ait été remplacé par une version plus récente.<br />Pour plus d’informations, veuillez contacter l’émetteur."
             },
             "processing": {
-                "message": "Ce document, sous cette forme précise, est actuellement enregistré par l’émetteur indiqué avec Certifaction sur la blockchain Ethereum. <br />Veuillez réessayer dans quelques minutes pour obtenir un résultat complet.",
-                "status": "Document toujours en cours de traitement..."
+                "status": "Document toujours en cours de traitement...",
+                "message": "Ce document, sous cette forme précise, est actuellement enregistré par l’émetteur indiqué avec Certifaction sur la blockchain Ethereum. <br />Veuillez réessayer dans quelques minutes pour obtenir un résultat complet."
             },
             "selfDeclared": {
                 "status": "Le document est authentique. Mais l’émetteur n’est pas vérifié.",
-                "message": "<strong>Attention:</strong> cet émetteur n’a pas été vérifié par l’équipe Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
+                "message": "<strong>Attention:</strong>ce document a été certifié sous cette forme précisecet mais l'émetteur n’a pas été vérifié par Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
             },
             "verified": {
                 "status": "Ce document est authentique et provient d’un émetteur vérifié.",
-                "message": "Ce document, sous cette forme précise, a été certifié par l’émetteur indiqué à l’heure indiquée.<br />Certifaction a pu trouver l’entrée correspondante dans la blockchain Ethereum sécurisé et inaltérable.<br />L’identité de l’émetteur a été vérifiée par Certifaction"
+                "message": "Ce document a été certifié sous cette forme précise en utilisant la technologie Certifaction.<br />L’identité de l’émetteur a été vérifiée par Certifaction ou l'un de ses partenaires."
             }
         },
         "poweredBy": {

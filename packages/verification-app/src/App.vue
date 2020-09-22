@@ -40,7 +40,7 @@ export default {
         },
         legacyContractFallbackAddresses() {
             const fallbackAddresses = process.env.VUE_APP_LEGACY_CONTRACT_FALLBACK_ADDRESSES
-            return (fallbackAddresses.length > 0) ? fallbackAddresses.split(',') : []
+            return (fallbackAddresses && fallbackAddresses.length > 0) ? fallbackAddresses.split(',') : []
         }
     },
     mounted() {

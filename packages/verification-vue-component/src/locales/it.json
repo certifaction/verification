@@ -41,8 +41,8 @@
                 "message": "Questo documento era stato effettivamente certificato dall’emittente specificato di seguito, ma nel frattempo è stato revocato.<br />Probabilmente è stato sostituito da una versione più recente.<br />Per ulteriori informazioni la preghiamo di rivolgersi all’emittente."
             },
             "processing": {
-                "message": "L’emittente indicato registra questo documento esattamente in questa forma sulla blockchain di Ethereum con Certifaction.<br />La preghiamo di riprovare tra qualche minuto per ricevere un risultato completo.",
-                "status": "Documento ancora in elaborazione..."
+                "status": "Documento ancora in elaborazione...",
+                "message": "L’emittente indicato registra questo documento esattamente in questa forma sulla blockchain di Ethereum con Certifaction.<br />La preghiamo di riprovare tra qualche minuto per ricevere un risultato completo."
             },
             "selfDeclared": {
                 "status": "Il documento è autentico. L’emittente però non è verificato.",
@@ -50,7 +50,7 @@
             },
             "verified": {
                 "status": "Questo documento è autentico e proviene da un emittente verificato.",
-                "message": "Questo documento è stato certificato esattamente in questa forma dall’emittente specificato e nel momento indicato.<br />Certifaction ha trovato la voce corrispondente nella blockchain di Ethereum, che è sicura e immodificabile.<br />L’identità dell’emittente è stata verificata da Certifaction."
+                "message": "Questo documento è stato registrato esattamente sotto questa forma, utilizzando la tecnologia Certifaction.<br />L'identità dell'emittente è stata verificata da Certifaction o da un nostro partner fidato."
             }
         },
         "poweredBy": {

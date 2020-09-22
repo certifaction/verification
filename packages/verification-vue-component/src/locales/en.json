@@ -63,16 +63,16 @@
                 "message": "This document was originally registered in this exact form by the issuer but since has been revoked using the Certifaction technology.<br />It may or may not have been replaced by a newer version. Please contact the issuer for further information."
             },
             "processing": {
-                "message": "This document in this exact form is in the process of being registered on the Ethereum blockchain through Certifaction by the above issuer.<br />Please check back in a few minutes",
-                "status": "This document is processing..."
+                "status": "This document is processing...",
+                "message": "This document in this exact form is in the process of being registered on the Ethereum blockchain through Certifaction by the above issuer.<br />Please check back in a few minutes"
             },
             "selfDeclared": {
                 "status": "This is an authentic document from an unverified issuer",
-                "message": "Caution: This document has been registered in this exact form on the Ethereum blockchain using the Certifaction technology.<br />However, the identity of the above issuer has been self-declared, which means it has not been verified by Certifaction or our trusted partners. If you are unsure about this document's origin, please contact the alleged issuer."
+                "message": "Caution: This document has been registered in this exact form using the Certifaction technology.<br />However, the identity of the above issuer has been self-declared, which means it has not been verified by Certifaction or our trusted partners. If you are unsure about this document's origin, please contact the alleged issuer."
             },
             "verified": {
                 "status": "This document is authentic and from a verified issuer",
-                "message": "This document has been registered in this exact form on the Ethereum blockchain by the above issuer using the Certifaction technology.<br />The issuer's identity has been verified by Certifaction or our trusted partners."
+                "message": "This document has been registered in this exact form by the above issuer using the Certifaction technology.<br />The issuer's identity has been verified by Certifaction or our trusted partners."
             }
         },
         "poweredBy": {
