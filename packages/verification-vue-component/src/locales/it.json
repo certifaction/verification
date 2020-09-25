@@ -50,7 +50,7 @@
             },
             "verified": {
                 "status": "Questo documento è autentico e proviene da un emittente verificato.",
-                "message": "Questo documento è stato registrato esattamente sotto questa forma, utilizzando la tecnologia Certifaction.<br />L'identità dell'emittente è stata verificata da Certifaction o da un nostro partner fidato."
+                "message": "Questo documento è stato registrato esattamente sotto questa forma, utilizzando la tecnologia Certifaction."
             }
         },
         "poweredBy": {

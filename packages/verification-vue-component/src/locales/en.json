@@ -72,7 +72,7 @@
             },
             "verified": {
                 "status": "This document is authentic and from a verified issuer",
-                "message": "This document has been registered in this exact form by the above issuer using the Certifaction technology.<br />The issuer's identity has been verified by Certifaction or our trusted partners."
+                "message": "This document has been registered in this exact form by the above issuer using the Certifaction technology."
             }
         },
         "poweredBy": {
