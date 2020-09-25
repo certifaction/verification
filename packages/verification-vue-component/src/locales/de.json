@@ -72,7 +72,7 @@
             },
             "verified": {
                 "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller.",
-                "message": "Dieses Dokument in exakt dieser Form wurde vom genannten Aussteller zertifiziert.<br />Certifaction konnte den entsprechenden Registereintrag finden.<br />Die Identität des Ausstellers wurde durch Certifaction überprüft."
+                "message": "Dieses Dokument in exakt dieser Form wurde vom genannten Aussteller zertifiziert.<br />Certifaction konnte den entsprechenden Registereintrag finden."
             }
         },
         "poweredBy": {
