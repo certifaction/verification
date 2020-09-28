@@ -23,6 +23,7 @@ This monorepo contains these packages:
 |---|---|---|
 | Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-core/latest.svg)](https://npmjs.com/package/@certifaction/verification-core) |
 | Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-vue-component/latest.svg)](https://npmjs.com/package/@certifaction/verification-vue-component) |
+| Verification App (Example) | [@certifaction/verification-app](https://github.com/certifaction/verification/tree/master/packages/verification-app) | No NPM release |
 
 ## Development
 

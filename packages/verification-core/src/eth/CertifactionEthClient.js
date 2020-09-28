@@ -114,6 +114,7 @@ export default class CertifactionEthClient {
                     // Get registration event and block
                     registrationEvent = await this.getRegistrationEvent(fileHash)
                     registrationBlock = (registrationEvent) ? await this.getBlock(registrationEvent.blockHash) : null
+                    console.log('registrationBlock', registrationBlock)
 
                     if (revoked === true) {
                         // Get revoked event and block
@@ -411,12 +412,14 @@ export default class CertifactionEthClient {
      * @return {Promise<Object|null>}
      */
     async getRegistrationEvent(fileHash) {
+        console.log('Searching for registration events...')
         const events = await this.legacyContractGetPastEvents(
             'FileRegisteredEvent', {
                 filter: { hash: fileHash },
                 fromBlock: 0
             }
         )
+        console.log('CertifactionEthClient:getRegistrationEvent()', events)
 
         return events[0] || null
     }
@@ -429,12 +432,14 @@ export default class CertifactionEthClient {
      * @return {Promise<Object|null>}
      */
     async getRevocationEvent(fileHash) {
+        console.log('Searching for revocation events...')
         const events = await this.legacyContractGetPastEvents(
             'FileRevokedEvent', {
                 filter: { hash: fileHash },
                 fromBlock: 0
             }
         )
+        console.log('CertifactionEthClient:getRevocationEvent()', events)
 
         return events[0] || null
     }
@@ -447,7 +452,7 @@ export default class CertifactionEthClient {
      * @returns {Promise<Object>}
      */
     async getBlock(blockHash) {
-        return await this.eth.getBlock(blockHash)
+        return this.eth.getBlock(blockHash)
     }
 
     /**

@@ -1,17 +1,19 @@
-import { numberToHex, padLeft } from 'web3-utils'
 import MethodMock from './MethodMock'
 
 const abstractClassError = new Error('Cannot instanciate abstract class')
 const abstractMethodError = new Error('Cannot call abstract method')
 
 export default class AbstractContractMock {
-    constructor(jsonInterface) {
+    constructor(jsonInterface, contractAddress) {
         if (this.constructor === AbstractContractMock) {
             throw abstractClassError
         }
 
         const mockResults = this.getMockResults()
         const mockResultFilterMethods = this.getMockResultFilterMethods()
+        this.options = {
+            address: contractAddress
+        }
         this.methods = {}
 
         jsonInterface.forEach(definition => {
@@ -28,7 +30,7 @@ export default class AbstractContractMock {
     }
 
     getPastEvents(event, options, callback) {
-        return this.getMockEvents().filter(mockEvent => {
+        return this.getMockEvents()[this.options.address].filter(mockEvent => {
             if (mockEvent.event !== event) {
                 return false
             }
@@ -61,19 +63,18 @@ export default class AbstractContractMock {
         })
     }
 
-    createHexValue(number, characterAmount) {
-        return padLeft(numberToHex(number), characterAmount)
-    }
-
     getMockResults() {
+        console.log('AbstractContractMock:getMockResults()')
         throw abstractMethodError
     }
 
     getMockResultFilterMethods() {
+        console.log('AbstractContractMock:getMockResultFilterMethods()')
         throw abstractMethodError
     }
 
     getMockEvents() {
+        console.log('AbstractContractMock:getMockEvents()')
         throw abstractMethodError
     }
 }
