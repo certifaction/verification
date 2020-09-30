@@ -1,7 +1,11 @@
+import { createIdentity } from 'eth-crypto'
 import { createHexValue } from './utils'
 
 export const nullValue40 = createHexValue(0, 40)
 export const nullValue64 = createHexValue(0, 64)
+
+export const issuerVerifiedIdentity = createIdentity()
+export const issuerUnverifiedIdentity = createIdentity()
 
 export const contractAddressLegacy = createHexValue(10, 40)
 export const contractAddressLegacyFallback1 = createHexValue(11, 40)
@@ -22,8 +26,6 @@ export const fileHashLegacyFallback2Registered = createHexValue(320, 64)
 export const fileHashLegacyFallback2Revoked = createHexValue(321, 64)
 
 export const fileHashClaimRegisteredVerifiedIssuer = createHexValue(330, 64)
-
-export const issuerAddressVerified = createHexValue(400, 40)
-export const issuerAddressUnverified = createHexValue(401, 40)
-
-export const claimHash = createHexValue(500, 64)
+export const fileHashClaimRevokedVerifiedIssuer = createHexValue(331, 64)
+export const fileHashClaimRegisteredUnverifiedIssuer = createHexValue(332, 64)
+export const fileHashClaimRevokedUnverifiedIssuer = createHexValue(333, 64)

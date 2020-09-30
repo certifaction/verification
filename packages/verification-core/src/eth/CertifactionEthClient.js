@@ -15,9 +15,10 @@
  * @property {Object} revocationBlock
  */
 
-import { hexToUtf8, hexToBytes } from 'web3-utils'
-import EthCrypto from 'eth-crypto'
+import { hexToBytes, hexToUtf8 } from 'web3-utils'
 import axios from 'axios'
+import { ecdsaToEth } from '../utils'
+import { hash, recover } from 'eth-crypto'
 
 // Let's nullify all empty hex strings for beauty
 const nullValue40 = '0x0000000000000000000000000000000000000000'
@@ -198,7 +199,7 @@ export default class CertifactionEthClient {
         let registered = false
         let revoked = false
         let expiry
-        let issuerAddress
+        let issuerAddress = null
         let issuerName
         let issuerVerified
         let issuerImg
@@ -259,16 +260,16 @@ export default class CertifactionEthClient {
             }
             console.log('Signer Address matches Claim Creator attribute')
 
-            issuerName = await this.resolveAndVerifyIssuerIdentity(issuerAddress)
-            if (issuerName !== undefined) {
-                issuerVerified = true
-            }
+            // Identity claims not implemented yet
+            // issuerName = await this.resolveAndVerifyIssuerIdentity(issuerAddress)
+            // if (issuerName !== undefined) {
+            //     issuerVerified = true
+            // }
 
             switch (claim.scope) {
                 case 'register':
                     console.log('It\'s a registration claim!')
                     registered = true
-                    revoked = false
                     registrationEvent = fileEvent
                     registrationBlock = await this.getBlock(registrationEvent.blockHash)
                     break
@@ -308,36 +309,37 @@ export default class CertifactionEthClient {
         }
     }
 
-    async resolveAndVerifyIssuerIdentity(fileHash) {
-        // Get Events for Filehash
-        const identityEvents = await this.claimContract.getPastEvents(
-            'Claim', {
-                filter: { file: fileHash },
-                fromBlock: 0
-            }
-        )
-
-        for (const identityEvent of identityEvents) {
-            // Get Claim Hash from Event
-            const identityHash = identityEvent.returnValues.file
-            const claimHash = identityEvent.returnValues.hash
-            console.log(identityHash + ' >> ' + claimHash)
-
-            // Get Claim from endpoint for claimhash
-            const claim = this.getRawClaim(claimHash)
-
-            // Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-            if (claim.id === 'cert:addr:0x' + identityHash) {
-                // Get Issuer Hash from Address from Signature
-                const issuerHash = this.verifySignatureAndGetPubkey(claim)
-
-                // Only Certifaction is allowed to issue ID claims
-                if (issuerHash === this.acceptedIssuerKey) {
-                    return claim.name
-                }
-            }
-        }
-    }
+    // Identity claims not implemented yet, implementation will probably be different
+    // async resolveAndVerifyIssuerIdentity(fileHash) {
+    //     // Get Events for Filehash
+    //     const identityEvents = await this.claimContract.getPastEvents(
+    //         'Claim', {
+    //             filter: { file: fileHash },
+    //             fromBlock: 0
+    //         }
+    //     )
+    //
+    //     for (const identityEvent of identityEvents) {
+    //         // Get Claim Hash from Event
+    //         const identityHash = identityEvent.returnValues.file
+    //         const claimHash = identityEvent.returnValues.hash
+    //         console.log(identityHash + ' >> ' + claimHash)
+    //
+    //         // Get Claim from endpoint for claimhash
+    //         const claim = this.getRawClaim(claimHash)
+    //
+    //         // Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
+    //         if (claim.id === 'cert:addr:0x' + identityHash) {
+    //             // Get Issuer Hash from Address from Signature
+    //             const issuerHash = this.verifySignatureAndGetPubkey(claim)
+    //
+    //             // Only Certifaction is allowed to issue ID claims
+    //             if (issuerHash === this.acceptedIssuerKey) {
+    //                 return claim.name
+    //             }
+    //         }
+    //     }
+    // }
 
     async getRawClaim(claimHash) {
         try {
@@ -365,20 +367,17 @@ export default class CertifactionEthClient {
         console.log('Verifying Signature...')
 
         // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
-        const plainSignature = claim.proof.signatureValue.slice(0, 128)
-        const recoveryId = claim.proof.signatureValue.slice(128, 130)
-        const fixedRecoveryId = parseInt(recoveryId, 16) + 27
-        const ethereuSignature = '0x' + plainSignature + (fixedRecoveryId.toString(16))
-        console.log('Signature Value (Hex): ' + ethereuSignature)
+        const ethereumSignature = ecdsaToEth(claim.proof.signatureValue)
+        console.log('Signature Value (Hex): ' + ethereumSignature)
 
         delete claim.proof.signatureValue
         const JSONstring = JSON.stringify(claim)
         console.log('Unsigned JSON Claim: ' + JSONstring)
 
-        const unsignedClaimHash = EthCrypto.hash.keccak256(JSONstring)
+        const unsignedClaimHash = hash.keccak256(JSONstring)
         console.log('Unsigned ClaimHash: ' + unsignedClaimHash)
 
-        return EthCrypto.recover(ethereuSignature, unsignedClaimHash)
+        return recover(ethereumSignature, unsignedClaimHash)
     }
 
     /**

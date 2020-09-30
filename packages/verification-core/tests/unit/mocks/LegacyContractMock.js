@@ -12,8 +12,8 @@ import {
     fileHashLegacyRegisteredVerifiedIssuer,
     fileHashLegacyRevokedUnverifiedIssuer,
     fileHashLegacyRevokedVerifiedIssuer,
-    issuerAddressUnverified,
-    issuerAddressVerified,
+    issuerUnverifiedIdentity,
+    issuerVerifiedIdentity,
     nullValue40,
     nullValue64,
     txHash
@@ -24,12 +24,12 @@ export default class LegacyContractMock extends AbstractContractMock {
     getMockResults() {
         return {
             verifyIssuer: {
-                [issuerAddressVerified]: {
+                [issuerVerifiedIdentity.address]: {
                     issuerVerified: true,
                     issuerName: utf8ToHex('Verified Issuer'),
                     issuerImg: nullValue64
                 },
-                [issuerAddressUnverified]: {
+                [issuerUnverifiedIdentity.address]: {
                     issuerVerified: false,
                     issuerName: utf8ToHex('Unverified Issuer'),
                     issuerImg: nullValue64
@@ -47,7 +47,7 @@ export default class LegacyContractMock extends AbstractContractMock {
                 },
                 // Registered file - verified issuer
                 [fileHashLegacyRegisteredVerifiedIssuer]: {
-                    issuer: issuerAddressVerified,
+                    issuer: issuerVerifiedIdentity.address,
                     issuerVerified: true,
                     issuerName: utf8ToHex('Verified Issuer'),
                     issuerImg: nullValue64,
@@ -56,7 +56,7 @@ export default class LegacyContractMock extends AbstractContractMock {
                 },
                 // Registered file - unverified issuer
                 [fileHashLegacyRegisteredUnverifiedIssuer]: {
-                    issuer: issuerAddressUnverified,
+                    issuer: issuerUnverifiedIdentity.address,
                     issuerVerified: false,
                     issuerName: utf8ToHex('Unverified Issuer'),
                     issuerImg: nullValue64,
@@ -65,7 +65,7 @@ export default class LegacyContractMock extends AbstractContractMock {
                 },
                 // Revoked file - verified issuer
                 [fileHashLegacyRevokedVerifiedIssuer]: {
-                    issuer: issuerAddressVerified,
+                    issuer: issuerVerifiedIdentity.address,
                     issuerVerified: true,
                     issuerName: utf8ToHex('Verified Issuer'),
                     issuerImg: nullValue64,
@@ -74,7 +74,7 @@ export default class LegacyContractMock extends AbstractContractMock {
                 },
                 // Revoked file - unverified issuer
                 [fileHashLegacyRevokedUnverifiedIssuer]: {
-                    issuer: issuerAddressUnverified,
+                    issuer: issuerUnverifiedIdentity.address,
                     issuerVerified: false,
                     issuerName: utf8ToHex('Unverified Issuer'),
                     issuerImg: nullValue64,
