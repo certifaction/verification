@@ -1,4 +1,3 @@
-// import PdfWasm from '../wasm/pdf.wasm.init'
 import Bowser from 'bowser'
 // import PdfWorker from '../workers/pdf.worker.js'
 import PdfWasm from '../wasm/pdf.wasm.init'

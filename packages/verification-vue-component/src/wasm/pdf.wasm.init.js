@@ -1,4 +1,3 @@
-// import pdfWasm from './pdf.wasm'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import wasmExec from './wasm_exec.js'
 
@@ -7,7 +6,6 @@ let pdfWasmInstance = null
 
 export default {
     async init () {
-        console.log("WASM LOADED")
         // Execute raw js code (wasm_exec.js)
         // eslint-disable-next-line no-eval,no-useless-call
         eval.call(null, wasmExec)
@@ -16,8 +14,6 @@ export default {
         const go = new Go()
 
         try {
-            // const wasm = cdfWasm({ });
-            // pdfWasmInstance = wasm
 
             if (!WebAssembly.instantiateStreaming) { // polyfill
                 WebAssembly.instantiateStreaming = async (resp, importObject) => {
@@ -27,6 +23,7 @@ export default {
                 }
             }
 
+            // TODO: Here the certifcation-web's asset is directly linked instead of bundling it again in this module
             const pdfWasmUrl = new URL('/wasm/pdf.a5957117.wasm', self.location.origin)
             const fetchedWasm = await fetch(pdfWasmUrl)
             let { module, instance } = await WebAssembly.instantiateStreaming(fetchedWasm, go.importObject)
