@@ -34,6 +34,7 @@ import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/items/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
+import PdfService from '../services/pdf.service'
 
 export default {
     name: 'CertifactionVerification',
@@ -140,6 +141,27 @@ export default {
             }
         },
         async verifyItem(item, key) {
+            console.log("verify called")
+            const reader = new FileReader()
+
+            reader.onload = async () => {
+                console.log(reader.result)
+                var array = new Uint8Array(reader.result)
+                console.log(array)
+                let keywords = await PdfService.readKeywords(array)
+                console.log(keywords)
+            }
+
+            reader.onerror = (error) => {
+                console.log(error)
+            }
+
+            reader.readAsArrayBuffer(item.file)
+
+            /* console.log(item.file)
+            let keywords = await PdfService.readKeywords(item.file.blob)
+            console.log(keywords) */
+
             const hash = await hashingService.hashFile(item.file)
             let verification = await this.certifactionEthVerifier.verify(hash)
 

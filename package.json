@@ -5,6 +5,10 @@
         "packages/*"
     ],
     "devDependencies": {
+        "@rollup/plugin-wasm": "^5.1.0",
         "lerna": "^3.22.1"
+    },
+    "dependencies": {
+        "bowser": "^2.11.0"
     }
 }
