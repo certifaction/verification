@@ -1,0 +1,78 @@
+@import "../settings/variables_new";
+
+.certifaction-verification-new {
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-normal;
+    background-color: #FBFBFC;
+
+    *,
+    :before,
+    :after {
+        box-sizing: border-box;
+    }
+
+    .expand-enter-active {
+        transition: all .2s ease;
+    }
+
+    .expand-leave-active {
+        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .expand-enter,
+    .expand-leave-to {
+        transform: scale(0);
+    }
+
+    .md-icon {
+        display: block;
+        width: 24px;
+        height: 24px;
+
+        &.inline {
+            display: inline-block;
+        }
+    }
+
+    @import "new/loader/dot_circle";
+
+    .btn-link {
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: $font-size-small;
+    }
+
+    @import "new/verification/demo";
+    @import "new/verification/dropbox";
+    @import "new/verification/item_list";
+    @import "new/verification/card/all";
+
+    .powered-by {
+        display: flex;
+        justify-content: space-between;
+        margin: 24px auto $spacer;
+        background-color: white;
+        width: 205px;
+        font-size: $font-size-small;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid #EBEDF1;
+        border-radius: 4px;
+        font-weight: 500;
+        //font-size: 12px;
+        line-height: 14px;
+
+        .label {
+            color: rgba(20, 33, 61, 0.5);
+        }
+
+        a {
+            img {
+                width: 103px;
+                height: auto;
+            }
+        }
+    }
+}

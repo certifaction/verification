@@ -1,0 +1,89 @@
+.verification-demo {
+    text-align: center;
+
+    .sample-docs {
+        h3 {
+            font-weight: 500 !important;
+            padding-bottom: 0;
+        }
+
+        .click-to-verify {
+            color: $text-muted;
+            font-size: $font-size-small;
+        }
+    }
+
+    .paperbox {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto $spacer * 2;
+        width: 270px;
+
+        .paper {
+            cursor: pointer;
+            margin: $spacer * .5;
+            width: 72px;
+            height: 100px;
+            box-shadow: 1px 3px 15px rgba(0, 0, 0, .2);
+            padding-top: 10px;
+            background-color: white;
+            text-align: center;
+
+            &:hover {
+                box-shadow: 1px 3px 20px rgba(0, 0, 0, .3);
+            }
+
+            .md-icon {
+                margin-right: auto;
+                margin-bottom: $spacer * .5;
+                margin-left: auto;
+                width: 18px;
+                height: 18px;
+                color: $gray-400;
+            }
+
+            .lines {
+                padding-top: 0;
+            }
+
+            .line-short,
+            .line-long {
+                margin-bottom: 4px;
+                margin-left: 10px;
+                height: 7px;
+                background: $gray-200;
+            }
+
+            .line-short {
+                width: 20px;
+            }
+
+            .line-long {
+                width: 52px;
+            }
+
+            &.paper-not-found,
+            &.paper-technical-problem,
+            &.paper-revoked-verified {
+                .md-icon {
+                    color: $red;
+                }
+            }
+
+            &.paper-verified-processing,
+            &.paper-verified-self-declared {
+                .md-icon {
+                    color: $orange;
+                }
+            }
+
+            &.paper-verified {
+                .md-icon {
+                    color: $green;
+                }
+            }
+        }
+    }
+}

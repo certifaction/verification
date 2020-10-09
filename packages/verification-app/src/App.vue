@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div :id="redesign ? 'app-new' : 'app'">
         <CertifactionVerification :demo="false"
                                   :enable-claims="enableClaims"
                                   :provider-url="providerUrl"
@@ -30,7 +30,8 @@ export default {
             claimContractAddress: process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS,
             acceptedIssuerKey: process.env.VUE_APP_ACCEPTED_ISSUER_KEY,
             certifactionApiUrl: process.env.VUE_APP_CERTIFACTION_API_URL,
-            CertifactionOffchainVerifier
+            CertifactionOffchainVerifier,
+            redesign: false
         }
     },
     computed: {
@@ -45,6 +46,8 @@ export default {
     },
     mounted() {
         this.$i18n.locale = this.locale
+        const params = new URLSearchParams(window.location.search)
+        this.redesign = params.has('redesign')
     }
 }
 </script>
