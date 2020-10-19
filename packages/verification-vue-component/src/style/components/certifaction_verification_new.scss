@@ -61,11 +61,10 @@
         border: 1px solid #EBEDF1;
         border-radius: 4px;
         font-weight: 500;
-        //font-size: 12px;
         line-height: 14px;
 
         .label {
-            color: rgba(20, 33, 61, 0.5);
+            color: $verification-card-text-grey;
         }
 
         a {

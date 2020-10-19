@@ -1,7 +1,7 @@
 .verification-dropbox-new {
     border-width: $verification-dropbox-border-width;
     border-style: $verification-dropbox-border-style;
-    border-color: $verification-dropbox-border-color;
+    border-color: $verification-blue;
     height: auto;
     position: relative;
     background-color: #F7F9FC;
@@ -38,7 +38,7 @@
         .labels {
             .label {
                 width: 100%;
-                font-size: 14px;
+                font-size: $font-size-medium;
             }
 
             .title {

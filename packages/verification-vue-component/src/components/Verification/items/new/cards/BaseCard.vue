@@ -1,5 +1,4 @@
 <template>
-<!--    <div class="base-card verification-item">-->
     <div class="base-card">
         <div class="card-header">
             <slot name="header"></slot>

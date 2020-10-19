@@ -41,6 +41,7 @@ $font-family-sans-serif:
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-normal: 1rem !default;
 $font-size-small: 13px !default;
+$font-size-medium: 14px !default;
 $line-height: 1.5 !default;
 
 // SPACING
@@ -56,4 +57,6 @@ $verification-dropbox-subtitle-color: $gray-500 !default;
 
 $verification-dropbox-border-width: 2px !default;
 $verification-dropbox-border-style: dashed !default;
-$verification-dropbox-border-color: #1376FF !default;
+
+$verification-blue: #1376FF !default;
+$verification-card-text-grey: rgba(20, 33, 61, 0.5) !default;

@@ -9,9 +9,6 @@
         </component>
 
         <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
-<!--            <VerificationItem v-for="verificationItem in filteredVerificationItems"-->
-<!--                              :key="verificationItem.hash"-->
-<!--                              :verificationItem="verificationItem"/>-->
             <component :is="designVersion.item"
                        v-for="verificationItem in filteredVerificationItems"
                        :key="verificationItem.hash"

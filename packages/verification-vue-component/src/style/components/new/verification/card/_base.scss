@@ -17,19 +17,19 @@
     .btn {
         padding: 8px 10px;
         margin-left: 12px;
-        font-size: 14px;
+        font-size: $font-size-medium;
         font-weight: 500;
         border-radius: 3px;
         border: none;
 
         &.primary {
             background-color: white;
-            color: #1376FF;
+            color: $verification-blue;
         }
 
         &.secondary {
             background-color: #EEF3FA;
-            color: #1376FF;
+            color: $verification-blue;
         }
     }
 
@@ -43,7 +43,7 @@
             padding-right: 5px;
 
             .md-icon {
-                color: rgba(20, 33, 61, 0.5);
+                color: $verification-card-text-grey;
                 height: 16px;
                 width: 16px;
             }
@@ -53,9 +53,9 @@
             width: calc(100% - 26px);
 
             .filename {
-                color: rgba(20, 33, 61, 0.5);
-                font-size: 14px;
-                line-height: 21px;
+                color: $verification-card-text-grey;
+                font-size: $font-size-medium;
+                line-height: $line-height;
                 overflow-wrap: break-word;
             }
         }
