@@ -15,7 +15,7 @@
 <script>
 
 export default {
-    name: 'BaseItem',
+    name: 'BaseCard',
     components: {},
     props: {
         expanded: {

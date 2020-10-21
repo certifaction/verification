@@ -19,7 +19,7 @@
 <script>
 
 import { mdiShieldCheck, mdiChevronUp } from '@mdi/js'
-import MDIcon from '../../../MDIcon'
+import MDIcon from '../../../MDIcon.vue'
 
 export default {
     name: 'ResultDetail',

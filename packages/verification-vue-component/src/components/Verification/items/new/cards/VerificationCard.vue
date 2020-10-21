@@ -28,10 +28,10 @@
 <script>
 import { VERIFICATION_TYPES } from '@certifaction/verification-core'
 import BaseCard from './BaseCard.vue'
-import ResultDetail from '../ResultDetail'
+import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
 import { mdiShieldCheck, mdiFileDocument } from '@mdi/js'
-import MDIcon from '../../../../MDIcon'
+import MDIcon from '../../../../MDIcon.vue'
 
 export default {
     name: 'VerificationCard',

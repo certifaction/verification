@@ -6,18 +6,12 @@
 
 <script>
 import { VERIFICATION_TYPES } from '@certifaction/verification-core'
-import VerificationCard from './cards/VerificationCard'
-import { mdiShieldCheck } from '@mdi/js'
+import VerificationCard from './cards/VerificationCard.vue'
 
 export default {
     name: 'VerificationItem',
     components: {
         VerificationCard
-    },
-    data() {
-        return {
-            mdiShieldCheck
-        }
     },
     props: {
         verificationItem: {
