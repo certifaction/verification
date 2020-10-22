@@ -1,29 +1,17 @@
 <template>
     <div class="item-container">
-        <component :is="verificationItemType" :verificationItem="verificationItem"></component>
+        <VerificationCard :verification-item="verificationItem" />
     </div>
 </template>
 
 <script>
 import { VERIFICATION_TYPES } from '@certifaction/verification-core'
-import ShadowItem from './ShadowItem.vue'
-import VerificationItemNotFound from './VerificationItemNotFound.vue'
-import VerificationItemRevoked from './VerificationItemRevoked.vue'
-import VerificationItemRevokedUnverified from './VerificationItemRevokedUnverified.vue'
-import VerificationItemUnverifiedIssuer from './VerificationItemUnverifiedIssuer.vue'
-import VerificationItemVerified from './VerificationItemVerified.vue'
-import VerificationItemTechnicalProblem from './VerificationItemTechnicalProblem.vue'
+import VerificationCard from './cards/VerificationCard.vue'
 
 export default {
     name: 'VerificationItem',
     components: {
-        ShadowItem,
-        VerificationItemRevoked,
-        VerificationItemRevokedUnverified,
-        VerificationItemNotFound,
-        VerificationItemUnverifiedIssuer,
-        VerificationItemVerified,
-        VerificationItemTechnicalProblem
+        VerificationCard
     },
     props: {
         verificationItem: {
@@ -34,7 +22,7 @@ export default {
     computed: {
         verificationItemType() {
             if (this.verificationItem.error) {
-                return 'VerificationItemTechnicalProblem'
+                return 'technicalProblem'
             }
 
             if (this.verificationItem.hashed === undefined || this.verificationItem.hashed === false) {
@@ -44,21 +32,21 @@ export default {
             switch (this.verificationItem.type) {
                 case VERIFICATION_TYPES.V_REVOKED:
                     if (this.verificationItem.issuerVerified) {
-                        return 'VerificationItemRevoked'
+                        return 'revoked'
                     }
-                    return 'VerificationItemRevokedUnverified'
+                    return 'revokedUnverified'
 
                 case VERIFICATION_TYPES.V_NOT_FOUND:
-                    return 'VerificationItemNotFound'
+                    return 'notFound'
 
                 case VERIFICATION_TYPES.V_SELF_DECLARED:
-                    return 'VerificationItemUnverifiedIssuer'
+                    return 'unverifiedIssuer'
 
                 case VERIFICATION_TYPES.V_VERIFIED:
-                    return 'VerificationItemVerified'
+                    return 'verified'
             }
 
-            return 'VerificationItemTechnicalProblem'
+            return 'technicalProblem'
         }
     }
 }

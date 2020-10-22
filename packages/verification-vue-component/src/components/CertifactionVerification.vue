@@ -1,26 +1,17 @@
 <template>
-    <div :class="redesign ? 'certifaction-verification-new' : 'certifaction-verification'">
+    <div class="certifaction-verification">
         <VerificationDemo v-if="demo !== false" @verifyDemo="verifyDemo" @draggingDemoDoc="onDraggingDemoDoc"/>
 
-        <component v-if="!redesign"
-                   :is="designVersion.dropbox"
-                   @filesDropped="verify"
-                   @drop="drop">
-        </component>
-
         <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
-            <component :is="designVersion.item"
-                       v-for="verificationItem in filteredVerificationItems"
-                       :key="verificationItem.hash"
-                       :verificationItem="verificationItem">
-            </component>
+            <VerificationItem
+                v-for="verificationItem in filteredVerificationItems"
+                :key="verificationItem.hash"
+                :verificationItem="verificationItem"/>
         </div>
 
-        <component v-if="redesign"
-                   :is="designVersion.dropbox"
-                   @filesDropped="verify"
-                   @drop="drop">
-        </component>
+        <VerificationDropBox
+            @filesDropped="verify"
+            @drop="drop"/>
 
         <div class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
@@ -44,8 +35,6 @@ import {
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
-import VerificationDropBoxNew from './Verification/VerificationDropBoxNew.vue'
-import VerificationItemNew from './Verification/items/new/VerificationItem.vue'
 import VerificationItem from './Verification/items/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
 
@@ -57,9 +46,7 @@ export default {
     components: {
         VerificationDemo,
         VerificationDropBox,
-        VerificationDropBoxNew,
-        VerificationItem,
-        VerificationItemNew
+        VerificationItem
     },
     props: {
         demo: {
@@ -117,13 +104,8 @@ export default {
                 this.certifactionApiUrl
             ),
             verificationItems: [],
-            draggingDemoDoc: undefined,
-            redesign: false
+            draggingDemoDoc: undefined
         }
-    },
-    mounted() {
-        const params = new URLSearchParams(window.location.search)
-        this.redesign = params.has('redesign')
     },
     computed: {
         filteredVerificationItems() {
@@ -139,15 +121,6 @@ export default {
                     ...item
                 }
             })
-        },
-        designVersion() {
-            return this.redesign ? {
-                item: VerificationItemNew,
-                dropbox: VerificationDropBoxNew
-            } : {
-                item: VerificationItem,
-                dropbox: VerificationDropBox
-            }
         }
     },
     methods: {

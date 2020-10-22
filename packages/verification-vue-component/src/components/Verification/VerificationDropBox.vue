@@ -4,9 +4,12 @@
          @dragleave="draggingOver = false"
          @drop="handleDrop">
         <div class="dropbox">
-            <div class="labels">
-                <div class="label title">{{ _$t('verification.dropbox.title') }}</div>
-                <div class="label subtitle">{{ _$t('verification.dropbox.subtitle') }}</div>
+            <div class="content">
+                <img src="../../assets/img/dropbox_document.svg" alt="Certifaction"/>
+                <div class="labels">
+                    <div class="label title">{{ titleLabel }}</div>
+                    <div class="label subtitle">{{ _$t('verification.dropbox.subtitle') }}</div>
+                </div>
             </div>
             <input class="input-file"
                    type="file"
@@ -28,12 +31,20 @@ export default {
     ],
     data() {
         return {
-            draggingOver: false
+            draggingOver: false,
+            firstVerification: true
+        }
+    },
+    computed: {
+        titleLabel() {
+            console.log(this.firstVerification ? this._$t('verification.dropbox.title.first') : this._$t('verification.dropbox.title.following'))
+            return this.firstVerification ? this._$t('verification.dropbox.title.first') : this._$t('verification.dropbox.title.following')
         }
     },
     methods: {
         handleDrop() {
             this.draggingOver = false
+            this.firstVerification = false
             this.$emit('drop')
         },
         filesDropped(target, files) {

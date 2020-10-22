@@ -1,5 +1,5 @@
 <template>
-    <div :id="redesign ? 'app-new' : 'app'">
+    <div id="app">
         <CertifactionVerification :demo="false"
                                   :enable-claims="enableClaims"
                                   :provider-url="providerUrl"
@@ -46,8 +46,6 @@ export default {
     },
     mounted() {
         this.$i18n.locale = this.locale
-        const params = new URLSearchParams(window.location.search)
-        this.redesign = params.has('redesign')
     }
 }
 </script>
