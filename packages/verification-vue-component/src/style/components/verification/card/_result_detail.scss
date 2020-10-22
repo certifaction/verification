@@ -1,0 +1,25 @@
+.result-detail {
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    margin: 12px;
+    border-radius: 8px;
+    background-color: #E5F9F3;
+
+    button.advanced-toggler {
+        background-color: #28a745;
+        border-radius: 4px;
+
+        .md-icon {
+            height: 16px;
+            width: 16px;
+            color: white;
+        }
+    }
+
+    .header-icon {
+        .md-icon {
+            color: #28a745;
+        }
+    }
+}
