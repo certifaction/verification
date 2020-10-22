@@ -1,17 +1,34 @@
 <template>
     <div class="item-container">
-        <VerificationCard :verification-item="verificationItem" />
+        <BaseItem>
+            <template #header>
+                <div class="icon">
+                    <MDIcon :icon="mdiShieldCheck" class="icon-verified"/>
+                </div>
+                <div class="title">
+                    <div class="filename">{{ verificationItem.name }}</div>
+                </div>
+            </template>
+        </BaseItem>
     </div>
 </template>
 
 <script>
 import { VERIFICATION_TYPES } from '@certifaction/verification-core'
-import VerificationCard from './cards/VerificationCard.vue'
+import BaseItem from './BaseItem.vue'
+import { mdiShieldCheck } from '@mdi/js'
+import MDIcon from '../../../MDIcon'
 
 export default {
-    name: 'VerificationItem',
+    name: 'HelpCard',
     components: {
-        VerificationCard
+        BaseItem,
+        MDIcon
+    },
+    data() {
+        return {
+            mdiShieldCheck
+        }
     },
     props: {
         verificationItem: {

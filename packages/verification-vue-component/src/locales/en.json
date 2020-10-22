@@ -23,8 +23,17 @@
             }
         },
         "dropbox": {
-            "title": "Drag & drop or click to select a PDF document from your device.",
-            "subtitle": "Your documents won't be uploaded or saved."
+            "title": {
+                "first": "Dokumente verifizieren",
+                "following": "Weitere Dokumente verifizieren"
+            },
+            "subtitle": "Dokumente in den Bereich ziehen oder hier klicken"
+        },
+        "card": {
+            "btn": {
+                "expertInfo": "Expert info",
+                "questions": "Questions?"
+            }
         },
         "result": {
             "title": "Verification result",
