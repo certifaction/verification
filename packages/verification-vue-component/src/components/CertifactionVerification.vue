@@ -2,13 +2,16 @@
     <div class="certifaction-verification">
         <VerificationDemo v-if="demo !== false" @verifyDemo="verifyDemo" @draggingDemoDoc="onDraggingDemoDoc"/>
 
-        <VerificationDropBox @filesDropped="verify" @drop="drop"/>
-
         <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
-            <VerificationItem v-for="verificationItem in filteredVerificationItems"
-                              :key="verificationItem.hash"
-                              :verificationItem="verificationItem"/>
+            <VerificationItem
+                v-for="verificationItem in filteredVerificationItems"
+                :key="verificationItem.hash"
+                :verificationItem="verificationItem"/>
         </div>
+
+        <VerificationDropBox
+            @filesDropped="verify"
+            @drop="drop"/>
 
         <div class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>

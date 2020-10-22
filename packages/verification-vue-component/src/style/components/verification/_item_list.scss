@@ -38,7 +38,7 @@
     .stacked-title {
         color: $gray-600;
         font-weight: 400;
-        font-size: 13px;
+        font-size: $font-size-small;
         margin-bottom: 0;
         margin-top: 0;
         display: block;
@@ -90,17 +90,6 @@
                 display: block;
                 width: 32px;
                 height: 32px;
-
-                + .loader-dot-circle {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    margin: auto;
-                    width: 21px;
-                    height: 21px;
-                }
             }
 
             .icon-not-found,
@@ -169,7 +158,7 @@
 
         .description {
             color: $text-muted;
-            font-size: 14px;
+            font-size: $font-size-medium;
 
             &:before {
                 border-top: 3px solid $body-color;
@@ -278,12 +267,12 @@
 }
 
 .verification-item-list {
-    margin-top: $spacer;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 24px;
 
     .item-container {
         max-width: 100%;

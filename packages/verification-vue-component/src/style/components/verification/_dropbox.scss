@@ -1,14 +1,14 @@
 .verification-dropbox {
-    box-sizing: content-box;
-    border: $verification-dropbox-border;
-    max-width: 520px;
+    border-width: $verification-dropbox-border-width;
+    border-style: $verification-dropbox-border-style;
+    border-color: $verification-blue;
     height: auto;
-    margin: 0 auto;
     position: relative;
-    padding: $spacer;
+    background-color: #F7F9FC;
+    width: calc(100% - #{$verification-dropbox-border-width});
 
     &:hover {
-        border-color: $gray-400;
+        border-style: solid;
     }
 
     &.dragover {
@@ -25,27 +25,31 @@
         opacity: 0;
     }
 
-    .labels {
+    .content {
+        display: flex;
         max-width: 430px;
         margin: 0 auto;
-        padding: 10px 0;
+        padding: 43px;
 
-        .label {
-            width: 100%;
-            text-align: center;
+        img {
+            padding-right: 12px;
         }
 
-        .title {
-            padding-top: 0;
-            color: $verification-dropbox-title-color;
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
+        .labels {
+            .label {
+                width: 100%;
+                font-size: $font-size-medium;
+            }
 
-        .subtitle {
-            margin-top: $spacer;
-            font-size: 1rem;
-            color: $verification-dropbox-subtitle-color;
+            .title {
+                padding-top: 0;
+                color: $verification-dropbox-title-color;
+                font-weight: 500;
+            }
+
+            .subtitle {
+                color: $verification-dropbox-subtitle-color;
+            }
         }
     }
 }
