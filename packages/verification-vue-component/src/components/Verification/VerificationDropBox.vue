@@ -37,7 +37,6 @@ export default {
     },
     computed: {
         titleLabel() {
-            console.log(this.firstVerification ? this._$t('verification.dropbox.title.first') : this._$t('verification.dropbox.title.following'))
             return this.firstVerification ? this._$t('verification.dropbox.title.first') : this._$t('verification.dropbox.title.following')
         }
     },

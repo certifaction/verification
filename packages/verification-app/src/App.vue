@@ -30,8 +30,7 @@ export default {
             claimContractAddress: process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS,
             acceptedIssuerKey: process.env.VUE_APP_ACCEPTED_ISSUER_KEY,
             certifactionApiUrl: process.env.VUE_APP_CERTIFACTION_API_URL,
-            CertifactionOffchainVerifier,
-            redesign: false
+            CertifactionOffchainVerifier
         }
     },
     computed: {
