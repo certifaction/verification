@@ -371,6 +371,8 @@ export default class CertifactionEthClient {
         console.log('Signature Value (Hex): ' + ethereuSignature)
 
         delete claim.proof.signatureValue
+        delete claim.idclaims
+
         const JSONstring = JSON.stringify(claim)
         console.log('Unsigned JSON Claim: ' + JSONstring)
 
