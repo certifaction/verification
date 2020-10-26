@@ -61,9 +61,71 @@
         }
     }
 
+    .card-body {
+        flex-grow: 1;
+
+        .verification-info {
+            .verification-entry {
+                background-color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+
+                &:nth-child(2n) {
+                    background-color: #F7F9FC;
+                }
+
+                span {
+                    display: block;
+
+                    &.label {
+                        color: rgba(20, 33, 61, 0.5);
+                        font-size: 13px;
+                        line-height: 1.5em;
+                        font-weight: 600;
+                    }
+
+                    &.footnote {
+                        display: flex;
+                        align-items: center;
+
+                        span, svg {
+                            display: inline-block;
+                            color: #F29E18;
+                        }
+
+                        svg {
+                            height: 12px;
+                            width: 12px;
+                            margin-right: 4px;
+                        }
+
+                        span {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .value {
+                    overflow-wrap: break-word;
+                }
+            }
+
+            &.expert {
+                span.value {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
     .card-footer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        padding-top: 40px;
+
+        button {
+            outline: none;
+        }
     }
 }
