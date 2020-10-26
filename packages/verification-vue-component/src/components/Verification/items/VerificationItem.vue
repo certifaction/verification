@@ -1,17 +1,25 @@
 <template>
     <div class="item-container">
-        <VerificationCard :verification-item="verificationItem" />
+        <ShadowCard v-if="isLoading" />
+        <VerificationCard v-else :verification-item="verificationItem" />
     </div>
 </template>
 
 <script>
-import { VERIFICATION_TYPES } from '@certifaction/verification-core'
 import VerificationCard from './cards/VerificationCard.vue'
+import ShadowCard from './cards/ShadowCard.vue'
+import { mdiShieldCheck } from '@mdi/js'
 
 export default {
     name: 'VerificationItem',
     components: {
-        VerificationCard
+        VerificationCard,
+        ShadowCard
+    },
+    data() {
+        return {
+            mdiShieldCheck
+        }
     },
     props: {
         verificationItem: {
@@ -20,33 +28,8 @@ export default {
         }
     },
     computed: {
-        verificationItemType() {
-            if (this.verificationItem.error) {
-                return 'technicalProblem'
-            }
-
-            if (this.verificationItem.hashed === undefined || this.verificationItem.hashed === false) {
-                return 'ShadowItem'
-            }
-
-            switch (this.verificationItem.type) {
-                case VERIFICATION_TYPES.V_REVOKED:
-                    if (this.verificationItem.issuerVerified) {
-                        return 'revoked'
-                    }
-                    return 'revokedUnverified'
-
-                case VERIFICATION_TYPES.V_NOT_FOUND:
-                    return 'notFound'
-
-                case VERIFICATION_TYPES.V_SELF_DECLARED:
-                    return 'unverifiedIssuer'
-
-                case VERIFICATION_TYPES.V_VERIFIED:
-                    return 'verified'
-            }
-
-            return 'technicalProblem'
+        isLoading() {
+            return this.verificationItem.hashed === undefined || this.verificationItem.hashed === false
         }
     }
 }
