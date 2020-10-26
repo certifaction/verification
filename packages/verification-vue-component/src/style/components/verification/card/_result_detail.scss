@@ -1,25 +1,205 @@
 .result-detail {
-    display: flex;
-    flex-direction: row;
-    padding: 12px;
-    margin: 12px;
-    border-radius: 8px;
-    background-color: #E5F9F3;
+    position: relative;
+    margin: 12px 0;
 
-    button.advanced-toggler {
-        background-color: #28a745;
-        border-radius: 4px;
+    .warning-indicator {
+        position: relative;
+        display: inline-block;
+        width: 29px;
+        height: 12px;
+        margin: 4px 9px 0 1px;
+        border-radius: 50%;
+        background-color: $verification-result-warning-dark;
 
-        .md-icon {
-            height: 16px;
-            width: 16px;
-            color: white;
+        .loading-spinner {
+            position: absolute;
+            width: 100%;
         }
     }
 
-    .header-icon {
-        .md-icon {
-            color: #28a745;
+    .detail-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+        padding: 12px;
+        margin: 0 12px;
+        border-radius: 8px;
+
+        .header-icon {
+            padding-right: 8px;
         }
+
+        .header-label {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5em;
+        }
+
+        .header-action {
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+
+            button.advanced-toggler {
+                display: flex;
+                align-items: center;
+                border-radius: 4px;
+                outline: none;
+
+                .loading-spinner {
+                    height: 15px;
+                    width: auto;
+                    padding-left: 4px;
+                }
+
+                .md-icon {
+                    height: 16px;
+                    width: 16px;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .detail-body {
+        position: absolute;
+        padding: 0 12px 12px 12px;
+        margin: 0 12px;
+        border-radius: 0 0 8px 8px;
+        backdrop-filter: blur(3px);
+        width: calc(100% - 24px);
+
+        ul {
+            padding: 0;
+            margin: 0;
+
+            li {
+                display: flex;
+                list-style-type: none;
+                padding-bottom: 10px;
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+
+                .md-icon {
+                    display: inline-block;
+                    width: 14px;
+                    height: 20px;
+                    margin-right: 8px;
+
+                    &.verified-issuer, &.tamper-proof, &.valid, &.blockchain {
+                        color: $verification-result-success-dark;
+                    }
+
+                    &.unverified-issuer {
+                        color: $verification-result-warning-dark;
+                    }
+                }
+
+                span {
+                    font-size: 12px;
+                    line-height: 1.5em;
+
+                    &.detail-footnote {
+                        display: block;
+                        color: rgba(20,33,61,50%);
+                        padding-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.verified-issuer {
+        .detail-header, .detail-body {
+            background-color: $verification-result-success-light;
+        }
+
+        .detail-header {
+            .header-icon {
+                img {
+                    vertical-align: initial;
+                }
+
+                .md-icon {
+                    color: $verification-result-success-dark;
+                }
+            }
+
+            .header-label {
+                color: $verification-result-success-dark;
+            }
+
+            .header-action {
+                button {
+                    background-color: $verification-result-success-dark;
+                }
+            }
+        }
+    }
+
+    &.unverified-issuer, &.not-found, &.technical-problem {
+        .detail-header, .detail-body {
+            background-color: $verification-result-warning-light;
+        }
+
+        .detail-header {
+            .header-icon {
+                .md-icon {
+                    color: $verification-result-warning-dark;
+                }
+            }
+
+            .header-label {
+                color: $verification-result-warning-dark;
+            }
+
+            .header-action {
+                button {
+                    background-color: $verification-result-warning-dark;
+                }
+            }
+        }
+    }
+
+    &.revoked-verified, &.revoked-unverified {
+        .detail-header, .detail-body {
+            background-color: $verification-result-error-light;
+        }
+
+        .detail-header {
+            .header-icon {
+                .md-icon {
+                    color: $verification-result-error-dark;
+                }
+            }
+
+            .header-label {
+                color: $verification-result-error-dark;
+            }
+
+            .header-action {
+                button {
+                    background-color: $verification-result-error-dark;
+                }
+            }
+        }
+    }
+
+    &.expanded {
+        .detail-header {
+            border-radius: 8px 8px 0 0;
+        }
+    }
+
+    .collapse-enter-active, .collapse-leave-active {
+        transition: max-height 0s;
+    }
+
+    .collapse-enter, .collapse-leave-to {
+        max-height: 0;
+        overflow: hidden;
     }
 }
