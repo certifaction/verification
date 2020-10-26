@@ -8,13 +8,88 @@
                 <div class="filename">{{ verificationItem.name }}</div>
             </div>
         </template>
-        <template #body>
-            <ResultDetail />
+        <template v-if="showExpertInfo" #body>
+            <div class="verification-info expert" key="info">
+                <div v-if="verificationItem.issuerAddress" class="verification-entry issuer-address">
+                    <span class="label">{{ _$t('verification.result.meta.issuerAddress') }}</span>
+                    <span class="value">
+                        <span>{{ verificationItem.issuerAddress }}</span>
+                    </span>
+                </div>
+                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
+                    <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
+                    <span class="value">
+                        <span>{{ verificationItem.hash }}</span>
+                    </span>
+                </div>
+                <div v-if="verificationItem.registrationEvent" class="verification-entry registration-hash">
+                    <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
+                    <span class="value">
+                        <span>
+                            <a :href="`https://${net}/tx/${verificationItem.registrationEvent.transactionHash}`"
+                           target="_blank">{{ verificationItem.registrationEvent.transactionHash }}</a>
+                        </span>
+                    </span>
+                </div>
+                <div v-else-if="!verificationItem.onBlockchain" class="verification-entry registration-status">
+                    <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
+                    <div class="status" v-html="_$t('verification.result.processing.status')"/>
+                </div>
+                <div v-if="verificationItem.revocationEvent" class="verification-entry revocation-hash">
+                    <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
+                    <span class="value">
+                        <span>
+                            <a :href="`https://${net}/tx/${verificationItem.revocationEvent.transactionHash}`"
+                               target="_blank">{{ verificationItem.revocationEvent.transactionHash }}</a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </template>
+        <template v-else #body>
+            <ResultDetail :verification-result="verificationItemType" :verification-in-progress="!verificationItem.registrationEvent && !verificationItem.revocationEvent"/>
+            <div class="verification-info" key="info">
+                <div v-if="verificationItem.issuerName" class="verification-entry issuer">
+                    <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
+                    <span class="value">
+                            <span>{{ verificationItem.issuerName }}</span>
+                    </span>
+                    <span v-if="!verificationItem.issuerVerified" class="footnote">
+                        <MDIcon :icon="mdiAlertCircle"/>
+                        <span>{{ _$t('verification.result.unverifiedIssuer.issuerFootnote') }}</span>
+                    </span>
+                </div>
+                <div v-if="verificationItem.issuerVerified" class="verification-entry verifier">
+                    <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
+                        <img :src="verificationItem.issuerVerifiedImg" alt=""/>
+                    </div>
+                    <div v-else class="verifier-name">
+                        <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
+                        <span class="value">
+                                <span>{{
+                                        verificationItem.issuerVerifiedBy ? verificationItem.issuerVerifiedBy : 'Certifaction AG'
+                                    }}</span>
+                        </span>
+                    </div>
+                </div>
+                <div v-if="verificationItem.registrationBlock" class="verification-entry registration-date">
+                    <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
+                    <span class="value">{{ dateFormat(verificationItem.registrationBlock.timestamp) }}</span>
+                </div>
+                <div v-if="verificationItem.revocationBlock" class="verification-entry revocation-date">
+                    <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
+                    <span class="value">{{ dateFormat(verificationItem.revocationBlock.timestamp) }}</span>
+                </div>
+            </div>
         </template>
         <template #footer>
-            <div class="left"></div>
+            <div class="left">
+                <button v-if="showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
+                    <span>{{ _$t('verification.card.btn.back') }}</span>
+                </button>
+            </div>
             <div class="right">
-                <button class="btn secondary">
+                <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
                     <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
                 </button>
                 <button class="btn secondary">
@@ -30,7 +105,7 @@ import { VERIFICATION_TYPES } from '@certifaction/verification-core'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import { mdiShieldCheck, mdiFileDocument } from '@mdi/js'
+import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
@@ -44,7 +119,9 @@ export default {
     data() {
         return {
             mdiShieldCheck,
-            mdiFileDocument
+            mdiFileDocument,
+            mdiAlertCircle,
+            showExpertInfo: false
         }
     },
     props: {
@@ -68,7 +145,7 @@ export default {
                     if (this.verificationItem.issuerVerified) {
                         return 'revoked'
                     }
-                    return 'revokedUnverified'
+                    return 'revokedUnverifiedIssuer'
 
                 case VERIFICATION_TYPES.V_NOT_FOUND:
                     return 'notFound'
@@ -77,10 +154,25 @@ export default {
                     return 'unverifiedIssuer'
 
                 case VERIFICATION_TYPES.V_VERIFIED:
-                    return 'verified'
+                    return 'verifiedIssuer'
             }
 
             return 'technicalProblem'
+        }
+    },
+    methods: {
+        dateFormat(timestamp) {
+            const date = new Date(timestamp * 1000)
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }
+
+            return date.toLocaleString((this.$i18n.locale) ? this.$i18n.locale : 'en', options)
         }
     }
 }
