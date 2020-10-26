@@ -1,7 +1,7 @@
 <template>
     <div class="result-detail"
          :class="[verificationResultClass, {expanded: showDetails}]">
-        <div class="detail-header">
+        <div class="detail-header" @click="toggleDropdown">
             <div class="header-icon">
                 <img :src="headerIcon" alt="Certifaction"/>
             </div>
@@ -10,8 +10,7 @@
             </div>
             <div class="header-action">
                 <button type="button"
-                        class="btn-link advanced-toggler"
-                        @click="toggleDropdown">
+                        class="btn-link advanced-toggler">
                     <img v-if="verificationInProgress" class="loading-spinner" src="../../../assets/img/result_details/loading_spinner.svg" alt="Spinner"/>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
                 </button>
