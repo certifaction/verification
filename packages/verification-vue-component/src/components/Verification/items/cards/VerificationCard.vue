@@ -140,6 +140,13 @@ export default {
         }
     },
     computed: {
+        net() {
+            if (this.$parent.$parent.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('ropsten') >= 0) {
+                return 'ropsten.etherscan.io'
+            } else {
+                return 'etherscan.io'
+            }
+        },
         verificationItemType() {
             if (this.verificationItem.error) {
                 return 'technicalProblem'
