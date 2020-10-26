@@ -10,16 +10,25 @@
         </template>
         <template v-if="showExpertInfo" #body>
             <div class="verification-info expert" key="info">
+                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
+                    <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
+                    <span class="value">
+                        <span>{{ verificationItem.hash }}</span>
+                    </span>
+                </div>
                 <div v-if="verificationItem.issuerAddress" class="verification-entry issuer-address">
                     <span class="label">{{ _$t('verification.result.meta.issuerAddress') }}</span>
                     <span class="value">
                         <span>{{ verificationItem.issuerAddress }}</span>
                     </span>
                 </div>
-                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
-                    <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
+                <div v-if="verificationItem.registrationEvent" class="verification-entry smart-contract-address">
+                    <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
-                        <span>{{ verificationItem.hash }}</span>
+                        <span>
+                            <a :href="`https://${net}/tx/${verificationItem.registrationEvent.address}`"
+                               target="_blank">{{ verificationItem.registrationEvent.address }}</a>
+                        </span>
                     </span>
                 </div>
                 <div v-if="verificationItem.registrationEvent" class="verification-entry registration-hash">

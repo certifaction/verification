@@ -31,7 +31,8 @@
                 "registrationDate": "ISSUE DATE & TIME",
                 "registrationTransaction": "REGISTRATION TRANSACTION",
                 "revocationTransaction": "REVOCATION TRANSACTION",
-                "revocationDate": "REVOCATION DATE & TIME"
+                "revocationDate": "REVOCATION DATE & TIME",
+                "smartContractAddress": "SMART CONTRACT ADDRESS"
             },
             "technicalProblem": {
                 "status": "Oops! We could not connect to the Ethereum blockchain"
