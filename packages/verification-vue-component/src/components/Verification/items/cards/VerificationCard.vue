@@ -59,7 +59,7 @@
             <ResultDetail :verification-result="verificationItemType"
                           :verification-in-progress="!isErrorOrNotFound && !verificationItem.registrationEvent && !verificationItem.revocationEvent"/>
             <div class="verification-info" key="info">
-                <div v-if="isErrorOrNotFound" class="verification-entry issuer">
+                <div v-if="isErrorOrNotFound" class="verification-entry error">
                     <p v-html="_$t('verification.result.' + verificationItemType + '.details')" />
                 </div>
                 <div v-if="verificationItem.name" class="verification-entry issuer">
