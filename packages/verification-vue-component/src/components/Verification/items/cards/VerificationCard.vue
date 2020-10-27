@@ -36,7 +36,7 @@
                     <span class="value">
                         <span>
                             <a :href="`https://${net}/tx/${verificationItem.registrationEvent.transactionHash}`"
-                           target="_blank">{{ verificationItem.registrationEvent.transactionHash }}</a>
+                               target="_blank">{{ verificationItem.registrationEvent.transactionHash }}</a>
                         </span>
                     </span>
                 </div>
@@ -56,8 +56,24 @@
             </div>
         </template>
         <template v-else #body>
-            <ResultDetail :verification-result="verificationItemType" :verification-in-progress="!verificationItem.registrationEvent && !verificationItem.revocationEvent"/>
+            <ResultDetail :verification-result="verificationItemType"
+                          :verification-in-progress="!isErrorOrNotFound && !verificationItem.registrationEvent && !verificationItem.revocationEvent"/>
             <div class="verification-info" key="info">
+                <div v-if="isErrorOrNotFound" class="verification-entry issuer">
+                    <p v-html="_$t('verification.result.' + verificationItemType + '.details')" />
+                </div>
+                <div v-if="verificationItem.name" class="verification-entry issuer">
+                    <span class="label">{{ _$t('verification.result.meta.fileName') }}</span>
+                    <span class="value">
+                            <span>{{ verificationItem.name }}</span>
+                    </span>
+                </div>
+                <div v-if="isErrorOrNotFound && verificationItem.hash" class="verification-entry fingerprint">
+                    <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
+                    <span class="value">
+                        <span>{{ verificationItem.hash }}</span>
+                    </span>
+                </div>
                 <div v-if="verificationItem.issuerName" class="verification-entry issuer">
                     <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
                     <span class="value">
@@ -98,12 +114,22 @@
                 </button>
             </div>
             <div class="right">
-                <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
-                    <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
-                </button>
-                <button class="btn secondary">
-                    <span>{{ _$t('verification.card.btn.questions') }}</span>
-                </button>
+                <template v-if="isErrorOrNotFound">
+                    <button class="btn primary">
+                        <span>{{ _$t('verification.card.btn.support') }}</span>
+                    </button>
+                    <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary">
+                        <span>{{ _$t('verification.card.btn.questions') }}</span>
+                    </button>
+                </template>
+                <template v-else>
+                    <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
+                        <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
+                    </button>
+                    <button class="btn secondary">
+                        <span>{{ _$t('verification.card.btn.questions') }}</span>
+                    </button>
+                </template>
             </div>
         </template>
     </BaseCard>
@@ -174,6 +200,9 @@ export default {
             }
 
             return 'technicalProblem'
+        },
+        isErrorOrNotFound() {
+            return this.verificationItemType === 'notFound' || this.verificationItemType === 'technicalProblem'
         }
     },
     methods: {

@@ -47,7 +47,7 @@ export default {
             this.$emit('drop')
         },
         filesDropped(target, files) {
-            this.$emit('filesDropped', files)
+            this.$emit('files-dropped', files)
         }
     }
 }

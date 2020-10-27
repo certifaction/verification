@@ -8,7 +8,7 @@
             <div class="header-label">
                 <div v-html="_$t('verification.result.' + verificationResult + '.status')"></div>
             </div>
-            <div class="header-action">
+            <div v-if="verificationResult !== 'notFound' && verificationResult !== 'technicalProblem'" class="header-action">
                 <button type="button"
                         class="btn-link advanced-toggler">
                     <img v-if="verificationInProgress" class="loading-spinner" src="../../../assets/img/result_details/loading_spinner.svg" alt="Spinner"/>
@@ -86,6 +86,8 @@ export default {
                 case 'verifiedIssuer':
                     return headerSuccessShield
                 case 'unverifiedIssuer':
+                case 'technicalProblem':
+                case 'notFound':
                     return headerWarningShield
                 default:
                     return headerErrorShield
