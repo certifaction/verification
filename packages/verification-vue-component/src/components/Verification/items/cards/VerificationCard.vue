@@ -62,12 +62,6 @@
                 <div v-if="isErrorOrNotFound" class="verification-entry error">
                     <p v-html="_$t('verification.result.' + verificationItemType + '.details')" />
                 </div>
-                <div v-if="verificationItem.name" class="verification-entry issuer">
-                    <span class="label">{{ _$t('verification.result.meta.fileName') }}</span>
-                    <span class="value">
-                            <span>{{ verificationItem.name }}</span>
-                    </span>
-                </div>
                 <div v-if="isErrorOrNotFound && verificationItem.hash" class="verification-entry fingerprint">
                     <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
                     <span class="value">

@@ -24,7 +24,6 @@
             "issuer": "Issuer",
             "meta": {
                 "contract": "Contract",
-                "fileName": "DOCUMENT NAME",
                 "issuer": "ISSUER",
                 "issuerVerifiedBy": "ISSUER VERIFIED BY",
                 "issuerVerifiedByInformation": "This service provider has subjected the issuer to careful scrutiny. Only authorized individuals are able to request the verification of their organization’s identity.",
