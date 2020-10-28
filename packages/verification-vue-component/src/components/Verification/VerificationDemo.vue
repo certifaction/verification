@@ -6,9 +6,9 @@
             <div class="docs">
                 <div class="paperbox">
                     <div class="paper paper-not-found"
-                         @click="$emit('verifyDemo', 'notFound')"
-                         @dragstart="$emit('draggingDemoDoc', 'notFound')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'notFound')"
+                         @dragstart="$emit('dragging-demo-doc', 'notFound')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.notFound.tooltip')">
                         <MDIcon :icon="mdiAlertCircle"/>
@@ -17,9 +17,9 @@
                         </div>
                     </div>
                     <div class="paper paper-technical-problem"
-                         @click="$emit('verifyDemo', 'technicalProblem')"
-                         @dragstart="$emit('draggingDemoDoc', 'technicalProblem')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'technicalProblem')"
+                         @dragstart="$emit('dragging-demo-doc', 'technicalProblem')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.technicalProblem.tooltip')">
                         <MDIcon :icon="mdiAlertCircle"/>
@@ -28,9 +28,9 @@
                         </div>
                     </div>
                     <div class="paper paper-verified-processing"
-                         @click="$emit('verifyDemo', 'verifiedProcessing')"
-                         @dragstart="$emit('draggingDemoDoc', 'verifiedProcessing')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'verifiedProcessing')"
+                         @dragstart="$emit('dragging-demo-doc', 'verifiedProcessing')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.verifiedProcessing.tooltip')">
                         <MDIcon :icon="mdiShield"/>
@@ -39,9 +39,9 @@
                         </div>
                     </div>
                     <div class="paper paper-verified"
-                         @click="$emit('verifyDemo', 'verified')"
-                         @dragstart="$emit('draggingDemoDoc', 'verified')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'verified')"
+                         @dragstart="$emit('dragging-demo-doc', 'verified')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.verified.tooltip')">
                         <MDIcon :icon="mdiShieldCheck"/>
@@ -50,9 +50,9 @@
                         </div>
                     </div>
                     <div class="paper paper-verified-self-declared"
-                         @click="$emit('verifyDemo', 'verifiedSelfDeclared')"
-                         @dragstart="$emit('draggingDemoDoc', 'verifiedSelfDeclared')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'verifiedSelfDeclared')"
+                         @dragstart="$emit('dragging-demo-doc', 'verifiedSelfDeclared')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.verifiedSelfDeclared.tooltip')">
                         <MDIcon :icon="mdiShieldCheck"/>
@@ -61,9 +61,9 @@
                         </div>
                     </div>
                     <div class="paper paper-revoked-verified"
-                         @click="$emit('verifyDemo', 'revokedVerified')"
-                         @dragstart="$emit('draggingDemoDoc', 'revokedVerified')"
-                         @dragend="$emit('draggingDemoDoc')"
+                         @click="$emit('verify-demo', 'revokedVerified')"
+                         @dragstart="$emit('dragging-demo-doc', 'revokedVerified')"
+                         @dragend="$emit('dragging-demo-doc')"
                          draggable
                          v-tooltip.top="_$t('verification.demo.revokedVerified.tooltip')">
                         <MDIcon :icon="mdiShieldCheck"/>

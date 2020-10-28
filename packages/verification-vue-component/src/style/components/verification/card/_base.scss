@@ -23,8 +23,8 @@
         border: none;
 
         &.primary {
-            background-color: white;
-            color: $verification-blue;
+            background-color: $verification-blue;
+            color: white;
         }
 
         &.secondary {
@@ -67,7 +67,7 @@
         .verification-info {
             .verification-entry {
                 background-color: white;
-                padding: 12px 24px;
+                padding: 12px;
                 border-radius: 8px;
 
                 &:nth-child(2n) {
