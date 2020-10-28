@@ -10,7 +10,7 @@
         </div>
 
         <VerificationDropBox
-            @filesDropped="verify"
+            @files-dropped="verify"
             @drop="drop"/>
 
         <div class="powered-by">
