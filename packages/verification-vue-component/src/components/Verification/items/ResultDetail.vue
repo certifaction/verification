@@ -1,6 +1,6 @@
 <template>
     <div class="result-detail"
-         :class="[verificationResultClass, {expanded: showDetails}]">
+         :class="[verificationResultClass, {expanded: showDetails && showDropdownToggler}]">
         <div class="detail-header" @click="toggleDropdown">
             <div class="header-icon">
                 <img :src="headerIcon" alt="Certifaction"/>
@@ -8,7 +8,7 @@
             <div class="header-label">
                 <div v-html="_$t('verification.result.' + verificationResult + '.status')"></div>
             </div>
-            <div v-if="verificationResult !== 'notFound' && verificationResult !== 'technicalProblem'" class="header-action">
+            <div v-if="showDropdownToggler" class="header-action">
                 <button type="button"
                         class="btn-link advanced-toggler">
                     <img v-if="verificationInProgress" class="loading-spinner" src="../../../assets/img/result_details/loading_spinner.svg" alt="Spinner"/>
@@ -79,7 +79,7 @@ export default {
             return this.showDetails ? mdiChevronUp : mdiChevronDown
         },
         showDropdownToggler() {
-            return this.verificationResult === 'notFound' || this.verificationResult === 'technicalProblem'
+            return this.verificationResult !== 'notFound' && this.verificationResult !== 'technicalProblem'
         },
         headerIcon() {
             switch (this.verificationResult) {
@@ -99,7 +99,7 @@ export default {
     },
     methods: {
         toggleDropdown() {
-            this.showDetails = !this.showDetails
+            this.showDetails = this.showDropdownToggler ? !this.showDetails : this.showDetails
         },
         getDetailIcon(detail) {
             switch (detail) {
