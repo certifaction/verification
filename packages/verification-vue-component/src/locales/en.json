@@ -11,7 +11,8 @@
             "btn": {
                 "expertInfo": "Expert info",
                 "questions": "Questions?",
-                "back": "Back"
+                "back": "Back",
+                "support": "Contact support"
             }
         },
         "result": {
@@ -35,10 +36,12 @@
                 "smartContractAddress": "SMART CONTRACT ADDRESS"
             },
             "technicalProblem": {
-                "status": "Oops! We could not connect to the Ethereum blockchain"
+                "status": "Oops! We could not connect to the Ethereum blockchain",
+                "details": "We had a technical issue on our end and could not process your verification request at this time. Please refresh the page and try again.<br><br>If the problem persists, please contact our support. We would be happy to help you."
             },
             "notFound": {
-                "status": "No match could be found for this document"
+                "status": "No match could be found for this document",
+                "details": "This document is not known to us. It is possible that it was modified unintentionally. <br><br> Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:</li></ul>by printing it as a PDF<br>by saving it with a PDF writer that ignored the protection<br>by printing and scanning it<br><br>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
             },
             "revokedUnverified": {
                 "status": "This document has been revoked",
