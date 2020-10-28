@@ -58,6 +58,10 @@
                 line-height: $line-height;
                 overflow-wrap: break-word;
             }
+
+            .help-card-title {
+                padding: 0 6px;
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="base-card">
+    <div class="base-card" :class="cardClass">
         <div class="card-header">
             <slot name="header"></slot>
         </div>
@@ -21,7 +21,8 @@ export default {
         expanded: {
             type: Boolean,
             default: false
-        }
+        },
+        cardClass: null
     },
     computed: {}
 }

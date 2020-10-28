@@ -1,0 +1,60 @@
+.faq-card {
+    .card-header {
+        padding: 7px 4px;
+        font-weight: bold;
+    }
+
+    .card-body {
+        .faq-items {
+            overflow: hidden;
+
+            .item {
+                margin: 4px;
+                overflow: hidden;
+                border-radius: 6px 4px;
+                box-shadow: 0 2px 12px rgba(32, 51, 70, 0.09), 0 1px 4px rgba(32, 51, 70, 0.04);
+
+                .item-label {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 12px;
+                    margin: 0;
+                    cursor: pointer;
+                    font-size: $font-size-medium;
+
+                    &::after {
+                        content: "\276F";
+                        text-align: center;
+                        transform: rotate(270deg);
+                    }
+                }
+
+                .item-content {
+                    max-height: 0;
+                    padding: 0 12px;
+                    transition: all .3s;
+                    font-size: 12px;
+                }
+            }
+
+            input {
+                position: absolute;
+                opacity: 0;
+                z-index: -1;
+
+                &:checked {
+                    + .item-label {
+
+                        &::after {
+                            transform: rotate(90deg);
+                        }
+                    }
+                    ~ .item-content {
+                        max-height: 100vh;
+                        padding-bottom: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

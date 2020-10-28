@@ -112,7 +112,7 @@
                     <button class="btn primary">
                         <span>{{ _$t('verification.card.btn.support') }}</span>
                     </button>
-                    <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary">
+                    <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary" @click="toggleHelp('faq')">
                         <span>{{ _$t('verification.card.btn.questions') }}</span>
                     </button>
                 </template>
@@ -120,7 +120,7 @@
                     <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
                         <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
                     </button>
-                    <button class="btn secondary">
+                    <button class="btn secondary" @click="toggleHelp('faq')">
                         <span>{{ _$t('verification.card.btn.questions') }}</span>
                     </button>
                 </template>
@@ -212,6 +212,9 @@ export default {
             }
 
             return date.toLocaleString((this.$i18n.locale) ? this.$i18n.locale : 'en', options)
+        },
+        toggleHelp(type) {
+            this.$emit('toggle-help', type)
         }
     }
 }
