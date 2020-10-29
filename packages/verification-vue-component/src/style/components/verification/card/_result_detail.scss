@@ -55,7 +55,7 @@
                 .md-icon {
                     height: 16px;
                     width: 16px;
-                    color: white;
+                    color: $white;
                 }
             }
         }
@@ -64,10 +64,9 @@
     .detail-body {
         position: absolute;
         padding: 0 12px 12px 12px;
-        margin: 0 12px;
         border-radius: 0 0 8px 8px;
         backdrop-filter: blur(3px);
-        width: calc(100% - 24px);
+        width: 100%;
 
         ul {
             padding: 0;
@@ -103,7 +102,7 @@
 
                     &.detail-footnote {
                         display: block;
-                        color: rgba(20,33,61,50%);
+                        color: rgba(#14213d, 50%);
                         padding-top: 5px;
                     }
                 }
