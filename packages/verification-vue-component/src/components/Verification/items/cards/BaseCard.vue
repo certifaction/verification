@@ -15,15 +15,6 @@
 <script>
 
 export default {
-    name: 'BaseCard',
-    components: {},
-    props: {
-        expanded: {
-            type: Boolean,
-            default: false
-        },
-        cardClass: null
-    },
-    computed: {}
+    name: 'BaseCard'
 }
 </script>
