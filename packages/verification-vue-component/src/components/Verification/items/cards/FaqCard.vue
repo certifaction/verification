@@ -10,7 +10,7 @@
                 <div class="item" v-for="(item, index) in _$t('verification.card.faq.items', { returnObjects: true })" :key="index" :class="{ open: isItemOpen(index) }">
                     <div class="item-title" @click="toggleItem(index)">
                         <span>{{ item.title }}</span>
-                        <MDIcon :icon="mdiChevronUp" class="chevron"/>
+                        <MDIcon :icon="mdiChevronDown" class="chevron"/>
                     </div>
                     <transition name="collapse"
                                 @enter="onEnterTransition"
@@ -41,7 +41,7 @@
 <script>
 import BaseCard from './BaseCard.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import { mdiChevronUp } from '@mdi/js'
+import { mdiChevronDown } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
@@ -53,7 +53,7 @@ export default {
     },
     data() {
         return {
-            mdiChevronUp,
+            mdiChevronDown,
             openItems: []
         }
     },
