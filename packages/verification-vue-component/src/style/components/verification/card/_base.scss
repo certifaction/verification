@@ -9,14 +9,13 @@
     justify-content: space-between;
     height: 100%;
     width: 380px;
-    background-color: white;
+    background-color: $white;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba($black, 0.05);
     padding: 8px 12px 12px 12px;
 
     .btn {
         padding: 8px 10px;
-        margin-left: 12px;
         font-size: $font-size-medium;
         font-weight: 500;
         border-radius: 3px;
@@ -24,12 +23,16 @@
 
         &.primary {
             background-color: $verification-blue;
-            color: white;
+            color: $white;
         }
 
         &.secondary {
             background-color: #EEF3FA;
             color: $verification-blue;
+        }
+
+        &:nth-child(2) {
+            margin-left: 12px;
         }
     }
 
@@ -70,7 +73,7 @@
 
         .verification-info {
             .verification-entry {
-                background-color: white;
+                background-color: $white;
                 padding: 12px;
                 border-radius: 8px;
 
@@ -82,7 +85,7 @@
                     display: block;
 
                     &.label {
-                        color: rgba(20, 33, 61, 0.5);
+                        color: rgba(#14213d, 50%);
                         font-size: 13px;
                         line-height: 1.5em;
                         font-weight: 600;

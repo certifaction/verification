@@ -26,7 +26,7 @@
                     <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
                         <span>
-                            <a :href="`https://${net}/tx/${verificationItem.registrationEvent.address}`"
+                            <a :href="`https://${net}/address/${verificationItem.registrationEvent.address}`"
                                target="_blank">{{ verificationItem.registrationEvent.address }}</a>
                         </span>
                     </span>

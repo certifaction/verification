@@ -1,5 +1,5 @@
 <template>
-    <div class="base-card" :class="cardClass">
+    <div class="base-card">
         <div class="card-header">
             <slot name="header"></slot>
         </div>

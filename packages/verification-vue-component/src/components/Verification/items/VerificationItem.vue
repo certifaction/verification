@@ -10,7 +10,6 @@
 import VerificationCard from './cards/VerificationCard.vue'
 import ShadowCard from './cards/ShadowCard.vue'
 import FaqCard from './cards/FaqCard.vue'
-import { mdiShieldCheck } from '@mdi/js'
 
 export default {
     name: 'VerificationItem',
@@ -21,7 +20,6 @@ export default {
     },
     data() {
         return {
-            mdiShieldCheck,
             showFaq: false
         }
     },
