@@ -3,7 +3,7 @@
 .certifaction-verification {
     font-family: $font-family-sans-serif;
     font-size: $font-size-normal;
-    background-color: #FBFBFC;
+    background-color: $verification-background;
 
     *,
     :before,
@@ -51,7 +51,7 @@
         display: flex;
         justify-content: space-between;
         margin: 24px auto $spacer;
-        background-color: white;
+        background-color: $white;
         width: 205px;
         font-size: $font-size-small;
         align-items: center;

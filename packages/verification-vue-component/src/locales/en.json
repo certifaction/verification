@@ -13,6 +13,31 @@
                 "questions": "Questions?",
                 "back": "Back",
                 "support": "Contact support"
+            },
+            "faq": {
+                "title": "FAQ",
+                "items": [
+                    {
+                        "title": "How does this check work?",
+                        "content": "We calculate the unique cryptographic fingerprint of the document. If it is unchanged, we are able to find an entry in our smart contract on the Ethereum blockchain."
+                    },
+                    {
+                        "title": "Why do we use a blockchain?",
+                        "content": "The Ethereum blockchain is a highly available, highly secure database. What is special is that you can only append data - you cannot edit or delete it. This makes it ideal for long-term protection against subsequent falsification."
+                    },
+                    {
+                        "title": "How is data protection ensured?",
+                        "content": "For verification, one must be in possession of the document. Without it, no information can be obtained from the blockchain. Furthermore, the document is never uploaded for verification, but analyzed directly on the user's device."
+                    },
+                    {
+                        "title": "How are the identities verified?",
+                        "content": "Certifaction technology is used by several innovative vendors, each of which carefully checks their customers before verifying their identity. You can contact the verifier directly for more details (see \"Identity verified by\")."
+                    },
+                    {
+                        "title": "What is the legal weight?",
+                        "content": "This solution provides a verified identity of the publisher, protected user accounts and cryptographically verifiable proof of the signature."
+                    }
+                ]
             }
         },
         "result": {
@@ -26,7 +51,6 @@
                 "contract": "Contract",
                 "issuer": "ISSUER",
                 "issuerVerifiedBy": "ISSUER VERIFIED BY",
-                "issuerVerifiedByInformation": "This service provider has subjected the issuer to careful scrutiny. Only authorized individuals are able to request the verification of their organization’s identity.",
                 "issuerAddress": "ISSUER PUBLIC KEY",
                 "fingerprint": "DOCUMENT HASH",
                 "registrationDate": "ISSUE DATE & TIME",
