@@ -68,27 +68,27 @@
                 "details": "This document is not known to us. It is possible that it was modified unintentionally. <br><br> Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:</li></ul>by printing it as a PDF<br>by saving it with a PDF writer that ignored the protection<br>by printing and scanning it<br><br>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
             },
             "revokedUnverified": {
-                "status": "This document has been revoked",
+                "status": "This document has been revoked.",
                 "details": {
                     "tamperProof": "Tamper proof certification",
                     "unverifiedIssuer": "Unverified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<br>This document is currently in the queue to be registered on the Ethereum block chain. This ensures the highest level of security."
+                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum block chain. This makes the revocation independently verifiable.</span>"
                     },
-                    "invalid": "Revoked (This document has been revoked by the issuer on the <date>. It is no longer valid.)"
+                    "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
                 }
             },
-            "revoked": {
-                "status": "This document has been revoked",
+            "revokedVerified": {
+                "status": "This document has been revoked.",
                 "details": {
                     "tamperProof": "Tamper proof certification",
                     "verifiedIssuer": "Verified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<br>This document is currently in the queue to be registered on the Ethereum block chain. This ensures the highest level of security."
+                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum block chain. This makes the revocation independently verifiable.</span>"
                     },
-                    "invalid": "Revoked (This document has been revoked by the issuer on the <date>. It is no longer valid.)"
+                    "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
                 }
             },
             "unverifiedIssuer": {
