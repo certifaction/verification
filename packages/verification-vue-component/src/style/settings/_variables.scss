@@ -16,6 +16,8 @@ $gray-600: #808993 !default;
 $gray-700: #203346 !default;
 $gray-800: #343435 !default;
 $gray-900: #212122 !default;
+$white: #ffffff !default;
+$black: #000000 !default;
 $red: #f21a25 !default;
 $orange: #fea534 !default;
 $green: #32c264 !default;
@@ -50,7 +52,9 @@ $spacer: 1.5rem !default;
 // Shadows
 $box-shadow-standard: 0px 1px 30px rgba($gray-700, .15) !default;
 
-// Verification Items
+// Verification
+$verification-background: #fbfbfc;
+
 $verification-dropbox-border: 9px dashed $gray-300 !default;
 $verification-dropbox-title-color: $gray-700 !default;
 $verification-dropbox-subtitle-color: $gray-500 !default;
