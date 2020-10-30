@@ -107,7 +107,7 @@
                     color: $red;
                 }
 
-                #email, #question {
+                input[type="email"], textarea {
                     border-color: $red;
                 }
             }
