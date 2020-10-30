@@ -40,10 +40,6 @@
                         </span>
                     </span>
                 </div>
-                <div v-else-if="!verificationItem.onBlockchain" class="verification-entry registration-status">
-                    <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
-                    <div class="status" v-html="_$t('verification.result.processing.status')"/>
-                </div>
                 <div v-if="verificationItem.revocationEvent" class="verification-entry revocation-hash">
                     <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
                     <span class="value">
@@ -57,7 +53,9 @@
         </template>
         <template v-else #body>
             <ResultDetail :verification-result="verificationItemType"
-                          :verification-in-progress="!isErrorOrNotFound && !verificationItem.registrationEvent && !verificationItem.revocationEvent"/>
+                          :verification-in-progress="!verificationItem.registrationEvent"
+                          :revocation-in-progress="verificationItem.file.status && verificationItem.file.status === 'revoking'"
+                          :revocation-date="verificationItem.revocationBlock ? verificationItem.revocationBlock.timestamp : null"/>
             <div class="verification-info" key="info">
                 <div v-if="isErrorOrNotFound" class="verification-entry error">
                     <p v-html="_$t('verification.result.' + verificationItemType + '.details')" />
@@ -134,12 +132,13 @@ import { VERIFICATION_TYPES } from '@certifaction/verification-core'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
+import dateFormatter from '../../../../mixins/date-formatter'
 import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
     name: 'VerificationCard',
-    mixins: [i18nWrapperMixin],
+    mixins: [i18nWrapperMixin, dateFormatter],
     components: {
         BaseCard,
         ResultDetail,
@@ -179,9 +178,9 @@ export default {
             switch (this.verificationItem.type) {
                 case VERIFICATION_TYPES.V_REVOKED:
                     if (this.verificationItem.issuerVerified) {
-                        return 'revoked'
+                        return 'revokedVerified'
                     }
-                    return 'revokedUnverifiedIssuer'
+                    return 'revokedUnverified'
 
                 case VERIFICATION_TYPES.V_NOT_FOUND:
                     return 'notFound'
@@ -200,19 +199,6 @@ export default {
         }
     },
     methods: {
-        dateFormat(timestamp) {
-            const date = new Date(timestamp * 1000)
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }
-
-            return date.toLocaleString((this.$i18n.locale) ? this.$i18n.locale : 'en', options)
-        },
         toggleHelp(type) {
             this.$emit('toggle-help', type)
         }
