@@ -8,7 +8,7 @@
         form {
             padding: 0 4px;
 
-            p.consent-field {
+            .consent-field {
                 display: flex;
             }
 
@@ -24,7 +24,7 @@
                 }
             }
 
-            #email, #question {
+            input[type="email"], textarea {
                 width: 100%;
                 padding: 5px;
                 background: $white;
@@ -55,7 +55,7 @@
                     height: 0;
 
                     &:checked + .slider {
-                        background-color: rgba(#0086BF, 0.25);
+                        background-color: rgba(#00BF86, 0.25);
 
                         &:before {
                             background-color: #00BF86;

@@ -7,21 +7,21 @@
         </template>
         <template #body>
             <form id="contact-form" @submit="checkForm" method="POST">
-                <p class="email-field" :class="{error: errors.email}">
+                <div class="email-field" :class="{error: errors.email}">
                     <label for="email">{{ _$t('verification.card.contact.form.email') }}</label>
                     <input id="email" type="email" name="email" v-model="email">
-                </p>
-                <p class="question-field" :class="{error: errors.question}">
+                </div>
+                <div class="question-field" :class="{error: errors.question}">
                     <label for="question">{{ _$t('verification.card.contact.form.question') }}</label>
                     <textarea id="question" name="question" v-model="question"></textarea>
-                </p>
-                <p class="consent-field" :class="{error: errors.consent}">
+                </div>
+                <div class="consent-field" :class="{error: errors.consent}">
                     <label class="switch">
                         <input id="consent" type="checkbox" v-model="consentAccepted">
                         <span class="slider round"></span>
                     </label>
                     <label for="consent" class="consent">{{ _$t('verification.card.contact.form.consent') }}</label>
-                </p>
+                </div>
                 <span v-if="contactFormSuccessful" class="message-sent success">{{ _$t('verification.card.contact.form.submitted') }}</span>
                 <span v-if="contactFormFailed" class="message-sent failed">{{ _$t('verification.card.contact.form.failed') }}</span>
             </form>
@@ -123,7 +123,7 @@ export default {
                 // TODO: call endpoint
                 this.contactFormSuccessful = true
             } catch (error) {
-                console.log('onFormSubmit() catch()', error, error.response.data)
+                console.log('postForm() catch()', error, error.response.data)
                 this.contactFormFailed = true
             }
 

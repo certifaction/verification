@@ -46,9 +46,9 @@ import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import dateFormatter from '../../../mixins/date-formatter'
 import MDIcon from '../../MDIcon.vue'
 
-import headerSuccessShield from '../../../assets/img/result_details/shield_success.svg'
-import headerWarningShield from '../../../assets/img/result_details/shield_warning.svg'
-import headerErrorShield from '../../../assets/img/result_details/shield_error.svg'
+import headerSuccessShield from '../../../assets/img/shield_success.svg'
+import headerWarningShield from '../../../assets/img/shield_warning.svg'
+import headerErrorShield from '../../../assets/img/shield_error.svg'
 
 export default {
     name: 'ResultDetail',
