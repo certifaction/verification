@@ -34,8 +34,7 @@
         "@mdi/js": "^5.7.55",
         "core-js": "^3.6.5",
         "v-tooltip": "^2.0.3",
-        "vue-scrollto": "^2.19.1",
-        "vue-simple-spinner": "^1.2.10"
+        "vue-scrollto": "^2.19.1"
     },
     "peerDependencies": {
         "vue": "^2.6",

@@ -1,0 +1,200 @@
+.help-card {
+    .card-header {
+        padding: 7px 4px;
+        font-weight: bold;
+    }
+
+    .card-body {
+        form {
+            padding: 0 4px;
+
+            p.consent-field {
+                display: flex;
+            }
+
+            label {
+                display: inline-block;
+                color: rgba(#14213D, 0.5);
+                font-size: 13px;
+                line-height: 1.5em;
+                font-weight: 600;
+
+                &.consent {
+                    font-size: $font-size-medium;
+                }
+            }
+
+            #email, #question {
+                width: 100%;
+                padding: 5px;
+                background: $white;
+                border: 1px solid #E5E5E5;
+                box-sizing: border-box;
+                border-radius: 4px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            textarea {
+                resize: none;
+                min-height: 200px;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 30px;
+                height: 16px;
+                margin: 3px 8px 0 0;
+
+                input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+
+                    &:checked + .slider {
+                        background-color: rgba(#0086BF, 0.25);
+
+                        &:before {
+                            background-color: #00BF86;
+                        }
+                    }
+
+                    &:focus + .slider {
+                        box-shadow: 0 0 1px #2196F3;
+                    }
+
+                    &:checked + .slider:before {
+                        transform: translateX(14px);
+                    }
+                }
+
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #cccccc;
+                    transition: .4s;
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        height: 14px;
+                        width: 14px;
+                        left: 1px;
+                        bottom: 1px;
+                        background-color: white;
+                        transition: .4s;
+                    }
+
+                    &.round {
+                        border-radius: 34px;
+
+                        &:before {
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+
+            .error {
+                label {
+                    color: $red;
+                }
+
+                #email, #question {
+                    border-color: $red;
+                }
+            }
+
+            .validation-error {
+                color: $red;
+            }
+
+            .message-sent {
+                display: block;
+                padding: 5px 10px;
+                border-radius: 4px;
+
+                &.success {
+                    color: $verification-result-success-dark;
+                    background-color: $verification-result-success-light;
+                    border: 1px solid $verification-result-success-dark;
+                }
+
+                &.failed {
+                    color: $verification-result-error-dark;
+                    background-color: $verification-result-error-light;
+                    border: 1px solid $verification-result-error-dark;
+                }
+            }
+        }
+
+        .faq-items.accordion {
+            .item {
+                margin: 4px;
+                box-shadow: 0 2px 12px rgba($gray-700, 0.09), 0 1px 4px rgba($gray-700, 0.04);
+
+                .item-title {
+                    cursor: pointer;
+                    position: relative;
+                    padding: 10px 12px;
+                    font-size: $font-size-medium;
+
+                    .chevron {
+                        transition: transform 0.1s linear;
+                        position: absolute;
+                        top: 0.5rem;
+                        right: 0.5rem;
+                        color: rgba(#14213d, 60%);
+                    }
+                }
+
+                .content {
+                    .inside {
+                        font-size: 12px;
+                        padding: 0 12px 12px
+                    }
+
+                    &.collapse-enter-active,
+                    &.collapse-leave-active {
+                        transition: height 0.3s ease-in-out;
+                        overflow: hidden;
+                    }
+                }
+
+                &.open {
+                    .item-title {
+                        .chevron {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+
+                &:first-of-type {
+                    .item-title {
+                        border-radius: 6px 6px 0 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn[type="submit"] {
+        display: flex;
+
+        &:disabled {
+            background-color: #89baff;
+        }
+
+        img {
+            width: 21px;
+            height: auto;
+        }
+    }
+}

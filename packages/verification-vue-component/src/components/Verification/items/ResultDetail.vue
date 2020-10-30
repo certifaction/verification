@@ -13,7 +13,7 @@
                         class="btn-link advanced-toggler">
                     <img v-if="verificationInProgress || revocationInProgress"
                          class="loading-spinner"
-                         src="../../../assets/img/result_details/loading_spinner.svg"
+                         src="../../../assets/img/loading_spinner.svg"
                          alt="Spinner"/>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
                 </button>
@@ -27,7 +27,7 @@
                         :key="index">
                         <div v-if="(verificationInProgress || revocationInProgress) && index === 'blockchain'" class="warning-indicator">
                             <img class="loading-spinner"
-                                 src="../../../assets/img/result_details/loading_spinner.svg"
+                                 src="../../../assets/img/loading_spinner.svg"
                                  alt="Spinner"/>
                         </div>
                         <MDIcon v-else :class="getDetailClass(index)" :icon="getDetailIcon(index)"/>

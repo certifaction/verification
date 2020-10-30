@@ -1,48 +1,13 @@
-.verification-item {
-    background-color: $white;
-    position: relative;
-    margin: $spacer * 1.5 $spacer * .75 0;
-    box-shadow: $box-shadow-standard;
-    max-width: 370px;
-    overflow: hidden;
+.verification-item-list {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 24px;
 
-    .verification-entry {
-        margin: 0 0 $spacer * .5 0;
-
-        &.verifier {
-            display: flex;
-            align-items: center;
-
-            .verifier-name {
-                flex: 0 0 auto;
-            }
-
-            .verifier-image {
-                flex: 1 1 auto;
-                overflow: hidden;
-                margin-left: $spacer * .75;
-                height: 40px;
-
-                img {
-                    display: block;
-                    width: auto;
-                    max-width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    object-position: center left;
-                }
-            }
-        }
-    }
-
-    .loading-spinner {
-        padding: $spacer * 1.5 $spacer;
-    }
-
-    .verification-info {
-        padding-top: $spacer * .75;
-        padding-bottom: $spacer * .25;
-        font-weight: 500;
+    .item-container {
+        max-width: 100%;
     }
 }
 
@@ -78,18 +43,5 @@
                 margin-bottom: 0;
             }
         }
-    }
-}
-
-.verification-item-list {
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-bottom: 24px;
-
-    .item-container {
-        max-width: 100%;
     }
 }
