@@ -107,9 +107,9 @@
             </div>
             <div class="right">
                 <template v-if="isErrorOrNotFound">
-                    <button class="btn primary">
-                        <span>{{ _$t('verification.card.btn.support') }}</span>
-                    </button>
+<!--                    <button class="btn primary">-->
+<!--                        <span>{{ _$t('verification.card.btn.support') }}</span>-->
+<!--                    </button>-->
                     <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary" @click="toggleHelp('faq')">
                         <span>{{ _$t('verification.card.btn.questions') }}</span>
                     </button>
