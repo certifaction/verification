@@ -11,7 +11,10 @@
             <div v-if="showDropdownToggler" class="header-action">
                 <button type="button"
                         class="btn-link advanced-toggler">
-                    <img v-if="verificationInProgress" class="loading-spinner" src="../../../assets/img/result_details/loading_spinner.svg" alt="Spinner"/>
+                    <img v-if="verificationInProgress || revocationInProgress"
+                         class="loading-spinner"
+                         src="../../../assets/img/result_details/loading_spinner.svg"
+                         alt="Spinner"/>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
                 </button>
             </div>
@@ -20,13 +23,15 @@
             <div v-if="showDetails" class="detail-body">
                 <ul>
                     <li class="detail"
-                        v-for="(item, index) in $i18n.t('verification.result.' + verificationResult + '.details', { returnObjects: true })"
+                        v-for="(item, index) in _$t('verification.result.' + verificationResult + '.details', { returnObjects: true, date: revocationDate })"
                         :key="index">
-                        <div v-if="verificationInProgress && index === 'blockchain'" class="warning-indicator">
-                            <img class="loading-spinner" src="../../../assets/img/result_details/loading_spinner.svg" alt="Spinner"/>
+                        <div v-if="(verificationInProgress || revocationInProgress) && index === 'blockchain'" class="warning-indicator">
+                            <img class="loading-spinner"
+                                 src="../../../assets/img/result_details/loading_spinner.svg"
+                                 alt="Spinner"/>
                         </div>
-                        <MDIcon v-else :class="getDetailClass(index)" :icon="getDetailIcon(index)" />
-                        <span v-html="getDetailLabel(index, item)" />
+                        <MDIcon v-else :class="getDetailClass(index)" :icon="getDetailIcon(index)"/>
+                        <span v-html="getDetailLabel(index, item)"/>
                     </li>
                 </ul>
             </div>
@@ -36,8 +41,9 @@
 
 <script>
 
-import { mdiChevronDown, mdiChevronUp, mdiShieldCheck, mdiAlertCircle, mdiCheckCircle, mdiCloseCircle } from '@mdi/js'
+import { mdiAlertCircle, mdiCheckCircle, mdiChevronDown, mdiChevronUp, mdiCloseCircle, mdiShieldCheck } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
+import dateFormatter from '../../../mixins/date-formatter'
 import MDIcon from '../../MDIcon.vue'
 
 import headerSuccessShield from '../../../assets/img/result_details/shield_success.svg'
@@ -46,7 +52,7 @@ import headerErrorShield from '../../../assets/img/result_details/shield_error.s
 
 export default {
     name: 'ResultDetail',
-    mixins: [i18nWrapperMixin],
+    mixins: [i18nWrapperMixin, dateFormatter],
     components: {
         MDIcon
     },
@@ -58,7 +64,12 @@ export default {
         verificationInProgress: {
             type: Boolean,
             default: false
-        }
+        },
+        revocationInProgress: {
+            type: Boolean,
+            default: false
+        },
+        revocationDate: null
     },
     data() {
         return {
@@ -116,7 +127,9 @@ export default {
         },
         getDetailLabel(index, item) {
             if (index === 'blockchain') {
-                return this.verificationInProgress ? item.registering : item.secured
+                return this.verificationInProgress || this.revocationInProgress ? item.registering : item.secured
+            } else if (index === 'invalid') {
+                return this._$t('verification.result.' + this.verificationResult + '.details.invalid', { revocationDate: this.dateFormat(this.revocationDate) })
             }
 
             return item
