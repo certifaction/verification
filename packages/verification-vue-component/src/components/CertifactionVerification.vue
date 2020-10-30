@@ -1,6 +1,6 @@
 <template>
     <div class="certifaction-verification">
-        <VerificationDemo v-if="demo !== false" @verifyDemo="verifyDemo" @draggingDemoDoc="onDraggingDemoDoc"/>
+        <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
 
         <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
             <VerificationItem
