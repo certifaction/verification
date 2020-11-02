@@ -77,15 +77,15 @@
                     </span>
                 </div>
                 <div v-if="verificationItem.issuerVerified" class="verification-entry verifier">
-                    <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
-                        <img :src="verificationItem.issuerVerifiedImg" alt=""/>
-                    </div>
-                    <div v-else class="verifier-name">
+                    <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
-                        <span class="value">
-                                <span>{{
-                                        verificationItem.issuerVerifiedBy ? verificationItem.issuerVerifiedBy : 'Certifaction AG'
-                                    }}</span>
+                        <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
+                            <img :src="verificationItem.issuerVerifiedImg" alt=""/>
+                        </div>
+                        <span v-else class="value">
+                            <span>{{
+                                    verificationItem.issuerVerifiedBy ? verificationItem.issuerVerifiedBy : 'Certifaction AG'
+                                }}</span>
                         </span>
                     </div>
                 </div>
@@ -107,9 +107,9 @@
             </div>
             <div class="right">
                 <template v-if="isErrorOrNotFound">
-                    <button class="btn primary">
-                        <span>{{ _$t('verification.card.btn.support') }}</span>
-                    </button>
+<!--                    <button class="btn primary">-->
+<!--                        <span>{{ _$t('verification.card.btn.support') }}</span>-->
+<!--                    </button>-->
                     <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary" @click="toggleHelp('faq')">
                         <span>{{ _$t('verification.card.btn.questions') }}</span>
                     </button>

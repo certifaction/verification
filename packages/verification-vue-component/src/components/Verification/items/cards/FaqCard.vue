@@ -29,11 +29,11 @@
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
-            <div class="right">
-                <button class="btn primary">
-                    <span>{{ _$t('verification.card.btn.support') }}</span>
-                </button>
-            </div>
+<!--            <div class="right">-->
+<!--                <button class="btn primary">-->
+<!--                    <span>{{ _$t('verification.card.btn.support') }}</span>-->
+<!--                </button>-->
+<!--            </div>-->
         </template>
     </BaseCard>
 </template>
