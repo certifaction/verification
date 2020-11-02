@@ -77,15 +77,15 @@
                     </span>
                 </div>
                 <div v-if="verificationItem.issuerVerified" class="verification-entry verifier">
-                    <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
-                        <img :src="verificationItem.issuerVerifiedImg" alt=""/>
-                    </div>
-                    <div v-else class="verifier-name">
+                    <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
-                        <span class="value">
-                                <span>{{
-                                        verificationItem.issuerVerifiedBy ? verificationItem.issuerVerifiedBy : 'Certifaction AG'
-                                    }}</span>
+                        <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
+                            <img :src="verificationItem.issuerVerifiedImg" alt=""/>
+                        </div>
+                        <span v-else class="value">
+                            <span>{{
+                                    verificationItem.issuerVerifiedBy ? verificationItem.issuerVerifiedBy : 'Certifaction AG'
+                                }}</span>
                         </span>
                     </div>
                 </div>
