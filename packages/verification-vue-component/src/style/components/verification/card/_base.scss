@@ -115,6 +115,20 @@
                 .value {
                     overflow-wrap: break-word;
                 }
+
+                .verifier-image {
+                    flex: 1 1 auto;
+                    overflow: hidden;
+                    height: 60px;
+                    padding-top: 5px;
+
+                    img {
+                        display: block;
+                        width: auto;
+                        max-width: 100%;
+                        height: 100%;
+                    }
+                }
             }
 
             &.expert {
