@@ -1,3 +1,4 @@
+import { string } from 'rollup-plugin-string'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
@@ -12,6 +13,9 @@ const externals = [
 const sourcemap = true
 
 const plugins = [
+    string({
+        include: '**/wasm_exec.js'
+    }),
     resolve(),
     commonjs(),
     babel({

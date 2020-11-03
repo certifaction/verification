@@ -19,5 +19,16 @@ module.exports = {
             .loader('worker-loader')
             .options({ filename: 'js/[name].[hash:8].js' })
             .end()
+
+        config.module
+            .rule('wasm')
+            .test(/\.wasm$/)
+            .type('javascript/auto')
+            .use('file-loader')
+            .loader('file-loader')
+            .tap(() => ({
+                name: 'wasm/[name].[hash:8].[ext]',
+                esModule: false
+            }))
     }
 }

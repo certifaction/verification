@@ -24,7 +24,6 @@ import Vue from 'vue'
 import VueScrollTo from 'vue-scrollto'
 import {
     CertifactionEthVerifier,
-    hashingService,
     Interface,
     mapVerificationItemType,
     VerifierInterface
@@ -34,7 +33,6 @@ import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/items/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
-import PdfService from '../services/pdf.service'
 
 export default {
     name: 'CertifactionVerification',
@@ -56,6 +54,10 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        pdfWasmUrl: {
+            type: String,
+            required: true
         },
         providerUrl: {
             type: String,
@@ -93,6 +95,7 @@ export default {
     data() {
         return {
             certifactionEthVerifier: new CertifactionEthVerifier(
+                this.pdfWasmUrl,
                 this.enableClaims,
                 this.providerUrl,
                 this.legacyContractAddress,
@@ -141,20 +144,6 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            const reader = new FileReader()
-
-            reader.onload = async () => {
-                var array = new Uint8Array(reader.result)
-                let keywords = await PdfService.readKeywords(array)
-                console.log('Keywords found: ' + keywords)
-            }
-
-            reader.onerror = (error) => {
-                console.log('An error occurred during reading the file', e)
-            }
-
-            reader.readAsArrayBuffer(item.file)
-
             const hash = await hashingService.hashFile(item.file)
             let verification = await this.certifactionEthVerifier.verify(hash)
 

@@ -82,11 +82,12 @@ export default class CertifactionEthClient {
      * Verifies a file hash on the smart contract
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @return {FileVerification|null}
      */
-    async verifyFile(fileHash) {
-        let fileVerification = await this.verifyFileByClaims(fileHash)
+    async verifyFile(fileHash, decryptionKey) {
+        let fileVerification = await this.verifyFileByClaims(fileHash, decryptionKey)
 
         if (
             fileVerification !== null &&
@@ -210,11 +211,12 @@ export default class CertifactionEthClient {
      * Verifies a file hash by claims
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @return {Promise<FileVerification|null>}
      */
-    async verifyFileByClaims(fileHash) {
-        return await this.resolveAndValidateFileClaim(fileHash)
+    async verifyFileByClaims(fileHash, decryptionKey) {
+        return await this.resolveAndValidateFileClaim(fileHash, decryptionKey)
     }
 
     /**
@@ -250,10 +252,11 @@ export default class CertifactionEthClient {
      * Resolve and validate the file claims for the given file hash
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @returns {Promise<FileVerification|null>}
      */
-    async resolveAndValidateFileClaim(fileHash) {
+    async resolveAndValidateFileClaim(fileHash, decryptionKey) {
         // Get Events for Filehash
         const claimEvents = await this.claimContract.getPastEvents(
             'Claim', {
@@ -319,6 +322,8 @@ export default class CertifactionEthClient {
                 console.error('The raw claim couldn\'t be verified, discarding.')
                 continue
             }
+
+            // TODO: Decrypt encrypted claims
 
             // Get Issuer Hash from Address from Signature
             issuerAddress = await this.verifySignatureAndGetPubkey(claim)

@@ -4,7 +4,6 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import pkg from '../package.json'
-import wasm from '@rollup/plugin-wasm'
 
 const externals = [
     ...(pkg.dependencies) ? Object.keys(pkg.dependencies) : [],
@@ -23,8 +22,7 @@ const plugins = [
         preferBuiltins: false
     }),
     commonjs(),
-    babel(),
-    wasm()
+    babel()
 ]
 
 const defaultConfig = {

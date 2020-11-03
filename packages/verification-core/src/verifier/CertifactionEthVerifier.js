@@ -1,7 +1,9 @@
 import Eth from 'web3-eth'
+import PdfService from '../pdf/PdfService'
 import LegacySmartContractABI from '../eth/LegacySmartContract.abi'
 import ClaimSmartContractABI from '../eth/ClaimSmartContract.abi'
 import CertifactionEthClient from '../eth/CertifactionEthClient'
+import hashingService from '../hashing/hashing.service'
 
 export default class CertifactionEthVerifier {
     /**
@@ -9,6 +11,7 @@ export default class CertifactionEthVerifier {
      *
      * @constructor
      *
+     * @param {string} pdfWasmUrl URL to the PDF WebAssembly file
      * @param {boolean} enableClaims
      * @param {string} providerUrl
      * @param {string} legacyContractAddress contract address in HEX format (ex. 0x010...)
@@ -18,6 +21,7 @@ export default class CertifactionEthVerifier {
      * @param {string} certifactionApiUrl
      */
     constructor(
+        pdfWasmUrl,
         enableClaims = true,
         providerUrl = 'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c',
         legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
@@ -26,6 +30,8 @@ export default class CertifactionEthVerifier {
         acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
         certifactionApiUrl = 'https://api.certifaction.io/'
     ) {
+        this.pdfService = new PdfService(pdfWasmUrl)
+
         this.enableClaims = (enableClaims !== false)
         if (this.enableClaims) {
             console.log('Certifaction ETH verifier instanciated to use claims.')
@@ -48,7 +54,26 @@ export default class CertifactionEthVerifier {
         )
     }
 
+    readPdfBytes(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+
+            reader.onload = () => {
+                resolve(new Uint8Array(reader.result))
+            }
+
+            reader.onerror = (error) => {
+                reject(error)
+            }
+
+            reader.readAsArrayBuffer(file)
+        })
+    }
+
     async verify(fileHash) {
+        const pdfBytes = await this.readPdfBytes(file)
+        const decryptionKey = await this.pdfService.extractDecryptionKey(pdfBytes)
+
         let verification = {
             hash: fileHash
         }
@@ -58,7 +83,7 @@ export default class CertifactionEthVerifier {
 
             if (this.enableClaims) {
                 console.log('Verifying with claim method...')
-                fileVerification = await this.certifactionEthClient.verifyFile(fileHash)
+                fileVerification = await this.certifactionEthClient.verifyFile(fileHash, decryptionKey)
             } else {
                 console.log('Verifying with contract method...')
                 fileVerification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)

@@ -2,6 +2,7 @@
     <div id="app">
         <CertifactionVerification :demo="false"
                                   :enable-claims="enableClaims"
+                                  :pdf-wasm-url="pdfWasm"
                                   :provider-url="providerUrl"
                                   :legacy-contract-address="legacyContractAddress"
                                   :legacy-contract-fallback-addresses="legacyContractFallbackAddresses"
@@ -14,6 +15,7 @@
 
 <script>
 import CertifactionOffchainVerifier from './lib/CertifactionOffchainVerifier'
+import pdfWasm from './wasm/pdf_reader.wasm'
 
 export default {
     name: 'App',
@@ -25,6 +27,7 @@ export default {
     data() {
         return {
             enableClaims: !!((process.env.VUE_APP_CLAIM_FF && process.env.VUE_APP_CLAIM_FF === 'true')),
+            pdfWasm,
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
             legacyContractAddress: process.env.VUE_APP_LEGACY_CONTRACT_ADDRESS,
             claimContractAddress: process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS,

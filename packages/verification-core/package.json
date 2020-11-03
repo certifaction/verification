@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "axios": "^0.21.0",
+        "bowser": "^2.11.0",
         "core-js": "^3.6.5",
         "eth-crypto": "^1.8.0",
         "js-sha3": "^0.8.0",
@@ -57,6 +58,7 @@
         "rimraf": "^3.0.2",
         "rollup": "^2.33.1",
         "rollup-plugin-babel": "^4.4.0",
+        "rollup-plugin-string": "^3.0.0",
         "rollup-plugin-web-worker-loader": "^1.4.0"
     },
     "gitHead": "5fdd9612a101c9f7e1217ab33deb446b74c39579"
