@@ -8,11 +8,7 @@
     width: calc(100% - #{$verification-dropbox-border-width});
 
     &:hover {
-        border-style: solid;
-    }
-
-    &.dragover {
-        background-color: $gray-100;
+        background-color: mix($verification-blue, $white, 10%);;
     }
 
     .input-file {
@@ -49,6 +45,43 @@
 
             .subtitle {
                 color: $verification-dropbox-subtitle-color;
+            }
+        }
+    }
+
+    &.dragover {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: mix($verification-blue, $white, 10%);
+
+        .content {
+            flex-direction: column-reverse;
+
+            img {
+                width: 160px;
+                height: auto;
+                margin: 0 auto;
+                padding: 12px 0 0 12px;
+            }
+
+            .labels {
+                text-align: center;
+                .label {
+                    width: 100%;
+                    font-size: 20px;
+                }
+
+                .title {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                .subtitle {
+                    font-size: $font-size-medium;
+                    line-height: 1.5rem;
+                }
             }
         }
     }

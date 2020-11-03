@@ -5,7 +5,10 @@
                 "first": "Dokumente verifizieren",
                 "following": "Weitere Dokumente verifizieren"
             },
-            "subtitle": "Dokumente in den Bereich ziehen oder hier klicken"
+            "subtitle": {
+                "default": "Dokumente in den Bereich ziehen oder hier klicken",
+                "dragging": "Dokumente in den Bereich ziehen"
+            }
         },
         "card": {
             "btn": {
