@@ -1,23 +1,35 @@
 <template>
-    <div class="certifaction-verification">
-        <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
-
-        <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
-            <VerificationItem
-                v-for="verificationItem in filteredVerificationItems"
-                :key="verificationItem.hash"
-                :verificationItem="verificationItem"/>
-        </div>
+    <div class="certifaction-verification"
+         @dragover.prevent="dragOver"
+         @dragleave="dragLeave"
+         @drop="handleDrop">
 
         <VerificationDropBox
-            @files-dropped="verify"
+            :class="{hidden: !dropbox.draggingOver}"
+            :first-verification="filteredVerificationItems.length === 0"
+            @files-selected="verify"
             @drop="drop"/>
 
-        <div class="powered-by">
-            <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
-            <a href="https://certifaction.io" target="_blank">
-                <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
-            </a>
+        <div :class="{hidden: dropbox.draggingOver}">
+            <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
+
+            <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
+                <VerificationItem
+                    v-for="verificationItem in filteredVerificationItems"
+                    :key="verificationItem.hash"
+                    :verificationItem="verificationItem"/>
+            </div>
+
+            <VerificationFileSelector @files-selected="verify"
+                                      :first-verification="filteredVerificationItems.length === 0"
+            />
+
+            <div class="powered-by">
+                <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
+                <a href="https://certifaction.io" target="_blank">
+                    <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +46,7 @@ import {
 } from '@certifaction/verification-core'
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
+import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/items/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
@@ -45,6 +58,7 @@ export default {
     ],
     components: {
         VerificationDemo,
+        VerificationFileSelector,
         VerificationDropBox,
         VerificationItem
     },
@@ -104,7 +118,11 @@ export default {
                 this.certifactionApiUrl
             ),
             verificationItems: [],
-            draggingDemoDoc: undefined
+            draggingDemoDoc: undefined,
+            dropbox: {
+                draggingOver: false,
+                dragLeaveLocked: false
+            }
         }
     },
     computed: {
@@ -207,6 +225,24 @@ export default {
                 this.verificationItems = [demoDocuments[type]]
                 await this.$nextTick()
                 VueScrollTo.scrollTo(this.$refs.results, 400)
+            }
+        },
+        handleDrop() {
+            this.dropbox.draggingOver = false
+        },
+        async dragOver() {
+            if (!this.dropbox.draggingOver) {
+                this.dropbox.draggingOver = true
+                this.dropbox.dragLeaveLocked = true
+
+                setTimeout(() => {
+                    this.dropbox.dragLeaveLocked = false
+                }, 100)
+            }
+        },
+        dragLeave() {
+            if (!this.dropbox.dragLeaveLocked) {
+                this.dropbox.draggingOver = false
             }
         }
     }

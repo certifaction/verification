@@ -1,15 +1,7 @@
-.verification-dropbox {
+.verification-dropbox, .verification-file-selector {
     border-width: $verification-dropbox-border-width;
     border-style: $verification-dropbox-border-style;
     border-color: $verification-blue;
-    height: auto;
-    position: relative;
-    background-color: #F7F9FC;
-    width: calc(100% - #{$verification-dropbox-border-width});
-
-    &:hover {
-        background-color: mix($verification-blue, $white, 10%);;
-    }
 
     .input-file {
         position: absolute;
@@ -27,20 +19,14 @@
         margin: 0 auto;
         padding: 43px;
 
-        img {
-            padding-right: 12px;
-        }
-
         .labels {
             .label {
                 width: 100%;
-                font-size: $font-size-medium;
             }
 
             .title {
                 padding-top: 0;
                 color: $verification-dropbox-title-color;
-                font-weight: 500;
             }
 
             .subtitle {
@@ -48,26 +34,27 @@
             }
         }
     }
+}
 
-    &.dragover {
-        position: absolute;
-        top: 0;
+.verification-dropbox {
+    height: 100%;
+    background-color: mix($verification-blue, $white, 10%);
+
+    .dropbox {
         height: 100%;
-        width: 100%;
-        background-color: mix($verification-blue, $white, 10%);
 
         .content {
-            flex-direction: column-reverse;
+            flex-direction: column;
 
             img {
                 width: 160px;
                 height: auto;
                 margin: 0 auto;
-                padding: 12px 0 0 12px;
-            }
+                padding: 12px 0 0 12px;        }
 
             .labels {
                 text-align: center;
+
                 .label {
                     width: 100%;
                     font-size: 20px;
@@ -86,3 +73,32 @@
         }
     }
 }
+
+.verification-file-selector {
+    position: relative;
+    height: auto;
+    width: calc(100% - #{$verification-dropbox-border-width});
+    background-color: #F7F9FC;
+
+    &:hover {
+        background-color: mix($verification-blue, $white, 10%);;
+    }
+
+    .content {
+        img {
+            padding-right: 12px;
+        }
+
+        .labels {
+            .label {
+                width: 100%;
+                font-size: $font-size-medium;
+            }
+
+            .title {
+                font-weight: 500;
+            }
+        }
+    }
+}
+
