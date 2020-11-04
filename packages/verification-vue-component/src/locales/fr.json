@@ -1,60 +1,124 @@
 {
     "verification": {
         "dropbox": {
-            "title": "Faites glisser un PDF dans ce champ ou cliquez pour sélectionner un PDF à partir de votre appareil.",
-            "subtitle": "Vos documents ne seront ni téléchargés ni enregistrés."
+            "title": {
+                "first": "Vérifiez vos documents",
+                "following": "Vérifiez d'autres documents"
+            },
+            "subtitle": "Faites glisser les documents dans ce champ ou cliquez ici"
+        },
+        "card": {
+            "btn": {
+                "expertInfo": "Mode expert",
+                "questions": "Des questions?",
+                "back": "Retour",
+                "support": "Demander de l'aide"
+            },
+            "faq": {
+                "title": "FAQ",
+                "items": [
+                    {
+                        "title": "Comment fonctionne la vérification?",
+                        "content": "Nous calculons l'empreinte cryptographique unique du document. Si celle-ci est intacte, nous la retrouvons dans notre smart contract sur la blockchain Ethereum."
+                    },
+                    {
+                        "title": "Pourquoi utiliser la blockchain?",
+                        "content": "La blockchain Ethereum est une base de donnée hautement disponible et sécurisée. Sa particularité est qu'on ne peut qu'y ajouter des données. La modification ou la suppression de données est impossible, ce qui est idéal pour la protection à long terme contre la falsification des données."
+                    },
+                    {
+                        "title": "Comment assurons-nous la protection des données?",
+                        "content": "La verification n'est possible que si vous êtes en possession du document.  Sans le document, aucune information ne peut-être extraite de la blockchain. De plus, les documents ne sont jamais transmis sur nos servers.  La vérification se fait localement sur la machine de l'utilisateur."
+                    },
+                    {
+                        "title": "Comment vérifions-nous l'identité des signataires?",
+                        "content": "La technologie de Certifaction est utilisée par des partenaires innovants qui vérifient les données personnelles de chaque client avant d'en approuver l'identité. Vous pouvez contacter ces partenaires directement pour plus de détails (référez-vous à la mention \"Identité vérifiée par\")."
+                    },
+                    {
+                        "title": "Quel est le poids juridique?",
+                        "content": "Notre solution fournit l'identité vérifié de l'éditeur, des comptes utilisateurs protégés et une preuve cryptographique de la signature."
+                    }
+                ]
+            }
         },
         "result": {
             "title": "Résultat de la vérification",
             "expertInfo": {
-                "hide": "Cacher les informations avancées",
-                "show": "Afficher les informations avancées"
+                "hide": "Cacher le mode expert",
+                "show": "Mode expert"
             },
             "issuer": "Émetteur",
             "meta": {
                 "contract": "Contrat",
-                "issuer": "Émetteur",
-                "issuerVerifiedBy": "Vérifié par",
-                "issuerVerifiedByInformation": "Ce prestataire de services a soumis l’émetteur à un examen approfondi. Seules les personnes autorisées peuvent demander la vérification de l’identité de leur organisation.",
-                "issuerAddress": "Adresse de l’émetteur",
-                "fingerprint": "Valeur de hachage du document",
-                "registrationDate": "Date d’émission",
-                "registrationTransaction": "Opération d’émission",
-                "revocationTransaction": "Opération d’annulation",
-                "revocationDate": "Date d’annulation"
+                "issuer": "ÉMETTEUR",
+                "issuerVerifiedBy": "ÉMETTEUR VÉRIFIÉ PAR",
+                "issuerAddress": "CLEF PUBLIQUE DE L'ÉMETTEUR",
+                "fingerprint": "EMPREINTE NUMÉRIQUE DU DOCUMENT",
+                "registrationDate": "DATE & HEURE DE L'ÉMISSION ",
+                "registrationTransaction": "TRANSACTION D'ÉNREGISTREMENT",
+                "revocationTransaction": "TRANSACTION DE RÉVOCATION",
+                "revocationDate": "DATE & HEURE DE LA REVOCATION",
+                "smartContractAddress": "ADRESSE DU SMART CONTRACT"
             },
             "technicalProblem": {
-                "status": "Problème technique – aucune vérification possible",
-                "message": "En raison d’un problème technique temporaire, nous sommes actuellement dans l’impossibilité de vérifier votre document.<br />Nos collaborateurs ont été automatiquement avertis et résoudront le problème sous peu.<br />Veuillez réessayer plus tard.<br />Nous vous prions de bien vouloir nous excuser pour ce désagrément.",
-                "offchainMessage": "En raison d’un problème technique temporaire, nous sommes actuellement dans l’impossibilité de vérifier votre document.<br />Nos collaborateurs ont été automatiquement avertis et résoudront le problème sous peu.<br />Veuillez réessayer plus tard.<br />Nous vous prions de bien vouloir nous excuser pour ce désagrément."
+                "status": "Problème de connexion à la blockchain Ethereum",
+                "details": "En raison d'un problème technique momentané, nous n'avons pu traiter votre demande de vérification. Veuillez rafraîchir votre page et essayez de nouveau.<br><br>Si le problème persiste, veuillez contacter notre support technique. Nous nous ferons un plaisir de vous aider."
             },
             "notFound": {
-                "status": "Le document n’a pas pu être vérifié",
-                "message": "Nous n’avons pas pu trouver ce document dans nos entrées de blockchain.<br />Attention: peut-être que le document a été modifié involontairement ou qu’un problème technique est survenu.<br />Nous vous conseillons de contacter directement l’émetteur."
+                "status": "Aucune référence n'a pu être trouvée pour ce document",
+                "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>  Par exemple:<br><ul><li>L'émetteur a distribué la mauvaise verson du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:</li></ul>soit en l'imprimant sous forme de PDF<br>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document<br>soit en imprimant et en scannant le document<br><br>Contactez l'émetteur du document ou prenez contact avec notre support technique."
             },
             "revokedUnverified": {
-                "status": "Ce document a été révoqué. L’émetteur n’est pas vérifié.",
-                "message": "Ce document a bien été certifié par l’émetteur mentionné ci-dessous, mais a été révoqué entre-temps.<br /> Il est possible qu’il ait été remplacé par une version plus récente. Pour plus d’informations, veuillez contacter l’émetteur.<br /><strong>Attention:</strong> cet émetteur n’a pas été vérifié par l’équipe Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
-            },
-            "revoked": {
                 "status": "Ce document a été révoqué.",
-                "message": "Ce document a bien été certifié par l’émetteur mentionné ci-dessous, mais a été révoqué entre-temps.<br /> Il est possible qu’il ait été remplacé par une version plus récente.<br />Pour plus d’informations, veuillez contacter l’émetteur."
+                "details": {
+                    "tamperProof": "Authenticité certifiée",
+                    "unverifiedIssuer": "Émetteur non vérifié",
+                    "blockchain": {
+                        "secured": "Sécurisé par la blockchain",
+                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours de révocation sur la blockchain Ethereum. Ceci permettra de rendra la revocation independemment vérifiable par tous.</span>"
+                    },
+                    "invalid": "Révoqué<span class=\"detail-footnote\">The document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                }
             },
-            "processing": {
-                "status": "Document toujours en cours de traitement...",
-                "message": "Ce document, sous cette forme précise, est actuellement enregistré par l’émetteur indiqué avec Certifaction sur la blockchain Ethereum. <br />Veuillez réessayer dans quelques minutes pour obtenir un résultat complet."
+            "revokedVerified": {
+                "status": "Ce document a été révoqué.",
+                "details": {
+                    "tamperProof": "Authenticité certifiée",
+                    "verifiedIssuer": "Émetteur vérifié",
+                    "blockchain": {
+                        "secured": "Sécurisé par la blockchain",
+                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours de révocation sur la blockchain Ethereum. Ceci permettra de rendra la revocation independemment vérifiable par tous.</span>"
+                    },
+                    "invalid": "Révoqué<span class=\"detail-footnote\">The document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                }
             },
-            "selfDeclared": {
-                "status": "Le document est authentique. Mais l’émetteur n’est pas vérifié.",
-                "message": "<strong>Attention:</strong>ce document a été certifié sous cette forme précisecet mais l'émetteur n’a pas été vérifié par Certifaction.<br />Il s’agit uniquement d’une identité auto-déclarée.<br />Soyez prudent et en cas de doute, contactez directement l’émetteur."
+            "unverifiedIssuer": {
+                "status": "Ce document a été enregistré par un émetteur non vérifié",
+                "issuerFootnote": "Identité non confirmée",
+                "details": {
+                    "tamperProof": "Authenticité certifiée",
+                    "unverifiedIssuer": "Émetteur non vérifié",
+                    "blockchain": {
+                        "secured": "Securisé sur la blockchain",
+                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                    },
+                    "valid": "Valide (non révoqué)"
+                }
             },
-            "verified": {
-                "status": "Ce document est authentique et provient d’un émetteur vérifié.",
-                "message": "Ce document a été certifié sous cette forme précise en utilisant la technologie Certifaction."
+            "verifiedIssuer": {
+                "status": "Ce document est authentique et provient d'un émetteur vérifié",
+                "details": {
+                    "tamperProof": "Authenticité certifiée",
+                    "verifiedIssuer": "Émetteur vérifié",
+                    "blockchain": {
+                        "secured": "Securisé sur la blockchain",
+                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                    },
+                    "valid": "Valide (non révoqué)"
+                }
             }
         },
         "poweredBy": {
-            "label": "Powered by"
+            "label": "Une technologie développée par"
         }
     }
 }
