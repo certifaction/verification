@@ -7,11 +7,11 @@ self.addEventListener('message', async (e) => {
                 await PdfWasm.init(e.data.pdfWasmUrl)
                 break
 
-            case 'extractDecryptionKey':
-                const decryptionKey = self.wasmPdfExtractDecryptionKey(e.data.pdfBytes)
+            case 'extractEncryptionKeys':
+                const encryptionKeys = self.wasmPdfExtractEncryptionKeys(e.data.pdfBytes)
                 self.postMessage({
                     status: true,
-                    decryptionKey
+                    encryptionKeys
                 })
                 break
         }

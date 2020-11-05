@@ -21,30 +21,30 @@ export default class PdfService {
     }
 
     /**
-     * Extract decryption key from pdf
+     * Extract encryption keys from pdf
      * @param pdfBytes
-     * @returns {Promise<String>}
+     * @returns {Promise<Object>}
      */
-    extractDecryptionKey(pdfBytes) {
+    extractEncryptionKeys(pdfBytes) {
         return new Promise((resolve, reject) => {
             if (this.isNonChromiumEdge === true) {
                 try {
-                    const decryptionKey = self.wasmPdfExtractDecryptionKey(pdfBytes)
-                    resolve(decryptionKey)
+                    const encryptionKeys = self.wasmPdfExtractEncryptionKeys(pdfBytes)
+                    resolve(encryptionKeys)
                 } catch (err) {
                     reject(err)
                 }
             } else {
                 this.worker.addEventListener('message', function(e) {
                     if (e.data.status === true) {
-                        resolve(e.data.decryptionKey)
+                        resolve(e.data.encryptionKeys)
                     } else {
                         reject(e.data.error)
                     }
                 }, false)
 
                 this.worker.postMessage({
-                    cmd: 'extractDecryptionKey',
+                    cmd: 'extractEncryptionKeys',
                     pdfBytes
                 })
             }
