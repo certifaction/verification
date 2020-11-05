@@ -6,9 +6,7 @@
 
         <VerificationDropBox
             v-show="dropbox.draggingOver"
-            :first-verification="filteredVerificationItems.length === 0"
-            @files-selected="verify"
-            @drop="drop"/>
+            :first-verification="filteredVerificationItems.length === 0"/>
 
         <div v-show="!dropbox.draggingOver">
             <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
