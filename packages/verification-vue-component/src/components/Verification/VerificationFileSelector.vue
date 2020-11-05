@@ -1,12 +1,12 @@
 <template>
-    <div class="verification-dropbox" @drop="handleDrop">
-        <div class="dropbox">
+    <div class="verification-file-selector">
+        <div class="file-selector">
             <div class="content">
+                <img src="../../assets/img/dropbox_document.svg" alt="Certifaction"/>
                 <div class="labels">
                     <div class="label title">{{ titleLabel }}</div>
-                    <div class="label subtitle">{{ _$t('verification.fileSelection.subtitle.dropbox') }}</div>
+                    <div class="label subtitle">{{ _$t('verification.fileSelection.subtitle.selector') }}</div>
                 </div>
-                <img src="../../assets/img/dropbox_document.svg" alt="Certifaction"/>
             </div>
             <input class="input-file"
                    type="file"
@@ -20,14 +20,16 @@
 
 <script>
 import i18nWrapperMixin from '../../mixins/i18n-wrapper'
+
 export default {
-    name: 'VerificationDropBox',
+    name: 'VerificationFileSelector',
     mixins: [
         i18nWrapperMixin
     ],
-    data() {
-        return {
-            firstVerification: true
+    props: {
+        firstVerification: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -38,10 +40,6 @@ export default {
     methods: {
         filesSelected(target, files) {
             this.$emit('files-selected', files)
-        },
-        handleDrop() {
-            this.firstVerification = false
-            this.$emit('drop')
         }
     }
 }
