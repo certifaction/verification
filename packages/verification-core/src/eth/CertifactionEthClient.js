@@ -65,7 +65,7 @@ export default class CertifactionEthClient {
         }
 
         if (fileVerification.issuerVerified === undefined && fileVerification.issuerAddress !== undefined) {
-            console.log('Issuer not verified by claims, try to verify by contract...')
+            console.log('Issuer not verified by claims, try to verify by legacy contract...')
             const verifiedIssuer = await this.verifyIssuerByLegacyContract(fileVerification.issuerAddress)
             if (verifiedIssuer.issuerVerified === true) {
                 fileVerification.issuerName = verifiedIssuer.issuerName
@@ -265,6 +265,7 @@ export default class CertifactionEthClient {
 
             switch (claim.scope) {
                 case 'register':
+                case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
                     console.log('It\'s a registration claim!')
                     registered = true
                     revoked = false
