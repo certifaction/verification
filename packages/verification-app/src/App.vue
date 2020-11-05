@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="app">
+    <div id="app" class="verification-app">
         <CertifactionVerification :demo="false"
                                   :enable-claims="enableClaims"
                                   :provider-url="providerUrl"

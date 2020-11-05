@@ -1,5 +1,5 @@
 <template>
-    <div class="verification-dropbox" @drop="handleDrop">
+    <div class="verification-dropbox">
         <div class="dropbox">
             <div class="content">
                 <div class="labels">
@@ -8,12 +8,6 @@
                 </div>
                 <img src="../../assets/img/dropbox_document.svg" alt="Certifaction"/>
             </div>
-            <input class="input-file"
-                   type="file"
-                   multiple
-                   name="uploadField"
-                   accept="application/pdf"
-                   @change="filesSelected($event.target.name, $event.target.files)">
         </div>
     </div>
 </template>
@@ -25,23 +19,15 @@ export default {
     mixins: [
         i18nWrapperMixin
     ],
-    data() {
-        return {
-            firstVerification: true
+    props: {
+        firstVerification: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
         titleLabel() {
             return this.firstVerification ? this._$t('verification.fileSelection.title.first') : this._$t('verification.fileSelection.title.following')
-        }
-    },
-    methods: {
-        filesSelected(target, files) {
-            this.$emit('files-selected', files)
-        },
-        handleDrop() {
-            this.firstVerification = false
-            this.$emit('drop')
         }
     }
 }

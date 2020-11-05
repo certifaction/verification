@@ -50,7 +50,8 @@
                 width: 160px;
                 height: auto;
                 margin: 0 auto;
-                padding: 12px 0 0 12px;        }
+                padding: 12px 0 0 12px;
+            }
 
             .labels {
                 text-align: center;
@@ -77,8 +78,8 @@
 .verification-file-selector {
     position: relative;
     height: auto;
-    width: calc(100% - #{$verification-dropbox-border-width});
-    background-color: #F7F9FC;
+    width: 100%;
+    background-color: #f7f9fc;
 
     &:hover {
         background-color: mix($verification-blue, $white, 10%);;

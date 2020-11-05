@@ -2,15 +2,15 @@
     <div class="certifaction-verification"
          @dragover.prevent="dragOver"
          @dragleave="dragLeave"
-         @drop="handleDrop">
+         @drop.prevent="handleDrop">
 
         <VerificationDropBox
-            :class="{hidden: !dropbox.draggingOver}"
+            v-show="dropbox.draggingOver"
             :first-verification="filteredVerificationItems.length === 0"
             @files-selected="verify"
             @drop="drop"/>
 
-        <div :class="{hidden: dropbox.draggingOver}">
+        <div v-show="!dropbox.draggingOver">
             <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
 
             <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
@@ -21,12 +21,11 @@
             </div>
 
             <VerificationFileSelector @files-selected="verify"
-                                      :first-verification="filteredVerificationItems.length === 0"
-            />
+                                      :first-verification="filteredVerificationItems.length === 0"/>
 
             <div class="powered-by">
                 <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
-                <a href="https://certifaction.io" target="_blank">
+                <a href="https://certifaction.com" target="_blank">
                     <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
                 </a>
             </div>
@@ -227,8 +226,9 @@ export default {
                 VueScrollTo.scrollTo(this.$refs.results, 400)
             }
         },
-        handleDrop() {
+        handleDrop(e) {
             this.dropbox.draggingOver = false
+            this.verify(e.dataTransfer.files)
         },
         async dragOver() {
             if (!this.dropbox.draggingOver) {

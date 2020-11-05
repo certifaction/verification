@@ -3,10 +3,8 @@
 // Components
 @import "components/index";
 
-html {
+html,
+body,
+.verification-app {
     height: 100%;
-
-    body, .app {
-        height: 100%;
-    }
 }
