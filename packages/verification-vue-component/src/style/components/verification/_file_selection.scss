@@ -29,6 +29,7 @@
 .verification-dropbox {
     height: 100%;
     background-color: mix($verification-blue, $white, 10%);
+    pointer-events: none;
 
     .dropbox {
         height: 100%;
