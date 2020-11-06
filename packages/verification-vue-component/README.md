@@ -147,7 +147,7 @@ For an example on how to do that, check [`@certifaction/verification-core/exampl
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/certifaction/verification/blob/master/LICENSE)
 
-Released by [Certifaction AG](https://certifaction.io)
+Released by [Certifaction AG](https://certifaction.com)
 
 [npm]: https://img.shields.io/npm/v/@certifaction/verification-vue-component.svg
 [npm-url]: https://www.npmjs.com/package/@certifaction/verification-vue-component
