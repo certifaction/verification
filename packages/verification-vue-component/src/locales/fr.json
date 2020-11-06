@@ -52,15 +52,15 @@
             "issuer": "Émetteur",
             "meta": {
                 "contract": "Contrat",
-                "issuer": "ÉMETTEUR",
-                "issuerVerifiedBy": "ÉMETTEUR VÉRIFIÉ PAR",
-                "issuerAddress": "CLEF PUBLIQUE DE L'ÉMETTEUR",
-                "fingerprint": "EMPREINTE NUMÉRIQUE DU DOCUMENT",
-                "registrationDate": "DATE & HEURE DE L'ÉMISSION ",
-                "registrationTransaction": "TRANSACTION D'ÉNREGISTREMENT",
-                "revocationTransaction": "TRANSACTION DE RÉVOCATION",
-                "revocationDate": "DATE & HEURE DE LA REVOCATION",
-                "smartContractAddress": "ADRESSE DU SMART CONTRACT"
+                "issuer": "Émetteur",
+                "issuerVerifiedBy": "Émetteur vérifié par",
+                "issuerAddress": "Clef publique de l'émetteur",
+                "fingerprint": "Empreinte numérique du document",
+                "registrationDate": "Date & heure de l'émission ",
+                "registrationTransaction": "Transaction d'énregistrement",
+                "revocationTransaction": "Transaction de révocation",
+                "revocationDate": "Date & heure de la révocation",
+                "smartContractAddress": "Adresse du Smart Contract"
             },
             "technicalProblem": {
                 "status": "Problème de connexion à la blockchain Ethereum",

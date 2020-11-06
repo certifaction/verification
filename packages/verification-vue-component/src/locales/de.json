@@ -52,15 +52,15 @@
             "issuer": "Aussteller",
             "meta": {
                 "contract": "Contract",
-                "issuer": "AUSSTELLER",
-                "issuerVerifiedBy": "VERIFIZIERT DURCH",
-                "issuerAddress": "PUBLIC KEY DES AUSSTELLERS",
-                "fingerprint": "DOKUMENTEN-HASH",
-                "registrationDate": "AUSSTELLDATUM & -ZEIT",
-                "registrationTransaction": "AUSSTELLUNGSTRANSAKTION",
-                "revocationTransaction": "ANNULLIERUNGSTRANSAKTION",
-                "revocationDate": "ANNULLIERUNGSDATUM & -ZEIT",
-                "smartContractAddress": "SMART CONTRACT-ADRESSE"
+                "issuer": "Aussteller",
+                "issuerVerifiedBy": "Verifiziert durch",
+                "issuerAddress": "Public Key des Ausstellers",
+                "fingerprint": "Dokumenten-Hash",
+                "registrationDate": "Ausstelldatum & -Zeit",
+                "registrationTransaction": "Ausstellungstransaktion",
+                "revocationTransaction": "Annullierungstransaktion",
+                "revocationDate": "Annullierungsdatum & -Zeit",
+                "smartContractAddress": "Smart Contact-Adresse"
             },
             "technicalProblem": {
                 "status": "Oops! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",

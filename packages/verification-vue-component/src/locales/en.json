@@ -52,15 +52,15 @@
             "issuer": "Issuer",
             "meta": {
                 "contract": "Contract",
-                "issuer": "ISSUER",
-                "issuerVerifiedBy": "ISSUER VERIFIED BY",
-                "issuerAddress": "ISSUER PUBLIC KEY",
-                "fingerprint": "DOCUMENT HASH",
-                "registrationDate": "ISSUE DATE & TIME",
-                "registrationTransaction": "REGISTRATION TRANSACTION",
-                "revocationTransaction": "REVOCATION TRANSACTION",
-                "revocationDate": "REVOCATION DATE & TIME",
-                "smartContractAddress": "SMART CONTRACT ADDRESS"
+                "issuer": "Issuer",
+                "issuerVerifiedBy": "Issuer verified by",
+                "issuerAddress": "Issuer Public Key",
+                "fingerprint": "Document Hash",
+                "registrationDate": "Issue Date & Time",
+                "registrationTransaction": "Registration Transaction",
+                "revocationTransaction": "Revocation Transaction",
+                "revocationDate": "Revocation Date & Time",
+                "smartContractAddress": "Smart Contract Address"
             },
             "technicalProblem": {
                 "status": "Oops! We could not connect to the Ethereum blockchain",
