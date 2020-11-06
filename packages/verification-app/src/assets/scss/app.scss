@@ -2,3 +2,9 @@
 @import "~bootstrap/scss/bootstrap-reboot";
 // Components
 @import "components/index";
+
+html,
+body,
+.verification-app {
+    height: 100%;
+}
