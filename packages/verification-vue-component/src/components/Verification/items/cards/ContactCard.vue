@@ -46,6 +46,7 @@
 <script>
 import BaseCard from './BaseCard.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
+import axios from 'axios'
 
 export default {
     name: 'ContactCard',
@@ -116,19 +117,26 @@ export default {
 
             return !(this.errors.email || this.errors.question || this.errors.consent)
         },
-        postForm() {
+        async postForm() {
             this.contactFormSubmitting = true
 
             try {
-                // TODO: call endpoint
+                await axios.post(`${process.env.VUE_APP_CERTIFACTION_API_URL}support/request`, {
+                    origin: 'Verification Tool',
+                    contact_email: this.email,
+                    subject: 'Support request',
+                    body: this.question
+                })
+
                 this.contactFormSuccessful = true
+                this.email = this.question = null
+                this.consentAccepted = false
             } catch (error) {
                 console.log('postForm() catch()', error, error.response.data)
                 this.contactFormFailed = true
             }
 
-            this.contactFormSubmitting = this.consentAccepted = this.reactiveValidation = false
-            this.email = this.question = null
+            this.contactFormSubmitting = this.reactiveValidation = false
         }
     }
 }
