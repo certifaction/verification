@@ -1,78 +1,123 @@
 {
     "verification": {
-        "demo": {
-            "title": "Demo-Dokumente",
-            "clickToVerify": "Klicken zum Verifizieren",
-            "notFound": {
-                "tooltip": "Nicht verifizierbar"
+        "fileSelection": {
+            "title": {
+                "first": "Dokumente verifizieren",
+                "following": "Weitere Dokumente verifizieren"
             },
-            "technicalProblem": {
-                "tooltip": "Technische Störung"
-            },
-            "verifiedProcessing": {
-                "tooltip": "Dokument in bearbeitung"
-            },
-            "verified": {
-                "tooltip": "Authentisch, Aussteller verifiziert"
-            },
-            "verifiedSelfDeclared": {
-                "tooltip": "Authentisch, Aussteller nicht verifiziert"
-            },
-            "revokedVerified": {
-                "tooltip": "Dokument widerrufen"
+            "subtitle": {
+                "selector": "Dokumente in den Bereich ziehen oder hier klicken",
+                "dropbox": "Dokumente in den Bereich ziehen"
             }
         },
-        "dropbox": {
-            "title": "Ziehen Sie ein PDF in dieses Feld oder klicken Sie, um ein PDF von Ihrem Gerät auszuwählen.",
-            "subtitle": "Ihre Dokumente werden nicht hochgeladen oder gespeichert."
+        "card": {
+            "btn": {
+                "expertInfo": "Technische Details",
+                "questions": "Fragen?",
+                "back": "Zurück",
+                "support": "Support kontaktieren"
+            },
+            "faq": {
+                "title": "Häufig gestellte Fragen",
+                "items": [
+                    {
+                        "title": "Wie funktioniert diese Überprüfung?",
+                        "content": "Wir berechnen den einzigartigen kryptografischen Fingerabdruck des Dokuments. Wenn es unverändert ist, finden wir dazu einen Eintrag in unserem Smart Contract auf der Ethereum-Blockchain."
+                    },
+                    {
+                        "title": "Warum Blockchain?",
+                        "content": "Die Ethereum-Blockchain ist eine hochverfügbare, hochsichere Datenbank. Speziell ist, dass man nur Daten hinzufügen kann - bearbeiten oder löschen geht nicht. Somit ist sie ideal zum langfristigen Schutz gegen nachträgliche Fälschung."
+                    },
+                    {
+                        "title": "Wie wird der Datenschutz gewährleistet?",
+                        "content": "Zur Überprüfung muss man zwingend im Besitz des Dokuments sein, ansonsten kann man keinerlei Informationen aus der Blockchain gewinnen. Das Dokument wird zur Überprüfung niemals hochgeladen, sondern direkt auf dem Gerät des Benutzers analysiert."
+                    },
+                    {
+                        "title": "Wie werden die Identitäten verifiziert?",
+                        "content": "Die Certifaction-Technologie wird von verschiedenen innovativen Anbietern genutzt, die ihre Kunden jeweils genau prüfen, bevor sie ihre Identität verifizieren. Für Details können Sie sich direkt an den Anbieter wenden (siehe \"Identität verifiziert durch\")."
+                    },
+                    {
+                        "title": "Wie hoch ist die Beweiskraft?",
+                        "content": "Diese Lösung bietet eine verifizierte Identität des Herausgebers, geschützte Benutzerkonten und einen kryptografisch überprüfbaren Beweis der Signatur."
+                    }
+                ]
+            }
         },
         "result": {
-            "title": "Verifizierungsresultat",
+            "title": "Prüfresultat",
             "expertInfo": {
-                "hide": "Experten-Info ausblenden",
-                "show": "Experten-Info anzeigen"
+                "hide": "Technische Details verbergen",
+                "show": "Technische Details anzeigen"
             },
             "issuer": "Aussteller",
             "meta": {
                 "contract": "Contract",
-                "issuer": "Aussteller",
-                "issuerVerifiedBy": "Verifiziert durch",
-                "issuerVerifiedByInformation": "Dieser Dienstleister hat den Aussteller einer gewissenhaften Überprüfung unterzogen. Nur berechtigte Personen dürfen die Verifizierung der Identität ihrer Organisation beantragen.",
-                "issuerAddress": "Ausstelleradresse",
-                "fingerprint": "Dokument-Hashwert",
-                "registrationDate": "Ausstellungsdatum",
-                "registrationTransaction": "Ausstellungstransaktion",
-                "revocationTransaction": "Annullierungstransaktion",
-                "revocationDate": "Annullierungsdatum"
+                "issuer": "AUSSTELLER",
+                "issuerVerifiedBy": "VERIFIZIERT DURCH",
+                "issuerAddress": "PUBLIC KEY DES AUSSTELLERS",
+                "fingerprint": "DOKUMENTEN-HASH",
+                "registrationDate": "AUSSTELLDATUM & -ZEIT",
+                "registrationTransaction": "AUSSTELLUNGSTRANSAKTION",
+                "revocationTransaction": "ANNULLIERUNGSTRANSAKTION",
+                "revocationDate": "ANNULLIERUNGSDATUM & -ZEIT",
+                "smartContractAddress": "SMART CONTRACT-ADRESSE"
             },
             "technicalProblem": {
-                "status": "Technische Störung - keine Überprüfung möglich",
-                "message": "Aufgrund einer vorübergehenden technischen Störung können wir Ihr Dokument momentan nicht prüfen.<br />Unsere Mitarbeiter wurden automatisch benachrichtigt und werden das Problem in Kürze beheben.<br />Bitte versuchen Sie es später noch einmal.<br />Für die Unannehmlichkeiten bitten wir um Verzeihung.",
-                "offchainMessage": "Aufgrund einer vorübergehenden technischen Störung können wir Ihr Dokument momentan nicht überprüfen.<br />Unsere Mitarbeiter wurden automatisch benachrichtigt und werden das Problem in Kürze beheben.<br />Bitte versuchen Sie es später noch einmal.<br />Für die Unannehmlichkeiten bitten wir um Verzeihung."
+                "status": "Oops! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
+                "details": "Es liegt eine technische Störung vor. Ihre Verifizierungsanfrage kann gerade nicht verarbeitet werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.<br><br>Falls die Störung andauert, zögern Sie nicht, unseren Support zu kontaktieren. Wir sind gerne für Sie da."
             },
             "notFound": {
-                "status": "Dokument konnte nicht verifiziert werden",
-                "message": "Dieses Dokument konnten wir in unseren Blockchain-Einträgen nicht finden.<br />Achtung: vielleicht wurde das Dokument unabsichtlich verändert oder es liegt ein technisches Problem vor.<br />Am besten kontaktieren Sie den Aussteller direkt."
+                "status": "Für dieses Dokument konnten wir keinen Eintrag finden",
+                "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:</li></ul>durch \"Drucken als PDF\"<br>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.<br>durch Ausdrucken und Scannen<br><br>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
             },
             "revokedUnverified": {
-                "status": "Dieses Dokument wurde widerrufen. Der Aussteller ist nicht verifiziert.",
-                "message": "Dieses Dokument wurde tatsächlich vom untengenannten Aussteller zertifiziert, ist aber inzwischen widerrufen worden.<br />Möglicherweise ist es durch eine neuere Version ersetzt worden. Für weitere Informationen wenden Sie sich bitte an den Aussteller.<br /><strong>Vorsicht:</strong> Dieser Aussteller wurde nicht durch das Certifaction-Team überprüft.<br />Es handelt sich lediglich um eine selbstdeklarierte Identität.<br />Seien Sie vorsichtig und wenden Sie sich im Zweifelsfall direkt an den Aussteller."
-            },
-            "revoked": {
                 "status": "Dieses Dokument wurde widerrufen.",
-                "message": "Dieses Dokument wurde tatsächlich vom untengenannten Aussteller zertifiziert, ist aber inzwischen widerrufen worden.<br />Möglicherweise ist es durch eine neuere Version ersetzt worden.<br />Für weitere Informationen wenden Sie sich bitte an den Aussteller."
+                "details": {
+                    "tamperProof": "Fälschungssicher zertifiziert",
+                    "unverifiedIssuer": "Unverifizierter Aussteller",
+                    "blockchain": {
+                        "secured": "Durch Blockchain gesichert",
+                        "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
+                    },
+                    "invalid": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                }
             },
-            "processing": {
-                "status": "Dokument noch in Bearbeitung...",
-                "message": "Dieses Dokument in exakt dieser Form wird gerade durch den angegebenen Austeller mit Certifaction auf der Ethereum-Blockchain registriert.<br />Bitte versuchen Sie es in ein paar Minuten noch einmal, um ein vollständiges Resultat zu erhalten."
+            "revokedVerified": {
+                "status": "Dieses Dokument wurde widerrufen.",
+                "details": {
+                    "tamperProof": "Fälschungssicher zertifiziert",
+                    "verifiedIssuer": "Verifizierter Aussteller",
+                    "blockchain": {
+                        "secured": "Durch Blockchain gesichert",
+                        "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
+                    },
+                    "invalid": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                }
             },
-            "selfDeclared": {
-                "status": "Dokument ist authentisch. Der Aussteller ist aber nicht verifiziert.",
-                "message": "<strong>Vorsicht:</strong> Dieser Aussteller wurde nicht durch das Certifaction-Team überprüft.<br />Es handelt sich lediglich um eine selbstdeklarierte Identität.<br />Seien Sie vorsichtig und wenden Sie sich im Zweifelsfall direkt an den Aussteller."
+            "unverifiedIssuer": {
+                "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
+                "issuerFootnote": "Identität nicht bestätigt",
+                "details": {
+                    "tamperProof": "Fälschungssicher zertifiziert",
+                    "unverifiedIssuer": "Unverifizierter Aussteller",
+                    "blockchain": {
+                        "secured": "Durch Blockchain gesichert",
+                        "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
+                    },
+                    "valid": "Gültig (nicht widerrufen)"
+                }
             },
-            "verified": {
+            "verifiedIssuer": {
                 "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller.",
-                "message": "Dieses Dokument in exakt dieser Form wurde vom genannten Aussteller zertifiziert.<br />Certifaction konnte den entsprechenden Registereintrag finden."
+                "details": {
+                    "tamperProof": "Fälschungssicher zertifiziert",
+                    "verifiedIssuer": "Verifizierter Aussteller",
+                    "blockchain": {
+                        "secured": "Durch Blockchain gesichert",
+                        "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
+                    },
+                    "valid": "Gültig (nicht widerrufen)"
+                }
             }
         },
         "poweredBy": {

@@ -2,12 +2,12 @@
     "verification": {
         "fileSelection": {
             "title": {
-                "first": "Dokumente verifizieren",
-                "following": "Weitere Dokumente verifizieren"
+                "first": "Verify documents",
+                "following": "Verify other documents"
             },
             "subtitle": {
-                "selector": "Dokumente in den Bereich ziehen oder hier klicken",
-                "dropbox": "Dokumente in den Bereich ziehen"
+                "selector": "Drag & drop a document or click here to select",
+                "dropbox": "Drag your documents here"
             }
         },
         "card": {
@@ -18,11 +18,11 @@
                 "support": "Contact support"
             },
             "faq": {
-                "title": "FAQ",
+                "title": "Frequently asked questions",
                 "items": [
                     {
                         "title": "How does this check work?",
-                        "content": "We calculate the unique cryptographic fingerprint of the document. If it is unchanged, we are able to find an entry in our smart contract on the Ethereum blockchain."
+                        "content": "We calculate the unique cryptographic fingerprint of the document. If it is unchanged, we are able to find an entry in our smart contract on the Ethereum blockchain. Even the tiniest change in the document will be detected."
                     },
                     {
                         "title": "Why do we use a blockchain?",
@@ -30,7 +30,7 @@
                     },
                     {
                         "title": "How is data protection ensured?",
-                        "content": "For verification, one must be in possession of the document. Without it, no information can be obtained from the blockchain. Furthermore, the document is never uploaded for verification, but analyzed directly on the user's device."
+                        "content": "For verification, one must be in possession of the document. Without it, no information can be obtained from the blockchain. Furthermore, the document is not uploaded for the verification, but analyzed directly on the user's device."
                     },
                     {
                         "title": "How are the identities verified?",
@@ -73,11 +73,11 @@
             "revokedUnverified": {
                 "status": "This document has been revoked.",
                 "details": {
-                    "tamperProof": "Tamper proof certification",
+                    "tamperProof": "Tamper-proof certification",
                     "unverifiedIssuer": "Unverified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum block chain. This makes the revocation independently verifiable.</span>"
+                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
                     },
                     "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
                 }
@@ -85,11 +85,11 @@
             "revokedVerified": {
                 "status": "This document has been revoked.",
                 "details": {
-                    "tamperProof": "Tamper proof certification",
+                    "tamperProof": "Tamper-proof certification",
                     "verifiedIssuer": "Verified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum block chain. This makes the revocation independently verifiable.</span>"
+                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
                     },
                     "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
                 }
@@ -98,11 +98,11 @@
                 "status": "This document has been registered by an unverified issuer",
                 "issuerFootnote": "Identity not confirmed",
                 "details": {
-                    "tamperProof": "Tamper proof certification",
+                    "tamperProof": "Tamper-proof certification",
                     "unverifiedIssuer": "Unverified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be registered on the Ethereum block chain. This ensures the highest level of security.</span>"
+                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
                     },
                     "valid": "Valid (no revocation)"
                 }
@@ -110,11 +110,11 @@
             "verifiedIssuer": {
                 "status": "This document is authentic and from a verified issuer",
                 "details": {
-                    "tamperProof": "Tamper proof certification",
+                    "tamperProof": "Tamper-proof certification",
                     "verifiedIssuer": "Verified issuer",
                     "blockchain": {
                         "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be registered on the Ethereum block chain. This ensures the highest level of security.</span>"
+                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
                     },
                     "valid": "Valid (no revocation)"
                 }

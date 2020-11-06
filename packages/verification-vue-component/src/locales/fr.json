@@ -1,11 +1,14 @@
 {
     "verification": {
-        "dropbox": {
+        "fileSelection": {
             "title": {
                 "first": "Vérifiez vos documents",
                 "following": "Vérifiez d'autres documents"
             },
-            "subtitle": "Faites glisser les documents dans ce champ ou cliquez ici"
+            "subtitle": {
+                "selector": "Faites glisser les documents dans ce champ ou cliquez ici",
+                "dropbox": "Faites glisser les documents dans ce champ"
+            }
         },
         "card": {
             "btn": {
@@ -118,7 +121,7 @@
             }
         },
         "poweredBy": {
-            "label": "Une technologie développée par"
+            "label": "Powered by"
         }
     }
 }
