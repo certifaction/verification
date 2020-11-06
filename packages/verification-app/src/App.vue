@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="verification-app">
         <CertifactionVerification :demo="false"
                                   :pdf-wasm-url="pdfWasm"
                                   :provider-url="providerUrl"
