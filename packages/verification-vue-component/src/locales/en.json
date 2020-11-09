@@ -41,6 +41,17 @@
                         "content": "This solution provides a verified identity of the publisher, protected user accounts and cryptographically verifiable proof of the signature."
                     }
                 ]
+            },
+            "contact": {
+                "title": "Contact support",
+                "form": {
+                    "email": "Your email",
+                    "question": "Your question",
+                    "consent": "By submitting the form I accept the privacy policy.",
+                    "submit": "Submit",
+                    "submitted": "Your message was successfully sent",
+                    "failed": "Your message could not be sent. Please try again later"
+                }
             }
         },
         "result": {
