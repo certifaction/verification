@@ -60,7 +60,7 @@
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
                 "revocationDate": "Annullierungsdatum & -Zeit",
-                "smartContractAddress": "Smart Contact-Adresse"
+                "smartContractAddress": "Smart Contract-Adresse"
             },
             "technicalProblem": {
                 "status": "Oops! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
