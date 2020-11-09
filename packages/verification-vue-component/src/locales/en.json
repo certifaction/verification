@@ -49,12 +49,6 @@
                     "question": "Your question",
                     "consent": "By submitting the form I accept the privacy policy.",
                     "submit": "Submit",
-                    "errors": {
-                        "emailRequired": "Email is required",
-                        "questionRequired": "Question is required",
-                        "consentRequired": "Consent is required",
-                        "invalidEmail": "Please enter a valid email address"
-                    },
                     "submitted": "Your message was successfully sent",
                     "failed": "Your message could not be sent. Please try again later"
                 }
