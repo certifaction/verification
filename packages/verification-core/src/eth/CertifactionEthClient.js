@@ -266,6 +266,7 @@ export default class CertifactionEthClient {
             switch (claim.scope) {
                 case 'register':
                 case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
+                case 'certify': // BP-2457: Verification Tool: Update the verification tool to accept "certify" claims as valid
                     console.log('It\'s a registration claim!')
                     registered = true
                     revoked = false
