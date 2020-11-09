@@ -58,7 +58,7 @@
                           :revocation-date="verificationItem.revocationBlock ? verificationItem.revocationBlock.timestamp : null"/>
             <div class="verification-info" key="info">
                 <div v-if="isErrorOrNotFound" class="verification-entry error">
-                    <p v-html="_$t('verification.result.' + verificationItemType + '.details')" />
+                    <p v-html="_$t('verification.result.' + verificationItemType + '.details')"/>
                 </div>
                 <div v-if="isErrorOrNotFound && verificationItem.hash" class="verification-entry fingerprint">
                     <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
@@ -107,10 +107,12 @@
             </div>
             <div class="right">
                 <template v-if="isErrorOrNotFound">
-<!--                    <button class="btn primary">-->
-<!--                        <span>{{ _$t('verification.card.btn.support') }}</span>-->
-<!--                    </button>-->
-                    <button v-if="verificationItemType === 'technicalProblem'" class="btn secondary" @click="toggleHelp('faq')">
+                    <button class="btn primary" @click="toggleHelp('contact')">
+                        <span>{{ _$t('verification.card.btn.support') }}</span>
+                    </button>
+                    <button v-if="verificationItemType === 'technicalProblem'"
+                            class="btn secondary"
+                            @click="toggleHelp('faq')">
                         <span>{{ _$t('verification.card.btn.questions') }}</span>
                     </button>
                 </template>
