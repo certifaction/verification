@@ -2,6 +2,7 @@
     <div class="item-container">
         <ShadowCard v-if="isLoading" />
         <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)" />
+        <ContactCard v-else-if="showContact" @toggle-help="toggleHelp($event)" />
         <VerificationCard v-else :verification-item="verificationItem" @toggle-help="toggleHelp($event)" />
     </div>
 </template>
@@ -10,17 +11,20 @@
 import VerificationCard from './cards/VerificationCard.vue'
 import ShadowCard from './cards/ShadowCard.vue'
 import FaqCard from './cards/FaqCard.vue'
+import ContactCard from './cards/ContactCard.vue'
 
 export default {
     name: 'VerificationItem',
     components: {
         VerificationCard,
         ShadowCard,
-        FaqCard
+        FaqCard,
+        ContactCard
     },
     data() {
         return {
-            showFaq: false
+            showFaq: false,
+            showContact: false
         }
     },
     props: {
@@ -38,7 +42,12 @@ export default {
         toggleHelp(type) {
             switch (type) {
                 case 'faq':
+                    this.showContact = false
                     this.showFaq = !this.showFaq
+                    break
+                case 'contact':
+                    this.showFaq = false
+                    this.showContact = !this.showContact
             }
         }
     }
