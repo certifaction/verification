@@ -45,8 +45,8 @@
             "contact": {
                 "title": "Contact support",
                 "form": {
-                    "email": "YOUR EMAIL",
-                    "question": "YOUR QUESTION",
+                    "email": "Your email",
+                    "question": "Your question",
                     "consent": "By submitting the form I accept the privacy policy.",
                     "submit": "Submit",
                     "errors": {

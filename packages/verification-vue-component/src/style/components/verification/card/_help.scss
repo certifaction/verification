@@ -18,9 +18,11 @@
                 font-size: 13px;
                 line-height: 1.5em;
                 font-weight: 600;
+                text-transform: uppercase;
 
                 &.consent {
                     font-size: $font-size-medium;
+                    text-transform: initial;
                 }
             }
 
