@@ -1,5 +1,5 @@
 <template>
-    <BaseCard class="faq-card">
+    <BaseCard class="help-card">
         <template #header>
             <div class="title">
                 <span class="help-card-title">{{ _$t('verification.card.faq.title') }}</span>
@@ -29,11 +29,11 @@
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
-<!--            <div class="right">-->
-<!--                <button class="btn primary">-->
-<!--                    <span>{{ _$t('verification.card.btn.support') }}</span>-->
-<!--                </button>-->
-<!--            </div>-->
+            <div class="right">
+                <button class="btn primary" @click="toggleHelp('contact')">
+                    <span>{{ _$t('verification.card.btn.support') }}</span>
+                </button>
+            </div>
         </template>
     </BaseCard>
 </template>
