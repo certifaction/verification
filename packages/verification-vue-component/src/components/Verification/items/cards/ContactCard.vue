@@ -54,6 +54,12 @@ export default {
     components: {
         BaseCard
     },
+    props: {
+        certifactionApiUrl: {
+            type: String,
+            required: false
+        }
+    },
     data() {
         return {
             contactFormSubmitting: false,
@@ -119,9 +125,10 @@ export default {
         },
         async postForm() {
             this.contactFormSubmitting = true
+            console.log(this.certifactionApiUrl)
 
             try {
-                await axios.post(`${process.env.VUE_APP_CERTIFACTION_API_URL}support/request`, {
+                await axios.post(`${this.certifactionApiUrl}support/request`, {
                     origin: 'Verification Tool',
                     contact_email: this.email,
                     subject: 'Support request',

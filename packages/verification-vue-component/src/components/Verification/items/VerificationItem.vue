@@ -2,7 +2,7 @@
     <div class="item-container">
         <ShadowCard v-if="isLoading" />
         <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)" />
-        <ContactCard v-else-if="showContact" @toggle-help="toggleHelp($event)" />
+        <ContactCard v-else-if="showContact" @toggle-help="toggleHelp($event)" :certifaction-api-url="certifactionApiUrl" />
         <VerificationCard v-else :verification-item="verificationItem" @toggle-help="toggleHelp($event)" />
     </div>
 </template>
@@ -31,6 +31,10 @@ export default {
         verificationItem: {
             type: Object,
             required: true
+        },
+        certifactionApiUrl: {
+            type: String,
+            required: false
         }
     },
     computed: {
