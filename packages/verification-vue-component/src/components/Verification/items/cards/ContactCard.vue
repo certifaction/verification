@@ -125,7 +125,6 @@ export default {
         },
         async postForm() {
             this.contactFormSubmitting = true
-            console.log(this.certifactionApiUrl)
 
             try {
                 await axios.post(`${this.certifactionApiUrl}support/request`, {
