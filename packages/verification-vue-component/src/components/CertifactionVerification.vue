@@ -15,7 +15,8 @@
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
                     :key="verificationItem.hash"
-                    :verificationItem="verificationItem"/>
+                    :verificationItem="verificationItem"
+                    :certifaction-api-url="certifactionApiUrl"/>
             </div>
 
             <VerificationFileSelector @files-selected="verify"
