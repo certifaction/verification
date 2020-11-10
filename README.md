@@ -56,6 +56,7 @@ lerna run build
 To publish a new version please commit your changes to master and then execute
 
 ```shell script
+lerna run build
 lerna publish
 ```
 

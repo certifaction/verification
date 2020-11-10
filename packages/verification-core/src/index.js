@@ -5,20 +5,7 @@ import CertifactionEthClient from './eth/CertifactionEthClient'
 import VerifierInterface from './verifier/VerifierInterface'
 import CertifactionEthVerifier from './verifier/CertifactionEthVerifier'
 import hashingService from './hashing/hashing.service'
-import VERIFICATION_TYPES from './verification-types'
-
-function mapVerificationItemType(item) {
-    if (item.issuerAddress === null || item.issuerName === undefined) {
-        return VERIFICATION_TYPES.V_NOT_FOUND
-    }
-    if (item.revoked === true) {
-        return VERIFICATION_TYPES.V_REVOKED
-    }
-    if (item.issuerVerified === true) {
-        return VERIFICATION_TYPES.V_VERIFIED
-    }
-    return VERIFICATION_TYPES.V_SELF_DECLARED
-}
+import { mapVerificationItemType, VERIFICATION_TYPES } from './verification-types'
 
 export {
     Interface,

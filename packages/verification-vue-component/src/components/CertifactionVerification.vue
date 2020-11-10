@@ -166,23 +166,61 @@ export default {
                 const offchainVerification = await this.offchainVerifier.verify(verification.hash)
 
                 if (offchainVerification) {
-                    if (!verification.issuerAddress && offchainVerification.status === 'registering') {
+                    if (!verification.events && offchainVerification.status === 'registering') {
                         // File not found on blockchain and offchain status is registering
+                        const identityVerifier = {}
+                        if (offchainVerification.issuerVerifiedBy) {
+                            identityVerifier.name = offchainVerification.issuerVerifiedBy
+                        }
+                        if (offchainVerification.issuerVerifiedImg) {
+                            identityVerifier.image = offchainVerification.issuerVerifiedImg
+                        }
+
                         verification = {
                             ...verification,
-                            ...offchainVerification
+                            ...offchainVerification,
+                            events: [{
+                                scope: 'register',
+                                name: offchainVerification.issuerName,
+                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                            }]
                         }
-                    } else if (
-                        !verification.issuerName &&
-                        offchainVerification.issuerName &&
-                        ['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) >= 0
-                    ) {
+                    } else if (['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) >= 0) {
                         // If it's already verified on blockchain, do not override all values;
                         // just issuerName & issuer verifier can be taken from off-chain information
-                        verification.issuerName = offchainVerification.issuerName
-                        verification.issuerVerified = offchainVerification.issuerVerified
-                        verification.issuerVerifiedBy = offchainVerification.issuerVerifiedBy
-                        verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
+                        if (!verification.issuerName && offchainVerification.issuerName) {
+                            verification.issuerName = offchainVerification.issuerName
+                        }
+                        if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
+                            verification.issuerVerified = offchainVerification.issuerVerified
+                            verification.issuerVerifiedBy = offchainVerification.issuerVerifiedBy
+                        }
+                        if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
+                            verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
+                        }
+
+                        if (verification.events.length > 0) {
+                            verification.events = verification.events.map(event => {
+                                const newEvent = { ...event }
+                                const identityVerifier = { ...event.identityVerifier }
+
+                                if (!event.name && offchainVerification.issuerName) {
+                                    newEvent.name = offchainVerification.issuerName
+                                }
+                                if (!identityVerifier.name && offchainVerification.issuerVerifiedBy) {
+                                    identityVerifier.name = offchainVerification.issuerVerifiedBy
+                                }
+                                if (!identityVerifier.image && offchainVerification.issuerVerifiedImg) {
+                                    identityVerifier.image = offchainVerification.issuerVerifiedImg
+                                }
+
+                                if (Object.keys(identityVerifier).length > 0) {
+                                    newEvent.identityVerifier = identityVerifier
+                                }
+
+                                return newEvent
+                            })
+                        }
                     }
                 }
             } catch (e) {
