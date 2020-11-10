@@ -34,7 +34,7 @@ export default {
         },
         certifactionApiUrl: {
             type: String,
-            required: false
+            required: true
         }
     },
     computed: {

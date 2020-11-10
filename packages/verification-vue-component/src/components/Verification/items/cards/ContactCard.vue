@@ -57,7 +57,7 @@ export default {
     props: {
         certifactionApiUrl: {
             type: String,
-            required: false
+            required: true
         }
     },
     data() {
