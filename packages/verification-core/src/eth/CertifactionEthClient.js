@@ -16,6 +16,7 @@
  * @property {Object} revocationEvent
  * @property {Object} revocationBlock
  * @property {FileEvent[]} events
+ * @property {Array} claims
  */
 
 /**
@@ -25,11 +26,17 @@
  * @property {string} scope
  * @property {Date} date
  * @property {Date} expiry
- * @property {string} name
+ * @property {string} issuer
  * @property {IdentityVerifier} identityVerifier
  * @property {Object} claimEvent
  * @property {Object} claimBlock
- * @property {Object} rawClaim
+ */
+
+/**
+ * @typedef {Object} IssuerIdentity
+ *
+ * @property {string} issuer
+ * @property {IdentityVerifier} identityVerifier
  */
 
 /**
@@ -83,8 +90,8 @@ export default class CertifactionEthClient {
 
         if (
             fileVerification !== null &&
-            fileVerification.issuerVerified === false &&
-            fileVerification.issuerAddress !== null
+            fileVerification.issuerAddress !== null &&
+            fileVerification.issuerVerified === false
         ) {
             console.log('Issuer not verified by claims, try to verify by legacy contract...')
             const verifiedIssuer = await this.verifyIssuerByLegacyContract(fileVerification.issuerAddress)
@@ -92,6 +99,13 @@ export default class CertifactionEthClient {
                 fileVerification.issuerName = verifiedIssuer.issuerName
                 fileVerification.issuerImg = verifiedIssuer.issuerImg
                 fileVerification.issuerVerified = verifiedIssuer.issuerVerified
+
+                fileVerification.events = fileVerification.events.map(event => {
+                    return {
+                        ...event,
+                        issuer: verifiedIssuer.issuerName
+                    }
+                })
             }
         }
 
@@ -147,7 +161,7 @@ export default class CertifactionEthClient {
                 events.push({
                     scope: 'register',
                     date: new Date(registrationBlock.timestamp * 1000),
-                    name: issuerName,
+                    issuer: issuerName,
                     identityVerifier: null,
                     registrationEvent,
                     registrationBlock
@@ -164,7 +178,7 @@ export default class CertifactionEthClient {
                     events.push({
                         scope: 'revoke',
                         date: new Date(revocationBlock.timestamp * 1000),
-                        name: issuerName,
+                        issuer: issuerName,
                         identityVerifier: null,
                         revocationEvent,
                         revocationBlock
@@ -263,6 +277,7 @@ export default class CertifactionEthClient {
         let revocationEvent = null
         let revocationBlock = null
         const events = []
+        const claims = []
 
         console.log(claimEvents.length + ' event(s) found on Blockchain for File ' + fileHash)
         // For Each Event
@@ -296,6 +311,8 @@ export default class CertifactionEthClient {
                 continue
             }
 
+            claims.push(claim)
+
             if (!this.verifyRawClaim(claim, claimHash, claimFileHash)) {
                 console.error('The raw claim couldn\'t be verified, discarding.')
                 continue
@@ -316,7 +333,7 @@ export default class CertifactionEthClient {
             if (claim.idclaims !== undefined) {
                 issuerIdentity = await this.resolveAndVerifyIssuerIdentity(claim.idclaims, issuerAddress)
                 if (issuerIdentity !== null) {
-                    issuerName = issuerIdentity.name
+                    issuerName = issuerIdentity.issuer
 
                     if (issuerIdentity.identityVerifier !== null) {
                         issuerVerified = true
@@ -338,13 +355,11 @@ export default class CertifactionEthClient {
                 scope: claim.scope,
                 date: new Date(claimBlock.timestamp * 1000),
                 expiry: (claim.exp !== undefined && claim.exp.value !== 0) ? new Date(claim.exp.value) : null,
-                name: (issuerIdentity) ? issuerIdentity.name : null,
+                issuer: (issuerIdentity) ? issuerIdentity.issuer : null,
                 identityVerifier: (issuerIdentity) ? issuerIdentity.identityVerifier : null,
                 claimEvent,
                 claimBlock
             }
-
-            console.log('fileEvent:', fileEvent)
 
             switch (claim.scope) {
                 case 'register':
@@ -363,8 +378,6 @@ export default class CertifactionEthClient {
                     revocationBlock = await this.getBlock(revocationEvent.blockHash)
                     break
             }
-
-            fileEvent.rawClaim = claim
 
             events.push(fileEvent)
         }
@@ -386,7 +399,8 @@ export default class CertifactionEthClient {
             registrationBlock,
             revocationEvent,
             revocationBlock,
-            events
+            events,
+            claims
         }
 
         console.log('Consolidated Verification Result for File ' + fileHash + ':')
@@ -479,10 +493,10 @@ export default class CertifactionEthClient {
      * @param idClaims
      * @param claimIssuerAddress
      *
-     * @returns {Promise<Object|null>}
+     * @returns {Promise<IssuerIdentity|null>}
      */
     async resolveAndVerifyIssuerIdentity(idClaims, claimIssuerAddress) {
-        let issuerName = null
+        let issuer = null
         let identityVerifier = null
 
         for (const idClaim of idClaims) {
@@ -503,16 +517,16 @@ export default class CertifactionEthClient {
             }
 
             if (idClaim.name !== undefined) {
-                issuerName = idClaim.name
+                issuer = idClaim.name
             }
 
             if (idClaim.verifiedBy !== undefined) {
                 identityVerifier = { name: idClaim.verifiedBy }
 
-                // TODO: Add verifier image
+                // TODO(Cyrill): Add verifier image
             }
 
-            return { name: issuerName, identityVerifier }
+            return { issuer, identityVerifier }
         }
 
         return null

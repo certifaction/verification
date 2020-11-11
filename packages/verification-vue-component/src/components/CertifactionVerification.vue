@@ -179,9 +179,10 @@ export default {
                         verification = {
                             ...verification,
                             ...offchainVerification,
+                            // TODO(Cyrill): Remove when verify endpoint returns an events array
                             events: [{
                                 scope: 'register',
-                                name: offchainVerification.issuerName,
+                                issuer: offchainVerification.issuerName,
                                 identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
                             }]
                         }
@@ -204,8 +205,8 @@ export default {
                                 const newEvent = { ...event }
                                 const identityVerifier = { ...event.identityVerifier }
 
-                                if (!event.name && offchainVerification.issuerName) {
-                                    newEvent.name = offchainVerification.issuerName
+                                if (!event.issuer && offchainVerification.issuerName) {
+                                    newEvent.issuer = offchainVerification.issuerName
                                 }
                                 if (!identityVerifier.name && offchainVerification.issuerVerifiedBy) {
                                     identityVerifier.name = offchainVerification.issuerVerifiedBy
