@@ -49,7 +49,7 @@ export default class CertifactionEthVerifier {
     }
 
     async verify(fileHash) {
-        let verification
+        let verification = null
 
         try {
             if (this.enableClaims) {
@@ -61,7 +61,6 @@ export default class CertifactionEthVerifier {
             }
         } catch (error) {
             console.log(`Error while verifying fileHash "${fileHash}":`, error)
-            verification = null
         }
 
         const verificationItem = {
