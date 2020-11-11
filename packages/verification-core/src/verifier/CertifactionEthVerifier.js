@@ -50,19 +50,26 @@ export default class CertifactionEthVerifier {
 
     async verify(fileHash) {
         let verification
-        if (this.enableClaims) {
-            console.log('Verifying with claim method...')
-            verification = await this.certifactionEthClient.verifyFile(fileHash)
-        } else {
-            console.log('Verifying with contract method...')
-            verification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
+
+        try {
+            if (this.enableClaims) {
+                console.log('Verifying with claim method...')
+                verification = await this.certifactionEthClient.verifyFile(fileHash)
+            } else {
+                console.log('Verifying with contract method...')
+                verification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
+            }
+        } catch (error) {
+            console.log(`Error while verifying fileHash "${fileHash}":`, error)
+            verification = null
         }
+
         const verificationItem = {
             hash: fileHash,
             ...verification
         }
 
-        if (verification.issuerAddress !== null) {
+        if (verification !== null && verification.issuerAddress !== null) {
             verificationItem.onBlockchain = true
         }
 
