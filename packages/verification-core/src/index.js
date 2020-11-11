@@ -8,7 +8,7 @@ import hashingService from './hashing/hashing.service'
 import VERIFICATION_TYPES from './verification-types'
 
 function mapVerificationItemType(item) {
-    if (item.issuerAddress === null) {
+    if (item.issuerAddress === null || item.issuerName === undefined) {
         return VERIFICATION_TYPES.V_NOT_FOUND
     }
     if (item.revoked === true) {
