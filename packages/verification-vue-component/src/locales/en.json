@@ -35,10 +35,6 @@
                     {
                         "title": "How are the identities verified?",
                         "content": "Certifaction technology is used by several innovative vendors, each of which carefully checks their customers before verifying their identity. You can contact the verifier directly for more details (see \"Identity verified by\")."
-                    },
-                    {
-                        "title": "What is the legal weight?",
-                        "content": "This solution provides a verified identity of the publisher, protected user accounts and cryptographically verifiable proof of the signature."
                     }
                 ]
             },
