@@ -163,8 +163,7 @@ export default class CertifactionEthClient {
                     date: new Date(registrationBlock.timestamp * 1000),
                     issuer: issuerName,
                     identityVerifier: null,
-                    registrationEvent,
-                    registrationBlock
+                    transactionHash: registrationEvent.transactionHash
                 })
 
                 let revocationEvent = null
@@ -180,8 +179,7 @@ export default class CertifactionEthClient {
                         date: new Date(revocationBlock.timestamp * 1000),
                         issuer: issuerName,
                         identityVerifier: null,
-                        revocationEvent,
-                        revocationBlock
+                        transactionHash: revocationEvent.transactionHash
                     })
                 }
 
@@ -357,8 +355,7 @@ export default class CertifactionEthClient {
                 expiry: (claim.exp !== undefined && claim.exp.value !== 0) ? new Date(claim.exp.value) : null,
                 issuer: (issuerIdentity) ? issuerIdentity.issuer : null,
                 identityVerifier: (issuerIdentity) ? issuerIdentity.identityVerifier : null,
-                claimEvent,
-                claimBlock
+                transactionHash: claimEvent.transactionHash
             }
 
             switch (claim.scope) {
