@@ -104,7 +104,7 @@
                 }
             },
             "verifiedIssuer": {
-                "status": "Ce document est authentique et provient d'un émetteur vérifié",
+                "status": "Il presente documento è autentico e proviene da un emittente verificato.",
                 "details": {
                     "tamperProof": "Autenticità certificata",
                     "verifiedIssuer": "Emittente verificato",
