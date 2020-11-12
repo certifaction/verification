@@ -33,10 +33,6 @@ export default {
     },
     computed: {
         verificationItemType() {
-            if (this.verificationItem.error) {
-                return 'VerificationItemTechnicalProblem'
-            }
-
             if (this.verificationItem.hashed === undefined || this.verificationItem.hashed === false) {
                 return 'ShadowItem'
             }

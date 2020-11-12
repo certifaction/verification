@@ -23,7 +23,7 @@ export default class CertifactionEthVerifier {
         legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
         legacyContractFallbackAddresses = ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'],
         claimContractAddress = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
-        acceptedIssuerKey = '0x3b031733e215e4edf7565e11f2aba907a826aadc',
+        acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
         certifactionApiUrl = 'https://api.certifaction.io/'
     ) {
         this.enableClaims = (enableClaims !== false)
@@ -49,29 +49,31 @@ export default class CertifactionEthVerifier {
     }
 
     async verify(fileHash) {
-        let verification = null
+        let verification = {
+            hash: fileHash
+        }
 
         try {
+            let fileVerification
+
             if (this.enableClaims) {
                 console.log('Verifying with claim method...')
-                verification = await this.certifactionEthClient.verifyFile(fileHash)
+                fileVerification = await this.certifactionEthClient.verifyFile(fileHash)
             } else {
                 console.log('Verifying with contract method...')
-                verification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
+                fileVerification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
             }
-        } catch (error) {
-            console.log(`Error while verifying fileHash "${fileHash}":`, error)
+
+            if (fileVerification && fileVerification.events.length > 0) {
+                verification.onBlockchain = true
+            }
+
+            verification = { ...verification, ...fileVerification }
+        } catch (e) {
+            console.log(`Error while verifying fileHash "${fileHash}":`, e)
+            verification.error = e
         }
 
-        const verificationItem = {
-            hash: fileHash,
-            ...verification
-        }
-
-        if (verification !== null && verification.issuerAddress !== null) {
-            verificationItem.onBlockchain = true
-        }
-
-        return verificationItem
+        return verification
     }
 }

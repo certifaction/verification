@@ -7,12 +7,43 @@
  * @property {string} issuerName
  * @property {string} issuerImg
  * @property {boolean} issuerVerified
+ * @property {string} issuerVerifiedBy
+ * @property {string} issuerVerifiedImg
  * @property {boolean} revoked
  * @property {number} expiry
  * @property {Object} registrationEvent
  * @property {Object} registrationBlock
  * @property {Object} revocationEvent
  * @property {Object} revocationBlock
+ * @property {FileEvent[]} events
+ * @property {Array} claims
+ */
+
+/**
+ * @typedef {Object} FileEvent
+ *
+ * @property {string} ref
+ * @property {string} scope
+ * @property {Date} date
+ * @property {Date} expiry
+ * @property {string} issuer
+ * @property {IdentityVerifier} identityVerifier
+ * @property {Object} claimEvent
+ * @property {Object} claimBlock
+ */
+
+/**
+ * @typedef {Object} IssuerIdentity
+ *
+ * @property {string} issuer
+ * @property {IdentityVerifier} identityVerifier
+ */
+
+/**
+ * @typedef {Object} IdentityVerifier
+ *
+ * @property {string} name
+ * @property {string} image
  */
 
 import { hexToUtf8, hexToBytes } from 'web3-utils'
@@ -52,26 +83,36 @@ export default class CertifactionEthClient {
      *
      * @param {string} fileHash
      *
-     * @return {FileVerification}
+     * @return {FileVerification|null}
      */
     async verifyFile(fileHash) {
         let fileVerification = await this.verifyFileByClaims(fileHash)
 
-        // If claim-based (verifyFileClaimBased) returns results, use validated infos
-        if (fileVerification.issuerAddress === undefined) {
-            // If not, try verifyFileContractBased instead and use those infos
-            console.log('No claims found, fallback to contract based verification')
-            fileVerification = await this.verifyFileByLegacyContract(fileHash)
-        }
-
-        if (fileVerification.issuerVerified === undefined && fileVerification.issuerAddress !== undefined) {
+        if (
+            fileVerification !== null &&
+            fileVerification.issuerAddress &&
+            fileVerification.issuerVerified === false
+        ) {
             console.log('Issuer not verified by claims, try to verify by legacy contract...')
             const verifiedIssuer = await this.verifyIssuerByLegacyContract(fileVerification.issuerAddress)
             if (verifiedIssuer.issuerVerified === true) {
                 fileVerification.issuerName = verifiedIssuer.issuerName
                 fileVerification.issuerImg = verifiedIssuer.issuerImg
                 fileVerification.issuerVerified = verifiedIssuer.issuerVerified
+
+                fileVerification.events = fileVerification.events.map(event => {
+                    return {
+                        ...event,
+                        issuer: verifiedIssuer.issuerName
+                    }
+                })
             }
+        }
+
+        // If verifyFileByClaims doesn't return a result, try verifyFileByLegacyContract
+        if (fileVerification === null) {
+            console.log('No claims found, fallback to legacy contract based verification')
+            fileVerification = await this.verifyFileByLegacyContract(fileHash)
         }
 
         return fileVerification
@@ -82,7 +123,7 @@ export default class CertifactionEthClient {
      *
      * @param {string} fileHash
      *
-     * @return {Promise<FileVerification>}
+     * @return {Promise<FileVerification|null>}
      */
     async verifyFileByLegacyContract(fileHash) {
         return new Promise((resolve, reject) => {
@@ -99,40 +140,63 @@ export default class CertifactionEthClient {
                     revoked,
                     expiry
                 } = result
-                let registrationEvent = null
-                let registrationBlock = null
-                let revocationEvent = null
-                let revocationBlock = null
+                const issuerVerifiedBy = null
+                const issuerVerifiedImg = null
+                const events = []
 
                 // Transform from hex representation
                 const issuerAddress = issuer === nullValue40 ? null : issuer
-                issuerName = issuerName === nullValue40 ? null : hexToUtf8(issuerName)
+                issuerName = issuerName === nullValue64 ? null : hexToUtf8(issuerName)
                 issuerImg = issuerImg === nullValue64 ? null : hexToBytes(issuerImg)
-                expiry = expiry._hex === '0x00' ? null : expiry._hex
+                expiry = (expiry === '0') ? null : new Date(parseInt(expiry) * 1000)
 
-                if (issuerAddress !== null) {
-                    // Get registration event and block
-                    registrationEvent = await this.getRegistrationEvent(fileHash)
-                    registrationBlock = (registrationEvent) ? await this.getBlock(registrationEvent.blockHash) : null
-
-                    if (revoked === true) {
-                        // Get revoked event and block
-                        revocationEvent = await this.getRevocationEvent(fileHash)
-                        revocationBlock = (revocationEvent) ? await this.getBlock(revocationEvent.blockHash) : null
-                    }
+                if (issuerAddress === null) {
+                    return resolve(null)
                 }
 
-                resolve({
+                // Get registration event and block
+                const registrationEvent = await this.getRegistrationEvent(fileHash)
+                const registrationBlock = (registrationEvent) ? await this.getBlock(registrationEvent.blockHash) : null
+
+                events.push({
+                    scope: 'register',
+                    date: new Date(registrationBlock.timestamp * 1000),
+                    issuer: issuerName,
+                    identityVerifier: null,
+                    transactionHash: registrationEvent.transactionHash
+                })
+
+                let revocationEvent = null
+                let revocationBlock = null
+
+                if (revoked === true) {
+                    // Get revoked event and block
+                    revocationEvent = await this.getRevocationEvent(fileHash)
+                    revocationBlock = (revocationEvent) ? await this.getBlock(revocationEvent.blockHash) : null
+
+                    events.push({
+                        scope: 'revoke',
+                        date: new Date(revocationBlock.timestamp * 1000),
+                        issuer: issuerName,
+                        identityVerifier: null,
+                        transactionHash: revocationEvent.transactionHash
+                    })
+                }
+
+                return resolve({
                     issuerAddress,
                     issuerName,
                     issuerImg,
                     issuerVerified,
+                    issuerVerifiedBy,
+                    issuerVerifiedImg,
                     revoked,
                     expiry,
                     registrationEvent,
                     registrationBlock,
                     revocationEvent,
-                    revocationBlock
+                    revocationBlock,
+                    events
                 })
             })
         })
@@ -143,7 +207,7 @@ export default class CertifactionEthClient {
      *
      * @param {string} fileHash
      *
-     * @return {Promise<FileVerification>}
+     * @return {Promise<FileVerification|null>}
      */
     async verifyFileByClaims(fileHash) {
         return await this.resolveAndValidateFileClaim(fileHash)
@@ -170,10 +234,10 @@ export default class CertifactionEthClient {
                 } = result
 
                 // Transform from hex representation
-                issuerName = issuerName === nullValue40 ? null : hexToUtf8(issuerName)
+                issuerName = issuerName === nullValue64 ? null : hexToUtf8(issuerName)
                 issuerImg = issuerImg === nullValue64 ? null : hexToBytes(issuerImg)
 
-                resolve({ issuerName, issuerImg, issuerVerified })
+                return resolve({ issuerName, issuerImg, issuerVerified })
             })
         })
     }
@@ -183,69 +247,74 @@ export default class CertifactionEthClient {
      *
      * @param {string} fileHash
      *
-     * @returns {Promise<FileVerification>}
+     * @returns {Promise<FileVerification|null>}
      */
     async resolveAndValidateFileClaim(fileHash) {
         // Get Events for Filehash
-        const fileEvents = await this.claimContract.getPastEvents(
+        const claimEvents = await this.claimContract.getPastEvents(
             'Claim', {
                 filter: { file: fileHash },
                 fromBlock: 0
             }
         )
 
-        let registered = false
+        if (claimEvents.length === 0) {
+            return null
+        }
+
+        let issuerAddress = null
+        let issuerName = null
+        const issuerImg = null
+        let issuerVerified = false
+        let issuerVerifiedBy = null
+        let issuerVerifiedImg = null
         let revoked = false
-        let expiry
-        let issuerAddress
-        let issuerName
-        let issuerVerified
-        let issuerImg
+        let expiry = null
         let registrationEvent = null
         let registrationBlock = null
         let revocationEvent = null
         let revocationBlock = null
+        const events = []
+        const claims = []
 
-        console.log(fileEvents.length + ' event(s) found on Blockchain for File ' + fileHash)
+        console.log(claimEvents.length + ' event(s) found on Blockchain for File ' + fileHash)
         // For Each Event
-        for (const fileEvent of fileEvents) {
+        for (const claimEvent of claimEvents) {
             console.log('---------')
 
             // Get Claim Hash from Event
-            const claimFileHash = fileEvent.returnValues.file
-            const claimHash = fileEvent.returnValues.hash
+            const claimFileHash = claimEvent.returnValues.file
+            const claimHash = claimEvent.returnValues.hash
             if (fileHash !== claimFileHash) {
                 console.error('Hashes NOT matching, event is not for this File, discarding.')
                 continue
             }
 
             console.log('Event is for File.')
-            console.log('File event: ', fileEvent)
-            console.log('Etherscan link to Tx: ' + this.ethScanUrl + '/tx/' + fileEvent.transactionHash)
+            console.log('File event: ', claimEvent)
+            console.log('Etherscan link to Tx: ' + this.ethScanUrl + '/tx/' + claimEvent.transactionHash)
             console.log('File is associated with Claim Hash: ' + claimHash)
 
             // Get Claim from endpoint for Claimhash
-            let claim
+            let claim = null
             try {
                 claim = await this.getRawClaim(claimHash)
             } catch (e) {
                 console.error('Could not retrieve Claim by Hash, discarding.', e)
                 continue
             }
-            const claimString = JSON.stringify(claim)
-            console.log('Raw JSON Claim: ' + claimString)
 
             if (!claim) {
                 console.warn('Claim not found')
                 continue
             }
 
-            // Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-            if (claim['@id'] !== 'cert:hash:' + claimFileHash) {
-                console.error('Hashes NOT matching, Claim is NOT for this File, discarding.')
+            claims.push(claim)
+
+            if (!this.verifyRawClaim(claim, claimHash, claimFileHash)) {
+                console.error('The raw claim couldn\'t be verified, discarding.')
                 continue
             }
-            console.log('Hashes matching, Claim is for this File.')
 
             // Get Issuer Hash from Address from Signature
             issuerAddress = await this.verifySignatureAndGetPubkey(claim)
@@ -258,9 +327,35 @@ export default class CertifactionEthClient {
             }
             console.log('Signer Address matches Claim Creator attribute')
 
-            issuerName = await this.resolveAndVerifyIssuerIdentity(issuerAddress)
-            if (issuerName !== undefined) {
-                issuerVerified = true
+            let issuerIdentity = null
+            if (claim.idclaims !== undefined) {
+                issuerIdentity = await this.resolveAndVerifyIssuerIdentity(claim.idclaims, issuerAddress)
+                if (issuerIdentity !== null) {
+                    issuerName = issuerIdentity.issuer
+
+                    if (issuerIdentity.identityVerifier !== null) {
+                        issuerVerified = true
+
+                        if (issuerIdentity.identityVerifier.name) {
+                            issuerVerifiedBy = issuerIdentity.identityVerifier.name
+                        }
+                        if (issuerIdentity.identityVerifier.image) {
+                            issuerVerifiedImg = issuerIdentity.identityVerifier.image
+                        }
+                    }
+                }
+            }
+
+            const claimBlock = await this.getBlock(claimEvent.blockHash)
+
+            const fileEvent = {
+                ref: claim['@id'],
+                scope: claim.scope,
+                date: new Date(claimBlock.timestamp * 1000),
+                expiry: (claim.exp !== undefined && claim.exp.value !== 0) ? new Date(claim.exp.value) : null,
+                issuer: (issuerIdentity) ? issuerIdentity.issuer : null,
+                identityVerifier: (issuerIdentity) ? issuerIdentity.identityVerifier : null,
+                transactionHash: claimEvent.transactionHash
             }
 
             switch (claim.scope) {
@@ -268,76 +363,47 @@ export default class CertifactionEthClient {
                 case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
                 case 'certify': // BP-2457: Verification Tool: Update the verification tool to accept "certify" claims as valid
                     console.log('It\'s a registration claim!')
-                    registered = true
-                    revoked = false
-                    registrationEvent = fileEvent
+                    expiry = fileEvent.expiry
+                    registrationEvent = claimEvent
                     registrationBlock = await this.getBlock(registrationEvent.blockHash)
                     break
 
                 case 'revoke':
                     console.log('It\'s a revocation claim')
                     revoked = true
-                    revocationEvent = fileEvent
+                    revocationEvent = claimEvent
                     revocationBlock = await this.getBlock(revocationEvent.blockHash)
                     break
-
-                default:
-                    console.error('Is an unknown claim type, discarding.')
-                    break
             }
+
+            events.push(fileEvent)
         }
 
-        console.log('Consolidated Verification Result for File ' + fileHash + ':')
-        console.log('IssuerAddress: ' + issuerAddress +
-            '\nIssuerName: ' + issuerName +
-            '\nIssuerVerified: ' + issuerVerified +
-            '\nRegistered: ' + registered +
-            '\nExpiry: ' + expiry +
-            '\nRevoked: ' + revoked)
+        if (events.length === 0) {
+            return null
+        }
 
-        return {
+        const fileVerification = {
             issuerAddress,
             issuerName,
             issuerImg,
             issuerVerified,
+            issuerVerifiedBy,
+            issuerVerifiedImg,
             revoked,
             expiry,
             registrationEvent,
             registrationBlock,
             revocationEvent,
-            revocationBlock
+            revocationBlock,
+            events,
+            claims
         }
-    }
 
-    async resolveAndVerifyIssuerIdentity(fileHash) {
-        // Get Events for Filehash
-        const identityEvents = await this.claimContract.getPastEvents(
-            'Claim', {
-                filter: { file: fileHash },
-                fromBlock: 0
-            }
-        )
+        console.log('Consolidated Verification Result for File ' + fileHash + ':')
+        console.log(fileVerification)
 
-        for (const identityEvent of identityEvents) {
-            // Get Claim Hash from Event
-            const identityHash = identityEvent.returnValues.file
-            const claimHash = identityEvent.returnValues.hash
-            console.log(identityHash + ' >> ' + claimHash)
-
-            // Get Claim from endpoint for claimhash
-            const claim = this.getRawClaim(claimHash)
-
-            // Verify Claim (hashes to claimhash, belongs to file, Has right content/type)
-            if (claim.id === 'cert:addr:0x' + identityHash) {
-                // Get Issuer Hash from Address from Signature
-                const issuerHash = this.verifySignatureAndGetPubkey(claim)
-
-                // Only Certifaction is allowed to issue ID claims
-                if (issuerHash === this.acceptedIssuerKey) {
-                    return claim.name
-                }
-            }
-        }
+        return fileVerification
     }
 
     async getRawClaim(claimHash) {
@@ -353,6 +419,37 @@ export default class CertifactionEthClient {
             }
             throw e
         }
+    }
+
+    /**
+     * Validates the given raw claim
+     *
+     * @param {Object} rawClaim
+     * @param {string} validClaimHash Only use the claim hash coming from the blockchain
+     * @param {string} validFileHash Only use the file hash coming from the blockchain
+     *
+     * @returns {boolean}
+     */
+    verifyRawClaim(rawClaim, validClaimHash, validFileHash) {
+        const rawClaimJsonString = JSON.stringify(rawClaim)
+        console.log('Raw Claim JSON: ' + rawClaimJsonString)
+
+        // Verify if the raw claim hash matches the claim hash from the blockchain
+        const rawClaimHash = EthCrypto.hash.keccak256(rawClaimJsonString)
+        if (rawClaimHash !== validClaimHash) {
+            console.error(`The keccak256-hash from the raw claim (${rawClaimHash}) doesn't match the valid claim hash (${validClaimHash}).`)
+            return false
+        }
+        console.log('Claim hashes matching, claim is valid.')
+
+        // Verify if the file hash from the raw claim matches the file hash from the blockchain
+        if (rawClaim['@id'].toLowerCase() !== 'cert:hash:' + validFileHash.toLowerCase()) {
+            console.error('Hashes NOT matching, Claim is NOT for this File.')
+            return false
+        }
+        console.log('File hashes matching, Claim is for this File.')
+
+        return true
     }
 
     /**
@@ -372,16 +469,64 @@ export default class CertifactionEthClient {
         const ethereuSignature = '0x' + plainSignature + (fixedRecoveryId.toString(16))
         console.log('Signature Value (Hex): ' + ethereuSignature)
 
-        delete claim.proof.signatureValue
-        delete claim.idclaims
+        const unsignedClaim = JSON.parse(JSON.stringify(claim))
+        delete unsignedClaim.proof.signatureValue
+        if (unsignedClaim.idclaims !== undefined) {
+            delete unsignedClaim.idclaims
+        }
 
-        const JSONstring = JSON.stringify(claim)
-        console.log('Unsigned JSON Claim: ' + JSONstring)
+        const unsignedClaimJsonString = JSON.stringify(unsignedClaim)
+        console.log('Unsigned JSON Claim: ' + unsignedClaimJsonString)
 
-        const unsignedClaimHash = EthCrypto.hash.keccak256(JSONstring)
+        const unsignedClaimHash = EthCrypto.hash.keccak256(unsignedClaimJsonString)
         console.log('Unsigned ClaimHash: ' + unsignedClaimHash)
 
         return EthCrypto.recover(ethereuSignature, unsignedClaimHash)
+    }
+
+    /**
+     * Finds the issuer in the given idClaims and verifies it
+     *
+     * @param idClaims
+     * @param claimIssuerAddress
+     *
+     * @returns {Promise<IssuerIdentity|null>}
+     */
+    async resolveAndVerifyIssuerIdentity(idClaims, claimIssuerAddress) {
+        let issuer = null
+        let identityVerifier = null
+
+        for (const idClaim of idClaims) {
+            if (idClaim['@id'].toLowerCase() !== 'cert:addr:' + claimIssuerAddress.toLowerCase()) {
+                console.error('Addresses NOT matching, IdClaim is NOT for this claim issuer.', idClaim['@id'], claimIssuerAddress)
+                continue
+            }
+
+            const issuerAddress = await this.verifySignatureAndGetPubkey(idClaim)
+            if (issuerAddress !== idClaim.proof.creator) {
+                console.error('Signer Address does NOT match IdClaim Creator attribute, discarding.')
+                continue
+            }
+
+            if (issuerAddress !== this.acceptedIssuerKey) {
+                console.error('Signer address does NOT match the accepted issuer address, discarding.')
+                continue
+            }
+
+            if (idClaim.name !== undefined) {
+                issuer = idClaim.name
+            }
+
+            if (idClaim.verifiedBy !== undefined) {
+                identityVerifier = { name: idClaim.verifiedBy }
+
+                // TODO(Cyrill): Add verifier image
+            }
+
+            return { issuer, identityVerifier }
+        }
+
+        return null
     }
 
     /**

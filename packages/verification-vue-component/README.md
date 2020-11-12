@@ -121,7 +121,7 @@ Type: `string` (HEX format) | Required: `false` | Default: `0x5532ba4add77dd25fa
 
 #### acceptedIssuerKey
 
-Type: `string` (HEX format) | Required: `false` | Default: `0x3b031733e215e4edf7565e11f2aba907a826aadc`
+Type: `string` (HEX format) | Required: `false` | Default: `0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be`
 
 #### certifactionApiUrl
 

@@ -140,52 +140,94 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            let verification = {}
+            const hash = await hashingService.hashFile(item.file)
+            let verification = await this.certifactionEthVerifier.verify(hash)
 
-            try {
-                const hash = await hashingService.hashFile(item.file)
-                verification = await this.certifactionEthVerifier.verify(hash)
+            Vue.set(this.verificationItems, key, { ...item, ...verification })
 
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
-
-                if (this.offchainVerifier) {
-                    verification = await this.offchainVerification(item, verification)
-                }
-            } catch (e) {
-                console.log('An error occurred during hashing & retrieval of information', e)
-                verification.error = e
-            } finally {
-                verification.loaded = true
+            if (this.offchainVerifier) {
+                verification = await this.offchainVerification(verification)
             }
+
+            verification.loaded = true
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
         },
-        async offchainVerification(item, verification) {
+        async offchainVerification(verification) {
             // Make a call to the off-chain validator
             try {
                 const offchainVerification = await this.offchainVerifier.verify(verification.hash)
 
                 if (offchainVerification) {
-                    if (!verification.issuerAddress && offchainVerification.status === 'registering') {
+                    const identityVerifier = {}
+                    if (offchainVerification.issuerVerifiedBy) {
+                        identityVerifier.name = offchainVerification.issuerVerifiedBy
+                    }
+                    if (offchainVerification.issuerVerifiedImg) {
+                        identityVerifier.image = offchainVerification.issuerVerifiedImg
+                    }
+
+                    if (!verification.events && offchainVerification.status === 'registering') {
                         // File not found on blockchain and offchain status is registering
                         verification = {
                             ...verification,
-                            ...offchainVerification
+                            ...offchainVerification,
+                            // TODO(Cyrill): Remove when verify endpoint returns an events array
+                            events: [{
+                                scope: 'register',
+                                issuer: offchainVerification.issuerName,
+                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                            }]
                         }
-                    } else if (
-                        !verification.issuerName &&
-                        offchainVerification.issuerName &&
-                        ['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) >= 0
-                    ) {
+                    } else if (['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) >= 0) {
                         // If it's already verified on blockchain, do not override all values;
                         // just issuerName & issuer verifier can be taken from off-chain information
-                        verification.issuerName = offchainVerification.issuerName
-                        verification.issuerVerified = offchainVerification.issuerVerified
-                        verification.issuerVerifiedBy = offchainVerification.issuerVerifiedBy
-                        verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
+                        if (!verification.issuerName && offchainVerification.issuerName) {
+                            verification.issuerName = offchainVerification.issuerName
+                        }
+                        if (typeof verification.issuerVerified !== 'boolean' && typeof offchainVerification.issuerVerified === 'boolean') {
+                            verification.issuerVerified = offchainVerification.issuerVerified
+                        }
+                        if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
+                            verification.issuerVerifiedBy = offchainVerification.issuerVerifiedBy
+                        }
+                        if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
+                            verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
+                        }
+
+                        // TODO(Cyrill): Change logic when verify endpoint returns an events array
+                        if (verification.events && verification.events.length > 0) {
+                            verification.events = verification.events.map(event => {
+                                const newEvent = { ...event }
+                                const identityVerifier = { ...event.identityVerifier }
+
+                                if (!event.issuer && offchainVerification.issuerName) {
+                                    newEvent.issuer = offchainVerification.issuerName
+                                }
+                                if (!identityVerifier.name && offchainVerification.issuerVerifiedBy) {
+                                    identityVerifier.name = offchainVerification.issuerVerifiedBy
+                                }
+                                if (!identityVerifier.image && offchainVerification.issuerVerifiedImg) {
+                                    identityVerifier.image = offchainVerification.issuerVerifiedImg
+                                }
+
+                                if (Object.keys(identityVerifier).length > 0) {
+                                    newEvent.identityVerifier = identityVerifier
+                                }
+
+                                return newEvent
+                            })
+                        } else {
+                            verification.events = [{
+                                scope: 'register',
+                                issuer: offchainVerification.issuerName,
+                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                            }]
+                        }
                     }
                 }
             } catch (e) {
+                console.log('Error while verifying by offchain verification:', e)
                 verification.offchainError = true
             }
 
