@@ -35,10 +35,6 @@
                     {
                         "title": "Comment vérifions-nous l'identité des signataires?",
                         "content": "La technologie de Certifaction est utilisée par des partenaires innovants qui vérifient les données personnelles de chaque client avant d'en approuver l'identité. Vous pouvez contacter ces partenaires directement pour plus de détails (référez-vous à la mention \"Identité vérifiée par\")."
-                    },
-                    {
-                        "title": "Quel est le poids juridique?",
-                        "content": "Notre solution fournit l'identité vérifié de l'éditeur, des comptes utilisateurs protégés et une preuve cryptographique de la signature."
                     }
                 ]
             }

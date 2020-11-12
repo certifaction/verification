@@ -22,7 +22,7 @@
                 "items": [
                     {
                         "title": "Come funziona questa verifica?",
-                        "content": "Calcoliamo l'impronta digitale crittografica unica del documento. Se questo è intatto, lo troviamo nel nostro contratto intelligente sulla catena di blocco dell'Ethereum."
+                        "content": "Calcoliamo l'impronta digitale crittografica unica del documento. Se questo è intatto, lo troviamo nel nostro contratto intelligente sulla blockchain dell'Ethereum."
                     },
                     {
                         "title": "Perché usare la blockchain?",
@@ -30,7 +30,7 @@
                     },
                     {
                         "title": "Come garantiamo la protezione dei dati?",
-                        "content": "La verifica è possibile solo se si è in possesso del documento.  Senza il documento, nessuna informazione può essere estratta dal blocco. Inoltre, i documenti non vengono mai trasmessi sui nostri server.  La verifica viene effettuata localmente sulla macchina dell'utente."
+                        "content": "La verifica è possibile solo se si è in possesso del documento.  Senza il documento, nessuna informazione può essere estratta dal blockchain. Inoltre, i documenti non vengono mai trasmessi sui nostri server.  La verifica viene effettuata localmente sulla macchina dell'utente."
                     },
                     {
                         "title": "Come verifichiamo l'identità dei firmatari?",
