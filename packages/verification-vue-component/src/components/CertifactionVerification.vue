@@ -140,42 +140,35 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            let verification = {}
+            const hash = await hashingService.hashFile(item.file)
+            let verification = await this.certifactionEthVerifier.verify(hash)
 
-            try {
-                const hash = await hashingService.hashFile(item.file)
-                verification = await this.certifactionEthVerifier.verify(hash)
+            Vue.set(this.verificationItems, key, { ...item, ...verification })
 
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
-
-                if (this.offchainVerifier) {
-                    verification = await this.offchainVerification(item, verification)
-                }
-            } catch (e) {
-                console.log('An error occurred during hashing & retrieval of information', e)
-                verification.error = e
-            } finally {
-                verification.loaded = true
+            if (this.offchainVerifier) {
+                verification = await this.offchainVerification(verification)
             }
+
+            verification.loaded = true
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
         },
-        async offchainVerification(item, verification) {
+        async offchainVerification(verification) {
             // Make a call to the off-chain validator
             try {
                 const offchainVerification = await this.offchainVerifier.verify(verification.hash)
 
                 if (offchainVerification) {
+                    const identityVerifier = {}
+                    if (offchainVerification.issuerVerifiedBy) {
+                        identityVerifier.name = offchainVerification.issuerVerifiedBy
+                    }
+                    if (offchainVerification.issuerVerifiedImg) {
+                        identityVerifier.image = offchainVerification.issuerVerifiedImg
+                    }
+
                     if (!verification.events && offchainVerification.status === 'registering') {
                         // File not found on blockchain and offchain status is registering
-                        const identityVerifier = {}
-                        if (offchainVerification.issuerVerifiedBy) {
-                            identityVerifier.name = offchainVerification.issuerVerifiedBy
-                        }
-                        if (offchainVerification.issuerVerifiedImg) {
-                            identityVerifier.image = offchainVerification.issuerVerifiedImg
-                        }
-
                         verification = {
                             ...verification,
                             ...offchainVerification,
@@ -192,15 +185,17 @@ export default {
                         if (!verification.issuerName && offchainVerification.issuerName) {
                             verification.issuerName = offchainVerification.issuerName
                         }
-                        if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
+                        if (typeof verification.issuerVerified !== 'boolean' && typeof offchainVerification.issuerVerified === 'boolean') {
                             verification.issuerVerified = offchainVerification.issuerVerified
+                        }
+                        if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
                             verification.issuerVerifiedBy = offchainVerification.issuerVerifiedBy
                         }
                         if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
                             verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
                         }
 
-                        if (verification.events.length > 0) {
+                        if (verification.events && verification.events.length > 0) {
                             verification.events = verification.events.map(event => {
                                 const newEvent = { ...event }
                                 const identityVerifier = { ...event.identityVerifier }
@@ -221,10 +216,17 @@ export default {
 
                                 return newEvent
                             })
+                        } else {
+                            verification.events = [{
+                                scope: 'register',
+                                issuer: offchainVerification.issuerName,
+                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                            }]
                         }
                     }
                 }
             } catch (e) {
+                console.log('Error while verifying by offchain verification:', e)
                 verification.offchainError = true
             }
 

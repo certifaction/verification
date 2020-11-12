@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="item-footer" v-if="verificationItem.issuerAddress !== null && isLoaded && !verificationItem.error">
+        <div class="item-footer" v-if="verificationItem.issuerAddress && isLoaded && !verificationItem.error">
             <button v-if="showAdvancedInfo === false"
                     type="button"
                     class="btn-link advanced-toggler"

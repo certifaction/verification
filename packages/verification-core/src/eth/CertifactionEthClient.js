@@ -90,7 +90,7 @@ export default class CertifactionEthClient {
 
         if (
             fileVerification !== null &&
-            fileVerification.issuerAddress !== null &&
+            fileVerification.issuerAddress &&
             fileVerification.issuerVerified === false
         ) {
             console.log('Issuer not verified by claims, try to verify by legacy contract...')

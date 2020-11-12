@@ -6,14 +6,15 @@ export const VERIFICATION_TYPES = {
 }
 
 export function mapVerificationItemType(item) {
-    if (item.events === undefined || (item.events && item.events.length === 0)) {
-        return VERIFICATION_TYPES.V_NOT_FOUND
-    }
     if (item.revoked === true) {
         return VERIFICATION_TYPES.V_REVOKED
     }
+
     if (item.issuerVerified === true) {
         return VERIFICATION_TYPES.V_VERIFIED
+    } else if (item.issuerVerified === false) {
+        return VERIFICATION_TYPES.V_SELF_DECLARED
     }
-    return VERIFICATION_TYPES.V_SELF_DECLARED
+
+    return VERIFICATION_TYPES.V_NOT_FOUND
 }
