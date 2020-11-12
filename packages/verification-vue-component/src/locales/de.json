@@ -35,10 +35,6 @@
                     {
                         "title": "Wie werden die Identitäten verifiziert?",
                         "content": "Die Certifaction-Technologie wird von verschiedenen innovativen Anbietern genutzt, die ihre Kunden jeweils genau prüfen, bevor sie ihre Identität verifizieren. Für Details können Sie sich direkt an den Anbieter wenden (siehe \"Identität verifiziert durch\")."
-                    },
-                    {
-                        "title": "Wie hoch ist die Beweiskraft?",
-                        "content": "Diese Lösung bietet eine verifizierte Identität des Herausgebers, geschützte Benutzerkonten und einen kryptografisch überprüfbaren Beweis der Signatur."
                     }
                 ]
             }

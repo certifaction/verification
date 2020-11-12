@@ -1,56 +1,119 @@
 {
     "verification": {
-        "dropbox": {
-            "title": "Trascini un PDF in questo campo o clicchi per selezionare un PDF dal suo dispositivo.",
-            "subtitle": "I suoi documenti non vengono né caricati né salvati."
+        "fileSelection": {
+            "title": {
+                "first": "Controllare i documenti",
+                "following": "Controlla gli altri documenti"
+            },
+            "subtitle": {
+                "selector": "Trascinare i documenti in questo campo o cliccare qui",
+                "dropbox": "Trascinare i documenti in questo campo"
+            }
+        },
+        "card": {
+            "btn": {
+                "expertInfo": "Info avanzate",
+                "questions": "Avete domande?",
+                "back": "Indietro",
+                "support": "Chiedere aiuto"
+            },
+            "faq": {
+                "title": "FAQ",
+                "items": [
+                    {
+                        "title": "Come funziona questa verifica?",
+                        "content": "Calcoliamo l'impronta digitale crittografica unica del documento. Se questo è intatto, lo troviamo nel nostro contratto intelligente sulla catena di blocco dell'Ethereum."
+                    },
+                    {
+                        "title": "Perché usare la blockchain?",
+                        "content": "La blockhain dell'Ethereum è un database altamente disponibile e sicuro. La sua particolarità è che si possono aggiungere solo dati. La modifica o la cancellazione dei dati è impossibile, il che è ideale per una protezione a lungo termine contro la falsificazione dei dati."
+                    },
+                    {
+                        "title": "Come garantiamo la protezione dei dati?",
+                        "content": "La verifica è possibile solo se si è in possesso del documento.  Senza il documento, nessuna informazione può essere estratta dal blocco. Inoltre, i documenti non vengono mai trasmessi sui nostri server.  La verifica viene effettuata localmente sulla macchina dell'utente."
+                    },
+                    {
+                        "title": "Come verifichiamo l'identità dei firmatari?",
+                        "content": "La tecnologia di Certifaction è utilizzata da partner innovativi che verificano i dati personali di ogni cliente prima di approvarne l'identità. Potete contattare direttamente questi partner per maggiori dettagli (vedi \"Identità verificata da\")."
+                    }
+                ]
+            }
         },
         "result": {
-            "title": "Risultato della verifica",
+            "title": "Resultato della verifica",
             "expertInfo": {
-                "hide": "Nascondere info avanzate",
-                "show": "Mostrare info avanzate"
+                "hide": "Nascondere info avanzate ",
+                "show": "Info avanzate"
             },
             "issuer": "Emittente",
             "meta": {
                 "contract": "Contratto",
                 "issuer": "Emittente",
-                "issuerVerifiedBy": "Verificato da",
-                "issuerVerifiedByInformation": "Questo fornitore ha sottoposto l’emittente a una scrupolosa verifica. Solo persone autorizzate possono richiedere la verifica dell’identità della loro organizzazione.",
-                "issuerAddress": "Indirizzo emittente",
-                "fingerprint": "Valore hash del documento",
-                "registrationDate": "Data di emissione",
-                "registrationTransaction": "Transazione emissione",
-                "revocationTransaction": "Transazione annullamento",
-                "revocationDate": "Data annullamento"
+                "issuerVerifiedBy": "Emittente verificato da",
+                "issuerAddress": "Chiave pubblica dell'emittente",
+                "fingerprint": "Impronta numerica del documento",
+                "registrationDate": "Data e ora di emissione",
+                "registrationTransaction": "Transazione di emissione",
+                "revocationTransaction": "Transazione di annullamento",
+                "revocationDate": "Data e ora di annullamento",
+                "smartContractAddress": "Indirizzo del Smart Contract"
             },
             "technicalProblem": {
-                "status": "Guasto tecnico, nessuna verifica possibile",
-                "message": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento.<br />I nostri collaboratori hanno ricevuto una notifica automatica e provvederanno a risolvere il problema a breve.<br />La preghiamo di riprovare più tardi.<br />Ci scusiamo per il disagio.",
-                "offchainMessage": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento.<br />I nostri collaboratori hanno ricevuto una notifica automatica e provvederanno a risolvere il problema a breve.<br />La preghiamo di riprovare più tardi.<br />Ci scusiamo per il disagio."
+                "status": "Problema di connessione alla blockchain dell'Ethereum",
+                "details": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento. Si prega di aggiornare la pagina e riprovare.<br><br>Se il problema persiste, si prega di contattare il nostro supporto tecnico. Saremo lieti di aiutarvi."
             },
             "notFound": {
-                "status": "Non è stato possibile verificare il documento",
-                "message": "Non è stato possibile trovare questo documento sulla blockchain.<br />Attenzione: probabilmente il documento è stato modificato inavvertitamente oppure è presente un problema tecnico.<br />Si consiglia di contattare direttamente l’emittente."
+                "status": "Non è stato possibile trovare alcun riferimento per questo documento.",
+                "details": "Questo documento ci è sconosciuto.  Potrebbe essere stato alterato per errore.<br><br>Par esempio:<br><ul><li>L'emittente ha distribuito la versione errata del documento.</li><li>Il titolare del documento vi ha inviato una versione errata.</li><li>Il file è stato modificato per errore:<ul><li>sia stampandolo in formato PDF,</li><li>sia salvandolo con un lettore PDF non conforme alle linee guida sulla protezione dei documenti,</li><li>sia stampando e scannerizzando il documento.</li></ul></li></ul>Contattate l'emittente del documento o il nostro supporto tecnico."
             },
             "revokedUnverified": {
-                "status": "Questo documento è stato revocato. L’emittente non è verificato.",
-                "message": "Questo documento era stato effettivamente certificato dall’emittente specificato di seguito, ma nel frattempo è stato revocato.<br />Probabilmente è stato sostituito da una versione più recente. Per ulteriori informazioni la preghiamo di rivolgersi all’emittente.<br /><strong>Attenzione:</strong> questo emittente non è stato verificato dal team Certifaction.<br />Si tratta solo di un’autodichiarazione d’identità.<br />Sia prudente e, nel dubbio, si rivolga direttamente all’emittente."
-            },
-            "revoked": {
                 "status": "Questo documento è stato revocato.",
-                "message": "Questo documento era stato effettivamente certificato dall’emittente specificato di seguito, ma nel frattempo è stato revocato.<br />Probabilmente è stato sostituito da una versione più recente.<br />Per ulteriori informazioni la preghiamo di rivolgersi all’emittente."
+                "details": {
+                    "tamperProof": "Autenticità certificata",
+                    "unverifiedIssuer": "Emittente non verificato",
+                    "blockchain": {
+                        "secured": "Protetto dalla blockchain",
+                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
+                    },
+                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                }
             },
-            "processing": {
-                "status": "Documento ancora in elaborazione...",
-                "message": "L’emittente indicato registra questo documento esattamente in questa forma sulla blockchain di Ethereum con Certifaction.<br />La preghiamo di riprovare tra qualche minuto per ricevere un risultato completo."
+            "revokedVerified": {
+                "status": "Questo documento è stato revocato.",
+                "details": {
+                    "tamperProof": "Autenticità certificata",
+                    "verifiedIssuer": "Emittente verificato",
+                    "blockchain": {
+                        "secured": "Protetto dalla blockchain",
+                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
+                    },
+                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                }
             },
-            "selfDeclared": {
-                "status": "Il documento è autentico. L’emittente però non è verificato.",
-                "message": "<strong>Attenzione:</strong> questo emittente non è stato verificato dal team Certifaction.<br />Si tratta solo di un’autodichiarazione d’identità.<br />Sia prudente e, nel dubbio, si rivolga direttamente all’emittente."
+            "unverifiedIssuer": {
+                "status": "Questo documento è stato registrato da un emittente non verificato",
+                "issuerFootnote": "Identità non confermata",
+                "details": {
+                    "tamperProof": "Autenticità certificata",
+                    "unverifiedIssuer": "Emittente non verificato",
+                    "blockchain": {
+                        "secured": "Protetto dalla blockchain",
+                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
+                    },
+                    "valid": "Valido (non revocato)"
+                }
             },
-            "verified": {
-                "status": "Questo documento è autentico e proviene da un emittente verificato.",
-                "message": "Questo documento è stato registrato esattamente sotto questa forma, utilizzando la tecnologia Certifaction."
+            "verifiedIssuer": {
+                "status": "Ce document est authentique et provient d'un émetteur vérifié",
+                "details": {
+                    "tamperProof": "Autenticità certificata",
+                    "verifiedIssuer": "Emittente verificato",
+                    "blockchain": {
+                        "secured": "Protetto dalla blockchain",
+                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
+                    },
+                    "valid": "Valido (non revocato)"
+                }
             }
         },
         "poweredBy": {
