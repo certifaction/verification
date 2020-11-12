@@ -195,6 +195,7 @@ export default {
                             verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
                         }
 
+                        // TODO(Cyrill): Change logic when verify endpoint returns an events array
                         if (verification.events && verification.events.length > 0) {
                             verification.events = verification.events.map(event => {
                                 const newEvent = { ...event }
