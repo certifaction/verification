@@ -35,10 +35,6 @@
                     {
                         "title": "Comment vérifions-nous l'identité des signataires?",
                         "content": "La technologie de Certifaction est utilisée par des partenaires innovants qui vérifient les données personnelles de chaque client avant d'en approuver l'identité. Vous pouvez contacter ces partenaires directement pour plus de détails (référez-vous à la mention \"Identité vérifiée par\")."
-                    },
-                    {
-                        "title": "Quel est le poids juridique?",
-                        "content": "Notre solution fournit l'identité vérifié de l'éditeur, des comptes utilisateurs protégés et une preuve cryptographique de la signature."
                     }
                 ]
             }
@@ -56,7 +52,7 @@
                 "issuerVerifiedBy": "Émetteur vérifié par",
                 "issuerAddress": "Clef publique de l'émetteur",
                 "fingerprint": "Empreinte numérique du document",
-                "registrationDate": "Date & heure de l'émission ",
+                "registrationDate": "Date & heure de l'émission",
                 "registrationTransaction": "Transaction d'énregistrement",
                 "revocationTransaction": "Transaction de révocation",
                 "revocationDate": "Date & heure de la révocation",
@@ -68,7 +64,7 @@
             },
             "notFound": {
                 "status": "Aucune référence n'a pu être trouvée pour ce document",
-                "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise verson du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
+                "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
             },
             "revokedUnverified": {
                 "status": "Ce document a été révoqué.",
@@ -79,7 +75,7 @@
                         "secured": "Sécurisé par la blockchain",
                         "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours de révocation sur la blockchain Ethereum. Ceci permettra de rendra la revocation independemment vérifiable par tous.</span>"
                     },
-                    "invalid": "Révoqué<span class=\"detail-footnote\">The document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                    "invalid": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
                 }
             },
             "revokedVerified": {
@@ -91,11 +87,11 @@
                         "secured": "Sécurisé par la blockchain",
                         "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours de révocation sur la blockchain Ethereum. Ceci permettra de rendra la revocation independemment vérifiable par tous.</span>"
                     },
-                    "invalid": "Révoqué<span class=\"detail-footnote\">The document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                    "invalid": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
                 }
             },
             "unverifiedIssuer": {
-                "status": "Ce document a été enregistré par un émetteur non vérifié",
+                "status": "Ce document a été enregistré par un émetteur non vérifié.",
                 "issuerFootnote": "Identité non confirmée",
                 "details": {
                     "tamperProof": "Authenticité certifiée",
@@ -108,7 +104,7 @@
                 }
             },
             "verifiedIssuer": {
-                "status": "Ce document est authentique et provient d'un émetteur vérifié",
+                "status": "Ce document est authentique et provient d'un émetteur vérifié.",
                 "details": {
                     "tamperProof": "Authenticité certifiée",
                     "verifiedIssuer": "Émetteur vérifié",
