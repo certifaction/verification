@@ -37,6 +37,17 @@
                         "content": "La technologie de Certifaction est utilisée par des partenaires innovants qui vérifient les données personnelles de chaque client avant d'en approuver l'identité. Vous pouvez contacter ces partenaires directement pour plus de détails (référez-vous à la mention \"Identité vérifiée par\")."
                     }
                 ]
+            },
+            "contact": {
+                "title": "Contacter le support technique",
+                "form": {
+                    "email": "Votre email",
+                    "question": "Votre question",
+                    "consent": "En envoyant le formulaire, j'accepte la politique de confidentialité.",
+                    "submit": "Envoyer",
+                    "submitted": "Votre message a été envoyé avec succès.",
+                    "failed": "Votre message n'a pu être envoyé. Veuillez essayer plus tard."
+                }
             }
         },
         "result": {
