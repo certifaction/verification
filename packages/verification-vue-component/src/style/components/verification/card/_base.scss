@@ -141,6 +141,14 @@
                     overflow-wrap: break-word;
                 }
 
+                .signature-hash {
+                    padding-top: 10px;
+
+                    &:first-child {
+                        padding-top: 0;
+                    }
+                }
+
                 .verifier-image {
                     flex: 1 1 auto;
                     overflow: hidden;

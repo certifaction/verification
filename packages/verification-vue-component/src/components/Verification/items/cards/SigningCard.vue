@@ -49,6 +49,16 @@
                         </span>
                     </span>
                 </div>
+                <div v-if="signEvents.length > 0" class="verification-entry signature-hashes">
+                    <span class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</span>
+                    <span class="value">
+                        <span class="signature-hash" v-for="(signerEvent, index) in signEvents" :key="index">
+                            <span>{{ signerEvent.issuer }}</span>
+                            <a :href="`https://${net}/tx/${signerEvent.transactionHash}`"
+                               target="_blank">{{ signerEvent.transactionHash }}</a>
+                        </span>
+                    </span>
+                </div>
             </div>
         </template>
         <template v-else #body>
@@ -106,11 +116,13 @@
                         </span>
                     </div>
                 </div>
-                <div v-if="signEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-date">
+                <div v-if="signEvents.length > 0 && verificationItem.status !== 'registering'"
+                     class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <span class="value">{{ dateFormat(isoStringToTimestamp(signEvents[0].date)) }}</span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-date">
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'"
+                     class="verification-entry revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <span class="value">{{ dateFormat(isoStringToTimestamp(revokeEvents[0].date)) }}</span>
                 </div>
