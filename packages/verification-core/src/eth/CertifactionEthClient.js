@@ -161,8 +161,10 @@ export default class CertifactionEthClient {
                 events.push({
                     scope: 'register',
                     date: new Date(registrationBlock.timestamp * 1000),
+                    issuerAddress,
                     issuer: issuerName,
                     identityVerifier: null,
+                    smartContractAddress: registrationEvent.address,
                     transactionHash: registrationEvent.transactionHash
                 })
 
@@ -177,8 +179,10 @@ export default class CertifactionEthClient {
                     events.push({
                         scope: 'revoke',
                         date: new Date(revocationBlock.timestamp * 1000),
+                        issuerAddress,
                         issuer: issuerName,
                         identityVerifier: null,
+                        smartContractAddress: revocationEvent.address,
                         transactionHash: revocationEvent.transactionHash
                     })
                 }
@@ -328,7 +332,7 @@ export default class CertifactionEthClient {
             console.log('Signer Address matches Claim Creator attribute')
 
             let issuerIdentity = null
-            if (claim.idclaims !== undefined) {
+            if (claim.idclaims instanceof Array) {
                 issuerIdentity = await this.resolveAndVerifyIssuerIdentity(claim.idclaims, issuerAddress)
                 if (issuerIdentity !== null) {
                     issuerName = issuerIdentity.issuer
@@ -353,9 +357,13 @@ export default class CertifactionEthClient {
                 scope: claim.scope,
                 date: new Date(claimBlock.timestamp * 1000),
                 expiry: (claim.exp !== undefined && claim.exp.value !== 0) ? new Date(claim.exp.value) : null,
-                issuer: (issuerIdentity) ? issuerIdentity.issuer : null,
-                identityVerifier: (issuerIdentity) ? issuerIdentity.identityVerifier : null,
+                issuerAddress,
+                smartContractAddress: claimEvent.address,
                 transactionHash: claimEvent.transactionHash
+            }
+            if (issuerIdentity) {
+                fileEvent.issuer = issuerIdentity.issuer
+                fileEvent.identityVerifier = issuerIdentity.identityVerifier
             }
 
             switch (claim.scope) {
