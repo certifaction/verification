@@ -6,12 +6,12 @@
                 <img :src="headerIcon" alt="Certifaction"/>
             </div>
             <div class="header-label">
-                <div v-html="_$t('verification.result.' + verificationResult + '.status')"></div>
+                <div v-html="_$t('verification.result.' + translationType + '.' + verificationResult + '.status')"></div>
             </div>
             <div v-if="showDropdownToggler" class="header-action">
                 <button type="button"
                         class="btn-link advanced-toggler">
-                    <img v-if="verificationInProgress || revocationInProgress"
+                    <img v-if="verificationInProgress || revocationInProgress || signatureInProgress"
                          class="loading-spinner"
                          src="../../../assets/img/loading_spinner.svg"
                          alt="Spinner"/>
@@ -23,9 +23,9 @@
             <div v-if="showDetails" class="detail-body">
                 <ul>
                     <li class="detail"
-                        v-for="(item, index) in _$t('verification.result.' + verificationResult + '.details', { returnObjects: true, date: revocationDate })"
+                        v-for="(item, index) in _$t('verification.result.' + translationType + '.' + verificationResult + '.details', { returnObjects: true, date: revocationDate })"
                         :key="index">
-                        <div v-if="(verificationInProgress || revocationInProgress) && index === 'blockchain'" class="warning-indicator">
+                        <div v-if="((verificationInProgress || revocationInProgress) && index === 'blockchain' || signatureInProgress && index === 'signatures')" class="warning-indicator">
                             <img class="loading-spinner"
                                  src="../../../assets/img/loading_spinner.svg"
                                  alt="Spinner"/>
@@ -69,7 +69,11 @@ export default {
             type: Boolean,
             default: false
         },
-        revocationDate: null
+        revocationDate: null,
+        isSigning: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
@@ -95,6 +99,7 @@ export default {
         headerIcon() {
             switch (this.verificationResult) {
                 case 'verifiedIssuer':
+                case 'signingComplete':
                     return headerSuccessShield
                 case 'unverifiedIssuer':
                 case 'technicalProblem':
@@ -106,6 +111,13 @@ export default {
         },
         verificationResultClass() {
             return this.verificationResult.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+        },
+        translationType() {
+            return this.isSigning ? 'signing' : 'verification'
+        },
+        signatureInProgress() {
+            // TODO (ani): Check if signature is in progress
+            return false
         }
     },
     methods: {
@@ -118,6 +130,7 @@ export default {
                 case 'verifiedIssuer':
                 case 'blockchain':
                 case 'valid':
+                case 'signatures':
                     return mdiCheckCircle
                 case 'unverifiedIssuer':
                     return mdiAlertCircle
@@ -128,8 +141,12 @@ export default {
         getDetailLabel(index, item) {
             if (index === 'blockchain') {
                 return this.verificationInProgress || this.revocationInProgress ? item.registering : item.secured
+            } else if (index === 'signatures') {
+                // TODO (ani): Add correct conditions (if 1< signature is registering)
+                // eslint-disable-next-line no-constant-condition
+                return false ? item.registering : item.complete
             } else if (index === 'invalid') {
-                return this._$t('verification.result.' + this.verificationResult + '.details.invalid', { revocationDate: this.dateFormat(this.revocationDate) })
+                return this._$t('verification.result.' + this.translationType + '.' + this.verificationResult + '.details.invalid', { revocationDate: this.dateFormat(this.revocationDate) })
             }
 
             return item
