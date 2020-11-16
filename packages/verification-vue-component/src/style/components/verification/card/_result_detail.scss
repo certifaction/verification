@@ -89,7 +89,7 @@
                     height: 20px;
                     margin-right: 8px;
 
-                    &.verified-issuer, &.tamper-proof, &.valid, &.blockchain {
+                    &.verified-issuer, &.tamper-proof, &.valid, &.blockchain, &.signatures {
                         color: $verification-result-success-dark;
                     }
 
@@ -98,7 +98,7 @@
                     }
 
                     &.invalid {
-                        width: 24px;
+                        width: 28px;
                         color: $verification-result-error-dark;
                     }
                 }
@@ -117,7 +117,7 @@
         }
     }
 
-    &.verified-issuer {
+    &.verified-issuer, &.signing-complete {
         .detail-header, .detail-body {
             background-color: $verification-result-success-light;
         }
@@ -165,7 +165,7 @@
         }
     }
 
-    &.revoked-verified, &.revoked-unverified {
+    &.revoked-verified, &.revoked-unverified, &.revoked {
         .detail-header, .detail-body {
             background-color: $verification-result-error-light;
         }

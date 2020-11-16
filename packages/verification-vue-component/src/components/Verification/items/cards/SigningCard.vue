@@ -16,36 +16,46 @@
                         <span>{{ verificationItem.hash }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuerAddress" class="verification-entry issuer-address">
+                <div v-if="signEvents[0] > 0 && signEvents[0].issuerAddress" class="verification-entry issuer-address">
                     <span class="label">{{ _$t('verification.result.meta.issuerAddress') }}</span>
                     <span class="value">
-                        <span>{{ registerEvents[0].issuerAddress }}</span>
+                        <span>{{ signEvents[0].issuerAddress }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0" class="verification-entry smart-contract-address">
+                <div v-if="signEvents.length > 0" class="verification-entry smart-contract-address">
                     <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
                         <span>
-                            <a :href="`https://${net}/address/${registerEvents[0].smartContractAddress}`"
-                               target="_blank">{{ registerEvents[0].smartContractAddress }}</a>
+                            <a :href="`https://${net}/address/${signEvents[0].smartContractAddress}`"
+                               target="_blank">{{ signEvents[0].smartContractAddress }}</a>
                         </span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-hash">
+                <div v-if="signEvents.length > 0" class="verification-entry registration-hash">
                     <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
                     <span class="value">
                         <span>
-                            <a :href="`https://${net}/tx/${registerEvents[0].transactionHash}`"
-                               target="_blank">{{ registerEvents[0].transactionHash }}</a>
+                            <a :href="`https://${net}/tx/${signEvents[0].transactionHash}`"
+                               target="_blank">{{ signEvents[0].transactionHash }}</a>
                         </span>
                     </span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-hash">
+                <div v-if="revokeEvents.length > 0" class="verification-entry revocation-hash">
                     <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
                     <span class="value">
                         <span>
                             <a :href="`https://${net}/tx/${revokeEvents[0].transactionHash}`"
                                target="_blank">{{ revokeEvents[0].transactionHash }}</a>
+                        </span>
+                    </span>
+                </div>
+                <div v-if="signEvents.length > 0" class="verification-entry signature-hashes">
+                    <span class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</span>
+                    <span class="value">
+                        <span class="signature-hash" v-for="(signerEvent, index) in signEvents" :key="index">
+                            <span>{{ signerEvent.issuer }}</span>
+                            <a :href="`https://${net}/tx/${signerEvent.transactionHash}`"
+                               target="_blank">{{ signerEvent.transactionHash }}</a>
                         </span>
                     </span>
                 </div>
@@ -55,10 +65,11 @@
             <ResultDetail :verification-result="verificationItemType"
                           :verification-in-progress="verificationItem.status && verificationItem.status === 'registering'"
                           :revocation-in-progress="verificationItem.status && verificationItem.status === 'revoking'"
-                          :revocation-date="verificationItem.revoked ? revokeEvents[0].date : null"/>
+                          :revocation-date="verificationItem.revoked ? revokeEvents[0].date : null"
+                          :is-signing="true"/>
             <div class="verification-info">
                 <div v-if="isErrorOrNotFound" class="verification-entry error">
-                    <p v-html="_$t('verification.result.verification.' + verificationItemType + '.details')"/>
+                    <p v-html="_$t('verification.result.signing.' + verificationItemType + '.details')"/>
                 </div>
                 <div v-if="isErrorOrNotFound && verificationItem.hash" class="verification-entry fingerprint">
                     <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
@@ -66,35 +77,52 @@
                         <span>{{ verificationItem.hash }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0" class="verification-entry issuer">
-                    <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
-                    <span class="value">
-                            <span>{{ registerEvents[0].issuer }}</span>
-                    </span>
-                    <span v-if="registerEvents.length > 0 && !registerEvents[0].identityVerifier" class="footnote warning">
-                        <MDIcon :icon="mdiAlertCircle"/>
-                        <span>{{ _$t('verification.result.verification.unverifiedIssuer.issuerFootnote') }}</span>
-                    </span>
+                <div v-if="signEvents.length > 0" class="verification-entry signers">
+                    <span class="label">{{ _$t('verification.result.meta.signers') }}</span>
+                    <ul class="signers-list">
+                        <li class="signer" v-for="(signerEvent, index) in signEvents" :key="index">
+                            <div class="left">
+                                <MDIcon class="signed" :icon="mdiCheckCircle"/>
+                            </div>
+                            <div class="right">
+                                <span class="value">
+                                    <span>{{ signerEvent.issuer }}</span>
+                                </span>
+                                <span v-if="signerEvent.date" class="footnote">
+                                    <span>{{
+                                            _$t('verification.result.signing.' + verificationItemType + '.signerFootnote.signed', {
+                                                signingDate: dateFormat(signerEvent.date, {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: '2-digit'
+                                                })
+                                            })
+                                        }}</span>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].identityVerifier" class="verification-entry verifier">
+                <div v-if="signEvents.length > 0 && signEvents[0].identityVerifier" class="verification-entry verifier">
                     <div class="verifier-name">
-                        <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
-                        <div v-if="registerEvents[0].identityVerifier.image" class="verifier-image">
-                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
-                            <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'" alt=""/>
+                        <span class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</span>
+                        <div v-if="signEvents[0].identityVerifier.image" class="verifier-image">
+                            <img :src="signEvents[0].identityVerifier.image" alt=""/>
                         </div>
                         <span v-else class="value">
                             <span>{{
-                                    registerEvents[0].identityVerifier.name ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
+                                    signEvents[0].identityVerifier.name ? signEvents[0].identityVerifier.name : 'Certifaction AG'
                                 }}</span>
                         </span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-date">
+                <div v-if="signEvents.length > 0 && verificationItem.status !== 'registering'"
+                     class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
-                    <span class="value">{{ dateFormat(registerEvents[0].date) }}</span>
+                    <span class="value">{{ dateFormat(signEvents[0].date) }}</span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-date">
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'"
+                     class="verification-entry revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <span class="value">{{ dateFormat(revokeEvents[0].date) }}</span>
                 </div>
@@ -136,11 +164,11 @@ import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import dateFormatter from '../../../../mixins/date-formatter'
-import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import { mdiAlertCircle, mdiCheckCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
-    name: 'VerificationCard',
+    name: 'SigningCard',
     mixins: [i18nWrapperMixin, dateFormatter],
     components: {
         BaseCard,
@@ -152,6 +180,7 @@ export default {
             mdiShieldCheck,
             mdiFileDocument,
             mdiAlertCircle,
+            mdiCheckCircle,
             showExpertInfo: false
         }
     },
@@ -166,8 +195,8 @@ export default {
         }
     },
     computed: {
-        registerEvents() {
-            return this.verificationItem.events.filter(event => ['register', 'certify'].includes(event.scope) > 0)
+        signEvents() {
+            return this.verificationItem.events.filter(event => event.scope === 'sign')
         },
         revokeEvents() {
             return this.verificationItem.events.filter(event => event.scope === 'revoke')
@@ -183,19 +212,14 @@ export default {
 
             switch (this.verificationItem.type) {
                 case VERIFICATION_TYPES.V_REVOKED:
-                    if (this.registerEvents[0].identityVerifier) {
-                        return 'revokedVerified'
-                    }
-                    return 'revokedUnverified'
+                    return 'revoked'
 
                 case VERIFICATION_TYPES.V_NOT_FOUND:
                     return 'notFound'
 
                 case VERIFICATION_TYPES.V_SELF_DECLARED:
-                    return 'unverifiedIssuer'
-
                 case VERIFICATION_TYPES.V_VERIFIED:
-                    return 'verifiedIssuer'
+                    return 'signingComplete'
             }
 
             return 'technicalProblem'

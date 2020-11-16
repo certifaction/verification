@@ -15,7 +15,8 @@
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
                     :key="verificationItem.hash"
-                    :verificationItem="verificationItem"
+                    :verification-item="verificationItem"
+                    :verifier-information="verifierInformation"
                     :certifaction-api-url="certifactionApiUrl"/>
             </div>
 
@@ -137,6 +138,12 @@ export default {
                     ...item
                 }
             })
+        },
+        verifierInformation() {
+            return {
+                net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('ropsten') >= 0 ? 'ropsten.etherscan.io' : 'etherscan.io',
+                certifactionApiUrl: this.certifactionApiUrl
+            }
         }
     },
     methods: {
