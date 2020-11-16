@@ -1,0 +1,169 @@
+{
+    "hashed": true,
+    "type": 2,
+    "file": {},
+    "name": "hin_dev_testnet.pdf", // x
+    "hash": "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d", // x
+    "onBlockchain": true,
+    "issuerAddress": "0xf33Dcb8D760c9b6103b28bC7DDe84c44eDfE3631",
+    "issuerName": "Dr. Test Emeka Eric M. Mosanya",
+    "issuerImg": null,
+    "issuerVerified": false,
+    "issuerVerifiedBy": "Health Info Net AG",
+    "issuerVerifiedImg": "https://app.dev.testnet.certifaction.io/images/verified_by_hin.png",
+    "revoked": false,
+    "expiry": null,
+    "registrationEvent": {
+        "address": "0xe24A7F24954a68B0f9B0862cFF83b817D9f63409",
+        "blockHash": "0x5d85a00368284e645fcbd22ad4276d45d6224770befcf7d47ad4298e76ecde75",
+        "blockNumber": 9054726,
+        "logIndex": 2,
+        "removed": false,
+        "transactionHash": "0x6ad9f0881b0fce43a577dc43a03dba5e26e445168ea12f647d8303561465c4f3",
+        "transactionIndex": 3,
+        "id": "log_3659c51a",
+        "returnValues": {
+            "0": "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+            "1": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac",
+            "file": "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+            "hash": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac"
+        },
+        "event": "Claim",
+        "signature": "0x5664142af3dcfc3dc3de45a43f75c746bd1d8c11170a5037fdf98bdb35775137",
+        "raw": {
+            "data": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac",
+            "topics": [
+                "0x5664142af3dcfc3dc3de45a43f75c746bd1d8c11170a5037fdf98bdb35775137",
+                "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d"
+            ]
+        }
+    },
+    "registrationBlock": {
+        "difficulty": "614995568",
+        "extraData": "0xdb830300018c4f70656e457468657265756d86312e34332e31826c69",
+        "gasLimit": 8000029,
+        "gasUsed": 322829,
+        "hash": "0x5d85a00368284e645fcbd22ad4276d45d6224770befcf7d47ad4298e76ecde75",
+        "logsBloom": "0x00000000000000000000000000020080000000000000000008000000000000000040000800000000000000000000000020001000000002000000000000200000800002000000000000000008000000000000000000000000080000000002000800000800000000000080000000010000000100000000000000001010000000000000000000008000000000008900000000000000000000001000000000000000020000000000000000000000000000000002000000000000000000040000000000000002000000000000000001000000000000080800000200000000000002000010000000000000000100000000000000000000000000010000000000000001",
+        "miner": "0x05FC5a079e0583B8A07526023A16E2022c4C6296",
+        "mixHash": "0x0daf7a01804fdd33f2aeccc609cb5531fe205a5d4a3a077e157401d2bf096552",
+        "nonce": "0xc0c5aa768feba7d5",
+        "number": 9054726,
+        "parentHash": "0x00f81453e4abcbf006da11aad87676204420c188b2967f9e0e2d370f7ec45ec9",
+        "receiptsRoot": "0x1cf31645b87264e57cd69cd2a117bb9bd5129b8db0a578b53deb50c2278ae601",
+        "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "size": 1977,
+        "stateRoot": "0xf1f84fdb2eaa4aef45aab2e1d8d45bac1b042897038ce328e323f91d65ca402c",
+        "timestamp": 1605174498,
+        "totalDifficulty": "32071590099329030",
+        "transactions": [
+            "0x2f930c2541faee31fea6a0b91a417c9681721c99dd9ce155f04715974502ac93",
+            "0x8745a3f934f5e8c4698649897113a93070a29851d78bc557236e63c6f724caa3",
+            "0xb29943de872ef503c2f39bf7efb212bbf907ad36d9a9a964a7e927415651380a",
+            "0x6ad9f0881b0fce43a577dc43a03dba5e26e445168ea12f647d8303561465c4f3",
+            "0x452eb121c0e47bca592ada3afb94469de1ca8d0a41455789b22b8834d632c439"
+        ],
+        "transactionsRoot": "0xbe25d944d70a923d79b102bb816668274856be0ca65d1583a1282f9b442a7a65",
+        "uncles": []
+    },
+    "revocationEvent": null,
+    "revocationBlock": null,
+    "events": [
+        {
+            "ref": "cert:hash:0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+            "scope": "sign", // scope array_filter events last
+            "date": "2020-11-12T09:48:18.000Z", // date
+            "expiry": null,
+            "issuer": "Dr. Test Emeka Eric M. Mosanya", // issuer
+            // TODO: transactionhash
+            "identityVerifier": { // verifiedBy
+                "name": "Health Info Net AG",
+                "image": "https://app.dev.testnet.certifaction.io/images/verified_by_hin.png"
+            },
+            "transactionHash": "0x6ad9f0881b0fce43a577dc43a03dba5e26e445168ea12f647d8303561465c4f3", // transaction hash
+            // TODO: remove
+            "claimEvent": {
+                "address": "0xe24A7F24954a68B0f9B0862cFF83b817D9f63409",
+                "blockHash": "0x5d85a00368284e645fcbd22ad4276d45d6224770befcf7d47ad4298e76ecde75",
+                "blockNumber": 9054726,
+                "logIndex": 2,
+                "removed": false,
+                "transactionHash": "0x6ad9f0881b0fce43a577dc43a03dba5e26e445168ea12f647d8303561465c4f3", // transaction hash
+                "transactionIndex": 3,
+                "id": "log_3659c51a",
+                "returnValues": {
+                    "0": "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+                    "1": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac",
+                    "file": "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+                    "hash": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac"
+                },
+                "event": "Claim",
+                "signature": "0x5664142af3dcfc3dc3de45a43f75c746bd1d8c11170a5037fdf98bdb35775137",
+                "raw": {
+                    "data": "0x66366af6a083014affb01032c8d2d691ab1d725e7f97c9c3fa494cbb3ede18ac",
+                    "topics": [
+                        "0x5664142af3dcfc3dc3de45a43f75c746bd1d8c11170a5037fdf98bdb35775137",
+                        "0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d"
+                    ]
+                }
+            },
+            "claimBlock": {
+                "difficulty": "614995568",
+                "extraData": "0xdb830300018c4f70656e457468657265756d86312e34332e31826c69",
+                "gasLimit": 8000029,
+                "gasUsed": 322829,
+                "hash": "0x5d85a00368284e645fcbd22ad4276d45d6224770befcf7d47ad4298e76ecde75",
+                "logsBloom": "0x00000000000000000000000000020080000000000000000008000000000000000040000800000000000000000000000020001000000002000000000000200000800002000000000000000008000000000000000000000000080000000002000800000800000000000080000000010000000100000000000000001010000000000000000000008000000000008900000000000000000000001000000000000000020000000000000000000000000000000002000000000000000000040000000000000002000000000000000001000000000000080800000200000000000002000010000000000000000100000000000000000000000000010000000000000001",
+                "miner": "0x05FC5a079e0583B8A07526023A16E2022c4C6296",
+                "mixHash": "0x0daf7a01804fdd33f2aeccc609cb5531fe205a5d4a3a077e157401d2bf096552",
+                "nonce": "0xc0c5aa768feba7d5",
+                "number": 9054726,
+                "parentHash": "0x00f81453e4abcbf006da11aad87676204420c188b2967f9e0e2d370f7ec45ec9",
+                "receiptsRoot": "0x1cf31645b87264e57cd69cd2a117bb9bd5129b8db0a578b53deb50c2278ae601",
+                "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+                "size": 1977,
+                "stateRoot": "0xf1f84fdb2eaa4aef45aab2e1d8d45bac1b042897038ce328e323f91d65ca402c",
+                "timestamp": 1605174498, // timestamp
+                "totalDifficulty": "32071590099329030",
+                "transactions": [
+                    "0x2f930c2541faee31fea6a0b91a417c9681721c99dd9ce155f04715974502ac93",
+                    "0x8745a3f934f5e8c4698649897113a93070a29851d78bc557236e63c6f724caa3",
+                    "0xb29943de872ef503c2f39bf7efb212bbf907ad36d9a9a964a7e927415651380a",
+                    "0x6ad9f0881b0fce43a577dc43a03dba5e26e445168ea12f647d8303561465c4f3",
+                    "0x452eb121c0e47bca592ada3afb94469de1ca8d0a41455789b22b8834d632c439"
+                ],
+                "transactionsRoot": "0xbe25d944d70a923d79b102bb816668274856be0ca65d1583a1282f9b442a7a65",
+                "uncles": []
+            }
+        }
+    ],
+    "claims": [
+        {
+            "@context": "https://schema.certifaction.io/claim/v2",
+            "@id": "cert:hash:0x42d1b8bca2b68c0b40654cf940b8c8969e02807e91cddc7d08907ba058ff587d",
+            "exp": {"value": 0},
+            "idclaims": [
+                {
+                    "@context": "https://schema.certifaction.io/idclaim/v1",
+                    "@id": "cert:addr:0xf33dcb8d760c9b6103b28bc7dde84c44edfe3631",
+                    "name": "Dr. Test Emeka Eric M. Mosanya",
+                    "proof": {
+                        "creator": "0x57f7c7f877eE998ACC1b92417EBc7DF29fF77E3F",
+                        "nonce": "zvezfE8gE1cp1hyochqE7Nf0UUAS9Gd7",
+                        "signatureValue": "dcdd47a9e5dda943d1d7bdfa29e9a6dffa9d68e8bd65849ae9560609982c085c235c01ec56b875f0cbb67456fc3f6b3a3b02e6f7d9b431960d7aa7b45a4dba2f01",
+                        "type": "ECDSA"
+                    },
+                    "verifiedBy": "HIN"
+                }
+            ],
+            "proof": {
+                "creator": "0xf33Dcb8D760c9b6103b28bC7DDe84c44eDfE3631",
+                "nonce": "cSuUQU1b7AR1wqMpUpB3QW8aYoEiypdq",
+                "signatureValue": "672065e878d93cb4aa8f48846d123db659b5ffd4592be27a20d360fda695dcaf1f60c54709696f3687f7e9fefaa95ee1affd3ecac44349a6d8b8681d2fc73e0501",
+                "type": "ECDSA"
+            },
+            "scope": "sign"
+        }
+    ],
+    "loaded": true
+}
