@@ -80,7 +80,7 @@
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
                         <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
-                            <img :src="verificationItem.issuerVerifiedImg" class="wide" alt=""/>
+                            <img :src="verificationItem.issuerVerifiedImg" alt=""/>
                         </div>
                         <span v-else class="value">
                             <span>{{
