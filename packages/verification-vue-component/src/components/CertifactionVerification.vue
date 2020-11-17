@@ -162,17 +162,16 @@ export default {
             const hash = await hashingService.hashFile(item.file)
             let verification = await this.certifactionEthVerifier.verify(hash)
 
+            if (this.offchainVerifier) {
+                verification = await this.offchainVerification(verification)
+            }
+
             const oldResult = JSON.stringify(this.verificationItems[key])
             const newResult = JSON.stringify({ ...item, ...verification })
 
             if (oldResult !== newResult) {
                 Vue.set(this.verificationItems, key, { ...item, ...verification })
-
-                if (this.offchainVerifier) {
-                    verification = await this.offchainVerification(verification)
-                }
                 verification.loaded = true
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
             }
 
             setTimeout(() => {
