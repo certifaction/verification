@@ -80,7 +80,7 @@
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
                         <div v-if="verificationItem.issuerVerifiedImg" class="verifier-image">
-                            {{ /* Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final */ }}
+                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
                             <img :src="(verificationItem.issuerVerifiedImg).split('.png')[0] + '_redesign.png'" alt=""/>
                         </div>
                         <span v-else class="value">
