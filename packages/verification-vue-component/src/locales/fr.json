@@ -127,50 +127,50 @@
                         "valid": "Valide (non révoqué)"
                     }
                 }
-            }
-        },
-        "signing": {
-            "technicalProblem": {
-                "status": "Problème de connexion à la blockchain Ethereum",
-                "details": "En raison d'un problème technique momentané, nous n'avons pu traiter votre demande de vérification. Veuillez rafraîchir votre page et essayez de nouveau.<br><br>Si le problème persiste, veuillez contacter notre support technique. Nous nous ferons un plaisir de vous aider."
             },
-            "notFound": {
-                "status": "Aucune référence n'a pu être trouvée pour ce document",
-                "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
-            },
-            "signingComplete": {
-                "status": "This document is authentic and digitally signed.",
-                "signerFootnote": {
-                    "signed": "Signed at {signingDate}"
+            "signing": {
+                "technicalProblem": {
+                    "status": "Problème de connexion à la blockchain Ethereum",
+                    "details": "En raison d'un problème technique momentané, nous n'avons pu traiter votre demande de vérification. Veuillez rafraîchir votre page et essayez de nouveau.<br><br>Si le problème persiste, veuillez contacter notre support technique. Nous nous ferons un plaisir de vous aider."
                 },
-                "details": {
-                    "tamperProof": "Authenticité certifiée",
-                    "blockchain": {
-                        "secured": "Securisé sur la blockchain",
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                "notFound": {
+                    "status": "Aucune référence n'a pu être trouvée pour ce document",
+                    "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
+                },
+                "signingComplete": {
+                    "status": "This document is authentic and digitally signed.",
+                    "signerFootnote": {
+                        "signed": "Signed at {signingDate}"
                     },
-                    "valid": "Valide (non révoqué)",
-                    "signatures": {
-                        "complete": "Signing complete",
-                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                    "details": {
+                        "tamperProof": "Authenticité certifiée",
+                        "blockchain": {
+                            "secured": "Securisé sur la blockchain",
+                            "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                        },
+                        "valid": "Valide (non révoqué)",
+                        "signatures": {
+                            "complete": "Signing complete",
+                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        }
                     }
-                }
-            },
-            "revoked": {
-                "status": "Ce document a été révoqué.",
-                "signerFootnote": {
-                    "signed": "Signed at {signingDate}"
                 },
-                "details": {
-                    "tamperProof": "Authenticité certifiée",
-                    "blockchain": {
-                        "secured": "Securisé sur la blockchain",
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                "revoked": {
+                    "status": "Ce document a été révoqué.",
+                    "signerFootnote": {
+                        "signed": "Signed at {signingDate}"
                     },
-                    "invalid": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>",
-                    "signatures": {
-                        "complete": "Signing complete",
-                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                    "details": {
+                        "tamperProof": "Authenticité certifiée",
+                        "blockchain": {
+                            "secured": "Securisé sur la blockchain",
+                            "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                        },
+                        "invalid": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>",
+                        "signatures": {
+                            "complete": "Signing complete",
+                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        }
                     }
                 }
             }
@@ -179,5 +179,4 @@
     "poweredBy": {
         "label": "Powered by"
     }
-}
 }
