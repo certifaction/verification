@@ -158,31 +158,26 @@ export default {
                 console.log(e)
             }
         },
-        async verifyItem(item, key, updating = false) {
+        async verifyItem(item, key) {
             const hash = await hashingService.hashFile(item.file)
             let verification = await this.certifactionEthVerifier.verify(hash)
 
-            if (updating) {
-                if (this.itemHasUpdated(this.verificationItems[key], verification)) {
-                    Vue.set(this.verificationItems, key, { ...item, ...verification })
+            const oldResult = JSON.stringify(this.verificationItems[key])
+            const newResult = JSON.stringify({ ...item, ...verification })
+
+            if (oldResult !== newResult) {
+                Vue.set(this.verificationItems, key, { ...item, ...verification })
+
+                if (this.offchainVerifier) {
+                    verification = await this.offchainVerification(verification)
                 }
-            } else {
+                verification.loaded = true
                 Vue.set(this.verificationItems, key, { ...item, ...verification })
             }
 
-            if (this.offchainVerifier) {
-                verification = await this.offchainVerification(verification)
-            }
-
-            verification.loaded = true
-
-            if (updating) {
-                if (this.itemHasUpdated(this.verificationItems[key], verification)) {
-                    Vue.set(this.verificationItems, key, { ...item, ...verification })
-                }
-            } else {
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
-            }
+            setTimeout(() => {
+                this.verifyItem(item, key)
+            }, 10000)
         },
         async offchainVerification(verification) {
             // Make a call to the off-chain validator
@@ -264,32 +259,6 @@ export default {
 
             return verification
         },
-        async updateVerificationItems() {
-            try {
-                for (const [key, item] of this.verificationItems.entries()) {
-                    this.verifyItem(item, key, true)
-                }
-
-                await this.$nextTick()
-            } catch (e) {
-                console.log(e)
-            }
-        },
-        itemHasUpdated(oldItem, newItem) {
-            const registeringFinished =
-                Object.prototype.hasOwnProperty.call(oldItem, 'status') &&
-                oldItem.status === 'registering' &&
-                !Object.prototype.hasOwnProperty.call(newItem, 'status')
-
-            const newEvents =
-                (Object.prototype.hasOwnProperty.call(oldItem, 'events') &&
-                Object.prototype.hasOwnProperty.call(newItem, 'events') &&
-                newItem.events.length > oldItem.events.length) ||
-                (!Object.prototype.hasOwnProperty.call(oldItem, 'events') &&
-                Object.prototype.hasOwnProperty.call(newItem, 'events'))
-
-            return registeringFinished || newEvents
-        },
         onDraggingDemoDoc(demoDoc) {
             this.draggingDemoDoc = demoDoc
         },
@@ -324,9 +293,6 @@ export default {
                 this.dropbox.draggingOver = false
             }
         }
-    },
-    mounted() {
-        window.setInterval(this.updateVerificationItems, 10000)
     }
 }
 </script>
