@@ -1,5 +1,6 @@
 <template>
     <div class="item-container">
+<!--        {{verificationItem}}-->
         <ShadowCard v-if="isLoading" />
         <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)" />
         <ContactCard v-else-if="showContact" @toggle-help="toggleHelp($event)" :certifaction-api-url="verifierInformation.certifactionApiUrl" />
@@ -47,7 +48,7 @@ export default {
             return this.verificationItem.hashed === undefined || this.verificationItem.hashed === false
         },
         isSigning() {
-            return (this.verificationItem.events.filter(event => event.scope === 'sign')).length !== 0
+            return this.verificationItem.events ? (this.verificationItem.events.filter(event => event.scope === 'sign')).length !== 0 : false
         }
     },
     methods: {

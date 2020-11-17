@@ -8,7 +8,7 @@
                 <div class="filename">{{ verificationItem.name }}</div>
             </div>
         </template>
-        <template v-if="showExpertInfo" #body>
+        <template v-if="showExpertInfo && !isErrorOrNotFound" #body>
             <div class="verification-info expert">
                 <div v-if="verificationItem.hash" class="verification-entry fingerprint">
                     <span class="label">{{ _$t('verification.result.meta.fingerprint') }}</span>
@@ -66,7 +66,7 @@
                         <span>{{ verificationItem.hash }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0" class="verification-entry issuer">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0" class="verification-entry issuer">
                     <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
                     <span class="value">
                             <span>{{ registerEvents[0].issuer }}</span>
@@ -76,7 +76,7 @@
                         <span>{{ _$t('verification.result.verification.unverifiedIssuer.issuerFootnote') }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].identityVerifier" class="verification-entry verifier">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && registerEvents[0].identityVerifier" class="verification-entry verifier">
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
                         <div v-if="registerEvents[0].identityVerifier.image" class="verifier-image">
@@ -90,11 +90,11 @@
                         </span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-date">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <span class="value">{{ dateFormat(registerEvents[0].date) }}</span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-date">
+                <div v-if="!isErrorOrNotFound && revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <span class="value">{{ dateFormat(revokeEvents[0].date) }}</span>
                 </div>
@@ -167,18 +167,18 @@ export default {
     },
     computed: {
         registerEvents() {
-            return this.verificationItem.events.filter(event => ['register', 'certify'].includes(event.scope) > 0)
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => ['register', 'certify'].indexOf(event.scope) >= 0) : null
         },
         revokeEvents() {
-            return this.verificationItem.events.filter(event => event.scope === 'revoke')
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : null
         },
         verificationItemType() {
-            if (this.verificationItem.error) {
-                return 'technicalProblem'
-            }
-
             if (this.verificationItem.hashed === undefined || this.verificationItem.hashed === false) {
                 return 'ShadowItem'
+            }
+
+            if (this.verificationItem.offchainError && Object.keys(this.verificationItem.errors).length > 0) {
+                return 'technicalProblem'
             }
 
             switch (this.verificationItem.type) {

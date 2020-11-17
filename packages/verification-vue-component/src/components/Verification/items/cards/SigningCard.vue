@@ -77,7 +77,7 @@
                         <span>{{ verificationItem.hash }}</span>
                     </span>
                 </div>
-                <div v-if="signEvents.length > 0" class="verification-entry signers">
+                <div v-if="!isErrorOrNotFound && signEvents.length > 0" class="verification-entry signers">
                     <span class="label">{{ _$t('verification.result.meta.signers') }}</span>
                     <ul class="signers-list">
                         <li class="signer" v-for="(signerEvent, index) in signEvents" :key="index">
@@ -103,7 +103,7 @@
                         </li>
                     </ul>
                 </div>
-                <div v-if="signEvents.length > 0 && signEvents[0].identityVerifier" class="verification-entry verifier">
+                <div v-if="!isErrorOrNotFound && signEvents.length > 0 && signEvents[0].identityVerifier" class="verification-entry verifier">
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</span>
                         <div v-if="signEvents[0].identityVerifier.image" class="verifier-image">
@@ -116,7 +116,7 @@
                         </span>
                     </div>
                 </div>
-                <div v-if="signEvents.length > 0 && verificationItem.status !== 'registering'"
+                <div v-if="!isErrorOrNotFound && signEvents.length > 0 && verificationItem.status !== 'registering'"
                      class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <span class="value">{{ dateFormat(signEvents[0].date) }}</span>
@@ -196,18 +196,18 @@ export default {
     },
     computed: {
         signEvents() {
-            return this.verificationItem.events.filter(event => event.scope === 'sign')
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : null
         },
         revokeEvents() {
-            return this.verificationItem.events.filter(event => event.scope === 'revoke')
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : null
         },
         verificationItemType() {
-            if (this.verificationItem.error) {
-                return 'technicalProblem'
-            }
-
             if (this.verificationItem.hashed === undefined || this.verificationItem.hashed === false) {
                 return 'ShadowItem'
+            }
+
+            if (this.verificationItem.offchainError && Object.keys(this.verificationItem.errors).length > 0) {
+                return 'technicalProblem'
             }
 
             switch (this.verificationItem.type) {
