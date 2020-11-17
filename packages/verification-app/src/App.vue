@@ -19,7 +19,7 @@ export default {
     name: 'App',
     components: {
         CertifactionVerification: () =>
-            import(/* webpackChunkName: "certifaction-verification" */ '@certifaction/verification-vue-component/src')
+            import(/* webpackChunkName: "certifaction-verification" */ '@certifaction/verification-vue-component')
                 .then(({ CertifactionVerification }) => CertifactionVerification)
     },
     data() {
