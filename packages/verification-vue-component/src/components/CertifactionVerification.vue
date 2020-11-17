@@ -168,15 +168,21 @@ export default {
 
             let verification = await this.certifactionEthVerifier.verify(fileHash, decryptionKey)
 
-            Vue.set(this.verificationItems, key, { ...item, ...verification })
-
             if (this.offchainVerifier) {
                 verification = await this.offchainVerification(verification, decryptionKey)
             }
 
-            verification.loaded = true
+            const oldResult = JSON.stringify(this.verificationItems[key])
+            const newResult = JSON.stringify({ ...item, ...verification })
 
-            Vue.set(this.verificationItems, key, { ...item, ...verification })
+            if (oldResult !== newResult) {
+                Vue.set(this.verificationItems, key, { ...item, ...verification })
+                verification.loaded = true
+            }
+
+            setTimeout(() => {
+                this.verifyItem(item, key)
+            }, 10000)
         },
         async offchainVerification(verification, decryptionKey) {
             // TODO(Cyrill): Simplify offchain verification
