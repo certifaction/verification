@@ -69,6 +69,67 @@
                 "revocationDate": "Data e ora di annullamento",
                 "smartContractAddress": "Indirizzo del Smart Contract"
             },
+            "verification": {
+                "technicalProblem": {
+                    "status": "Problema di connessione alla blockchain dell'Ethereum",
+                    "details": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento. Si prega di aggiornare la pagina e riprovare.<br><br>Se il problema persiste, si prega di contattare il nostro supporto tecnico. Saremo lieti di aiutarvi."
+                },
+                "notFound": {
+                    "status": "Non è stato possibile trovare alcun riferimento per questo documento.",
+                    "details": "Questo documento ci è sconosciuto.  Potrebbe essere stato alterato per errore.<br><br>Par esempio:<br><ul><li>L'emittente ha distribuito la versione errata del documento.</li><li>Il titolare del documento vi ha inviato una versione errata.</li><li>Il file è stato modificato per errore:<ul><li>sia stampandolo in formato PDF,</li><li>sia salvandolo con un lettore PDF non conforme alle linee guida sulla protezione dei documenti,</li><li>sia stampando e scannerizzando il documento.</li></ul></li></ul>Contattate l'emittente del documento o il nostro supporto tecnico."
+                },
+                "revokedUnverified": {
+                    "status": "Questo documento è stato revocato.",
+                    "details": {
+                        "tamperProof": "Autenticità certificata",
+                        "unverifiedIssuer": "Emittente non verificato",
+                        "blockchain": {
+                            "secured": "Protetto dalla blockchain",
+                            "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
+                        },
+                        "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                    }
+                },
+                "revokedVerified": {
+                    "status": "Questo documento è stato revocato.",
+                    "details": {
+                        "tamperProof": "Autenticità certificata",
+                        "verifiedIssuer": "Emittente verificato",
+                        "blockchain": {
+                            "secured": "Protetto dalla blockchain",
+                            "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
+                        },
+                        "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                    }
+                },
+                "unverifiedIssuer": {
+                    "status": "Questo documento è stato registrato da un emittente non verificato",
+                    "issuerFootnote": "Identità non confermata",
+                    "details": {
+                        "tamperProof": "Autenticità certificata",
+                        "unverifiedIssuer": "Emittente non verificato",
+                        "blockchain": {
+                            "secured": "Protetto dalla blockchain",
+                            "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
+                        },
+                        "valid": "Valido (non revocato)"
+                    }
+                },
+                "verifiedIssuer": {
+                    "status": "Il presente documento è autentico e proviene da un emittente verificato.",
+                    "details": {
+                        "tamperProof": "Autenticità certificata",
+                        "verifiedIssuer": "Emittente verificato",
+                        "blockchain": {
+                            "secured": "Protetto dalla blockchain",
+                            "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
+                        },
+                        "valid": "Valido (non revocato)"
+                    }
+                }
+            }
+        },
+        "signing": {
             "technicalProblem": {
                 "status": "Problema di connessione alla blockchain dell'Ethereum",
                 "details": "A causa di un temporaneo guasto tecnico, al momento non possiamo verificare il suo documento. Si prega di aggiornare la pagina e riprovare.<br><br>Se il problema persiste, si prega di contattare il nostro supporto tecnico. Saremo lieti di aiutarvi."
@@ -77,56 +138,44 @@
                 "status": "Non è stato possibile trovare alcun riferimento per questo documento.",
                 "details": "Questo documento ci è sconosciuto.  Potrebbe essere stato alterato per errore.<br><br>Par esempio:<br><ul><li>L'emittente ha distribuito la versione errata del documento.</li><li>Il titolare del documento vi ha inviato una versione errata.</li><li>Il file è stato modificato per errore:<ul><li>sia stampandolo in formato PDF,</li><li>sia salvandolo con un lettore PDF non conforme alle linee guida sulla protezione dei documenti,</li><li>sia stampando e scannerizzando il documento.</li></ul></li></ul>Contattate l'emittente del documento o il nostro supporto tecnico."
             },
-            "revokedUnverified": {
-                "status": "Questo documento è stato revocato.",
+            "signingComplete": {
+                "status": "This document is authentic and digitally signed.",
+                "signerFootnote": {
+                    "signed": "Signed at {signingDate}"
+                },
                 "details": {
                     "tamperProof": "Autenticità certificata",
-                    "unverifiedIssuer": "Emittente non verificato",
-                    "blockchain": {
-                        "secured": "Protetto dalla blockchain",
-                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
-                    },
-                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
-                }
-            },
-            "revokedVerified": {
-                "status": "Questo documento è stato revocato.",
-                "details": {
-                    "tamperProof": "Autenticità certificata",
-                    "verifiedIssuer": "Emittente verificato",
-                    "blockchain": {
-                        "secured": "Protetto dalla blockchain",
-                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
-                    },
-                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
-                }
-            },
-            "unverifiedIssuer": {
-                "status": "Questo documento è stato registrato da un emittente non verificato",
-                "issuerFootnote": "Identità non confermata",
-                "details": {
-                    "tamperProof": "Autenticità certificata",
-                    "unverifiedIssuer": "Emittente non verificato",
                     "blockchain": {
                         "secured": "Protetto dalla blockchain",
                         "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
                     },
-                    "valid": "Valido (non revocato)"
+                    "valid": "Valido (non revocato)",
+                    "signatures": {
+                        "complete": "Signing complete",
+                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                    }
                 }
             },
-            "verifiedIssuer": {
-                "status": "Il presente documento è autentico e proviene da un emittente verificato.",
+            "revoked": {
+                "status": "Questo documento è stato revocato.",
+                "signerFootnote": {
+                    "signed": "Signed at {signingDate}"
+                },
                 "details": {
                     "tamperProof": "Autenticità certificata",
-                    "verifiedIssuer": "Emittente verificato",
                     "blockchain": {
                         "secured": "Protetto dalla blockchain",
                         "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
                     },
-                    "valid": "Valido (non revocato)"
+                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                    "signatures": {
+                        "complete": "Signing complete",
+                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                    }
                 }
             }
-        },
+        }
+    },
         "poweredBy": {
             "label": "Powered by"
         }

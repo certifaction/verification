@@ -145,7 +145,7 @@
                         "signed": "Signed at {signingDate}"
                     },
                     "details": {
-                        "tamperProof": "Tamper proof",
+                        "tamperProof": "Tamper-proof",
                         "blockchain": {
                             "secured": "Secured by blockchain",
                             "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
