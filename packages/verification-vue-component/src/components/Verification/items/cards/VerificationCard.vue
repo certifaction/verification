@@ -177,7 +177,7 @@ export default {
                 return 'ShadowItem'
             }
 
-            if (this.verificationItem.offchainError && Object.keys(this.verificationItem.errors).length > 0) {
+            if (this.verificationItem.offchainError && this.verificationItem.error) {
                 return 'technicalProblem'
             }
 
