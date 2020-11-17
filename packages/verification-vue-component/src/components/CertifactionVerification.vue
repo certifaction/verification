@@ -10,7 +10,6 @@
 
         <div v-show="!dropbox.draggingOver">
             <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
-            <button @click="verifyDemoFile">VERIFY DEMO FILE</button>
 
             <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
                 <VerificationItem
@@ -122,32 +121,7 @@ export default {
             dropbox: {
                 draggingOver: false,
                 dragLeaveLocked: false
-            },
-            demoFiles: [
-                {
-                    hashed: true,
-                    type: 3,
-                    file: {},
-                    name: 'hin_dev_testnet_registering.pdf',
-                    hash: '0x85a75d121df9bd922cb9ae18c327b264cdd4ef76d4867b257fd120efd60c3e99',
-                    onBlockchain: false,
-                    issuerName: 'Dr. Test Emeka Eric M. Mosanya',
-                    issuerVerified: true,
-                    issuerVerifiedBy: 'Health Info Net AG',
-                    issuerVerifiedImg: 'https://app.dev.testnet.certifaction.io/images/verified_by_hin.png',
-                    status: 'registering',
-                    revoked: false,
-                    events: [{
-                        scope: 'register',
-                        issuer: 'Dr. Test Emeka Eric M. Mosanya',
-                        identityVerifier: {
-                            name: 'Health Info Net AG',
-                            image: 'https://app.dev.testnet.certifaction.io/images/verified_by_hin.png'
-                        }
-                    }],
-                    loaded: true
-                } // hin registering
-            ]
+            }
         }
     },
     computed: {
@@ -305,10 +279,6 @@ export default {
                 await this.$nextTick()
                 VueScrollTo.scrollTo(this.$refs.results, 400)
             }
-        },
-        async verifyDemoFile() {
-            this.verificationItems = this.demoFiles
-            await this.$nextTick()
         },
         handleDrop(e) {
             this.dropbox.draggingOver = false
