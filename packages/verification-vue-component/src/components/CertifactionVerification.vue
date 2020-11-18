@@ -144,8 +144,7 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            const hash = await hashingService.hashFile(item.file)
-            let verification = await this.certifactionEthVerifier.verify(hash)
+            let verification = await this.certifactionEthVerifier.verify(item.file)
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
 

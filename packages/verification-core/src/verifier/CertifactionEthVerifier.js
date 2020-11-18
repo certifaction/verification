@@ -70,10 +70,12 @@ export default class CertifactionEthVerifier {
         })
     }
 
-    async verify(fileHash) {
+    async verify(file) {
         const pdfBytes = await this.readPdfBytes(file)
-        const encryptionKeys = await this.pdfService.extractEncryptionKeys(pdfBytes)
-        console.log('CertifactionEthVerifier::verify()', encryptionKeys)
+        const [fileHash, encryptionKeys] = await Promise.all([
+            hashingService.hashFile(pdfBytes),
+            this.pdfService.extractEncryptionKeys(pdfBytes)
+        ])
 
         let verification = {
             hash: fileHash
@@ -84,7 +86,10 @@ export default class CertifactionEthVerifier {
 
             if (this.enableClaims) {
                 console.log('Verifying with claim method...')
-                fileVerification = await this.certifactionEthClient.verifyFile(fileHash, encryptionKeys.privateKey)
+                fileVerification = await this.certifactionEthClient.verifyFile(
+                    fileHash,
+                    (encryptionKeys !== null) ? encryptionKeys.privateKey : null
+                )
             } else {
                 console.log('Verifying with contract method...')
                 fileVerification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
