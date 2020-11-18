@@ -108,7 +108,8 @@
                         "invalid": {
                             "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
                             "offchain": "Revoked"
-                        }                    }
+                        }
+                    }
                 },
                 "unverifiedIssuer": {
                     "status": "This document has been registered by an unverified issuer",
@@ -177,7 +178,8 @@
                         "invalid": {
                             "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
                             "offchain": "Revoked"
-                        },                        "signatures": {
+                        },
+                        "signatures": {
                             "complete": "Signing complete",
                             "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
                         }
