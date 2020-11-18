@@ -60,70 +60,128 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Issuer",
+                "signers": "Signers",
                 "issuerVerifiedBy": "Issuer verified by",
+                "signersVerifiedBy": "Signer(s) verified by",
                 "issuerAddress": "Issuer Public Key",
                 "fingerprint": "Document Hash",
                 "registrationDate": "Issue Date & Time",
                 "registrationTransaction": "Registration Transaction",
                 "revocationTransaction": "Revocation Transaction",
                 "revocationDate": "Revocation Date & Time",
-                "smartContractAddress": "Smart Contract Address"
+                "smartContractAddress": "Smart Contract Address",
+                "signatureTransactions": "Signature transactions"
             },
-            "technicalProblem": {
-                "status": "Oops! We could not connect to the Ethereum blockchain",
-                "details": "We had a technical issue on our end and could not process your verification request at this time. Please refresh the page and try again.<br><br>If the problem persists, please contact our support. We would be happy to help you."
-            },
-            "notFound": {
-                "status": "No match could be found for this document",
-                "details": "This document is not known to us. It is possible that it was modified unintentionally.<br><br>Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:<ul><li>by printing it as a PDF</li><li>by saving it with a PDF writer that ignored the protection</li><li>by printing and scanning it</li></ul></li></ul>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
-            },
-            "revokedUnverified": {
-                "status": "This document has been revoked.",
-                "details": {
-                    "tamperProof": "Tamper-proof certification",
-                    "unverifiedIssuer": "Unverified issuer",
-                    "blockchain": {
-                        "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
-                    },
-                    "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+            "verification": {
+                "technicalProblem": {
+                    "status": "Oops! We could not connect to the Ethereum blockchain",
+                    "details": "We had a technical issue on our end and could not process your verification request at this time. Please refresh the page and try again.<br><br>If the problem persists, please contact our support. We would be happy to help you."
+                },
+                "notFound": {
+                    "status": "No match could be found for this document",
+                    "details": "This document is not known to us. It is possible that it was modified unintentionally.<br><br>Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:<ul><li>by printing it as a PDF</li><li>by saving it with a PDF writer that ignored the protection</li><li>by printing and scanning it</li></ul></li></ul>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
+                },
+                "revokedUnverified": {
+                    "status": "This document has been revoked.",
+                    "details": {
+                        "tamperProof": "Tamper-proof certification",
+                        "unverifiedIssuer": "Unverified issuer",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
+                        },
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        }
+                    }
+                },
+                "revokedVerified": {
+                    "status": "This document has been revoked.",
+                    "details": {
+                        "tamperProof": "Tamper-proof certification",
+                        "verifiedIssuer": "Verified issuer",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
+                        },
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        }                    }
+                },
+                "unverifiedIssuer": {
+                    "status": "This document has been registered by an unverified issuer",
+                    "issuerFootnote": "Identity not confirmed",
+                    "details": {
+                        "tamperProof": "Tamper-proof certification",
+                        "unverifiedIssuer": "Unverified issuer",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "valid": "Valid (no revocation)"
+                    }
+                },
+                "verifiedIssuer": {
+                    "status": "This document is authentic and from a verified issuer",
+                    "details": {
+                        "tamperProof": "Tamper-proof certification",
+                        "verifiedIssuer": "Verified issuer",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "valid": "Valid (no revocation)"
+                    }
                 }
             },
-            "revokedVerified": {
-                "status": "This document has been revoked.",
-                "details": {
-                    "tamperProof": "Tamper-proof certification",
-                    "verifiedIssuer": "Verified issuer",
-                    "blockchain": {
-                        "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
+            "signing": {
+                "technicalProblem": {
+                    "status": "Oops! We could not connect to the Ethereum blockchain",
+                    "details": "We had a technical issue on our end and could not process your verification request at this time. Please refresh the page and try again.<br><br>If the problem persists, please contact our support. We would be happy to help you."
+                },
+                "notFound": {
+                    "status": "No match could be found for this document",
+                    "details": "This document is not known to us. It is possible that it was modified unintentionally.<br><br>Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:<ul><li>by printing it as a PDF</li><li>by saving it with a PDF writer that ignored the protection</li><li>by printing and scanning it</li></ul></li></ul>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
+                },
+                "signingComplete": {
+                    "status": "This document is authentic and digitally signed.",
+                    "signerFootnote": {
+                        "signed": "Signed at {signingDate}"
                     },
-                    "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
-                }
-            },
-            "unverifiedIssuer": {
-                "status": "This document has been registered by an unverified issuer",
-                "issuerFootnote": "Identity not confirmed",
-                "details": {
-                    "tamperProof": "Tamper-proof certification",
-                    "unverifiedIssuer": "Unverified issuer",
-                    "blockchain": {
-                        "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                    "details": {
+                        "tamperProof": "Tamper-proof",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "valid": "Valid document (no revocation)",
+                        "signatures": {
+                            "complete": "Signing complete",
+                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        }
+                    }
+                },
+                "revoked": {
+                    "status": "This document has been revoked.",
+                    "signerFootnote": {
+                        "signed": "Signed at {signingDate}"
                     },
-                    "valid": "Valid (no revocation)"
-                }
-            },
-            "verifiedIssuer": {
-                "status": "This document is authentic and from a verified issuer",
-                "details": {
-                    "tamperProof": "Tamper-proof certification",
-                    "verifiedIssuer": "Verified issuer",
-                    "blockchain": {
-                        "secured": "Secured by blockchain",
-                        "registering": "Registering on the blockchain <span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>"
-                    },
-                    "valid": "Valid (no revocation)"
+                    "details": {
+                        "tamperProof": "Tamper-proof",
+                        "blockchain": {
+                            "secured": "Secured by blockchain",
+                            "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
+                        },
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        },                        "signatures": {
+                            "complete": "Signing complete",
+                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        }
+                    }
                 }
             }
         },
