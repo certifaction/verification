@@ -77,6 +77,29 @@
                     background-color: #F7F9FC;
                 }
 
+                ul.signers-list {
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        display: flex;
+                        list-style-type: none;
+                        padding-top: 8px;
+
+                        .signed {
+                            display: inline-block;
+                            color: $verification-result-success-dark;
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 10px;
+                        }
+
+                        span.value > span {
+                            display: inline-block;
+                        }
+                    }
+                }
+
                 span {
                     display: block;
 
@@ -91,10 +114,15 @@
                     &.footnote {
                         display: flex;
                         align-items: center;
+                        color: rgba(#14213d, 50%);
 
-                        span, svg {
-                            display: inline-block;
-                            color: #F29E18;
+                        &.warning {
+                            margin-left: 0;
+
+                            span, svg {
+                                display: inline-block;
+                                color: #F29E18;
+                            }
                         }
 
                         svg {
@@ -111,6 +139,14 @@
 
                 .value {
                     overflow-wrap: break-word;
+                }
+
+                .signature-hash {
+                    padding-top: 10px;
+
+                    &:first-child {
+                        padding-top: 0;
+                    }
                 }
 
                 .verifier-image {
