@@ -121,7 +121,8 @@ export default {
             dropbox: {
                 draggingOver: false,
                 dragLeaveLocked: false
-            }
+            },
+            itemTimeouts: []
         }
     },
     computed: {
@@ -148,7 +149,12 @@ export default {
     },
     methods: {
         async verify(files) {
+            if (this.itemTimeouts.length > 0) {
+                this.itemTimeouts.forEach(item => clearTimeout(item.timeoutId))
+                this.itemTimeouts = []
+            }
             this.verificationItems = []
+
             try {
                 for (const file of files) {
                     this.verificationItems.push({ file, name: file.name })
@@ -181,9 +187,24 @@ export default {
                 verification.loaded = true
             }
 
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
                 this.verifyItem(item, key)
             }, 10000)
+
+            let existingTimeoutIndex = null
+
+            this.itemTimeouts.forEach((itemTimeout, index) => {
+                if (itemTimeout.hash === item.hash) {
+                    existingTimeoutIndex = index
+                    return true
+                }
+            })
+
+            if (existingTimeoutIndex) {
+                this.itemTimeouts[existingTimeoutIndex].timeoutId = timeoutId
+            } else {
+                this.itemTimeouts.push({ hash: verification.hash, timeoutId })
+            }
         },
         async offchainVerification(verification) {
             // Make a call to the off-chain validator

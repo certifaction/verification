@@ -22,7 +22,7 @@
                         <span>{{ registerEvents[0].issuerAddress }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0" class="verification-entry smart-contract-address">
+                <div v-if="registerEvents.length > 0 && registerEvents[0].smartContractAddress" class="verification-entry smart-contract-address">
                     <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
                         <span>
@@ -31,7 +31,7 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-hash">
+                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].transactionHash" class="verification-entry registration-hash">
                     <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
                     <span class="value">
                         <span>
@@ -90,11 +90,11 @@
                         </span>
                     </div>
                 </div>
-                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.status !== 'registering'" class="verification-entry registration-date">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].date" class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <span class="value">{{ dateFormat(registerEvents[0].date) }}</span>
                 </div>
-                <div v-if="!isErrorOrNotFound && revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-date">
+                <div v-if="!isErrorOrNotFound && revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].date" class="verification-entry revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <span class="value">{{ dateFormat(revokeEvents[0].date) }}</span>
                 </div>
