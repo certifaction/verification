@@ -15,7 +15,8 @@
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
                     :key="verificationItem.hash"
-                    :verificationItem="verificationItem"
+                    :verification-item="verificationItem"
+                    :verifier-information="verifierInformation"
                     :certifaction-api-url="certifactionApiUrl"/>
             </div>
 
@@ -120,7 +121,8 @@ export default {
             dropbox: {
                 draggingOver: false,
                 dragLeaveLocked: false
-            }
+            },
+            itemTimeouts: {}
         }
     },
     computed: {
@@ -137,11 +139,22 @@ export default {
                     ...item
                 }
             })
+        },
+        verifierInformation() {
+            return {
+                net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('ropsten') >= 0 ? 'ropsten.etherscan.io' : 'etherscan.io',
+                certifactionApiUrl: this.certifactionApiUrl
+            }
         }
     },
     methods: {
         async verify(files) {
+            if (Object.values(this.itemTimeouts).length > 0) {
+                Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
+                this.itemTimeouts = {}
+            }
             this.verificationItems = []
+
             try {
                 for (const file of files) {
                     this.verificationItems.push({ file, name: file.name })
@@ -174,9 +187,9 @@ export default {
                 verification.loaded = true
             }
 
-            setTimeout(() => {
+            this.itemTimeouts[hash] = window.setTimeout(() => {
                 this.verifyItem(item, key)
-            }, 10000)
+            }, 20000)
         },
         async offchainVerification(verification) {
             // Make a call to the off-chain validator
@@ -219,6 +232,9 @@ export default {
                         if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
                             verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
                         }
+                        if (typeof verification.revoked !== 'boolean' && typeof offchainVerification.revoked === 'boolean') {
+                            verification.revoked = offchainVerification.revoked
+                        }
 
                         // TODO(Cyrill): Change logic when verify endpoint returns an events array
                         if (verification.events && verification.events.length > 0) {
@@ -248,6 +264,14 @@ export default {
                                 issuer: offchainVerification.issuerName,
                                 identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
                             }]
+
+                            if (offchainVerification.revoked === true) {
+                                verification.events.push({
+                                    scope: 'revoke',
+                                    issuer: offchainVerification.issuerName,
+                                    identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                                })
+                            }
                         }
                     }
                 }
