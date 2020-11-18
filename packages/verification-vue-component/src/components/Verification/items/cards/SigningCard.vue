@@ -22,7 +22,7 @@
                         <span>{{ signEvents[0].issuerAddress }}</span>
                     </span>
                 </div>
-                <div v-if="signEvents.length > 0" class="verification-entry smart-contract-address">
+                <div v-if="signEvents.length > 0 && signEvents[0].smartContractAddress" class="verification-entry smart-contract-address">
                     <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
                         <span>
@@ -31,7 +31,8 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="signEvents.length > 0" class="verification-entry registration-hash">
+                <div v-if="signEvents.length > 0 && verificationItem.status !== 'revoking' && signEvents[0].transactionHash"
+                     class="verification-entry registration-hash">
                     <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
                     <span class="value">
                         <span>
@@ -40,7 +41,8 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="revokeEvents.length > 0" class="verification-entry revocation-hash">
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash"
+                     class="verification-entry revocation-hash">
                     <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
                     <span class="value">
                         <span>
@@ -54,7 +56,8 @@
                     <span class="value">
                         <span class="signature-hash" v-for="(signerEvent, index) in signEvents" :key="index">
                             <span>{{ signerEvent.issuer }}</span>
-                            <a :href="`https://${net}/tx/${signerEvent.transactionHash}`"
+                            <a v-if="signerEvent.transactionHash"
+                               :href="`https://${net}/tx/${signerEvent.transactionHash}`"
                                target="_blank">{{ signerEvent.transactionHash }}</a>
                         </span>
                     </span>
@@ -103,7 +106,8 @@
                         </li>
                     </ul>
                 </div>
-                <div v-if="!isErrorOrNotFound && signEvents.length > 0 && signEvents[0].identityVerifier" class="verification-entry verifier">
+                <div v-if="!isErrorOrNotFound && signEvents.length > 0 && signEvents[0].identityVerifier"
+                     class="verification-entry verifier">
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</span>
                         <div v-if="signEvents[0].identityVerifier.image" class="verifier-image">

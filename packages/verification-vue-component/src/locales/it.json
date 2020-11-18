@@ -67,7 +67,8 @@
                 "registrationTransaction": "Transazione di emissione",
                 "revocationTransaction": "Transazione di annullamento",
                 "revocationDate": "Data e ora di annullamento",
-                "smartContractAddress": "Indirizzo del Smart Contract"
+                "smartContractAddress": "Indirizzo del Smart Contract",
+                "signatureTransactions": "Signature transactions"
             },
             "verification": {
                 "technicalProblem": {
@@ -87,7 +88,10 @@
                             "secured": "Protetto dalla blockchain",
                             "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
                         },
-                        "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                        "invalid": {
+                            "default": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                            "offchain": "Revocato"
+                        }
                     }
                 },
                 "revokedVerified": {
@@ -99,7 +103,10 @@
                             "secured": "Protetto dalla blockchain",
                             "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di revoca nella blockchain dell'Ethereum. Ciò renderà la revoca autonomamente verificabile da tutti.</span>"
                         },
-                        "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                        "invalid": {
+                            "default": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                            "offchain": "Revocato"
+                        }
                     }
                 },
                 "unverifiedIssuer": {
@@ -166,7 +173,10 @@
                             "secured": "Protetto dalla blockchain",
                             "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
                         },
-                        "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                        "invalid": {
+                            "default": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                            "offchain": "Revocato"
+                        },
                         "signatures": {
                             "complete": "Signing complete",
                             "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
@@ -213,7 +223,10 @@
                         "secured": "Protetto dalla blockchain",
                         "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione sulla blockchain dell'Ethereum. Questo permetterà il massimo livello di sicurezza.</span>"
                     },
-                    "invalid": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                    "invalid": {
+                        "default": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>",
+                        "offchain": "Revocato"
+                    },
                     "signatures": {
                         "complete": "Signing complete",
                         "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"

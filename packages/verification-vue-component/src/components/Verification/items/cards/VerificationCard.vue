@@ -40,7 +40,7 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking'" class="verification-entry revocation-hash">
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash" class="verification-entry revocation-hash">
                     <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
                     <span class="value">
                         <span>

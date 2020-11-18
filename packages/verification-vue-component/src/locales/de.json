@@ -67,7 +67,8 @@
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
                 "revocationDate": "Annullierungsdatum & -Zeit",
-                "smartContractAddress": "Smart Contract-Adresse"
+                "smartContractAddress": "Smart Contract-Adresse",
+                "signatureTransactions": "Signaturtransaktionen"
             },
             "verification": {
                 "technicalProblem": {
@@ -87,7 +88,10 @@
                             "secured": "Durch Blockchain gesichert",
                             "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
                         },
-                        "invalid": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                        "invalid": {
+                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
+                            "offchain": "Annulliert"
+                        }
                     }
                 },
                 "revokedVerified": {
@@ -99,8 +103,10 @@
                             "secured": "Durch Blockchain gesichert",
                             "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
                         },
-                        "invalid": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
-                    }
+                        "invalid": {
+                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
+                            "offchain": "Annulliert"
+                        }                    }
                 },
                 "unverifiedIssuer": {
                     "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
@@ -166,8 +172,10 @@
                             "secured": "Durch Blockchain gesichert",
                             "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
                         },
-                        "invalid": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
-                        "signatures": {
+                        "invalid": {
+                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
+                            "offchain": "Annulliert"
+                        },                        "signatures": {
                             "complete": "Signing complete",
                             "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
                         }

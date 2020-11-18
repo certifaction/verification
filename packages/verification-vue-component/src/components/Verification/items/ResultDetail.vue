@@ -146,7 +146,8 @@ export default {
                 // eslint-disable-next-line no-constant-condition
                 return false ? item.registering : item.complete
             } else if (index === 'invalid') {
-                return this._$t('verification.result.' + this.translationType + '.' + this.verificationResult + '.details.invalid', { revocationDate: this.dateFormat(this.revocationDate) })
+                const labelType = this.revocationDate ? 'default' : 'offchain'
+                return this._$t('verification.result.' + this.translationType + '.' + this.verificationResult + '.details.invalid.' + labelType, { revocationDate: this.revocationDate ? this.dateFormat(this.revocationDate) : null })
             }
 
             return item

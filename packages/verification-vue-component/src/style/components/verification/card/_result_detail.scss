@@ -85,7 +85,7 @@
 
                 .md-icon {
                     display: inline-block;
-                    width: 14px;
+                    flex: 14px 0 0;
                     height: 20px;
                     margin-right: 8px;
 
@@ -98,7 +98,6 @@
                     }
 
                     &.invalid {
-                        width: 28px;
                         color: $verification-result-error-dark;
                     }
                 }

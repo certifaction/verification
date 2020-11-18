@@ -69,7 +69,8 @@
                 "registrationTransaction": "Registration Transaction",
                 "revocationTransaction": "Revocation Transaction",
                 "revocationDate": "Revocation Date & Time",
-                "smartContractAddress": "Smart Contract Address"
+                "smartContractAddress": "Smart Contract Address",
+                "signatureTransactions": "Signature transactions"
             },
             "verification": {
                 "technicalProblem": {
@@ -89,7 +90,10 @@
                             "secured": "Secured by blockchain",
                             "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
                         },
-                        "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        }
                     }
                 },
                 "revokedVerified": {
@@ -101,8 +105,10 @@
                             "secured": "Secured by blockchain",
                             "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
                         },
-                        "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
-                    }
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        }                    }
                 },
                 "unverifiedIssuer": {
                     "status": "This document has been registered by an unverified issuer",
@@ -168,8 +174,10 @@
                             "secured": "Secured by blockchain",
                             "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain. This makes the revocation independently verifiable.</span>"
                         },
-                        "invalid": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
-                        "signatures": {
+                        "invalid": {
+                            "default": "Revoked <span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>",
+                            "offchain": "Revoked"
+                        },                        "signatures": {
                             "complete": "Signing complete",
                             "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
                         }
