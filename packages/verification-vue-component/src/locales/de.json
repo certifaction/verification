@@ -60,7 +60,9 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Aussteller",
+                "signers": "Signierer",
                 "issuerVerifiedBy": "Verifiziert durch",
+                "signersVerifiedBy": "Verifiziert durch",
                 "issuerAddress": "Public Key des Ausstellers",
                 "fingerprint": "Dokumenten-Hash",
                 "registrationDate": "Ausstelldatum & -Zeit",
@@ -68,11 +70,11 @@
                 "revocationTransaction": "Annullierungstransaktion",
                 "revocationDate": "Annullierungsdatum & -Zeit",
                 "smartContractAddress": "Smart Contract-Adresse",
-                "signatureTransactions": "Signaturtransaktionen"
+                "signatureTransactions": "Signierungstranskationen"
             },
             "verification": {
                 "technicalProblem": {
-                    "status": "Oops! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
+                    "status": "Hoppla! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
                     "details": "Es liegt eine technische Störung vor. Ihre Verifizierungsanfrage kann gerade nicht verarbeitet werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.<br><br>Falls die Störung andauert, zögern Sie nicht, unseren Support zu kontaktieren. Wir sind gerne für Sie da."
                 },
                 "notFound": {
@@ -106,7 +108,8 @@
                         "invalid": {
                             "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
                             "offchain": "Annulliert"
-                        }                    }
+                        }
+                    }
                 },
                 "unverifiedIssuer": {
                     "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
@@ -136,7 +139,7 @@
             },
             "signing": {
                 "technicalProblem": {
-                    "status": "Oops! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
+                    "status": "Hoppla! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
                     "details": "Es liegt eine technische Störung vor. Ihre Verifizierungsanfrage kann gerade nicht verarbeitet werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.<br><br>Falls die Störung andauert, zögern Sie nicht, unseren Support zu kontaktieren. Wir sind gerne für Sie da."
                 },
                 "notFound": {
@@ -144,9 +147,9 @@
                     "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:<ul><li>durch \"Drucken als PDF\"</li><li>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.</li><li>durch Ausdrucken und Scannen</li></ul></li></ul>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
                 },
                 "signingComplete": {
-                    "status": "This document is authentic and digitally signed.",
+                    "status": "Dieses Dokument ist authentisch und wurde digital signiert.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Signiert am {signingDate}"
                     },
                     "details": {
                         "tamperProof": "Fälschungssicher",
@@ -156,15 +159,15 @@
                         },
                         "valid": "Gültig (nicht widerrufen)",
                         "signatures": {
-                            "complete": "Signing complete",
-                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                            "complete": "Signieren abgeschlossen",
+                            "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
                         }
                     }
                 },
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Signiert am {signingDate}"
                     },
                     "details": {
                         "tamperProof": "Fälschungssicher",
@@ -175,9 +178,10 @@
                         "invalid": {
                             "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
                             "offchain": "Annulliert"
-                        },                        "signatures": {
-                            "complete": "Signing complete",
-                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "signatures": {
+                            "complete": "Signieren abgeschlossen",
+                            "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
                         }
                     }
                 }
