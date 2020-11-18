@@ -247,6 +247,9 @@ export default {
                         if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
                             verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
                         }
+                        if (typeof verification.revoked !== 'boolean' && typeof offchainVerification.revoked === 'boolean') {
+                            verification.revoked = offchainVerification.revoked
+                        }
 
                         // TODO(Cyrill): Change logic when verify endpoint returns an events array
                         if (verification.events && verification.events.length > 0) {
@@ -276,6 +279,14 @@ export default {
                                 issuer: offchainVerification.issuerName,
                                 identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
                             }]
+
+                            if (offchainVerification.revoked === true) {
+                                verification.events.push({
+                                    scope: 'revoke',
+                                    issuer: offchainVerification.issuerName,
+                                    identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
+                                })
+                            }
                         }
                     }
                 }
