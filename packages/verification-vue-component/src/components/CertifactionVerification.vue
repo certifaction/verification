@@ -150,7 +150,7 @@ export default {
     methods: {
         async verify(files) {
             if (Object.values(this.itemTimeouts).length > 0) {
-                Object.values(this.itemTimeouts).forEach(timeoutId => clearTimeout(timeoutId))
+                Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
                 this.itemTimeouts = {}
             }
             this.verificationItems = []
