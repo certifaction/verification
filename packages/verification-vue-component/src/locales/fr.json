@@ -60,7 +60,9 @@
             "meta": {
                 "contract": "Contrat",
                 "issuer": "Émetteur",
+                "signers": "Signataire",
                 "issuerVerifiedBy": "Émetteur vérifié par",
+                "signersVerifiedBy": "Signataire(s) vérifié par",
                 "issuerAddress": "Clef publique de l'émetteur",
                 "fingerprint": "Empreinte numérique du document",
                 "registrationDate": "Date & heure de l'émission",
@@ -68,7 +70,7 @@
                 "revocationTransaction": "Transaction de révocation",
                 "revocationDate": "Date & heure de la révocation",
                 "smartContractAddress": "Adresse du Smart Contract",
-                "signatureTransactions": "Signature transactions"
+                "signatureTransactions": "Transactions de signature"
             },
             "verification": {
                 "technicalProblem": {
@@ -106,7 +108,8 @@
                         "invalid": {
                             "default": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>",
                             "offchain": "Révoqué"
-                        }                    }
+                        }
+                    }
                 },
                 "unverifiedIssuer": {
                     "status": "Ce document a été enregistré par un émetteur non vérifié.",
@@ -144,9 +147,9 @@
                     "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
                 },
                 "signingComplete": {
-                    "status": "This document is authentic and digitally signed.",
+                    "status": "Ce document est authentique et signé électroniquement",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Signé le {signingDate}"
                     },
                     "details": {
                         "tamperProof": "Authenticité certifiée",
@@ -156,15 +159,15 @@
                         },
                         "valid": "Valide (non révoqué)",
                         "signatures": {
-                            "complete": "Signing complete",
-                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                            "complete": "Signature finalisée",
+                            "registering": "Signature(s) En cours d'enregistrement.<span class=\"detail-footnote\">Une des signatures reçues est en attente d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
                         }
                     }
                 },
                 "revoked": {
                     "status": "Ce document a été révoqué.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Signé le {signingDate}"
                     },
                     "details": {
                         "tamperProof": "Authenticité certifiée",
@@ -175,16 +178,17 @@
                         "invalid": {
                             "default": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>",
                             "offchain": "Révoqué"
-                        },                        "signatures": {
-                            "complete": "Signing complete",
-                            "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "signatures": {
+                            "complete": "Signature finalisée",
+                            "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
                         }
                     }
                 }
             }
+        },
+        "poweredBy": {
+            "label": "Powered by"
         }
-    },
-    "poweredBy": {
-        "label": "Powered by"
     }
 }

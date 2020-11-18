@@ -111,7 +111,8 @@
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</span>
                         <div v-if="signEvents[0].identityVerifier.image" class="verifier-image">
-                            <img :src="signEvents[0].identityVerifier.image" alt=""/>
+                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
+                            <img :src="(signEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'" alt=""/>
                         </div>
                         <span v-else class="value">
                             <span>{{
