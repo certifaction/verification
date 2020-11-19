@@ -223,7 +223,7 @@ export default {
                         if (!verification.issuerName && offchainVerification.issuerName) {
                             verification.issuerName = offchainVerification.issuerName
                         }
-                        if (!verification.issuerVerified && typeof offchainVerification.issuerVerified === 'boolean') {
+                        if (offchainVerification.issuerVerified && offchainVerification.issuerVerifiedBy !== '') {
                             verification.issuerVerified = offchainVerification.issuerVerified
                         }
                         if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
