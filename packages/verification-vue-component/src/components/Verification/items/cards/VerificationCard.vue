@@ -71,21 +71,21 @@
                     <span class="value">
                             <span>{{ registerEvents[0].issuer }}</span>
                     </span>
-                    <span v-if="registerEvents.length > 0 && !registerEvents[0].identityVerifier" class="footnote warning">
+                    <span v-if="registerEvents.length > 0 && !verificationItem.issuerVerified" class="footnote warning">
                         <MDIcon :icon="mdiAlertCircle"/>
                         <span>{{ _$t('verification.result.verification.unverifiedIssuer.issuerFootnote') }}</span>
                     </span>
                 </div>
-                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && registerEvents[0].identityVerifier" class="verification-entry verifier">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.issuerVerified" class="verification-entry verifier">
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
-                        <div v-if="registerEvents[0].identityVerifier.image" class="verifier-image">
+                        <div v-if="registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.image" class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
                             <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'" alt=""/>
                         </div>
                         <span v-else class="value">
                             <span>{{
-                                    registerEvents[0].identityVerifier.name ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
+                                (registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.name) ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
                                 }}</span>
                         </span>
                     </div>
