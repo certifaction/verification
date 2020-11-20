@@ -1,7 +1,7 @@
 import HashingWorker from 'web-worker:./hashing.worker'
 
 export default {
-    hashFile(file) {
+    hashFile(pdfBytes) {
         return new Promise((resolve, reject) => {
             const worker = new HashingWorker()
 
@@ -14,7 +14,7 @@ export default {
                 }
             }, false)
 
-            worker.postMessage(file)
+            worker.postMessage(pdfBytes)
         })
     }
 }

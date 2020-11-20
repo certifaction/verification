@@ -35,6 +35,7 @@ import { CertifactionEthVerifier } from '@certifaction/verification-core'
 const certifactionEthVerifier = new CertifactionEthVerifier()
 // or with custom properties (the values shown here are the default values)
 const certifactionEthVerifier = new CertifactionEthVerifier(
+    '', // pdfWasmUrl - required to be set
     true, // enableClaims
     'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c', // providerUrl
     '0xdc1d2c136cad73e10ae367d075995185edd68cae', // legacyContractAddress

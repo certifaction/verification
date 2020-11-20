@@ -24,7 +24,6 @@ import Vue from 'vue'
 import VueScrollTo from 'vue-scrollto'
 import {
     CertifactionEthVerifier,
-    hashingService,
     Interface,
     mapVerificationItemType,
     VerifierInterface
@@ -55,6 +54,10 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        pdfWasmUrl: {
+            type: String,
+            required: true
         },
         providerUrl: {
             type: String,
@@ -92,6 +95,7 @@ export default {
     data() {
         return {
             certifactionEthVerifier: new CertifactionEthVerifier(
+                this.pdfWasmUrl,
                 this.enableClaims,
                 this.providerUrl,
                 this.legacyContractAddress,
@@ -140,8 +144,7 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            const hash = await hashingService.hashFile(item.file)
-            let verification = await this.certifactionEthVerifier.verify(hash)
+            let verification = await this.certifactionEthVerifier.verify(item.file)
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
 

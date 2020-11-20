@@ -46,8 +46,9 @@
  * @property {string} image
  */
 
-import { hexToUtf8, hexToBytes } from 'web3-utils'
+import { hexToBytes, hexToUtf8 } from 'web3-utils'
 import EthCrypto from 'eth-crypto'
+import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
 
 // Let's nullify all empty hex strings for beauty
@@ -82,11 +83,12 @@ export default class CertifactionEthClient {
      * Verifies a file hash on the smart contract
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @return {FileVerification|null}
      */
-    async verifyFile(fileHash) {
-        let fileVerification = await this.verifyFileByClaims(fileHash)
+    async verifyFile(fileHash, decryptionKey) {
+        let fileVerification = await this.verifyFileByClaims(fileHash, decryptionKey)
 
         if (
             fileVerification !== null &&
@@ -210,11 +212,12 @@ export default class CertifactionEthClient {
      * Verifies a file hash by claims
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @return {Promise<FileVerification|null>}
      */
-    async verifyFileByClaims(fileHash) {
-        return await this.resolveAndValidateFileClaim(fileHash)
+    async verifyFileByClaims(fileHash, decryptionKey) {
+        return await this.resolveAndValidateFileClaim(fileHash, decryptionKey)
     }
 
     /**
@@ -250,10 +253,11 @@ export default class CertifactionEthClient {
      * Resolve and validate the file claims for the given file hash
      *
      * @param {string} fileHash
+     * @param {string} decryptionKey
      *
      * @returns {Promise<FileVerification|null>}
      */
-    async resolveAndValidateFileClaim(fileHash) {
+    async resolveAndValidateFileClaim(fileHash, decryptionKey) {
         // Get Events for Filehash
         const claimEvents = await this.claimContract.getPastEvents(
             'Claim', {
@@ -313,12 +317,30 @@ export default class CertifactionEthClient {
                 continue
             }
 
-            claims.push(claim)
-
             if (!this.verifyRawClaim(claim, claimHash, claimFileHash)) {
                 console.error('The raw claim couldn\'t be verified, discarding.')
                 continue
             }
+
+            switch (claim['@context']) {
+                case 'https://schema.certifaction.io/encryptedclaim/v1':
+                    if (!decryptionKey) {
+                        console.error('Found encrypted claim, but no decryption key is provided, discarding.')
+                        continue
+                    }
+
+                    try {
+                        console.log('It\'s an encrypted claim, trying to decrypt it...')
+                        claim = await this.decryptClaim(claim, decryptionKey, claimFileHash)
+                        console.log('Decrypted claim:', claim)
+                    } catch (e) {
+                        console.error('Error while decrypting encrypted claim, discarding.', e)
+                        continue
+                    }
+                    break
+            }
+
+            claims.push(claim)
 
             // Get Issuer Hash from Address from Signature
             issuerAddress = await this.verifySignatureAndGetPubkey(claim)
@@ -408,8 +430,7 @@ export default class CertifactionEthClient {
             claims
         }
 
-        console.log('Consolidated Verification Result for File ' + fileHash + ':')
-        console.log(fileVerification)
+        console.log(`Consolidated Verification Result for File ${fileHash}:`, fileVerification)
 
         return fileVerification
     }
@@ -458,6 +479,34 @@ export default class CertifactionEthClient {
         console.log('File hashes matching, Claim is for this File.')
 
         return true
+    }
+
+    /**
+     * Decrypt and verify the given claim
+     *
+     * @param {Object} encryptedClaim
+     * @param {string} decryptionKey
+     * @param {string} validFileHash Only use the file hash coming from the blockchain
+     *
+     * @returns {Promise<Object>}
+     */
+    async decryptClaim(encryptedClaim, decryptionKey, validFileHash) {
+        switch (encryptedClaim['algorithm']) {
+            case 'ECIES':
+                const privateKey = Buffer.from(decryptionKey, 'hex')
+                const decryptedClaimJson = await eciesDecrypt(privateKey, Buffer.from(encryptedClaim['claim'], 'base64'))
+                const decryptedClaim = JSON.parse(decryptedClaimJson.toString())
+
+                // Verify if the file hash from the encrypted claim matches the file hash from the blockchain
+                if (decryptedClaim['@id'].toLowerCase() !== 'cert:hash:' + validFileHash.toLowerCase()) {
+                    throw new Error(`The valid file hash does NOT match the file hash from the encrypted claim.`)
+                }
+
+                return decryptedClaim
+
+            default:
+                throw new Error(`Algorithm not supported: ${encryptedClaim['algorithm']}`)
+        }
     }
 
     /**
