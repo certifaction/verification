@@ -103,6 +103,12 @@ Type: `boolean` | Required: `false` | Default: `true`
 
 Enable/disable the claim based verification method.
 
+#### pdfWasmUrl
+
+Type: `string` | Required: `true` | Default: ``
+
+URL to the PDF webassembly file ([`@certifaction/verification-app/src/wasm/pdf_reader.wasm`](https://github.com/certifaction/verification/blob/master/packages/verification-app/src/wasm/pdf_reader.wasm)).
+
 #### providerUrl
 
 Type: `string` | Required: `false` | Default: `https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c`
