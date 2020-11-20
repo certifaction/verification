@@ -190,7 +190,7 @@ export default {
                 verification.loaded = true
             }
 
-            this.itemTimeouts[hash] = window.setTimeout(() => {
+            this.itemTimeouts[verification.hash] = window.setTimeout(() => {
                 this.verifyItem(item, key)
             }, 20000)
         },
