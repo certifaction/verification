@@ -23,6 +23,7 @@ This monorepo contains these packages:
 |---|---|---|
 | Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-core/latest.svg)](https://npmjs.com/package/@certifaction/verification-core) |
 | Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-vue-component/latest.svg)](https://npmjs.com/package/@certifaction/verification-vue-component) |
+| Verification App (Demo) | [@certifaction/verification-app](https://github.com/certifaction/verification/tree/master/packages/verification-app) | - |
 
 ## Development
 
@@ -66,7 +67,7 @@ This will start the wizard to publish a new version to NPM.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/certifaction/verification/blob/master/LICENSE)
 
-Released by [Certifaction AG](https://certifaction.io)
+Released by [Certifaction AG](https://certifaction.com)
 
 [lerna]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [lerna-url]: https://lerna.js.org/

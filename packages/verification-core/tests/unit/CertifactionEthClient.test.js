@@ -8,7 +8,7 @@ import ClaimContractMock from './mocks/ClaimContractMock'
 
 jest.mock('axios')
 
-const eth = new EthMock('https://ropsten.infura.io/v3/4876e0df8d31475799c8239ba2538c4c')
+const eth = new EthMock('https://ropsten.infura.io/v3/9a23c7be744740c6b64d6e94159afa68')
 const legacyContract = new LegacyContractMock(LegacySmartContractABI)
 const claimContract = new ClaimContractMock(ClaimSmartContractABI)
 
