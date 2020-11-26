@@ -50,7 +50,7 @@ export default class PdfService {
     }
 
     /**
-     * Reads the given file and returns an Uin8Array
+     * Reads the given file and returns an Uint8Array
      *
      * @param {File} file
      *
