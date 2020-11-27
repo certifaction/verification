@@ -173,7 +173,7 @@ export default {
                         if (!offchainVerification.revoked) {
                             offchainVerification.revoked = claimVerification.revoked
                         }
-                        if (offchainVerification.issuerVerified && typeof claimVerification.issuerVerified === 'boolean') {
+                        if (!offchainVerification.issuerVerified && typeof claimVerification.issuerVerified === 'boolean') {
                             offchainVerification.issuerVerified = claimVerification.issuerVerified
                         }
                         if (!offchainVerification.issuerAddress && claimVerification.issuerAddress) {
