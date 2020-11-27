@@ -15,7 +15,6 @@ The verification vue-component enables you to easily integrate the Certifaction 
 * [Usage](#usage)
 * [Props](#props)
     * [demo](#demo)
-    * [enableClaims](#enableClaims)
     * [providerUrl](#providerUrl)
     * [legacyContractAddress](#legacyContractAddress)
     * [legacyContractFallbackAddresses](#legacyContractFallbackAddresses)
@@ -96,12 +95,6 @@ new VueI18n({
 Type: `boolean` | Required: `false` | Default: `false`
 
 Show demo documents to see the different verification results.
-
-#### enableClaims
-
-Type: `boolean` | Required: `false` | Default: `true`
-
-Enable/disable the claim based verification method.
 
 #### pdfWasmUrl
 

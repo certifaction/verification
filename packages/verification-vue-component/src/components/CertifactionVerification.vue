@@ -52,11 +52,6 @@ export default {
             required: false,
             default: false
         },
-        enableClaims: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
         pdfWasmUrl: {
             type: String,
             required: true
@@ -97,7 +92,6 @@ export default {
     data() {
         return {
             certifactionEthVerifier: new CertifactionEthVerifier(
-                this.enableClaims,
                 this.providerUrl,
                 this.legacyContractAddress,
                 this.legacyContractFallbackAddresses,
@@ -179,7 +173,7 @@ export default {
                         if (!offchainVerification.revoked) {
                             offchainVerification.revoked = claimVerification.revoked
                         }
-                        if (claimVerification.issuerVerified && claimVerification.issuerVerifiedBy !== '') {
+                        if (offchainVerification.issuerVerified && typeof claimVerification.issuerVerified === 'boolean') {
                             offchainVerification.issuerVerified = claimVerification.issuerVerified
                         }
                         if (!offchainVerification.issuerAddress && claimVerification.issuerAddress) {
@@ -222,7 +216,7 @@ export default {
                         if (!verification.issuerName && offchainVerification.issuerName) {
                             verification.issuerName = offchainVerification.issuerName
                         }
-                        if (offchainVerification.issuerVerified && offchainVerification.issuerVerifiedBy !== '') {
+                        if (!verification.issuerVerified && typeof offchainVerification.issuerVerified === 'boolean') {
                             verification.issuerVerified = offchainVerification.issuerVerified
                         }
                         if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
@@ -267,6 +261,8 @@ export default {
                 console.log(`Error while verifying by offchain verification: ${e.name} - ${e.message}`)
                 verification.offchainError = true
             }
+
+            console.log(`Verification result for file ${verification.hash}:`, verification)
 
             return verification
         },

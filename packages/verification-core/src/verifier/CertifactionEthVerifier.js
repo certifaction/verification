@@ -10,7 +10,6 @@ export default class CertifactionEthVerifier {
      *
      * @constructor
      *
-     * @param {boolean} enableClaims
      * @param {string} providerUrl
      * @param {string} legacyContractAddress contract address in HEX format (ex. 0x010...)
      * @param {string[]} legacyContractFallbackAddresses
@@ -19,7 +18,6 @@ export default class CertifactionEthVerifier {
      * @param {string} certifactionApiUrl
      */
     constructor(
-        enableClaims = true,
         providerUrl = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
         legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
         legacyContractFallbackAddresses = ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'],
@@ -27,11 +25,6 @@ export default class CertifactionEthVerifier {
         acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
         certifactionApiUrl = 'https://api.certifaction.io/'
     ) {
-        this.enableClaims = (enableClaims !== false)
-        if (this.enableClaims) {
-            console.log('Certifaction ETH verifier instanciated to use claims.')
-        }
-
         const eth = new Eth(providerUrl)
         const legacyContract = new eth.Contract(LegacySmartContractABI, legacyContractAddress)
         const fallbackLegacyContracts = legacyContractFallbackAddresses.map(
@@ -66,20 +59,13 @@ export default class CertifactionEthVerifier {
         }
 
         try {
-            let fileVerification = null
-
-            if (this.enableClaims) {
-                console.log('Verifying with claim method...')
-                fileVerification = await this.certifactionClaimVerifier.verify(fileHash, decryptionKey)
-            }
+            console.log('Verifying with claims...')
+            let fileVerification = await this.certifactionClaimVerifier.verify(fileHash, decryptionKey)
 
             if (fileVerification === null) {
-                if (this.enableClaims) {
-                    // If the claim verifier doesn't return a result, try verifying by legacy contracts
-                    console.log('No claims found, fallback to legacy contract based verification')
-                }
-
-                console.log('Verifying with contract method...')
+                // If the claim verifier doesn't return a result, try verifying by legacy contracts
+                console.log('No claims found, fallback to legacy contract based verification')
+                console.log('Verifying with legacy contract...')
                 fileVerification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
             }
 
