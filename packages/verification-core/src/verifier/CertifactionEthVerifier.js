@@ -1,9 +1,8 @@
 import Eth from 'web3-eth'
-import PdfService from '../pdf/PdfService'
 import LegacySmartContractABI from '../eth/LegacySmartContract.abi'
 import ClaimSmartContractABI from '../eth/ClaimSmartContract.abi'
 import CertifactionEthClient from '../eth/CertifactionEthClient'
-import hashingService from '../hashing/hashing.service'
+import CertifactionClaimVerifier from './CertifactionClaimVerifier'
 
 export default class CertifactionEthVerifier {
     /**
@@ -11,8 +10,6 @@ export default class CertifactionEthVerifier {
      *
      * @constructor
      *
-     * @param {string} pdfWasmUrl URL to the PDF WebAssembly file
-     * @param {boolean} enableClaims
      * @param {string} providerUrl
      * @param {string} legacyContractAddress contract address in HEX format (ex. 0x010...)
      * @param {string[]} legacyContractFallbackAddresses
@@ -21,22 +18,13 @@ export default class CertifactionEthVerifier {
      * @param {string} certifactionApiUrl
      */
     constructor(
-        pdfWasmUrl,
-        enableClaims = true,
-        providerUrl = 'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c',
+        providerUrl = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
         legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
         legacyContractFallbackAddresses = ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'],
         claimContractAddress = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
         acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
         certifactionApiUrl = 'https://api.certifaction.io/'
     ) {
-        this.pdfService = new PdfService(pdfWasmUrl)
-
-        this.enableClaims = (enableClaims !== false)
-        if (this.enableClaims) {
-            console.log('Certifaction ETH verifier instanciated to use claims.')
-        }
-
         const eth = new Eth(providerUrl)
         const legacyContract = new eth.Contract(LegacySmartContractABI, legacyContractAddress)
         const fallbackLegacyContracts = legacyContractFallbackAddresses.map(
@@ -48,50 +36,36 @@ export default class CertifactionEthVerifier {
             eth,
             legacyContract,
             fallbackLegacyContracts,
-            claimContract,
+            claimContract
+        )
+        this.certifactionClaimVerifier = new CertifactionClaimVerifier(
             acceptedIssuerKey,
+            this.certifactionEthClient,
             certifactionApiUrl
         )
     }
 
-    readPdfBytes(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader()
-
-            reader.onload = () => {
-                resolve(new Uint8Array(reader.result))
-            }
-
-            reader.onerror = (error) => {
-                reject(error)
-            }
-
-            reader.readAsArrayBuffer(file)
-        })
-    }
-
-    async verify(file) {
-        const pdfBytes = await this.readPdfBytes(file)
-        const [fileHash, encryptionKeys] = await Promise.all([
-            hashingService.hashFile(pdfBytes),
-            this.pdfService.extractEncryptionKeys(pdfBytes)
-        ])
-
+    /**
+     * Verify the given file hash using claims and legacy contract
+     *
+     * @param {string} fileHash
+     * @param {string} decryptionKey
+     *
+     * @returns {Promise<Object>}
+     */
+    async verify(fileHash, decryptionKey) {
         let verification = {
             hash: fileHash
         }
 
         try {
-            let fileVerification
+            console.log('Verifying with claims...')
+            let fileVerification = await this.certifactionClaimVerifier.verify(fileHash, decryptionKey)
 
-            if (this.enableClaims) {
-                console.log('Verifying with claim method...')
-                fileVerification = await this.certifactionEthClient.verifyFile(
-                    fileHash,
-                    (encryptionKeys !== null) ? encryptionKeys.privateKey : null
-                )
-            } else {
-                console.log('Verifying with contract method...')
+            if (fileVerification === null) {
+                // If the claim verifier doesn't return a result, try verifying by legacy contracts
+                console.log('No claims found, fallback to legacy contract based verification')
+                console.log('Verifying with legacy contract...')
                 fileVerification = await this.certifactionEthClient.verifyFileByLegacyContract(fileHash)
             }
 
@@ -100,8 +74,10 @@ export default class CertifactionEthVerifier {
             }
 
             verification = { ...verification, ...fileVerification }
+
+            console.log(`Consolidated verification result for file ${fileHash}:`, verification)
         } catch (e) {
-            console.log(`Error while verifying fileHash "${fileHash}":`, e)
+            console.log(`Error while verifying file hash "${fileHash}": ${e.name} - ${e.message}`)
             verification.error = e
         }
 

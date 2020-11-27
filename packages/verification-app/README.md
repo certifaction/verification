@@ -54,7 +54,7 @@ npm run build
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/certifaction/verification/blob/master/LICENSE)
 
-Released by [Certifaction AG](https://certifaction.io)
+Released by [Certifaction AG](https://certifaction.com)
 
 [lerna]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [lerna-url]: https://lerna.js.org/

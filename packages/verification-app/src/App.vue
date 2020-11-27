@@ -1,7 +1,6 @@
 <template>
     <div id="app">
         <CertifactionVerification :demo="false"
-                                  :enable-claims="enableClaims"
                                   :pdf-wasm-url="pdfWasm"
                                   :provider-url="providerUrl"
                                   :legacy-contract-address="legacyContractAddress"
@@ -26,7 +25,6 @@ export default {
     },
     data() {
         return {
-            enableClaims: !!((process.env.VUE_APP_CLAIM_FF && process.env.VUE_APP_CLAIM_FF === 'true')),
             pdfWasm,
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
             legacyContractAddress: process.env.VUE_APP_LEGACY_CONTRACT_ADDRESS,

@@ -4,6 +4,7 @@ import ClaimSmartContractABI from './eth/ClaimSmartContract.abi'
 import CertifactionEthClient from './eth/CertifactionEthClient'
 import VerifierInterface from './verifier/VerifierInterface'
 import CertifactionEthVerifier from './verifier/CertifactionEthVerifier'
+import CertifactionClaimVerifier from './verifier/CertifactionClaimVerifier'
 import hashingService from './hashing/hashing.service'
 import PdfService from './pdf/PdfService'
 import { mapVerificationItemType, VERIFICATION_TYPES } from './verification-types'
@@ -15,6 +16,7 @@ export {
     CertifactionEthClient,
     VerifierInterface,
     CertifactionEthVerifier,
+    CertifactionClaimVerifier,
     hashingService,
     PdfService,
     VERIFICATION_TYPES,

@@ -4,7 +4,13 @@ self.addEventListener('message', async (e) => {
     try {
         switch (e.data.cmd) {
             case 'init':
-                await PdfWasm.init(e.data.pdfWasmUrl)
+                try {
+                    await PdfWasm.init(e.data.pdfWasmUrl)
+                    self.postMessage(true)
+                } catch (e) {
+                    console.error(`Error while initializing PDF wasm: ${e.name} - ${e.message}`)
+                    self.postMessage(false)
+                }
                 break
 
             case 'extractEncryptionKeys':

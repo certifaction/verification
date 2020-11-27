@@ -15,7 +15,6 @@ The verification vue-component enables you to easily integrate the Certifaction 
 * [Usage](#usage)
 * [Props](#props)
     * [demo](#demo)
-    * [enableClaims](#enableClaims)
     * [providerUrl](#providerUrl)
     * [legacyContractAddress](#legacyContractAddress)
     * [legacyContractFallbackAddresses](#legacyContractFallbackAddresses)
@@ -97,12 +96,6 @@ Type: `boolean` | Required: `false` | Default: `false`
 
 Show demo documents to see the different verification results.
 
-#### enableClaims
-
-Type: `boolean` | Required: `false` | Default: `true`
-
-Enable/disable the claim based verification method.
-
 #### pdfWasmUrl
 
 Type: `string` | Required: `true` | Default: ``
@@ -111,7 +104,7 @@ URL to the PDF webassembly file ([`@certifaction/verification-app/src/wasm/pdf_r
 
 #### providerUrl
 
-Type: `string` | Required: `false` | Default: `https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c`
+Type: `string` | Required: `false` | Default: `https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0`
 
 #### legacyContractAddress
 
@@ -147,7 +140,7 @@ For an example on how to do that, check [`@certifaction/verification-core/exampl
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/certifaction/verification/blob/master/LICENSE)
 
-Released by [Certifaction AG](https://certifaction.io)
+Released by [Certifaction AG](https://certifaction.com)
 
 [npm]: https://img.shields.io/npm/v/@certifaction/verification-vue-component.svg
 [npm-url]: https://www.npmjs.com/package/@certifaction/verification-vue-component

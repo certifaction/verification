@@ -36,8 +36,7 @@ const certifactionEthVerifier = new CertifactionEthVerifier()
 // or with custom properties (the values shown here are the default values)
 const certifactionEthVerifier = new CertifactionEthVerifier(
     '', // pdfWasmUrl - required to be set
-    true, // enableClaims
-    'https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c', // providerUrl
+    'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0', // providerUrl
     '0xdc1d2c136cad73e10ae367d075995185edd68cae', // legacyContractAddress
     ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'], // legacyContractFallbackAddresses
     '0x5532ba4add77dd25fa11acc5a84e5f183f57525e', // claimContractAddress
@@ -52,7 +51,7 @@ const verification = certifactionEthVerifier.verify(fileHash)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/certifaction/verification/blob/master/LICENSE)
 
-Released by [Certifaction AG](https://certifaction.io)
+Released by [Certifaction AG](https://certifaction.com)
 
 [npm]: https://img.shields.io/npm/v/@certifaction/verification-core.svg
 [npm-url]: https://www.npmjs.com/package/@certifaction/verification-core

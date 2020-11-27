@@ -24,8 +24,10 @@ import Vue from 'vue'
 import VueScrollTo from 'vue-scrollto'
 import {
     CertifactionEthVerifier,
+    hashingService,
     Interface,
     mapVerificationItemType,
+    PdfService,
     VerifierInterface
 } from '@certifaction/verification-core'
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
@@ -46,11 +48,6 @@ export default {
     },
     props: {
         demo: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        enableClaims: {
             type: Boolean,
             required: false,
             default: false
@@ -95,8 +92,6 @@ export default {
     data() {
         return {
             certifactionEthVerifier: new CertifactionEthVerifier(
-                this.pdfWasmUrl,
-                this.enableClaims,
                 this.providerUrl,
                 this.legacyContractAddress,
                 this.legacyContractFallbackAddresses,
@@ -104,6 +99,7 @@ export default {
                 this.acceptedIssuerKey,
                 this.certifactionApiUrl
             ),
+            pdfService: new PdfService(this.pdfWasmUrl),
             verificationItems: [],
             draggingDemoDoc: undefined
         }
@@ -144,24 +140,56 @@ export default {
             }
         },
         async verifyItem(item, key) {
-            let verification = await this.certifactionEthVerifier.verify(item.file)
+            const pdfBytes = await this.pdfService.readPdfBytes(item.file)
+            const [fileHash, encryptionKeys] = await Promise.all([
+                hashingService.hashFile(pdfBytes),
+                this.pdfService.extractEncryptionKeys(pdfBytes)
+            ])
+            const decryptionKey = (encryptionKeys !== null) ? encryptionKeys.privateKey : null
+
+            let verification = await this.certifactionEthVerifier.verify(fileHash, decryptionKey)
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
 
             if (this.offchainVerifier) {
-                verification = await this.offchainVerification(verification)
+                verification = await this.offchainVerification(verification, decryptionKey)
             }
 
             verification.loaded = true
 
             Vue.set(this.verificationItems, key, { ...item, ...verification })
         },
-        async offchainVerification(verification) {
+        async offchainVerification(verification, decryptionKey) {
+            // TODO(Cyrill): Simplify offchain verification
             // Make a call to the off-chain validator
             try {
                 const offchainVerification = await this.offchainVerifier.verify(verification.hash)
 
                 if (offchainVerification) {
+                    if (offchainVerification.encrypted && offchainVerification.claims && offchainVerification.claims.length > 0) {
+                        const claimVerification = await this.certifactionEthVerifier.certifactionClaimVerifier.resolveAndVerifyClaims(offchainVerification.claims, decryptionKey)
+                        offchainVerification.claims = claimVerification.claims
+
+                        if (!offchainVerification.revoked) {
+                            offchainVerification.revoked = claimVerification.revoked
+                        }
+                        if (offchainVerification.issuerVerified && typeof claimVerification.issuerVerified === 'boolean') {
+                            offchainVerification.issuerVerified = claimVerification.issuerVerified
+                        }
+                        if (!offchainVerification.issuerAddress && claimVerification.issuerAddress) {
+                            offchainVerification.issuerAddress = claimVerification.issuerAddress
+                        }
+                        if (!offchainVerification.issuerName && claimVerification.issuerName) {
+                            offchainVerification.issuerName = claimVerification.issuerName
+                        }
+                        if (!offchainVerification.issuerVerifiedBy && claimVerification.issuerVerifiedBy) {
+                            offchainVerification.issuerVerifiedBy = claimVerification.issuerVerifiedBy
+                        }
+                        if (!offchainVerification.issuerVerifiedImg && claimVerification.issuerVerifiedImg) {
+                            offchainVerification.issuerVerifiedImg = claimVerification.issuerVerifiedImg
+                        }
+                    }
+
                     const identityVerifier = {}
                     if (offchainVerification.issuerVerifiedBy) {
                         identityVerifier.name = offchainVerification.issuerVerifiedBy
@@ -188,7 +216,7 @@ export default {
                         if (!verification.issuerName && offchainVerification.issuerName) {
                             verification.issuerName = offchainVerification.issuerName
                         }
-                        if (typeof verification.issuerVerified !== 'boolean' && typeof offchainVerification.issuerVerified === 'boolean') {
+                        if (!verification.issuerVerified && typeof offchainVerification.issuerVerified === 'boolean') {
                             verification.issuerVerified = offchainVerification.issuerVerified
                         }
                         if (!verification.issuerVerifiedBy && offchainVerification.issuerVerifiedBy) {
@@ -230,9 +258,11 @@ export default {
                     }
                 }
             } catch (e) {
-                console.log('Error while verifying by offchain verification:', e)
+                console.log(`Error while verifying by offchain verification: ${e.name} - ${e.message}`)
                 verification.offchainError = true
             }
+
+            console.log(`Verification result for file ${verification.hash}:`, verification)
 
             return verification
         },
