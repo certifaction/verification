@@ -43,7 +43,7 @@
                 "form": {
                     "email": "Votre email",
                     "question": "Votre question",
-                    "consent": "En envoyant le formulaire, j'accepte la politique de confidentialité.",
+                    "consent": "En envoyant le formulaire, j'accepte la <a href=\"https://certifaction.io/privacy-policy\" target=\"_blank\">politique de confidentialité</a>.",
                     "submit": "Envoyer",
                     "submitted": "Votre message a été envoyé avec succès.",
                     "failed": "Votre message n'a pu être envoyé. Veuillez essayer plus tard."
