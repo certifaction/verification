@@ -43,7 +43,7 @@
                 "form": {
                     "email": "Your email",
                     "question": "Your question",
-                    "consent": "By submitting the form I accept the privacy policy.",
+                    "consent": "By submitting the form I accept the <a href=\"https://certifaction.io/privacy-policy\" target=\"_blank\">privacy policy</a>.",
                     "submit": "Submit",
                     "submitted": "Your message was successfully sent",
                     "failed": "Your message could not be sent. Please try again later"
