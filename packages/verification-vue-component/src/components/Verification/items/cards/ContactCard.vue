@@ -20,7 +20,7 @@
                         <input id="consent" type="checkbox" v-model="consentAccepted">
                         <span class="slider round"></span>
                     </label>
-                    <label for="consent" class="consent">{{ _$t('verification.card.contact.form.consent') }}</label>
+                    <label for="consent" class="consent" v-html="_$t('verification.card.contact.form.consent')"/>
                 </div>
                 <span v-if="contactFormSuccessful" class="message-sent success">{{ _$t('verification.card.contact.form.submitted') }}</span>
                 <span v-if="contactFormFailed" class="message-sent failed">{{ _$t('verification.card.contact.form.failed') }}</span>

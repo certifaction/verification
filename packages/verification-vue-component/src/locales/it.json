@@ -43,7 +43,7 @@
                 "form": {
                     "email": "La sua email",
                     "question": "La vostra domanda",
-                    "consent": "Inviando il modulo accetto l'informativa sulla privacy.",
+                    "consent": "Inviando il modulo accetto <a href=\"https://certifaction.io/privacy-policy\" target=\"_blank\">l'informativa sulla privacy</a>.",
                     "submit": "Invia",
                     "submitted": "Il suo messaggio è stato inviato con successo.",
                     "failed": "Il suo messaggio nan ha potuto essere inviato. La preghiamo di riprovare più tardi."
