@@ -43,7 +43,7 @@
                 "form": {
                     "email": "Ihre E-Mail",
                     "question": "Ihre Frage",
-                    "consent": "Mit dem Absenden des Formulars akzeptiere ich die Datenschutzerklärung.",
+                    "consent": "Mit dem Absenden des Formulars akzeptiere ich die <a href=\"https://certifaction.io/privacy-policy\" target=\"_blank\">Datenschutzerklärung.</a>",
                     "submit": "Absenden",
                     "submitted": "Ihre Nachricht wurde erfolgreich gesendet.",
                     "failed": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal."
