@@ -62,7 +62,7 @@ export default {
     /**
      * Wrapper function for "wasmPdfExtractEncryptionKeys"
      *
-     * @param pdfBytes
+     * @param {Uint8Array} pdfBytes
      *
      * @returns {Promise<Object>}
      */
