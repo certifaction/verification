@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "3.0.0-rc.2",
+    "version": "3.0.0-rc.3",
     "description": "Vue component for Certifaction verification",
     "private": false,
     "license": "MIT",
