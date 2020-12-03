@@ -1,5 +1,5 @@
 import Bowser from 'bowser'
-import PdfWasm from './pdf.wasm.wrapper'
+import PdfWasmWrapper from './pdf.wasm.wrapper'
 import PdfWorker from 'web-worker:./pdf.worker'
 
 export default class PdfService {
@@ -26,10 +26,10 @@ export default class PdfService {
      */
     async loadPdfWasm() {
         try {
-            const wasmModule = await PdfWasm.load(this.pdfWasmUrl)
+            const wasmModule = await PdfWasmWrapper.load(this.pdfWasmUrl)
 
             if (this.isNonChromiumEdge === true) {
-                PdfWasm.run(wasmModule)
+                PdfWasmWrapper.run(wasmModule)
             }
 
             this.pdfWasmModule = wasmModule
@@ -103,7 +103,7 @@ export default class PdfService {
 
         let encryptionKeys = null
         if (this.isNonChromiumEdge === true) {
-            encryptionKeys = await PdfWasm.extractEncryptionKeys(pdfBytes)
+            encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(pdfBytes)
         }
 
         return new Promise((resolve, reject) => {

@@ -1,10 +1,10 @@
-import PdfWasm from './pdf.wasm.wrapper'
+import PdfWasmWrapper from './pdf.wasm.wrapper'
 
 self.addEventListener('message', async (e) => {
     try {
-        PdfWasm.run(e.data.pdfWasmModule)
+        PdfWasmWrapper.run(e.data.pdfWasmModule)
 
-        const encryptionKeys = await PdfWasm.extractEncryptionKeys(e.data.pdfBytes)
+        const encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
 
         self.postMessage({
             status: true,
