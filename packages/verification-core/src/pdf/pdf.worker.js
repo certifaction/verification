@@ -1,4 +1,4 @@
-import PdfWasm from './pdf.wasm'
+import PdfWasm from './pdf.wasm.wrapper'
 
 self.addEventListener('message', async (e) => {
     try {

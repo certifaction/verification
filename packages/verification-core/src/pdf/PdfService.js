@@ -1,5 +1,5 @@
 import Bowser from 'bowser'
-import PdfWasm from './pdf.wasm'
+import PdfWasm from './pdf.wasm.wrapper'
 import PdfWorker from 'web-worker:./pdf.worker'
 
 export default class PdfService {
