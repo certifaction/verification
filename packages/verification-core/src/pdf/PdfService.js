@@ -11,9 +11,9 @@ export default class PdfService {
      * @param {string} pdfWasmUrl
      */
     constructor(pdfWasmUrl) {
-        this.pdfWasmUrl = new URL(pdfWasmUrl, location.origin)
+        this.pdfWasmUrl = new URL(pdfWasmUrl, self.location.origin)
 
-        const browser = Bowser.getParser(window.navigator.userAgent)
+        const browser = Bowser.getParser(self.navigator.userAgent)
         this.isNonChromiumEdge = browser.satisfies({ edge: '<=18' })
 
         this.loadPdfWasm()
@@ -26,7 +26,7 @@ export default class PdfService {
      */
     async loadPdfWasm() {
         try {
-            const wasmModule = await PdfWasm.load(this.pdfWasmUrl.href)
+            const wasmModule = await PdfWasm.load(this.pdfWasmUrl)
 
             if (this.isNonChromiumEdge === true) {
                 PdfWasm.run(wasmModule)

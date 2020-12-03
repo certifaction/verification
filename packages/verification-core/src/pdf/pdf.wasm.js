@@ -4,7 +4,7 @@ export default {
     /**
      * Load the given PDF wasm
      *
-     * @param pdfWasmUrl
+     * @param {URL} pdfWasmUrl
      *
      * @returns {Promise<WebAssembly.Module>}
      */
