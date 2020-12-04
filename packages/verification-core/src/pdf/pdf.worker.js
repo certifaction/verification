@@ -1,27 +1,16 @@
-import PdfWasm from './pdf.wasm.init'
+import PdfWasmWrapper from './pdf.wasm.wrapper'
 
 self.addEventListener('message', async (e) => {
     try {
-        switch (e.data.cmd) {
-            case 'init':
-                try {
-                    await PdfWasm.init(e.data.pdfWasmUrl)
-                    self.postMessage(true)
-                } catch (e) {
-                    console.error(`Error while initializing PDF wasm: ${e.name} - ${e.message}`)
-                    self.postMessage(false)
-                }
-                break
+        PdfWasmWrapper.run(e.data.pdfWasmModule)
 
-            case 'extractEncryptionKeys':
-                const encryptionKeys = self.wasmPdfExtractEncryptionKeys(e.data.pdfBytes)
-                self.postMessage({
-                    status: true,
-                    encryptionKeys
-                })
-                break
-        }
-    } catch (error) {
-        self.postMessage({ status: false, error: error.message })
+        const encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
+
+        self.postMessage({
+            status: true,
+            encryptionKeys
+        })
+    } catch (e) {
+        self.postMessage({ status: false, error: e })
     }
 }, false)

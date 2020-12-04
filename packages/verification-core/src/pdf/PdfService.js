@@ -1,5 +1,5 @@
 import Bowser from 'bowser'
-import PdfWasm from './pdf.wasm.init'
+import PdfWasmWrapper from './pdf.wasm.wrapper'
 import PdfWorker from 'web-worker:./pdf.worker'
 
 export default class PdfService {
@@ -11,42 +11,61 @@ export default class PdfService {
      * @param {string} pdfWasmUrl
      */
     constructor(pdfWasmUrl) {
-        this.pdfWasmUrl = new URL(pdfWasmUrl, location.origin)
-        this.pdfWasmInitialized = false
+        this.pdfWasmUrl = new URL(pdfWasmUrl, self.location.origin)
 
-        const browser = Bowser.getParser(window.navigator.userAgent)
+        const browser = Bowser.getParser(self.navigator.userAgent)
         this.isNonChromiumEdge = browser.satisfies({ edge: '<=18' })
 
-        this.initPdfWasm()
+        this.loadPdfWasm()
     }
 
     /**
-     * Separate function to initialize PDF wasm with await
+     * Separate function to load PDF wasm with await
      *
      * @returns {Promise<void>}
      */
-    async initPdfWasm() {
-        if (this.isNonChromiumEdge === true) {
-            try {
-                await PdfWasm.init(this.pdfWasmUrl.href)
-                this.pdfWasmInitialized = true
-            } catch (e) {
-                console.error(`Error while initializing PDF wasm: ${e.name} - ${e.message}`)
+    async loadPdfWasm() {
+        try {
+            const wasmModule = await PdfWasmWrapper.load(this.pdfWasmUrl)
+
+            if (this.isNonChromiumEdge === true) {
+                PdfWasmWrapper.run(wasmModule)
             }
-        } else {
-            this.worker = new PdfWorker()
 
-            this.worker.addEventListener('message', (event) => {
-                if (event.data === true) {
-                    this.pdfWasmInitialized = true
-                }
-            })
-
-            this.worker.postMessage({
-                cmd: 'init',
-                pdfWasmUrl: this.pdfWasmUrl.href
-            })
+            this.pdfWasmModule = wasmModule
+        } catch (e) {
+            console.error(`Error while loading PDF wasm: ${e.name} - ${e.message}`)
         }
+    }
+
+    /**
+     * Waits until the PDF wasm is loaded
+     *
+     * @returns {Promise<void>}
+     */
+    waitUntilLoaded() {
+        return new Promise((resolve, reject) => {
+            if (typeof this.pdfWasmModule !== 'undefined') {
+                return resolve()
+            }
+
+            let count = 0
+
+            const checkInterval = self.setInterval(() => {
+                if (typeof this.pdfWasmModule !== 'undefined') {
+                    self.clearInterval(checkInterval)
+                    return resolve()
+                }
+
+                // Fail if the wasm isn't loaded after 10 seconds
+                if (count > 1000) {
+                    self.clearInterval(checkInterval)
+                    return reject(new Error('PDF wasm wasn\'t loaded after 10 seconds.'))
+                }
+
+                count++
+            }, 10)
+        })
     }
 
     /**
@@ -79,22 +98,21 @@ export default class PdfService {
      *
      * @returns {Promise<Object>}
      */
-    extractEncryptionKeys(pdfBytes) {
-        return new Promise((resolve, reject) => {
-            if (!this.pdfWasmInitialized) {
-                // TODO(Cyrill): Wait until it's initialized
-                reject(new Error('PDF wasm not initialized'))
-            }
+    async extractEncryptionKeys(pdfBytes) {
+        await this.waitUntilLoaded()
 
+        let encryptionKeys = null
+        if (this.isNonChromiumEdge === true) {
+            encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(pdfBytes)
+        }
+
+        return new Promise((resolve, reject) => {
             if (this.isNonChromiumEdge === true) {
-                try {
-                    const encryptionKeys = self.wasmPdfExtractEncryptionKeys(pdfBytes)
-                    resolve(encryptionKeys)
-                } catch (e) {
-                    reject(e)
-                }
+                resolve(encryptionKeys)
             } else {
-                this.worker.addEventListener('message', (event) => {
+                const worker = new PdfWorker()
+
+                worker.addEventListener('message', (event) => {
                     if (event.data.status === true) {
                         resolve(event.data.encryptionKeys)
                     } else {
@@ -102,8 +120,8 @@ export default class PdfService {
                     }
                 })
 
-                this.worker.postMessage({
-                    cmd: 'extractEncryptionKeys',
+                worker.postMessage({
+                    pdfWasmModule: this.pdfWasmModule,
                     pdfBytes
                 })
             }
