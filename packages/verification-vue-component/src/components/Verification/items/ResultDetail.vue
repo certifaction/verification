@@ -15,6 +15,7 @@
                          class="loading-spinner"
                          src="../../../assets/img/loading_spinner.svg"
                          alt="Spinner"/>
+                    <span>{{ _$t('verification.result.meta.details') }}</span>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
                 </button>
             </div>
