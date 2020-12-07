@@ -45,16 +45,25 @@
             button.advanced-toggler {
                 display: flex;
                 align-items: center;
+                padding-left: 4px;
+                padding-bottom: 1px;
                 border-radius: 4px;
                 outline: none;
 
                 .loading-spinner {
                     height: 15px;
                     width: auto;
-                    padding-left: 4px;
+                }
+
+                span {
+                    font-size: 12px;
+                    line-height: 1em;
+                    padding-bottom: 1px;
+                    color: white;
                 }
 
                 .md-icon {
+                    padding-top: 1px;
                     height: 16px;
                     width: 16px;
                     color: $white;
