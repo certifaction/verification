@@ -193,9 +193,11 @@ export default {
                 verification.loaded = true
             }
 
-            this.itemTimeouts[verification.hash] = window.setTimeout(() => {
-                this.verifyItem(item, key)
-            }, 20000)
+            if (this.verificationItems[key].status === 'registering') {
+                this.itemTimeouts[verification.hash] = window.setTimeout(() => {
+                    this.verifyItem(item, key)
+                }, 20000)
+            }
         },
         async offchainVerification(verification, decryptionKey) {
             // TODO(Cyrill): Simplify offchain verification
