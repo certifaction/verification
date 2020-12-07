@@ -70,7 +70,8 @@
                 "revocationTransaction": "Transazione di annullamento",
                 "revocationDate": "Data e ora di annullamento",
                 "smartContractAddress": "Indirizzo del Smart Contract",
-                "signatureTransactions": "Transazioni di firma"
+                "signatureTransactions": "Transazioni di firma",
+                "details": "Dettagli"
             },
             "verification": {
                 "technicalProblem": {

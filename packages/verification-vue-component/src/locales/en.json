@@ -70,7 +70,8 @@
                 "revocationTransaction": "Revocation Transaction",
                 "revocationDate": "Revocation Date & Time",
                 "smartContractAddress": "Smart Contract Address",
-                "signatureTransactions": "Signature transactions"
+                "signatureTransactions": "Signature transactions",
+                "details": "Details"
             },
             "verification": {
                 "technicalProblem": {
