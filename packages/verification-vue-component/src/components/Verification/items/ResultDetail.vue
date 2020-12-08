@@ -26,11 +26,14 @@
                     <li class="detail"
                         v-for="(item, index) in _$t('verification.result.' + translationType + '.' + verificationResult + '.details', { returnObjects: true, date: revocationDate })"
                         :key="index">
-                        <div v-if="((verificationInProgress || revocationInProgress) && index === 'blockchain' || signatureInProgress && index === 'signatures')" class="warning-indicator">
+                        <template v-if="((verificationInProgress || revocationInProgress) && index === 'blockchain' || signatureInProgress && index === 'signatures')">
+                            <MDIcon class="in-progress"
+                                    :class="getDetailClass(index)"
+                                    :icon="mdiCircle"/>
                             <img class="loading-spinner"
                                  src="../../../assets/img/loading_spinner.svg"
                                  alt="Spinner"/>
-                        </div>
+                        </template>
                         <MDIcon v-else :class="getDetailClass(index)" :icon="getDetailIcon(index)"/>
                         <span v-html="getDetailLabel(index, item)"/>
                     </li>
@@ -42,7 +45,15 @@
 
 <script>
 
-import { mdiAlertCircle, mdiCheckCircle, mdiChevronDown, mdiChevronUp, mdiCloseCircle, mdiShieldCheck } from '@mdi/js'
+import {
+    mdiAlertCircle,
+    mdiCheckCircle,
+    mdiChevronDown,
+    mdiChevronUp,
+    mdiCircle,
+    mdiCloseCircle,
+    mdiShieldCheck
+} from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import dateFormatter from '../../../mixins/date-formatter'
 import MDIcon from '../../MDIcon.vue'
@@ -81,6 +92,7 @@ export default {
             mdiShieldCheck,
             mdiChevronUp,
             mdiChevronDown,
+            mdiCircle,
             mdiAlertCircle,
             mdiCloseCircle,
             mdiCheckCircle,
