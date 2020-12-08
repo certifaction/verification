@@ -57,8 +57,6 @@
 
                 span {
                     font-size: 12px;
-                    line-height: 1em;
-                    padding-bottom: 1px;
                     color: white;
                 }
 
@@ -85,11 +83,19 @@
 
             li {
                 display: flex;
+                position: relative;
                 list-style-type: none;
                 padding-bottom: 10px;
 
                 &:last-child {
                     padding-bottom: 0;
+                }
+
+                .loading-spinner {
+                    position: absolute;
+                    width: 12px;
+                    top: 4px;
+                    left: 1px;
                 }
 
                 .md-icon {
@@ -102,7 +108,7 @@
                         color: $verification-result-success-dark;
                     }
 
-                    &.unverified-issuer {
+                    &.unverified-issuer, &.in-progress {
                         color: $verification-result-warning-dark;
                     }
 
