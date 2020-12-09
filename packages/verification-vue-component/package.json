@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "3.0.0-rc.7",
+    "version": "3.0.0-rc.8",
     "description": "Vue component for Certifaction verification",
     "private": false,
     "license": "MIT",
@@ -30,7 +30,7 @@
         "build": "npm-run-all clean build:css build:js banner"
     },
     "dependencies": {
-        "@certifaction/verification-core": "^3.0.0-rc.5",
+        "@certifaction/verification-core": "^3.0.0-rc.8",
         "@mdi/js": "^5.8.55",
         "axios": "^0.21.0",
         "core-js": "^3.7.0",
