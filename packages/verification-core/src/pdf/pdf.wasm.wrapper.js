@@ -9,6 +9,15 @@ export default {
      * @returns {Promise<WebAssembly.Module>}
      */
     async load(pdfWasmUrl) {
+        // Polyfill
+        if (!WebAssembly.compileStreaming) {
+            WebAssembly.compileStreaming = async (source) => {
+                const response = await source
+                const arrayBuffer = await response.arrayBuffer()
+                return WebAssembly.compile(arrayBuffer)
+            }
+        }
+
         return WebAssembly.compileStreaming(fetch(pdfWasmUrl))
     },
     /**
