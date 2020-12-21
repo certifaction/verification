@@ -188,6 +188,38 @@
                 }
             }
         },
+        "digitalTwin": {
+            "actionBox": {
+                "confirmation": {
+                    "title": {
+                        "mobile": "Please check",
+                        "desktop": "Is this the correct document?"
+                    },
+                    "copy": {
+                        "mobile": "Is this the same document?",
+                        "desktop": "Please check if the document you’ve scanned is the same as this original one."
+                    },
+                    "btn": {
+                        "approve": "Yes it’s correct",
+                        "decline": "No it’s different"
+                    }
+                },
+                "actions": {
+                    "recheck": "Recheck",
+                    "download": "Download original document"
+                }
+            },
+            "fileDeclined": {
+                "title": "Attention",
+                "copy": "If your scanned document is not the same as the original digital document, your document seems to be incorrect and might have been manipulated.<br><br>Please only use the original digital document, as this is verified and authentic."
+            },
+            "error": {
+                "decryption": "The document could not be decrypted. Please try again later.",
+                "btn": {
+                    "contactSupport": "Contact support"
+                }
+            }
+        },
         "poweredBy": {
             "label": "Powered by"
         }

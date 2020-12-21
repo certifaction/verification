@@ -5,31 +5,33 @@
          @drop.prevent="handleDrop">
 
         <VerificationDropBox
+            v-if="!isVerifying"
             v-show="dropbox.draggingOver"
             :first-verification="filteredVerificationItems.length === 0"/>
 
-        <div v-show="!dropbox.draggingOver">
-            <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
+        <template v-show="!dropbox.draggingOver">
+            <VerificationDemo v-if="demo !== false && !isDigitalTwin" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
 
-            <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
+            <div v-if="filteredVerificationItems.length" class="verification-item-list" :class="{ 'digital-twin': isDigitalTwin }" ref="results">
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
                     :key="verificationItem.hash"
                     :verification-item="verificationItem"
                     :verifier-information="verifierInformation"
-                    :certifaction-api-url="certifactionApiUrl"/>
+                    :certifaction-api-url="certifactionApiUrl"
+                    :is-digital-twin="isDigitalTwin"/>
             </div>
 
-            <VerificationFileSelector @files-selected="verify"
+            <VerificationFileSelector v-if="!isVerifying" @files-selected="verify"
                                       :first-verification="filteredVerificationItems.length === 0"/>
 
-            <div class="powered-by">
+            <div v-if="!isDigitalTwin" class="powered-by">
                 <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
                 <a href="https://certifaction.com" target="_blank">
                     <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
                 </a>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -122,7 +124,9 @@ export default {
                 draggingOver: false,
                 dragLeaveLocked: false
             },
-            itemTimeouts: {}
+            itemTimeouts: {},
+            isDigitalTwin: true,
+            isVerifying: false
         }
     },
     computed: {
@@ -149,6 +153,8 @@ export default {
     },
     methods: {
         async verify(files) {
+            this.isVerifying = true
+            console.log('verify dsadsadsa')
             if (Object.values(this.itemTimeouts).length > 0) {
                 Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
                 this.itemTimeouts = {}

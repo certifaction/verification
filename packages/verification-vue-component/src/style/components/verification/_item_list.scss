@@ -6,6 +6,160 @@
     justify-content: center;
     padding-bottom: 24px;
 
+    &.digital-twin {
+        padding: 0;
+        justify-content: initial;
+        height: 100%;
+
+        .item-container {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            .card-container {
+                height: 100%;
+
+                .header {
+                    height: 65px;
+                    padding: 20px;
+                    background-color: $white;
+
+                    &.error {
+                        text-align: center;
+                    }
+
+                    img {
+                        height: 100%;
+                        width: auto;
+                    }
+                }
+
+                .base-card {
+                    justify-content: initial;
+                    height: calc(100% - 70px);
+                    width: 100%;
+
+                    .card-body {
+                        flex-grow: initial;
+                    }
+
+                    .card-footer {
+                        padding-bottom: 80px;
+                    }
+                }
+            }
+
+            .pdf-container {
+                display: none;
+                background-color: dimgrey;
+            }
+
+            &.error {
+                .card-container {
+                    width: 100%;
+                    text-align: center;
+
+                    .base-card {
+                        margin: 0 auto;
+                        padding-top: 20px;
+                        box-shadow: none;
+
+                        .card-header .title {
+                            width: 100%;
+                        }
+
+                        .error-message {
+                            padding: 12px;
+                            margin: 35px 16px 24px;
+                            border-radius: 8px;
+                            background-color: #fdecf0;
+                            text-align: left;
+                            font-size: $font-size-medium;
+                            color: $verification-result-error-dark;
+                        }
+                    }
+                }
+
+                .pdf-container {
+                    display: none;
+                }
+            }
+
+            &.confirmation-step {
+                .pdf-container {
+                    display: block;
+                    position: absolute;
+                    top: 65px;
+                    bottom: 70px;
+                    left: 0;
+                    height: auto;
+                    width: 100%;
+                }
+            }
+
+            .action-box {
+                display: flex;
+                justify-content: space-between;
+                position: fixed;
+                bottom: 0;
+                padding: 8px 16px;
+                background-color: $digital-twin-action-box-background;
+                height: 70px;
+                width: 100%;
+
+                .text {
+                    color: $digital-twin-action-box-text;
+
+                    h4 {
+                        margin-bottom: 0.25em;
+                    }
+
+                    p {
+                        font-size: $font-size-medium;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    &.navigate {
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                }
+
+                &.confirmation {
+                    display: none;
+
+                    &.mobile {
+                        display: flex;
+                        margin: 0 -12px;
+                    }
+
+                    .confirmation-action {
+                        cursor: pointer;
+
+                        svg {
+                            height: 30px;
+                            width: 30px;
+                            color: $verification-result-error-dark;
+                        }
+
+                        &:first-of-type {
+                            margin-right: 20px;
+
+                            svg {
+                                color: $verification-result-success-dark;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .item-container {
         max-width: 100%;
     }
@@ -41,6 +195,89 @@
 
             &:last-child {
                 margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .verification-item-list {
+        &.digital-twin {
+            .item-container {
+                display: flex;
+
+                .card-container, .pdf-container {
+                    display: block;
+                }
+
+                .card-container {
+                    height: 100%;
+                    width: 380px;
+
+                    .base-card {
+                        width: 380px;
+                    }
+                }
+
+                &.confirmation-step .pdf-container, .pdf-container {
+                    flex: auto;
+                    position: initial;
+                    top: initial;
+                    bottom: initial;
+                    left: initial;
+                    height: initial;
+                }
+
+                &.confirmation-step {
+                    .card-container, .pdf-container {
+                        display: block;
+                    }
+                }
+
+                .action-box {
+                    width: 348px;
+                    left: 16px;
+                    bottom: 20px;
+                    border-radius: 8px;
+
+                    &.confirmation {
+                        display: block;
+                        position: static;
+                        width: auto;
+                        height: auto;
+                        margin-top: 16px;
+
+                        &.mobile {
+                            display: none;
+                        }
+
+                        .text {
+                            h4 {
+                                font-weight: 500;
+                            }
+                        }
+
+                        .actions {
+                            justify-content: space-between;
+
+                            .btn {
+                                svg {
+                                    display: inline;
+                                    vertical-align: baseline;
+                                    height: 10px;
+                                    width: 10px;
+                                    color: $verification-result-success-dark;
+                                }
+
+                                &:first-of-type {
+                                    svg {
+                                        color: $verification-result-error-dark;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
