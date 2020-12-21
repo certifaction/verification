@@ -125,7 +125,7 @@ export default {
                 dragLeaveLocked: false
             },
             itemTimeouts: {},
-            isDigitalTwin: true,
+            isDigitalTwin: false,
             isVerifying: false
         }
     },
