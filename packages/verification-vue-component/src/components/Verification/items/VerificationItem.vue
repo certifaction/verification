@@ -55,7 +55,7 @@ import FaqCard from './cards/FaqCard.vue'
 import ContactCard from './cards/ContactCard.vue'
 import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
 import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
-import FileErrorCard from './cards/DigitalTwin/FileErrorCard'
+import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
 
 export default {
     name: 'VerificationItem',

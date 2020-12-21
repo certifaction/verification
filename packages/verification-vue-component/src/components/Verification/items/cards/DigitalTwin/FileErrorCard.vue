@@ -14,7 +14,7 @@
 
 <script>
 import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
-import BaseCard from '../BaseCard'
+import BaseCard from '../BaseCard.vue'
 
 export default {
     name: 'FileErrorCard',

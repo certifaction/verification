@@ -18,7 +18,7 @@
 <script>
 import BaseCard from '../BaseCard.vue'
 import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
-import MDIcon from '../../../../MDIcon'
+import MDIcon from '../../../../MDIcon.vue'
 import { mdiFileDocument } from '@mdi/js'
 
 export default {
