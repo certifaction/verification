@@ -154,7 +154,6 @@ export default {
     methods: {
         async verify(files) {
             this.isVerifying = true
-            console.log('verify dsadsadsa')
             if (Object.values(this.itemTimeouts).length > 0) {
                 Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
                 this.itemTimeouts = {}
