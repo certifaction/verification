@@ -8,7 +8,8 @@
                                   :claim-contract-address="claimContractAddress"
                                   :accepted-issuer-key="acceptedIssuerKey"
                                   :certifaction-api-url="certifactionApiUrl"
-                                  :offchain-verifier="CertifactionOffchainVerifier"/>
+                                  :offchain-verifier="CertifactionOffchainVerifier"
+                                  :digital-twin-information="digitalTwinInformation"/>
     </div>
 </template>
 
@@ -31,13 +32,17 @@ export default {
             claimContractAddress: process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS,
             acceptedIssuerKey: process.env.VUE_APP_ACCEPTED_ISSUER_KEY,
             certifactionApiUrl: process.env.VUE_APP_CERTIFACTION_API_URL,
-            CertifactionOffchainVerifier
+            CertifactionOffchainVerifier,
+            searchParams: null,
+            digitalTwinInformation: {
+                fileUrl: null,
+                decryptionKey: null
+            }
         }
     },
     computed: {
         locale() {
-            const searchParams = new URLSearchParams(location.search)
-            return searchParams.has('lang') ? searchParams.get('lang') : 'en'
+            return this.searchParams.has('lang') ? this.searchParams.get('lang') : 'en'
         },
         legacyContractFallbackAddresses() {
             const fallbackAddresses = process.env.VUE_APP_LEGACY_CONTRACT_FALLBACK_ADDRESSES
@@ -45,6 +50,13 @@ export default {
         }
     },
     mounted() {
+        this.searchParams = new URLSearchParams(location.search)
+        if (this.searchParams.has('file')) {
+            this.digitalTwinInformation = {
+                fileUrl: this.searchParams.get('file'),
+                decryptionKey: window.location.hash
+            }
+        }
         this.$i18n.locale = this.locale
     }
 }

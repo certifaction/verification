@@ -1,7 +1,7 @@
 <template>
-    <div class="item-container" :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwin.error}">
+    <div class="item-container" :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error}">
         <div class="card-container">
-            <div v-if="isDigitalTwin" class="header">
+            <div v-if="digitalTwinInformation.active" class="header">
                 <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
             </div>
 
@@ -13,13 +13,13 @@
                          :certifaction-api-url="verifierInformation.certifactionApiUrl"/>
 
             <template v-else>
-                <FileErrorCard v-if="digitalTwin.error" @toggle-help="toggleHelp($event)"/>
-                <FileConfirmationCard v-else-if="isDigitalTwin && digitalTwin.confirmationStep"
+                <FileErrorCard v-if="digitalTwinInformation.error" @toggle-help="toggleHelp($event)"/>
+                <FileConfirmationCard v-else-if="digitalTwinInformation.active && digitalTwin.confirmationStep"
                                       @approve-or-decline="digitalTwinApproveOrDecline"
                                       :file-name="verificationItem.name"/>
 
                 <template v-else>
-                    <FileDeclinedCard v-if="isDigitalTwin && !digitalTwin.fileApproved"
+                    <FileDeclinedCard v-if="digitalTwinInformation.active && !digitalTwin.fileApproved"
                                       :file-name="verificationItem.name"/>
                     <SigningCard v-else-if="isSigning"
                                  :verification-item="verificationItem"
@@ -32,18 +32,18 @@
                 </template>
             </template>
 
-            <div v-if="isDigitalTwin && !digitalTwin.confirmationStep" class="action-box">
+            <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
                 <div class="actions navigate">
                     <button class="btn light" @click="digitalTwinRecheck">
                         <span>{{ $t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
-                    <button class="btn primary" @click="showFaq = false">
+                    <a :href="digitalTwinInformation.fileUrl" class="btn primary" download>
                         <span>{{ $t('verification.digitalTwin.actionBox.actions.download') }}</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
-        <div v-if="isDigitalTwin && !digitalTwin.error" class="pdf-container"></div>
+        <div v-if="digitalTwinInformation.active && !digitalTwinInformation.error" class="pdf-container"></div>
     </div>
 </template>
 
@@ -76,8 +76,7 @@ export default {
             confirmationStep: true,
             digitalTwin: {
                 confirmationStep: true,
-                fileApproved: false,
-                error: false
+                fileApproved: false
             }
         }
     },
@@ -90,9 +89,9 @@ export default {
             type: Object,
             required: true
         },
-        isDigitalTwin: {
-            type: Boolean,
-            default: false
+        digitalTwinInformation: {
+            type: Object,
+            required: false
         }
     },
     computed: {

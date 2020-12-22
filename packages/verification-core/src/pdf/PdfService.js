@@ -121,8 +121,53 @@ export default class PdfService {
                 })
 
                 worker.postMessage({
+                    cmd: 'extract_encryption_keys',
                     pdfWasmModule: this.pdfWasmModule,
                     pdfBytes
+                })
+            }
+        })
+    }
+
+    /**
+     * Decrypt the given pdf bytes with the given encryption key
+     *
+     * @param {Uint8Array} pdfBytes
+     * @param {string} encryptionKey
+     *
+     * @returns {Promise<void>}
+     */
+    async decryptPdf(pdfBytes, encryptionKey) {
+        await this.waitUntilLoaded()
+
+        let decryptedPdfBytes = null
+        if (this.isNonChromiumEdge === true) {
+            decryptedPdfBytes = await PdfWasmWrapper.decryptPdf(pdfBytes, encryptionKey)
+        }
+
+        return new Promise((resolve, reject) => {
+            if (this.isNonChromiumEdge === true) {
+                if (decryptedPdfBytes === null) {
+                    reject(new Error('decryptedPdfBytes is null'))
+                }
+
+                resolve(decryptedPdfBytes)
+            } else {
+                const worker = new PdfWorker()
+
+                worker.addEventListener('message', function(e) {
+                    if (e.data.status === true) {
+                        resolve(e.data.decryptedPdfBytes)
+                    } else {
+                        reject(e.data.error)
+                    }
+                }, false)
+
+                worker.postMessage({
+                    cmd: 'decrypt_pdf',
+                    pdfWasmModule: this.pdfWasmModule,
+                    pdfBytes,
+                    encryptionKey
                 })
             }
         })
