@@ -27,6 +27,10 @@ self.addEventListener('message', async (e) => {
                 })
                 break
             }
+
+            default: {
+                throw new Error('invalid cmd')
+            }
         }
     } catch (e) {
         self.postMessage({ status: false, error: e })

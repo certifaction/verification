@@ -25,7 +25,8 @@
         color: #0669f2;
     }
 
-    &:nth-child(2) {
+    &:nth-child(n+2) {
         margin-left: 12px;
     }
 }
+
