@@ -76,8 +76,7 @@ export default {
             confirmationStep: true,
             digitalTwin: {
                 confirmationStep: true,
-                fileApproved: false,
-                error: false
+                fileApproved: false
             }
         }
     },
