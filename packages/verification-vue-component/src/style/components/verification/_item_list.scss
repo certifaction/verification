@@ -46,6 +46,13 @@
                     .card-footer {
                         padding-bottom: 80px;
                     }
+
+                    &.file-declined-card {
+                        h3 {
+                            padding-top: 12px;
+                            color: $verification-result-error-dark;
+                        }
+                    }
                 }
             }
 
