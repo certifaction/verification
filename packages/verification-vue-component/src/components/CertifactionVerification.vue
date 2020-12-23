@@ -5,17 +5,18 @@
          @drop.prevent="handleDrop">
 
         <VerificationDropBox
+            v-if="!digitalTwinModeActive"
             v-show="dropbox.draggingOver"
             :first-verification="filteredVerificationItems.length === 0"/>
 
         <template v-show="!dropbox.draggingOver">
-            <VerificationDemo v-if="demo !== false && !digitalTwinMode"
+            <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
                               @verify-demo="verifyDemo"
                               @dragging-demo-doc="onDraggingDemoDoc"/>
 
             <div v-if="filteredVerificationItems.length"
                  class="verification-item-list"
-                 :class="{ 'digital-twin': digitalTwinMode }"
+                 :class="{ 'digital-twin': digitalTwinModeActive }"
                  ref="results">
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
@@ -26,10 +27,10 @@
                     :digital-twin-information="digitalTwinStatus"/>
             </div>
 
-            <VerificationFileSelector v-if="!digitalTwinMode" @files-selected="verify"
+            <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
                                       :first-verification="filteredVerificationItems.length === 0"/>
 
-            <div v-if="!digitalTwinMode" class="powered-by">
+            <div v-if="!digitalTwinModeActive" class="powered-by">
                 <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
                 <a href="https://certifaction.com" target="_blank">
                     <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
@@ -162,11 +163,11 @@ export default {
                 certifactionApiUrl: this.certifactionApiUrl
             }
         },
-        digitalTwinMode() {
+        digitalTwinModeActive() {
             return this.digitalTwin.fileUrl !== null
         },
         digitalTwinStatus() {
-            return { ...this.digitalTwin, ...{ active: this.digitalTwinMode } }
+            return { ...this.digitalTwin, ...{ active: this.digitalTwinModeActive } }
         }
     },
     methods: {
