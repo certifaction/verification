@@ -1,5 +1,6 @@
 <template>
-    <div class="item-container" :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error}">
+    <div class="item-container"
+         :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error}">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
                 <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
@@ -43,7 +44,10 @@
                 </div>
             </div>
         </div>
-        <div v-if="digitalTwinInformation.active && !digitalTwinInformation.error" class="pdf-container"></div>
+        <div v-if="digitalTwinInformation.active && !digitalTwinInformation.error" class="pdf-container">
+            <PDFViewer v-if="isMobile" :url="digitalTwinInformation.fileUrl"/>
+            <object v-else :data="digitalTwinInformation.fileUrl" class="desktop-pdf-viewer"/>
+        </div>
     </div>
 </template>
 
@@ -56,6 +60,7 @@ import ContactCard from './cards/ContactCard.vue'
 import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
 import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
 import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
+import PDFViewer from './cards/DigitalTwin/Pdf/PDFViewer.vue'
 
 export default {
     name: 'VerificationItem',
@@ -67,7 +72,8 @@ export default {
         ContactCard,
         FileConfirmationCard,
         FileDeclinedCard,
-        FileErrorCard
+        FileErrorCard,
+        PDFViewer
     },
     data() {
         return {
@@ -77,7 +83,8 @@ export default {
             digitalTwin: {
                 confirmationStep: true,
                 fileApproved: false
-            }
+            },
+            isMobile: false
         }
     },
     props: {
@@ -124,6 +131,14 @@ export default {
             this.showFaq = false
             this.showContact = false
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.isMobile = window.innerWidth < 768
+            window.addEventListener('resize', () => {
+                this.isMobile = window.innerWidth < 768
+            })
+        })
     }
 }
 </script>

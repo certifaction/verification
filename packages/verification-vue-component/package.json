@@ -34,6 +34,7 @@
         "@mdi/js": "^5.8.55",
         "axios": "^0.21.0",
         "core-js": "^3.7.0",
+        "pdfjs-dist": "^2.5.207",
         "v-tooltip": "^2.0.3",
         "vue-scrollto": "^2.20.0",
         "vue-simple-spinner": "^1.2.10"
