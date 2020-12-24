@@ -188,6 +188,38 @@
                 }
             }
         },
+        "digitalTwin": {
+            "actionBox": {
+                "confirmation": {
+                    "title": {
+                        "mobile": "Please compare",
+                        "desktop": "Is this the same document?"
+                    },
+                    "copy": {
+                        "mobile": "Does this match your copy?",
+                        "desktop": "Please check that your document matches the original shown on the right."
+                    },
+                    "btn": {
+                        "approve": "Yes, it is identical",
+                        "decline": "No, it is different"
+                    }
+                },
+                "actions": {
+                    "recheck": "Check again",
+                    "download": "Download original document"
+                }
+            },
+            "fileDeclined": {
+                "title": "Attention",
+                "copy": "If your copy does not match the original digital document displayed in this tool, it may have been tampered with.<br><br>It is possible that it was modified unintentionally.<br><br>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
+            },
+            "error": {
+                "decryption": "The document could not be decrypted. Please try again later and contact our support if the problem persists.",
+                "btn": {
+                    "contactSupport": "Contact support"
+                }
+            }
+        },
         "poweredBy": {
             "label": "Powered by"
         }

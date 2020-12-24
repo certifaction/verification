@@ -188,6 +188,38 @@
                 }
             }
         },
+        "digitalTwin": {
+            "actionBox": {
+                "confirmation": {
+                    "title": {
+                        "mobile": "Bitte vergleichen",
+                        "desktop": "Ist dies das gleiche Dokument?"
+                    },
+                    "copy": {
+                        "mobile": "Stimmt dies mit Ihrer Kopie überein?",
+                        "desktop": "Bitte überprüfen Sie, ob Ihre Kopie mit dem rechts angezeigten Original übereinstimmt."
+                    },
+                    "btn": {
+                        "approve": "Ja, identisch",
+                        "decline": "Nein, abweichend"
+                    }
+                },
+                "actions": {
+                    "recheck": "Nochmals vergleichen",
+                    "download": "Original herunterladen"
+                }
+            },
+            "fileDeclined": {
+                "title": "Warnung",
+                "copy": "Wenn Ihre Kopie nicht mit dem angezeigten Original übereinstimmt, könnte es manipuliert worden sein.<br><br>Es ist möglich, dass dies unbeabsichtigt geschehen ist.<br><br>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
+            },
+            "error": {
+                "decryption": "Dieses Dokument konnte nicht entschlüsselt werden. Bitte versuchen Sie es später wieder und wenden Sie sich an unseren Support, falls das Problem bestehen bleibt.",
+                "btn": {
+                    "contactSupport": "Support kontaktieren"
+                }
+            }
+        },
         "poweredBy": {
             "label": "Powered by"
         }
