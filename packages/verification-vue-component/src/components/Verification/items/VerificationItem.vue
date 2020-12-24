@@ -1,12 +1,49 @@
 <template>
-    <div class="item-container">
-        <ShadowCard v-if="isLoading" />
-        <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)" />
-        <ContactCard v-else-if="showContact" @toggle-help="toggleHelp($event)" :certifaction-api-url="verifierInformation.certifactionApiUrl" />
-        <template v-else>
-            <SigningCard v-if="isSigning" :verification-item="verificationItem" :net="verifierInformation.net" @toggle-help="toggleHelp($event)" />
-            <VerificationCard v-else :verification-item="verificationItem" :net="verifierInformation.net" @toggle-help="toggleHelp($event)" />
-        </template>
+    <div class="item-container" :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error}">
+        <div class="card-container">
+            <div v-if="digitalTwinInformation.active" class="header">
+                <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+            </div>
+
+            <ShadowCard v-if="isLoading"/>
+
+            <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)"/>
+            <ContactCard v-else-if="showContact"
+                         @toggle-help="toggleHelp($event)"
+                         :certifaction-api-url="verifierInformation.certifactionApiUrl"/>
+
+            <template v-else>
+                <FileErrorCard v-if="digitalTwinInformation.error" @toggle-help="toggleHelp($event)"/>
+                <FileConfirmationCard v-else-if="digitalTwinInformation.active && digitalTwin.confirmationStep"
+                                      @approve-or-decline="digitalTwinApproveOrDecline"
+                                      :file-name="verificationItem.name"/>
+
+                <template v-else>
+                    <FileDeclinedCard v-if="digitalTwinInformation.active && !digitalTwin.fileApproved"
+                                      :file-name="verificationItem.name"/>
+                    <SigningCard v-else-if="isSigning"
+                                 :verification-item="verificationItem"
+                                 :net="verifierInformation.net"
+                                 @toggle-help="toggleHelp($event)"/>
+                    <VerificationCard v-else
+                                      :verification-item="verificationItem"
+                                      :net="verifierInformation.net"
+                                      @toggle-help="toggleHelp($event)"/>
+                </template>
+            </template>
+
+            <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
+                <div class="actions navigate">
+                    <button class="btn light" @click="digitalTwinRecheck">
+                        <span>{{ $t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
+                    </button>
+                    <a :href="digitalTwinInformation.fileUrl" class="btn primary" download>
+                        <span>{{ $t('verification.digitalTwin.actionBox.actions.download') }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div v-if="digitalTwinInformation.active && !digitalTwinInformation.error" class="pdf-container"></div>
     </div>
 </template>
 
@@ -16,6 +53,9 @@ import SigningCard from './cards/SigningCard.vue'
 import ShadowCard from './cards/ShadowCard.vue'
 import FaqCard from './cards/FaqCard.vue'
 import ContactCard from './cards/ContactCard.vue'
+import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
+import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
+import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
 
 export default {
     name: 'VerificationItem',
@@ -24,12 +64,20 @@ export default {
         SigningCard,
         ShadowCard,
         FaqCard,
-        ContactCard
+        ContactCard,
+        FileConfirmationCard,
+        FileDeclinedCard,
+        FileErrorCard
     },
     data() {
         return {
             showFaq: false,
-            showContact: false
+            showContact: false,
+            confirmationStep: true,
+            digitalTwin: {
+                confirmationStep: true,
+                fileApproved: false
+            }
         }
     },
     props: {
@@ -40,6 +88,10 @@ export default {
         verifierInformation: {
             type: Object,
             required: true
+        },
+        digitalTwinInformation: {
+            type: Object,
+            required: false
         }
     },
     computed: {
@@ -61,6 +113,16 @@ export default {
                     this.showFaq = false
                     this.showContact = !this.showContact
             }
+        },
+        digitalTwinApproveOrDecline(approved) {
+            this.digitalTwin.confirmationStep = false
+            this.digitalTwin.fileApproved = approved
+        },
+        digitalTwinRecheck() {
+            this.digitalTwin.confirmationStep = true
+            this.digitalTwin.fileApproved = false
+            this.showFaq = false
+            this.showContact = false
         }
     }
 }

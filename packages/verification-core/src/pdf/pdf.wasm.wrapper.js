@@ -78,5 +78,17 @@ export default {
     async extractEncryptionKeys(pdfBytes) {
         await this.waitUntilReady()
         return self.wasmPdfExtractEncryptionKeys(pdfBytes)
+    },
+    /**
+     * Wrapper function for "wasmDecryptPdf"
+     *
+     * @param {Uint8Array} pdfBytes
+     * @param {string} encryptionKey
+     *
+     * @returns {Promise<void>}
+     */
+    async decryptPdf(pdfBytes, encryptionKey) {
+        await this.waitUntilReady()
+        return self.wasmDecryptPdf(pdfBytes, encryptionKey)
     }
 }

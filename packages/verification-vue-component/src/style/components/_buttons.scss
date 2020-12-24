@@ -1,0 +1,32 @@
+.btn {
+    padding: 8px 10px;
+    font-size: $font-size-medium;
+    font-weight: 500;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+
+    &:active {
+        outline: none;
+    }
+
+    &.primary {
+        background-color: $verification-blue;
+        color: $white;
+    }
+
+    &.secondary {
+        background-color: #EEF3FA;
+        color: $verification-blue;
+    }
+
+    &.light {
+        background-color: white;
+        color: #0669f2;
+    }
+
+    &:nth-child(n+2) {
+        margin-left: 12px;
+    }
+}
+
