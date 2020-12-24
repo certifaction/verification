@@ -192,31 +192,31 @@
             "actionBox": {
                 "confirmation": {
                     "title": {
-                        "mobile": "Please compare",
-                        "desktop": "Is this the same document?"
+                        "mobile": "Veuillez comparer",
+                        "desktop": "Est-ce le même document?"
                     },
                     "copy": {
-                        "mobile": "Does this match your copy?",
-                        "desktop": "Please check that your document matches the original shown on the right."
+                        "mobile": "Est-ce que cela correspond à votre copie?",
+                        "desktop": "Veuillez vérifier que votre document correspond à l'original indiqué à droite."
                     },
                     "btn": {
-                        "approve": "Yes, it is identical",
-                        "decline": "No, it is different"
+                        "approve": "Oui, il est identique.",
+                        "decline": "Non, il est différent."
                     }
                 },
                 "actions": {
-                    "recheck": "Check again",
-                    "download": "Download original document"
+                    "recheck": "Vérifier de nouveau",
+                    "download": "Télécharger le document original"
                 }
             },
             "fileDeclined": {
                 "title": "Attention",
-                "copy": "If your copy does not match the original digital document displayed in this tool, it may have been tampered with.<br><br>It is possible that it was modified unintentionally.<br><br>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
+                "copy": "Si votre copie ne correspond pas à l'original numérique affiché dans cet outil, il peut avoir été altéré.<br><br>Il est possible qu'elle ait été modifiée involontairement.<br><br>Si vous avez des questions, veuillez contacter directement l'émetteur du document ou vous adresser à notre service d'assistance."
             },
             "error": {
-                "decryption": "The document could not be decrypted. Please try again later and contact our support if the problem persists.",
+                "decryption": "Le document n'a pas pu être décrypté. Veuillez réessayer plus tard et contacter notre support si le problème persiste.",
                 "btn": {
-                    "contactSupport": "Contact support"
+                    "contactSupport": "Contacter l'assistance"
                 }
             }
         },
