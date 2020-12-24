@@ -5,31 +5,38 @@
          @drop.prevent="handleDrop">
 
         <VerificationDropBox
+            v-if="!digitalTwinModeActive"
             v-show="dropbox.draggingOver"
             :first-verification="filteredVerificationItems.length === 0"/>
 
-        <div v-show="!dropbox.draggingOver">
-            <VerificationDemo v-if="demo !== false" @verify-demo="verifyDemo" @dragging-demo-doc="onDraggingDemoDoc"/>
+        <template v-show="!dropbox.draggingOver">
+            <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
+                              @verify-demo="verifyDemo"
+                              @dragging-demo-doc="onDraggingDemoDoc"/>
 
-            <div v-if="filteredVerificationItems.length" class="verification-item-list" ref="results">
+            <div v-if="filteredVerificationItems.length"
+                 class="verification-item-list"
+                 :class="{ 'digital-twin': digitalTwinModeActive }"
+                 ref="results">
                 <VerificationItem
                     v-for="verificationItem in filteredVerificationItems"
                     :key="verificationItem.hash"
                     :verification-item="verificationItem"
                     :verifier-information="verifierInformation"
-                    :certifaction-api-url="certifactionApiUrl"/>
+                    :certifaction-api-url="certifactionApiUrl"
+                    :digital-twin-information="digitalTwinStatus"/>
             </div>
 
-            <VerificationFileSelector @files-selected="verify"
+            <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
                                       :first-verification="filteredVerificationItems.length === 0"/>
 
-            <div class="powered-by">
+            <div v-if="!digitalTwinModeActive" class="powered-by">
                 <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
                 <a href="https://certifaction.com" target="_blank">
                     <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
                 </a>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -50,6 +57,7 @@ import VerificationFileSelector from './Verification/VerificationFileSelector.vu
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/items/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
+import axios from 'axios'
 
 export default {
     name: 'CertifactionVerification',
@@ -103,6 +111,10 @@ export default {
                 Interface.ensureImplements(value, VerifierInterface)
                 return true
             }
+        },
+        digitalTwinInformation: {
+            type: Object,
+            required: false
         }
     },
     data() {
@@ -122,7 +134,12 @@ export default {
                 draggingOver: false,
                 dragLeaveLocked: false
             },
-            itemTimeouts: {}
+            itemTimeouts: {},
+            digitalTwin: {
+                error: false,
+                fileUrl: null,
+                fileName: null
+            }
         }
     },
     computed: {
@@ -145,6 +162,12 @@ export default {
                 net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('ropsten') >= 0 ? 'ropsten.etherscan.io' : 'etherscan.io',
                 certifactionApiUrl: this.certifactionApiUrl
             }
+        },
+        digitalTwinModeActive() {
+            return this.digitalTwin.fileUrl !== null
+        },
+        digitalTwinStatus() {
+            return { ...this.digitalTwin, ...{ active: this.digitalTwinModeActive } }
         }
     },
     methods: {
@@ -317,6 +340,45 @@ export default {
 
             return verification
         },
+        async processDigitalTwinUrl() {
+            if (!this.digitalTwinInformation.decryptionKey) {
+                console.log('No decryption key')
+                this.digitalTwin.error = true
+                return
+            }
+
+            try {
+                const response = await axios.get(this.digitalTwinInformation.fileUrl, { responseType: 'blob' })
+
+                if (response.status === 200) {
+                    const encryptedFile = new File([response.data], 'certifaction_encrypted_file', {
+                        lastModified: new Date().getTime(),
+                        type: response.data.type
+                    })
+                    const encryptedPdfBytes = await this.pdfService.readPdfBytes(encryptedFile)
+
+                    const decryptedPdfBytes = await this.pdfService.decryptPdf(encryptedPdfBytes, this.digitalTwinInformation.decryptionKey.split('#')[1])
+                    const decryptedBlob = new Blob([decryptedPdfBytes], { type: 'application/pdf' })
+                    const decryptedFile = new File([decryptedBlob], 'certifaction_decrypted_file', {
+                        lastModified: new Date().getTime(),
+                        type: decryptedBlob.type
+                    })
+
+                    this.digitalTwin.fileUrl = URL.createObjectURL(decryptedFile)
+                    this.digitalTwin.fileName = decryptedFile.name
+
+                    const filesNew = []
+                    filesNew.push(decryptedFile)
+
+                    await this.verify(filesNew)
+                } else {
+                    this.digitalTwin.error = true
+                }
+            } catch (e) {
+                console.log(e)
+                this.digitalTwin.error = true
+            }
+        },
         onDraggingDemoDoc(demoDoc) {
             this.draggingDemoDoc = demoDoc
         },
@@ -350,6 +412,11 @@ export default {
             if (!this.dropbox.dragLeaveLocked) {
                 this.dropbox.draggingOver = false
             }
+        }
+    },
+    mounted() {
+        if (this.digitalTwinInformation.fileUrl) {
+            this.processDigitalTwinUrl()
         }
     }
 }
