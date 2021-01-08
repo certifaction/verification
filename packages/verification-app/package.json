@@ -11,9 +11,9 @@
     },
     "dependencies": {
         "@certifaction/verification-vue-component": "^3.0.0-rc.10",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "bootstrap": "^4.5.3",
-        "core-js": "^3.7.0",
+        "core-js": "^3.8.2",
         "lodash.merge": "^4.6.2",
         "vue": "^2.6.12",
         "vue-i18n": "^8.22.2"
@@ -24,16 +24,16 @@
         "@vue/cli-service": "~4.5.9",
         "@vue/eslint-config-standard": "^5.1.2",
         "babel-eslint": "^10.1.0",
-        "eslint": "^7.13.0",
+        "eslint": "^7.17.0",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-standard": "^4.1.0",
-        "eslint-plugin-vue": "^7.1.0",
-        "sass": "^1.29.0",
+        "eslint-plugin-standard": "^5.0.0",
+        "eslint-plugin-vue": "^7.4.1",
+        "sass": "^1.32.0",
         "sass-loader": "^10.1.0",
         "vue-cli-plugin-i18n": "~1.0.1",
         "vue-template-compiler": "^2.6.12",
-        "worker-loader": "^3.0.5"
+        "worker-loader": "^3.0.7"
     }
 }

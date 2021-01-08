@@ -1,6 +1,6 @@
 <template>
     <div class="item-container"
-         :class="{'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error}">
+         :class="{ 'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error }">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
                 <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
@@ -36,22 +36,21 @@
             <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
                 <div class="actions navigate">
                     <button class="btn light" @click="digitalTwinRecheck">
-                        <span>{{ $t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
+                        <span>{{ _$t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
                     <a :href="digitalTwinInformation.fileUrl" class="btn primary" download>
-                        <span>{{ $t('verification.digitalTwin.actionBox.actions.download') }}</span>
+                        <span>{{ _$t('verification.digitalTwin.actionBox.actions.download') }}</span>
                     </a>
                 </div>
             </div>
         </div>
-        <div v-if="digitalTwinInformation.active && !digitalTwinInformation.error" class="pdf-container">
-            <PDFViewer v-if="isMobile" :url="digitalTwinInformation.fileUrl"/>
-            <object v-else :data="digitalTwinInformation.fileUrl" class="desktop-pdf-viewer"/>
-        </div>
+        <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error"
+                   :url="digitalTwinInformation.fileUrl"/>
     </div>
 </template>
 
 <script>
+import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import VerificationCard from './cards/VerificationCard.vue'
 import SigningCard from './cards/SigningCard.vue'
 import ShadowCard from './cards/ShadowCard.vue'
@@ -60,10 +59,13 @@ import ContactCard from './cards/ContactCard.vue'
 import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
 import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
 import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
-import PDFViewer from './cards/DigitalTwin/Pdf/PDFViewer.vue'
+import PDFViewer from './cards/DigitalTwin/PDFViewer.vue'
 
 export default {
     name: 'VerificationItem',
+    mixins: [
+        i18nWrapperMixin
+    ],
     components: {
         VerificationCard,
         SigningCard,
@@ -83,8 +85,7 @@ export default {
             digitalTwin: {
                 confirmationStep: true,
                 fileApproved: false
-            },
-            isMobile: false
+            }
         }
     },
     props: {
@@ -131,14 +132,6 @@ export default {
             this.showFaq = false
             this.showContact = false
         }
-    },
-    mounted() {
-        this.$nextTick(() => {
-            this.isMobile = window.innerWidth < 768
-            window.addEventListener('resize', () => {
-                this.isMobile = window.innerWidth < 768
-            })
-        })
     }
 }
 </script>

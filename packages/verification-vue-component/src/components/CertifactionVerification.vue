@@ -4,10 +4,9 @@
          @dragleave="dragLeave"
          @drop.prevent="handleDrop">
 
-        <VerificationDropBox
-            v-if="!digitalTwinModeActive"
-            v-show="dropbox.draggingOver"
-            :first-verification="filteredVerificationItems.length === 0"/>
+        <VerificationDropBox v-if="!digitalTwinModeActive"
+                             v-show="dropbox.draggingOver"
+                             :first-verification="filteredVerificationItems.length === 0"/>
 
         <template v-show="!dropbox.draggingOver">
             <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
@@ -18,13 +17,11 @@
                  class="verification-item-list"
                  :class="{ 'digital-twin': digitalTwinModeActive }"
                  ref="results">
-                <VerificationItem
-                    v-for="verificationItem in filteredVerificationItems"
-                    :key="verificationItem.hash"
-                    :verification-item="verificationItem"
-                    :verifier-information="verifierInformation"
-                    :certifaction-api-url="certifactionApiUrl"
-                    :digital-twin-information="digitalTwinStatus"/>
+                <VerificationItem v-for="verificationItem in filteredVerificationItems"
+                                  :key="verificationItem.hash"
+                                  :verification-item="verificationItem"
+                                  :verifier-information="verifierInformation"
+                                  :digital-twin-information="digitalTwinStatus"/>
             </div>
 
             <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
@@ -80,6 +77,14 @@ export default {
             type: String,
             required: true
         },
+        pdfjsWorkerSrc: {
+            type: String,
+            required: true
+        },
+        pdfjsCMapUrl: {
+            type: String,
+            required: true
+        },
         providerUrl: {
             type: String,
             required: false
@@ -115,6 +120,12 @@ export default {
         digitalTwinInformation: {
             type: Object,
             required: false
+        }
+    },
+    provide() {
+        return {
+            pdfjsWorkerSrc: this.pdfjsWorkerSrc,
+            pdfjsCMapUrl: this.pdfjsCMapUrl
         }
     },
     data() {

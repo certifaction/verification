@@ -7,11 +7,9 @@
     padding-bottom: 24px;
 
     &.digital-twin {
-        padding: 0;
         justify-content: initial;
         height: 100%;
-
-        @import "../pdf_viewer";
+        padding: 0;
 
         .item-container {
             margin: 0;
@@ -26,13 +24,14 @@
                     padding: 20px;
                     background-color: $white;
 
-                    &.error {
-                        text-align: center;
+                    img {
+                        display: block;
+                        width: auto;
+                        height: 100%;
                     }
 
-                    img {
-                        height: 100%;
-                        width: auto;
+                    &.error {
+                        text-align: center;
                     }
                 }
 
@@ -58,11 +57,21 @@
                 }
             }
 
-            .pdf-container {
+            .pdf-viewer {
                 display: none;
-                background-color: dimgrey;
-                height: 100vh;
-                overflow-y: scroll;
+                position: absolute;
+                top: 65px;
+                right: 0;
+                bottom: 70px;
+                left: 0;
+                width: auto;
+                height: auto;
+            }
+
+            &.confirmation-step {
+                .pdf-viewer {
+                    display: block;
+                }
             }
 
             &.error {
@@ -91,20 +100,8 @@
                     }
                 }
 
-                .pdf-container {
+                .pdf-viewer {
                     display: none;
-                }
-            }
-
-            &.confirmation-step {
-                .pdf-container {
-                    display: block;
-                    position: absolute;
-                    top: 65px;
-                    bottom: 70px;
-                    left: 0;
-                    height: auto;
-                    width: 100%;
                 }
             }
 
@@ -217,17 +214,6 @@
             .item-container {
                 display: flex;
 
-                .pdf-container {
-                    .desktop-pdf-viewer {
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-
-                .card-container, .pdf-container {
-                    display: block;
-                }
-
                 .card-container {
                     height: 100%;
                     width: 380px;
@@ -237,19 +223,16 @@
                     }
                 }
 
-                &.confirmation-step .pdf-container, .pdf-container {
-                    flex: auto;
-                    position: initial;
-                    top: initial;
-                    bottom: initial;
-                    left: initial;
-                    height: initial;
-                }
-
-                &.confirmation-step {
-                    .card-container, .pdf-container {
-                        display: block;
-                    }
+                .pdf-viewer {
+                    display: block;
+                    flex: 1 1 auto;
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    bottom: auto;
+                    left: auto;
+                    max-width: calc(100% - 380px);
+                    height: 100vh;
                 }
 
                 .action-box {

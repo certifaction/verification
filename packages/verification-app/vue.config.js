@@ -10,15 +10,17 @@ module.exports = {
     chainWebpack: config => {
         config.module
             .rule('js')
-            .exclude.add(/\.worker\.js$/)
+            .exclude.add(/\.worker(\.min)?\.js$/)
 
         config.module
             .rule('worker')
-            .test(/\.worker\.js$/)
-            .use('worker-loader')
-            .loader('worker-loader')
-            .options({ filename: 'js/[name].[hash:8].js' })
-            .end()
+            .test(/\.worker(\.min)?\.js$/)
+            .use('file-loader')
+            .loader('file-loader')
+            .tap(() => ({
+                name: 'js/[name].[hash:8].[ext]',
+                esModule: false
+            }))
 
         config.module
             .rule('wasm')
@@ -30,5 +32,16 @@ module.exports = {
                 name: 'wasm/[name].[hash:8].[ext]',
                 esModule: false
             }))
+
+        config.plugin('copy')
+            .tap(args => {
+                args[0].push({
+                    from: '@certifaction/verification-vue-component/dist/pdf/cmaps',
+                    to: 'pdf/cmaps',
+                    toType: 'dir',
+                    context: '../../node_modules'
+                })
+                return args
+            })
     }
 }

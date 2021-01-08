@@ -2,6 +2,8 @@
     <div id="app" class="verification-app">
         <CertifactionVerification :demo="false"
                                   :pdf-wasm-url="pdfWasm"
+                                  :pdfjs-worker-src="pdfjsWorkerSrc"
+                                  :pdfjs-c-map-url="pdfjsCMapUrl"
                                   :provider-url="providerUrl"
                                   :legacy-contract-address="legacyContractAddress"
                                   :legacy-contract-fallback-addresses="legacyContractFallbackAddresses"
@@ -16,6 +18,7 @@
 <script>
 import CertifactionOffchainVerifier from './lib/CertifactionOffchainVerifier'
 import pdfWasm from './wasm/pdf_reader.wasm'
+import pdfjsWorkerSrc from '@certifaction/verification-vue-component/dist/pdf/pdf.worker.min'
 
 export default {
     name: 'App',
@@ -27,6 +30,8 @@ export default {
     data() {
         return {
             pdfWasm,
+            pdfjsWorkerSrc,
+            pdfjsCMapUrl: 'pdf/cmaps/',
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
             legacyContractAddress: process.env.VUE_APP_LEGACY_CONTRACT_ADDRESS,
             claimContractAddress: process.env.VUE_APP_CLAIM_CONTRACT_ADDRESS,
