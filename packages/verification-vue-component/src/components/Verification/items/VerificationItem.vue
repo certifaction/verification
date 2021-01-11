@@ -38,13 +38,15 @@
                     <button class="btn light" @click="digitalTwinRecheck">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
-                    <a :href="digitalTwinInformation.fileUrl" class="btn primary" download>
+                    <a :href="digitalTwinInformation.fileUrl"
+                       class="btn primary"
+                       :download="digitalTwinDownloadFileName">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.download') }}</span>
                     </a>
                 </div>
             </div>
         </div>
-        <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error"
+        <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
                    :url="digitalTwinInformation.fileUrl"/>
     </div>
 </template>
@@ -108,6 +110,15 @@ export default {
         },
         isSigning() {
             return this.verificationItem.events ? (this.verificationItem.events.filter(event => event.scope === 'sign')).length !== 0 : false
+        },
+        digitalTwinDownloadFileName() {
+            if (!this.digitalTwinInformation.active) {
+                return null
+            }
+
+            const shortHash = this.verificationItem.hash.substr(2, 8)
+
+            return `digital_twin_${shortHash}.pdf`
         }
     },
     methods: {

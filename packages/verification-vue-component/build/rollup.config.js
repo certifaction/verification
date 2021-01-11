@@ -54,7 +54,8 @@ export default [
                             '../../node_modules/pdfjs-dist/build/pdf.worker.min.js',
                             '../../node_modules/pdfjs-dist/build/pdf.worker.js.map'
                         ],
-                        dest: 'dist/pdf/'
+                        dest: 'dist/pdf/',
+                        rename: (name, extension) => `${name.replace('pdf.worker', 'pdfjs.worker')}.${extension}`
                     },
                     {
                         src: '../../node_modules/pdfjs-dist/web/pdf_viewer.css',
