@@ -15,6 +15,9 @@ The verification vue-component enables you to easily integrate the Certifaction 
 * [Usage](#usage)
 * [Props](#props)
     * [demo](#demo)
+    * [pdfWasmUrl](#pdfWasmUrl)
+    * [pdfjsWorkerSrc](#pdfjsWorkerSrc)
+    * [pdfjsCMapUrl](#pdfjsCMapUrl)
     * [providerUrl](#providerUrl)
     * [legacyContractAddress](#legacyContractAddress)
     * [legacyContractFallbackAddresses](#legacyContractFallbackAddresses)
@@ -86,6 +89,11 @@ new VueI18n({
 
 ```scss
 @import "~@certifaction/verification-vue-component/src/style/components/certifaction_verification";
+
+// To include the PDF viewer style:
+.certifaction-verification {
+  @import "~@certifaction/verification-vue-component/dist/pdf/pdf_viewer";
+}
 ```
 
 ## Props
@@ -98,9 +106,72 @@ Show demo documents to see the different verification results.
 
 #### pdfWasmUrl
 
-Type: `string` | Required: `true` | Default: ``
+Type: `string` | Required: `true`
 
 URL to the PDF webassembly file ([`@certifaction/verification-app/src/wasm/pdf_reader.wasm`](https://github.com/certifaction/verification/blob/master/packages/verification-app/src/wasm/pdf_reader.wasm)).
+
+vue.config.js example:
+```js
+chainWebpack: config => {
+    config.module
+        .rule('wasm')
+        .test(/\.wasm$/)
+        .type('javascript/auto')
+        .use('file-loader')
+        .loader('file-loader')
+        .tap(() => ({
+            name: 'wasm/[name].[hash:8].[ext]',
+            esModule: false
+        }))
+}
+```
+
+#### pdfjsWorkerSrc
+
+Type: `string` | Required: `true`
+
+URL to the PDF.js worker (`@certifaction/verification-vue-component/dist/pdf/pdfjs.worker.min.js`)
+
+vue.config.js example:
+```js
+chainWebpack: config => {
+    config.module
+        .rule('js')
+        .exclude.add(/\.worker(\.min)?\.js$/)
+
+    config.module
+        .rule('worker')
+        .test(/\.worker(\.min)?\.js$/)
+        .use('file-loader')
+        .loader('file-loader')
+        .tap(() => ({
+            name: 'js/[name].[hash:8].[ext]',
+            esModule: false
+        }))
+}
+```
+
+#### pdfjsCMapUrl
+
+Type: `string` | Required: `true`
+
+URL to the folder where the cmaps are stored. (`pdf/cmaps/` when using the vue.config.js example below)
+
+vue.config.js example:
+```js
+chainWebpack: config => {
+    config.plugin('copy')
+        .tap(args => {
+            args[0].push({
+                from: '@certifaction/verification-vue-component/dist/pdf/cmaps',
+                to: 'pdf/cmaps',
+                toType: 'dir',
+                context: '../../node_modules'
+            })
+            return args
+        })
+}
+```
 
 #### providerUrl
 

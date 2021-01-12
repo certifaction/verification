@@ -208,7 +208,7 @@ export default {
 
                 VueScrollTo.scrollTo(this.$refs.results, 400)
             } catch (e) {
-                console.log(e)
+                console.error(`Error while verifying files: ${e.name} - ${e.message}`)
             }
         },
         async verifyItem(item, key) {
@@ -349,7 +349,7 @@ export default {
                     }
                 }
             } catch (e) {
-                console.log(`Error while verifying by offchain verification: ${e.name} - ${e.message}`)
+                console.error(`Error while verifying by offchain verification: ${e.name} - ${e.message}`)
                 verification.offchainError = true
             }
 
