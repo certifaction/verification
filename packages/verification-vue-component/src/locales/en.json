@@ -218,6 +218,15 @@
                 "btn": {
                     "contactSupport": "Contact support"
                 }
+            },
+            "pdfViewer": {
+                "page": "Page",
+                "scale": {
+                    "auto": "Automatic Zoom",
+                    "pageActual": "Actual Size",
+                    "pageFit": "Page Fit",
+                    "pageWidth": "Page Width"
+                }
             }
         },
         "poweredBy": {

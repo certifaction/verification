@@ -188,35 +188,44 @@
                 }
             }
         },
-        "digitalTwin":{
-            "actionBox":{
-                "confirmation":{
-                    "title":{
-                        "mobile":"Per favore compari",
-                        "desktop":"È lo stesso documento?"
+        "digitalTwin": {
+            "actionBox": {
+                "confirmation": {
+                    "title": {
+                        "mobile": "Per favore compari",
+                        "desktop": "È lo stesso documento?"
                     },
-                    "copy":{
-                        "mobile":"Corrisponde alla sua copia?",
-                        "desktop":"Per favore, controlli che il suo documento corrisponde l'originale mostrato sulla destra."
+                    "copy": {
+                        "mobile": "Corrisponde alla sua copia?",
+                        "desktop": "Per favore, controlli che il suo documento corrisponde l'originale mostrato sulla destra."
                     },
-                    "btn":{
-                        "approve":"Si, è identico",
-                        "decline":"No, è diverso"
+                    "btn": {
+                        "approve": "Si, è identico",
+                        "decline": "No, è diverso"
                     }
                 },
-                "actions":{
-                    "recheck":"Controlla ancora",
-                    "download":"Scarica documento originale"
+                "actions": {
+                    "recheck": "Controlla ancora",
+                    "download": "Scarica documento originale"
                 }
             },
-            "fileDeclined":{
-                "title":"Attenzione",
-                "copy":"Se la sua copia non corrisponde alla copia del documento digitale mostrato su questo tool potrebbe esser stato manomesso.<br><br>C'è la possibilità che sia stato modificato involontariamente.<br><br>Per qualsiasi domanda, contatti il l'emittente del documento direttamente o contatti il nostro supporto."
+            "fileDeclined": {
+                "title": "Attenzione",
+                "copy": "Se la sua copia non corrisponde alla copia del documento digitale mostrato su questo tool potrebbe esser stato manomesso.<br><br>C'è la possibilità che sia stato modificato involontariamente.<br><br>Per qualsiasi domanda, contatti il l'emittente del documento direttamente o contatti il nostro supporto."
             },
-            "error":{
-                "decryption":"Non è stato possibile decriptare il documento. Per favore, provi ancora più tardi. Se il problema dovesse persistere, non esiti a contattare il nostro supporto.",
-                "btn":{
-                    "contactSupport":"Contatta supporto"
+            "error": {
+                "decryption": "Non è stato possibile decriptare il documento. Per favore, provi ancora più tardi. Se il problema dovesse persistere, non esiti a contattare il nostro supporto.",
+                "btn": {
+                    "contactSupport": "Contatta supporto"
+                }
+            },
+            "pdfViewer": {
+                "page": "Pagina",
+                "scale": {
+                    "auto": "Zoom automatico",
+                    "pageActual": "Dimensioni effettive",
+                    "pageFit": "Adatta a una pagina",
+                    "pageWidth": "Larghezza pagina"
                 }
             }
         },

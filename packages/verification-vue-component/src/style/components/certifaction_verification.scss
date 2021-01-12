@@ -1,5 +1,4 @@
 @import "../settings/variables";
-@import "buttons";
 
 .certifaction-verification {
     font-family: $font-family-sans-serif;
@@ -44,10 +43,12 @@
         font-size: $font-size-small;
     }
 
+    @import "buttons";
     @import "verification/demo";
     @import "verification/file_selection";
     @import "verification/item_list";
     @import "verification/card/all";
+    @import "verification/pdf_viewer";
 
     .powered-by {
         display: flex;
@@ -58,7 +59,7 @@
         font-size: $font-size-small;
         align-items: center;
         padding: 12px;
-        border: 1px solid #EBEDF1;
+        border: 1px solid #ebedf1;
         border-radius: 4px;
         font-weight: 500;
         line-height: 14px;

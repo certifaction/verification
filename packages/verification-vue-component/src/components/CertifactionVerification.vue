@@ -4,10 +4,9 @@
          @dragleave="dragLeave"
          @drop.prevent="handleDrop">
 
-        <VerificationDropBox
-            v-if="!digitalTwinModeActive"
-            v-show="dropbox.draggingOver"
-            :first-verification="filteredVerificationItems.length === 0"/>
+        <VerificationDropBox v-if="!digitalTwinModeActive"
+                             v-show="dropbox.draggingOver"
+                             :first-verification="filteredVerificationItems.length === 0"/>
 
         <template v-show="!dropbox.draggingOver">
             <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
@@ -18,13 +17,11 @@
                  class="verification-item-list"
                  :class="{ 'digital-twin': digitalTwinModeActive }"
                  ref="results">
-                <VerificationItem
-                    v-for="verificationItem in filteredVerificationItems"
-                    :key="verificationItem.hash"
-                    :verification-item="verificationItem"
-                    :verifier-information="verifierInformation"
-                    :certifaction-api-url="certifactionApiUrl"
-                    :digital-twin-information="digitalTwinStatus"/>
+                <VerificationItem v-for="verificationItem in filteredVerificationItems"
+                                  :key="verificationItem.hash"
+                                  :verification-item="verificationItem"
+                                  :verifier-information="verifierInformation"
+                                  :digital-twin-information="digitalTwinStatus"/>
             </div>
 
             <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
@@ -80,6 +77,14 @@ export default {
             type: String,
             required: true
         },
+        pdfjsWorkerSrc: {
+            type: String,
+            required: true
+        },
+        pdfjsCMapUrl: {
+            type: String,
+            required: true
+        },
         providerUrl: {
             type: String,
             required: false
@@ -111,10 +116,12 @@ export default {
                 Interface.ensureImplements(value, VerifierInterface)
                 return true
             }
-        },
-        digitalTwinInformation: {
-            type: Object,
-            required: false
+        }
+    },
+    provide() {
+        return {
+            pdfjsWorkerSrc: this.pdfjsWorkerSrc,
+            pdfjsCMapUrl: this.pdfjsCMapUrl
         }
     },
     data() {
@@ -137,8 +144,7 @@ export default {
             itemTimeouts: {},
             digitalTwin: {
                 error: false,
-                fileUrl: null,
-                fileName: null
+                fileUrl: null
             }
         }
     },
@@ -163,8 +169,19 @@ export default {
                 certifactionApiUrl: this.certifactionApiUrl
             }
         },
+        digitalTwinInformation() {
+            const searchParams = new URLSearchParams(window.location.search)
+            if (searchParams.has('file') && window.location.hash.length > 1) {
+                return {
+                    fileUrl: searchParams.get('file'),
+                    decryptionKey: window.location.hash.split('#')[1]
+                }
+            }
+
+            return null
+        },
         digitalTwinModeActive() {
-            return this.digitalTwin.fileUrl !== null
+            return this.digitalTwinInformation !== null
         },
         digitalTwinStatus() {
             return { ...this.digitalTwin, ...{ active: this.digitalTwinModeActive } }
@@ -351,41 +368,28 @@ export default {
                 const response = await axios.get(this.digitalTwinInformation.fileUrl, { responseType: 'blob' })
 
                 if (response.status === 200) {
-                    const encryptedFile = new File([response.data], 'certifaction_encrypted_file', {
-                        lastModified: new Date().getTime(),
-                        type: response.data.type
+                    const encryptedArrayBuffer = await response.data.arrayBuffer()
+                    const decryptedPdfBytes = await this.pdfService.decryptPdf(new Uint8Array(encryptedArrayBuffer), this.digitalTwinInformation.decryptionKey)
+                    const decryptedFile = new File([decryptedPdfBytes.buffer], '', {
+                        type: 'application/pdf'
                     })
-                    const encryptedPdfBytes = await this.pdfService.readPdfBytes(encryptedFile)
-
-                    const decryptedPdfBytes = await this.pdfService.decryptPdf(encryptedPdfBytes, this.digitalTwinInformation.decryptionKey.split('#')[1])
-                    const decryptedBlob = new Blob([decryptedPdfBytes], { type: 'application/pdf' })
-                    const decryptedFile = new File([decryptedBlob], 'certifaction_decrypted_file', {
-                        lastModified: new Date().getTime(),
-                        type: decryptedBlob.type
-                    })
-
-                    this.digitalTwin.fileUrl = URL.createObjectURL(decryptedFile)
-                    this.digitalTwin.fileName = decryptedFile.name
 
                     const filesNew = []
                     filesNew.push(decryptedFile)
 
                     await this.verify(filesNew)
+
+                    this.digitalTwin.fileUrl = URL.createObjectURL(decryptedFile)
                 } else {
                     this.digitalTwin.error = true
                 }
             } catch (e) {
-                console.log(e)
+                console.error(`Error while processing digital twin url: ${e.name} - ${e.message}`)
                 this.digitalTwin.error = true
             }
         },
         onDraggingDemoDoc(demoDoc) {
             this.draggingDemoDoc = demoDoc
-        },
-        drop() {
-            if (this.draggingDemoDoc) {
-                this.verifyDemo(this.draggingDemoDoc)
-            }
         },
         async verifyDemo(type) {
             if (demoDocuments[type]) {
@@ -395,15 +399,23 @@ export default {
             }
         },
         handleDrop(e) {
+            if (this.digitalTwinModeActive) {
+                return
+            }
+
             this.dropbox.draggingOver = false
             this.verify(e.dataTransfer.files)
         },
         async dragOver() {
+            if (this.digitalTwinModeActive) {
+                return
+            }
+
             if (!this.dropbox.draggingOver) {
                 this.dropbox.draggingOver = true
                 this.dropbox.dragLeaveLocked = true
 
-                setTimeout(() => {
+                window.setTimeout(() => {
                     this.dropbox.dragLeaveLocked = false
                 }, 100)
             }
@@ -414,9 +426,9 @@ export default {
             }
         }
     },
-    mounted() {
-        if (this.digitalTwinInformation.fileUrl) {
-            this.processDigitalTwinUrl()
+    async mounted() {
+        if (this.digitalTwinInformation) {
+            await this.processDigitalTwinUrl()
         }
     }
 }

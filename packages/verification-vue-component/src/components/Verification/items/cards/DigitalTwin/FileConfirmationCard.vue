@@ -1,13 +1,5 @@
 <template>
     <BaseCard class="file-confirmation-card">
-        <template #header>
-            <div class="icon">
-                <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
-            </div>
-            <div class="title">
-                <div class="filename">{{ fileName }}</div>
-            </div>
-        </template>
         <template #body>
             <div class="action-box confirmation mobile">
                 <div class="text">
@@ -49,7 +41,7 @@
 import BaseCard from '../BaseCard.vue'
 import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
 import MDIcon from '../../../../MDIcon.vue'
-import { mdiCheckCircle, mdiCloseCircle, mdiFileDocument } from '@mdi/js'
+import { mdiCheckCircle, mdiCloseCircle } from '@mdi/js'
 
 export default {
     name: 'FileConfirmationCard',
@@ -67,8 +59,7 @@ export default {
     data() {
         return {
             mdiCheckCircle,
-            mdiCloseCircle,
-            mdiFileDocument
+            mdiCloseCircle
         }
     },
     methods: {
