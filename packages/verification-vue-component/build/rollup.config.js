@@ -3,6 +3,8 @@ import image from '@rollup/plugin-image'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
+import ignore from 'rollup-plugin-ignore'
+import copy from 'rollup-plugin-copy'
 import pkg from '../package.json'
 
 const externals = [
@@ -31,6 +33,58 @@ const defaultConfig = {
 }
 
 export default [
+    {
+        input: 'src/pdf/pdf.module.js',
+        output: {
+            file: 'dist/pdf/pdf.js',
+            format: 'es'
+        },
+        plugins: [
+            ignore(['./pdf.worker.js']),
+            resolve({
+                browser: true,
+                preferBuiltins: false
+            }),
+            commonjs(),
+            copy({
+                targets: [
+                    {
+                        src: [
+                            '../../node_modules/pdfjs-dist/build/pdf.worker.js',
+                            '../../node_modules/pdfjs-dist/build/pdf.worker.min.js',
+                            '../../node_modules/pdfjs-dist/build/pdf.worker.js.map'
+                        ],
+                        dest: 'dist/pdf/',
+                        rename: (name, extension) => `${name.replace('pdf.worker', 'pdfjs.worker')}.${extension}`
+                    },
+                    {
+                        src: '../../node_modules/pdfjs-dist/web/pdf_viewer.css',
+                        dest: 'dist/pdf/',
+                        transform: (content) => content.toString()
+                            .replaceAll('images/', '~@certifaction/verification-vue-component/dist/pdf/images/')
+                            .replaceAll('.pdfViewer', '.viewer-container .viewer')
+                    },
+                    { src: '../../node_modules/pdfjs-dist/web/images', dest: 'dist/pdf/' },
+                    { src: '../../node_modules/pdfjs-dist/cmaps', dest: 'dist/pdf/' }
+                ]
+            })
+        ]
+    },
+    {
+        input: 'src/pdf/pdf_viewer.module.js',
+        output: {
+            file: 'dist/pdf/pdf_viewer.js',
+            format: 'es'
+        },
+        plugins: [
+            ignore(['../build/pdf.js']),
+            resolve({
+                browser: true,
+                preferBuiltins: false
+            }),
+            commonjs()
+        ]
+    },
     {
         ...defaultConfig,
         input: 'src/index.js',

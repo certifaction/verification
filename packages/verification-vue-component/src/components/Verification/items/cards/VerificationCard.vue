@@ -1,6 +1,6 @@
 <template>
     <BaseCard>
-        <template #header>
+        <template #header v-if="verificationItem.name">
             <div class="icon">
                 <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
             </div>
@@ -16,13 +16,15 @@
                         <span>{{ verificationItem.hash }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuerAddress" class="verification-entry issuer-address">
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuerAddress"
+                     class="verification-entry issuer-address">
                     <span class="label">{{ _$t('verification.result.meta.issuerAddress') }}</span>
                     <span class="value">
                         <span>{{ registerEvents[0].issuerAddress }}</span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].smartContractAddress" class="verification-entry smart-contract-address">
+                <div v-if="registerEvents.length > 0 && registerEvents[0].smartContractAddress"
+                     class="verification-entry smart-contract-address">
                     <span class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</span>
                     <span class="value">
                         <span>
@@ -31,7 +33,8 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].transactionHash" class="verification-entry registration-hash">
+                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].transactionHash"
+                     class="verification-entry registration-hash">
                     <span class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</span>
                     <span class="value">
                         <span>
@@ -40,7 +43,8 @@
                         </span>
                     </span>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash" class="verification-entry revocation-hash">
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash"
+                     class="verification-entry revocation-hash">
                     <span class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</span>
                     <span class="value">
                         <span>
@@ -76,25 +80,30 @@
                         <span>{{ _$t('verification.result.verification.unverifiedIssuer.issuerFootnote') }}</span>
                     </span>
                 </div>
-                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.issuerVerified" class="verification-entry verifier">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.issuerVerified"
+                     class="verification-entry verifier">
                     <div class="verifier-name">
                         <span class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</span>
-                        <div v-if="registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.image" class="verifier-image">
+                        <div v-if="registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.image"
+                             class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
-                            <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'" alt=""/>
+                            <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'"
+                                 alt=""/>
                         </div>
                         <span v-else class="value">
                             <span>{{
-                                (registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.name) ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
+                                    (registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.name) ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
                                 }}</span>
                         </span>
                     </div>
                 </div>
-                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].date" class="verification-entry registration-date">
+                <div v-if="!isErrorOrNotFound && registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].date"
+                     class="verification-entry registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <span class="value">{{ dateFormat(registerEvents[0].date) }}</span>
                 </div>
-                <div v-if="!isErrorOrNotFound && revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].date" class="verification-entry revocation-date">
+                <div v-if="!isErrorOrNotFound && revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].date"
+                     class="verification-entry revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <span class="value">{{ dateFormat(revokeEvents[0].date) }}</span>
                 </div>

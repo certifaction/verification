@@ -1,1 +1,5 @@
 @import "~@certifaction/verification-vue-component/src/style/components/certifaction_verification";
+
+.certifaction-verification {
+    @import "~@certifaction/verification-vue-component/dist/pdf/pdf_viewer";
+}
