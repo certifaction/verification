@@ -8,26 +8,27 @@
                 </div>
 
                 <div class="actions">
-                    <div class="confirmation-action" @click="approveOrDecline(true)">
+                    <div class="confirmation-action approve" @click="approveOrDecline(true)">
                         <MDIcon :icon="mdiCheckCircle"/>
                     </div>
-                    <div class="confirmation-action" @click="approveOrDecline(false)">
+                    <div class="confirmation-action decline" @click="approveOrDecline(false)">
                         <MDIcon :icon="mdiCloseCircle"/>
                     </div>
                 </div>
             </div>
 
-            <div class="action-box confirmation">
+            <div class="action-box confirmation desktop">
                 <div class="text">
                     <h4>{{ _$t('verification.digitalTwin.actionBox.confirmation.title.desktop') }}</h4>
                     <p>{{ _$t('verification.digitalTwin.actionBox.confirmation.copy.desktop') }}</p>
                 </div>
+
                 <div class="actions">
-                    <button class="btn light" @click="approveOrDecline(false)">
+                    <button class="btn light decline" @click="approveOrDecline(false)">
                         <MDIcon :icon="mdiCloseCircle"/>
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.decline') }}
                     </button>
-                    <button class="btn light" @click="approveOrDecline(true)">
+                    <button class="btn light approve" @click="approveOrDecline(true)">
                         <MDIcon :icon="mdiCheckCircle"/>
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.approve') }}
                     </button>
