@@ -16,7 +16,90 @@
             padding: 0;
             width: 100%;
 
+            .action-box {
+                display: flex;
+                justify-content: space-between;
+                position: fixed;
+                bottom: 0;
+                padding: 8px 16px;
+                background-color: $digital-twin-action-box-background;
+                height: 70px;
+                width: 100%;
+
+                .text {
+                    color: $digital-twin-action-box-text;
+
+                    h4 {
+                        margin-bottom: 0.25em;
+                    }
+
+                    p {
+                        font-size: $font-size-medium;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    &.navigate {
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                }
+
+                &.confirmation {
+                    display: none;
+
+                    &.mobile {
+                        display: flex;
+                        margin: 0 -12px;
+                    }
+
+                    .confirmation-action {
+                        position: relative;
+                        cursor: pointer;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            z-index: -1;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            margin: auto;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            background-color: white;
+                        }
+
+                        .md-icon {
+                            height: 30px;
+                            width: 30px;
+                        }
+
+                        &.approve {
+                            margin-right: 20px;
+
+                            .md-icon {
+                                color: $verification-result-success-dark;
+                            }
+                        }
+
+                        &.decline {
+                            .md-icon {
+                                color: $verification-result-error-dark;
+                            }
+                        }
+                    }
+                }
+            }
+
             .card-container {
+                position: relative;
                 height: 100%;
 
                 .header {
@@ -37,8 +120,8 @@
 
                 .base-card {
                     justify-content: initial;
-                    height: calc(100% - 70px);
                     width: 100%;
+                    height: calc(100% - 65px);
 
                     .card-body {
                         flex-grow: initial;
@@ -104,67 +187,6 @@
                     display: none;
                 }
             }
-
-            .action-box {
-                display: flex;
-                justify-content: space-between;
-                position: fixed;
-                bottom: 0;
-                padding: 8px 16px;
-                background-color: $digital-twin-action-box-background;
-                height: 70px;
-                width: 100%;
-
-                .text {
-                    color: $digital-twin-action-box-text;
-
-                    h4 {
-                        margin-bottom: 0.25em;
-                    }
-
-                    p {
-                        font-size: $font-size-medium;
-                    }
-                }
-
-                .actions {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-
-                    &.navigate {
-                        width: 100%;
-                        justify-content: space-between;
-                    }
-                }
-
-                &.confirmation {
-                    display: none;
-
-                    &.mobile {
-                        display: flex;
-                        margin: 0 -12px;
-                    }
-
-                    .confirmation-action {
-                        cursor: pointer;
-
-                        svg {
-                            height: 30px;
-                            width: 30px;
-                            color: $verification-result-error-dark;
-                        }
-
-                        &:first-of-type {
-                            margin-right: 20px;
-
-                            svg {
-                                color: $verification-result-success-dark;
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -214,31 +236,12 @@
             .item-container {
                 display: flex;
 
-                .card-container {
-                    height: 100%;
-                    width: 380px;
-
-                    .base-card {
-                        width: 380px;
-                    }
-                }
-
-                .pdf-viewer {
-                    display: block;
-                    flex: 1 1 auto;
-                    position: relative;
-                    top: auto;
-                    right: auto;
-                    bottom: auto;
-                    left: auto;
-                    max-width: calc(100% - 380px);
-                    height: 100vh;
-                }
-
                 .action-box {
-                    width: 348px;
-                    left: 16px;
+                    position: absolute;
+                    right: 12px;
+                    left: 12px;
                     bottom: 20px;
+                    width: auto;
                     border-radius: 8px;
 
                     &.confirmation {
@@ -262,22 +265,55 @@
                             justify-content: space-between;
 
                             .btn {
-                                svg {
-                                    display: inline;
-                                    vertical-align: baseline;
-                                    height: 10px;
-                                    width: 10px;
-                                    color: $verification-result-success-dark;
+                                position: relative;
+                                padding-left: 28px;
+
+                                .md-icon {
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 10px;
+                                    margin-top: auto;
+                                    margin-bottom: auto;
+                                    height: 14px;
+                                    width: 14px;
                                 }
 
-                                &:first-of-type {
-                                    svg {
+                                &.decline {
+                                    .md-icon {
                                         color: $verification-result-error-dark;
+                                    }
+                                }
+
+                                &.approve {
+                                    .md-icon {
+                                        color: $verification-result-success-dark;
                                     }
                                 }
                             }
                         }
                     }
+                }
+
+                .card-container {
+                    height: 100%;
+                    width: 400px;
+
+                    .base-card {
+                        width: 100%;
+                    }
+                }
+
+                .pdf-viewer {
+                    display: block;
+                    flex: 1 1 auto;
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    bottom: auto;
+                    left: auto;
+                    max-width: calc(100% - 400px);
+                    height: 100vh;
                 }
             }
         }
