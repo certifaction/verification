@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-app",
-    "version": "3.0.0-rc.11",
+    "version": "3.0.0-rc.12",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
@@ -10,7 +10,7 @@
         "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
     },
     "dependencies": {
-        "@certifaction/verification-vue-component": "^3.0.0-rc.11",
+        "@certifaction/verification-vue-component": "^3.0.0-rc.12",
         "axios": "^0.21.1",
         "bootstrap": "^4.5.3",
         "core-js": "^3.8.2",
