@@ -27,7 +27,6 @@ yarn install
 Create a .env(.production|.development).local file in the project root to modify the default configuration:
 
 ```dotenv
-VUE_APP_CLAIM_FF=true
 VUE_APP_PROVIDER_URL=https://mainnet.infura.io/v3/4876e0df8d31475799c8239ba2538c4c
 VUE_APP_LEGACY_CONTRACT_ADDRESS=0xdc1d2c136cad73e10ae367d075995185edd68cae
 VUE_APP_LEGACY_CONTRACT_FALLBACK_ADDRESSES=0xf73e27c5008ff487803d2337fc3ac4016f6526e4,0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244
