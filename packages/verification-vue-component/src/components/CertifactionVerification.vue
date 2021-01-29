@@ -364,6 +364,8 @@ export default {
                 return
             }
 
+            axios.defaults.headers.common['X-Cert-Analytics-Dt'] = true
+
             try {
                 const response = await axios.get(this.digitalTwinInformation.fileUrl, { responseType: 'blob' })
 

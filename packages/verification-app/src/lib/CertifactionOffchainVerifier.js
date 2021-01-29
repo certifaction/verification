@@ -4,7 +4,7 @@ import axios from 'axios'
 class CertifactionOffchainVerifier {
     async verify(fileHash) {
         try {
-            const res = await axios.get(`${process.env.VUE_APP_CERTIFACTION_API_URL}/file/${fileHash}/verify?offchainOnly=true`)
+            const res = await axios.get(`${process.env.VUE_APP_CERTIFACTION_API_URL}/file/${fileHash}/verify`)
 
             if (res.status === 200) {
                 const data = res.data
