@@ -134,7 +134,7 @@ export default {
                 this.acceptedIssuerKey,
                 this.certifactionApiUrl
             ),
-            pdfService: new PdfService(this.pdfWasmUrl),
+            pdfService: new PdfService(self.location.origin, this.pdfWasmUrl),
             verificationItems: [],
             draggingDemoDoc: undefined,
             dropbox: {
