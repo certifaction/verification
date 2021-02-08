@@ -107,13 +107,13 @@
                     }
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed by an unverified signer. | This document is authentic and digitally signed by unverified signers.",
+                    "status": "Ce document est authentique et signé électroniquement par un signataire non vérifié. | Ce document est authentique et signé électroniquement par des signataires non vérifiés.",
                     "signerFootnote": {
                         "signed": "Signé le {signingDate}"
                     }
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed by a verified signer. | This document is authentic and digitally signed by verified signers.",
+                    "status": "Ce document est authentique et signé électroniquement par un signataire vérifié. | Ce document est authentique et signé électroniquement par des signataires vérifiés.",
                     "signerFootnote": {
                         "signed": "Signé le {signingDate}"
                     }
@@ -131,11 +131,11 @@
                     },
                     "unverifiedSigners": {
                         "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Unverified signer | Unverified signers"
+                        "registered": "Signataire non vérifié. | Signataires non vérifiés."
                     },
                     "verifiedSigners": {
                         "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Verified signer | Verified signers"
+                        "registered": "Signataire vérifié. | Signataires vérifiés."
                     }
                 }
             },
