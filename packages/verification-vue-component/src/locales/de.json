@@ -107,13 +107,13 @@
                     }
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed by an unverified signer. | This document is authentic and digitally signed by unverified signers.",
+                    "status": "Dieses Dokument ist authentisch und wurde durch eine nicht verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch nicht verifizierte Personen digital signiert.",
                     "signerFootnote": {
                         "signed": "Signiert am {signingDate}"
                     }
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed by a verified signer. | This document is authentic and digitally signed by verified signers.",
+                    "status": "Dieses Dokument ist authentisch und wurde durch eine verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch verifizierte Personen digital signiert.",
                     "signerFootnote": {
                         "signed": "Signiert am {signingDate}"
                     }
