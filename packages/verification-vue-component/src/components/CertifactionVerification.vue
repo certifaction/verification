@@ -44,7 +44,6 @@ import {
     CertifactionEthVerifier,
     hashingService,
     Interface,
-    mapVerificationItemType,
     PdfService,
     VerifierInterface
 } from '@certifaction/verification-core'
@@ -158,7 +157,6 @@ export default {
                 }
                 return {
                     hashed: true,
-                    type: mapVerificationItemType(item),
                     ...item
                 }
             })

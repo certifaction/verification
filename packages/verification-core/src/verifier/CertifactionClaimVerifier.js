@@ -139,13 +139,7 @@ export default class CertifactionClaimVerifier {
             console.log(`Etherscan link to Tx: ${this.certifactionEthClient.ethScanUrl}/tx/${claimEvent.transactionHash}`)
             console.log(`File is associated with claim hash: ${claimHash}`)
 
-            let claim = null
-            try {
-                claim = await this.getClaim(claimHash)
-            } catch (e) {
-                console.error(`Could not retrieve claim by hash, discarding. ${e.name} - ${e.message}`)
-                continue
-            }
+            let claim = await this.getClaim(claimHash)
 
             if (!claim) {
                 console.warn('No claim found')

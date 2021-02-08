@@ -7,7 +7,6 @@ import CertifactionEthVerifier from './verifier/CertifactionEthVerifier'
 import CertifactionClaimVerifier from './verifier/CertifactionClaimVerifier'
 import hashingService from './hashing/hashing.service'
 import PdfService from './pdf/PdfService'
-import { mapVerificationItemType, VERIFICATION_TYPES } from './verification-types'
 
 export {
     Interface,
@@ -18,7 +17,5 @@ export {
     CertifactionEthVerifier,
     CertifactionClaimVerifier,
     hashingService,
-    PdfService,
-    VERIFICATION_TYPES,
-    mapVerificationItemType
+    PdfService
 }

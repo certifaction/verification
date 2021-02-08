@@ -8,13 +8,25 @@
 
             <ShadowCard v-if="isLoading"/>
 
-            <FaqCard v-else-if="showFaq" @toggle-help="toggleHelp($event)"/>
+            <FaqCard v-else-if="showFaq"
+                     @toggle-help="toggleHelp"/>
+
             <ContactCard v-else-if="showContact"
-                         @toggle-help="toggleHelp($event)"
+                         @toggle-help="toggleHelp"
                          :certifaction-api-url="verifierInformation.certifactionApiUrl"/>
 
+            <TechnicalProblemCard v-else-if="isTechnicalProblem"
+                                  :verification-item="verificationItem"
+                                  @toggle-help="toggleHelp"/>
+
+            <NotFoundCard v-else-if="isNotFound"
+                          :verification-item="verificationItem"
+                          @toggle-help="toggleHelp"/>
+
             <template v-else>
-                <FileErrorCard v-if="digitalTwinInformation.error" @toggle-help="toggleHelp($event)"/>
+                <FileErrorCard v-if="digitalTwinInformation.error"
+                               @toggle-help="toggleHelp"/>
+
                 <FileConfirmationCard v-else-if="digitalTwinInformation.active && digitalTwin.confirmationStep"
                                       @approve-or-decline="digitalTwinApproveOrDecline"
                                       :file-name="verificationItem.name"/>
@@ -22,14 +34,16 @@
                 <template v-else>
                     <FileDeclinedCard v-if="digitalTwinInformation.active && !digitalTwin.fileApproved"
                                       :file-name="verificationItem.name"/>
+
                     <SigningCard v-else-if="isSigning"
                                  :verification-item="verificationItem"
                                  :net="verifierInformation.net"
-                                 @toggle-help="toggleHelp($event)"/>
-                    <VerificationCard v-else
-                                      :verification-item="verificationItem"
-                                      :net="verifierInformation.net"
-                                      @toggle-help="toggleHelp($event)"/>
+                                 @toggle-help="toggleHelp"/>
+
+                    <CertifyingCard v-else
+                                    :verification-item="verificationItem"
+                                    :net="verifierInformation.net"
+                                    @toggle-help="toggleHelp"/>
                 </template>
             </template>
 
@@ -53,11 +67,13 @@
 
 <script>
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
-import VerificationCard from './cards/VerificationCard.vue'
-import SigningCard from './cards/SigningCard.vue'
 import ShadowCard from './cards/ShadowCard.vue'
+import NotFoundCard from './cards/NotFoundCard.vue'
+import TechnicalProblemCard from './cards/TechnicalProblemCard.vue'
 import FaqCard from './cards/FaqCard.vue'
 import ContactCard from './cards/ContactCard.vue'
+import CertifyingCard from './cards/CertifyingCard.vue'
+import SigningCard from './cards/SigningCard.vue'
 import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
 import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
 import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
@@ -69,11 +85,13 @@ export default {
         i18nWrapperMixin
     ],
     components: {
-        VerificationCard,
-        SigningCard,
         ShadowCard,
+        NotFoundCard,
+        TechnicalProblemCard,
         FaqCard,
         ContactCard,
+        CertifyingCard,
+        SigningCard,
         FileConfirmationCard,
         FileDeclinedCard,
         FileErrorCard,
@@ -106,10 +124,28 @@ export default {
     },
     computed: {
         isLoading() {
-            return this.verificationItem.hashed === undefined || this.verificationItem.hashed === false
+            return !this.verificationItem.hashed
+        },
+        isTechnicalProblem() {
+            if (this.isLoading) {
+                return false
+            }
+
+            if (!this.verificationItem.events || (this.verificationItem.events && this.verificationItem.events.length === 0)) {
+                return (this.verificationItem.offchainError || this.verificationItem.error)
+            } else {
+                return (this.verificationItem.offchainError && this.verificationItem.error)
+            }
+        },
+        isNotFound() {
+            return (
+                !this.isLoading &&
+                !this.isTechnicalProblem &&
+                (!this.verificationItem.events || (this.verificationItem.events && this.verificationItem.events.length === 0))
+            )
         },
         isSigning() {
-            return this.verificationItem.events ? (this.verificationItem.events.filter(event => event.scope === 'sign')).length !== 0 : false
+            return (this.verificationItem.events && this.verificationItem.events.filter(event => event.scope === 'sign').length > 0)
         },
         digitalTwinDownloadFileName() {
             if (!this.digitalTwinInformation.active) {
