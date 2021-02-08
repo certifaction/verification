@@ -103,19 +103,19 @@
                 "revoked": {
                     "status": "Questo documento è stato revocato.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Firmato il {signingDate}"
                     }
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed by an unverified signer. | This document is authentic and digitally signed by unverified signers.",
+                    "status": "Questo documento è autentico e firmato digitalmente da un'emittente non verificato. | Questo documento è autentico e firmato digitalmente da emittenti non verificati.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Firmato il {signingDate}"
                     }
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed by a verified signer. | This document is authentic and digitally signed by verified signers.",
+                    "status": "Questo documento è autentico e firmato digitalmente da un'emittente verificato. | Questo documento è autentico e firmato digitalmente da emittenti verificati.",
                     "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
+                        "signed": "Firmato il {signingDate}"
                     }
                 },
                 "resultDetails": {
@@ -131,11 +131,11 @@
                     },
                     "unverifiedSigners": {
                         "registering": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>",
-                        "registered": "Unverified signer | Unverified signers"
+                        "registered": "Firmatario non verificato | Firmatari non verificati"
                     },
                     "verifiedSigners": {
                         "registering": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>",
-                        "registered": "Verified signer | Verified signers"
+                        "registered": "Firmatario verificato | Firmatari verificati"
                     }
                 }
             },
