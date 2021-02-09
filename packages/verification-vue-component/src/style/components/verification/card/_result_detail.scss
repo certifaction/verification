@@ -42,7 +42,7 @@
             align-items: center;
             padding-left: 30px;
 
-            button.advanced-toggler {
+            .advanced-toggler {
                 display: flex;
                 align-items: center;
                 padding-left: 4px;
@@ -102,18 +102,6 @@
                     flex: 14px 0 0;
                     height: 20px;
                     margin-right: 8px;
-
-                    &.verified-issuer, &.tamper-proof, &.valid, &.blockchain, &.signatures {
-                        color: $verification-result-success-dark;
-                    }
-
-                    &.unverified-issuer, &.in-progress {
-                        color: $verification-result-warning-dark;
-                    }
-
-                    &.invalid {
-                        color: $verification-result-error-dark;
-                    }
                 }
 
                 span {
@@ -126,12 +114,37 @@
                         padding-top: 5px;
                     }
                 }
+
+                &.tamper-proof,
+                &.document,
+                &.valid,
+                &.verified-issuer,
+                &.verified-signers {
+                    .md-icon {
+                        color: $verification-result-success-dark;
+                    }
+                }
+
+                &.unverified-issuer,
+                &.unverified-signers,
+                &.in-progress {
+                    .md-icon {
+                        color: $verification-result-warning-dark;
+                    }
+                }
+
+                &.invalid {
+                    .md-icon {
+                        color: $verification-result-error-dark;
+                    }
+                }
             }
         }
     }
 
-    &.verified-issuer, &.signing-complete {
-        .detail-header, .detail-body {
+    &.success {
+        .detail-header,
+        .detail-body {
             background-color: $verification-result-success-light;
         }
 
@@ -154,8 +167,9 @@
         }
     }
 
-    &.unverified-issuer, &.not-found, &.technical-problem {
-        .detail-header, .detail-body {
+    &.warning {
+        .detail-header,
+        .detail-body {
             background-color: $verification-result-warning-light;
         }
 
@@ -178,8 +192,9 @@
         }
     }
 
-    &.revoked-verified, &.revoked-unverified, &.revoked {
-        .detail-header, .detail-body {
+    &.error {
+        .detail-header,
+        .detail-body {
             background-color: $verification-result-error-light;
         }
 
@@ -208,11 +223,13 @@
         }
     }
 
-    .collapse-enter-active, .collapse-leave-active {
+    .collapse-enter-active,
+    .collapse-leave-active {
         transition: max-height 0s;
     }
 
-    .collapse-enter, .collapse-leave-to {
+    .collapse-enter,
+    .collapse-leave-to {
         max-height: 0;
         overflow: hidden;
     }

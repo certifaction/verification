@@ -23,15 +23,15 @@
                         <span>{{ registerEvents[0].issuerAddress }}</span>
                     </div>
                 </div>
-                <div v-if="signEvents.length > 0 && signEvents[0].smartContractAddress"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].smartContractAddress"
                      class="verification-entry smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/address/${signEvents[0].smartContractAddress}`"
-                           target="_blank">{{ signEvents[0].smartContractAddress }}</a>
+                        <a :href="`https://${net}/address/${registerEvents[0].smartContractAddress}`"
+                           target="_blank">{{ registerEvents[0].smartContractAddress }}</a>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'revoking' && registerEvents[0].transactionHash"
+                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].transactionHash"
                      class="verification-entry registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
                     <div class="value">
@@ -47,50 +47,53 @@
                            target="_blank">{{ revokeEvents[0].transactionHash }}</a>
                     </div>
                 </div>
-                <div v-if="signEvents.length > 0" class="verification-entry signature-hashes">
-                    <div class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</div>
-                    <div class="value">
-                        <div class="signature-hash" v-for="(signerEvent, index) in signEvents" :key="index">
-                            <span>{{ signerEvent.issuer }}</span>
-                            <a v-if="signerEvent.transactionHash"
-                               :href="`https://${net}/tx/${signerEvent.transactionHash}`"
-                               target="_blank">{{ signerEvent.transactionHash }}</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </template>
         <template v-else #body>
-            <ResultDetail verification-mode="signing"
+            <ResultDetail verification-mode="certifying"
+                          :has-unverified-issuer="hasUnverifiedIssuer"
+                          :has-verified-issuer="hasVerifiedIssuer"
+                          :document-registration-in-progress="registrationInProgress"
                           :document-revoked="verificationItem.revoked"
                           :document-revocation-in-progress="revocationInProgress"
-                          :document-revocation-date="verificationItem.revoked ? revokeEvents[0].date : null"
-                          :signatures-in-progress="signaturesInProgress"
-                          :has-unverified-signer="hasUnverifiedSigner"
-                          :has-verified-signer="hasVerifiedSigner"
-                          :signer-count="signEvents.length"/>
+                          :document-revocation-date="revocationDate"/>
             <div class="verification-info">
-                <div v-if="signEvents.length > 0" class="verification-entry signers">
-                    <span class="label">{{ _$t('verification.result.meta.signers') }}</span>
-                    <ul class="signers-list">
-                        <li class="signer" v-for="(signEvent, index) in signEvents" :key="index">
-                            <div class="left">
-                                <MDIcon class="signed" :icon="mdiCheckCircle"/>
-                            </div>
-                            <div class="right">
-                                <div class="value">
-                                    <span>{{ signEvent.issuer }}</span>
-                                </div>
-                                <div v-if="signEvent.date" class="footnote">
-                                    <span>{{
-                                            _$t(`verification.result.signing.${verificationItemType}.signerFootnote.signed`, {
-                                                signingDate: _$d(signEvent.date, 'short')
-                                            })
-                                        }}</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div v-if="registerEvents.length > 0" class="verification-entry issuer">
+                    <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
+                    <div class="value">
+                        <span>{{ registerEvents[0].issuer }}</span>
+                    </div>
+                    <div v-if="registerEvents.length > 0 && hasUnverifiedIssuer" class="footnote warning">
+                        <MDIcon :icon="mdiAlertCircle"/>
+                        <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
+                    </div>
+                </div>
+                <div v-if="registerEvents.length > 0 && verificationItem.issuerVerified"
+                     class="verification-entry verifier">
+                    <div class="verifier-name">
+                        <div class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</div>
+                        <div v-if="registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.image"
+                             class="verifier-image">
+                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
+                            <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'"
+                                 alt=""/>
+                        </div>
+                        <div v-else class="value">
+                            <span>{{
+                                    (registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.name) ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].date"
+                     class="verification-entry registration-date">
+                    <div class="label">{{ _$t('verification.result.meta.registrationDate') }}</div>
+                    <div class="value">{{ _$d(registerEvents[0].date, 'long') }}</div>
+                </div>
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revocationDate"
+                     class="verification-entry revocation-date">
+                    <div class="label">{{ _$t('verification.result.meta.revocationDate') }}</div>
+                    <div class="value">{{ revocationDate }}</div>
                 </div>
             </div>
         </template>
@@ -116,11 +119,11 @@
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import { mdiAlertCircle, mdiCheckCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
-    name: 'SigningCard',
+    name: 'CertifyingCard',
     mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
@@ -132,7 +135,6 @@ export default {
             mdiShieldCheck,
             mdiFileDocument,
             mdiAlertCircle,
-            mdiCheckCircle,
             showExpertInfo: false
         }
     },
@@ -148,33 +150,45 @@ export default {
     },
     computed: {
         registerEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'register') : []
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => ['register', 'certify'].indexOf(event.scope) >= 0) : []
         },
         revokeEvents() {
             return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : []
         },
-        signEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
+        registrationInProgress() {
+            return this.registerEvents.filter(event => !event.transactionHash).length > 0
         },
         revocationInProgress() {
             return this.revokeEvents.filter(event => !event.transactionHash).length > 0
         },
-        signaturesInProgress() {
-            return this.signEvents.filter(event => !event.transactionHash).length
-        },
-        hasUnverifiedSigner() {
-            return this.signEvents.filter(event => !event.identityVerifier).length > 0
-        },
-        hasVerifiedSigner() {
-            return this.signEvents.filter(event => !!event.identityVerifier).length > 0
-        },
-        verificationItemType() {
-            if (this.hasUnverifiedSigner) {
-                return 'unverifiedSigner'
+        revocationDate() {
+            if (this.revokeEvents.length === 0) {
+                return null
             }
 
-            if (this.hasVerifiedSigner) {
-                return 'verifiedSigner'
+            if (this.revokeEvents[0].date instanceof Date) {
+                return this._$d(this.revokeEvents[0].date, 'long')
+            }
+
+            return this.revokeEvents[0].date
+        },
+        hasUnverifiedIssuer() {
+            return this.registerEvents.filter(event => !event.identityVerifier).length > 0
+        },
+        hasVerifiedIssuer() {
+            return this.registerEvents.filter(event => !!event.identityVerifier).length > 0
+        },
+        verificationItemType() {
+            if (this.revokeEvents.length > 0) {
+                return 'revoked'
+            }
+
+            if (this.hasUnverifiedIssuer) {
+                return 'unverifiedIssuer'
+            }
+
+            if (this.hasVerifiedIssuer) {
+                return 'verifiedIssuer'
             }
 
             return 'unknown'

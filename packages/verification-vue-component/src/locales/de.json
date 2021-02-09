@@ -73,72 +73,73 @@
                 "signatureTransactions": "Signierungstranskationen",
                 "details": "Details"
             },
-            "verification": {
-                "technicalProblem": {
-                    "status": "Hoppla! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
-                    "details": "Es liegt eine technische Störung vor. Ihre Verifizierungsanfrage kann gerade nicht verarbeitet werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.<br><br>Falls die Störung andauert, zögern Sie nicht, unseren Support zu kontaktieren. Wir sind gerne für Sie da."
-                },
-                "notFound": {
-                    "status": "Für dieses Dokument konnten wir keinen Eintrag finden",
-                    "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:<ul><li>durch \"Drucken als PDF\"</li><li>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.</li><li>durch Ausdrucken und Scannen</li></ul></li></ul>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
-                },
-                "revokedUnverified": {
-                    "status": "Dieses Dokument wurde widerrufen.",
-                    "details": {
-                        "tamperProof": "Fälschungssicher zertifiziert",
-                        "unverifiedIssuer": "Unverifizierter Aussteller",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
-                        },
-                        "invalid": {
-                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
-                            "offchain": "Annulliert"
-                        }
-                    }
-                },
-                "revokedVerified": {
-                    "status": "Dieses Dokument wurde widerrufen.",
-                    "details": {
-                        "tamperProof": "Fälschungssicher zertifiziert",
-                        "verifiedIssuer": "Verifizierter Aussteller",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Wird auf Blockchain revoziert<span class=\"detail-footnote\">Für dieses Dokument wird gerade ein Revozierungseintrag auf der Ethereum-Blockchain publiziert. Dadurch wird der Status unabhängig verifizierbar.</span>"
-                        },
-                        "invalid": {
-                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
-                            "offchain": "Annulliert"
-                        }
-                    }
+            "certifying": {
+                "revoked": {
+                    "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedIssuer": {
                     "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
-                    "issuerFootnote": "Identität nicht bestätigt",
-                    "details": {
-                        "tamperProof": "Fälschungssicher zertifiziert",
-                        "unverifiedIssuer": "Unverifizierter Aussteller",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        },
-                        "valid": "Gültig (nicht widerrufen)"
-                    }
+                    "issuerFootnote": "Identität nicht bestätigt"
                 },
                 "verifiedIssuer": {
-                    "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller.",
-                    "details": {
-                        "tamperProof": "Fälschungssicher zertifiziert",
-                        "verifiedIssuer": "Verifizierter Aussteller",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        },
-                        "valid": "Gültig (nicht widerrufen)"
+                    "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller."
+                },
+                "resultDetails": {
+                    "tamperProof": "Fälschungssicher zertifiziert",
+                    "unverifiedIssuer": "Unverifizierter Aussteller",
+                    "verifiedIssuer": "Verifizierter Aussteller",
+                    "document": {
+                        "registering": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                        "registered": "Durch Blockchain gesichert"
+                    },
+                    "valid": "Gültig (nicht widerrufen)",
+                    "invalid": {
+                        "registering": "Annulliert",
+                        "registered": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
                     }
                 }
             },
             "signing": {
+                "revoked": {
+                    "status": "Dieses Dokument wurde widerrufen.",
+                    "signerFootnote": {
+                        "signed": "Signiert am {signingDate}"
+                    }
+                },
+                "unverifiedSigner": {
+                    "status": "Dieses Dokument ist authentisch und wurde durch eine nicht verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch nicht verifizierte Personen digital signiert.",
+                    "signerFootnote": {
+                        "signed": "Signiert am {signingDate}"
+                    }
+                },
+                "verifiedSigner": {
+                    "status": "Dieses Dokument ist authentisch und wurde durch eine verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch verifizierte Personen digital signiert.",
+                    "signerFootnote": {
+                        "signed": "Signiert am {signingDate}"
+                    }
+                },
+                "resultDetails": {
+                    "tamperProof": "Fälschungssicher",
+                    "document": {
+                        "registering": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                        "registered": "Durch Blockchain gesichert"
+                    },
+                    "valid": "Gültig (nicht widerrufen)",
+                    "invalid": {
+                        "registering": "Annulliert",
+                        "registered": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                    },
+                    "unverifiedSigners": {
+                        "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                        "registered": "Unverified signer | Unverified signers"
+                    },
+                    "verifiedSigners": {
+                        "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                        "registered": "Verified signer | Verified signers"
+                    }
+                }
+            },
+            "error": {
                 "technicalProblem": {
                     "status": "Hoppla! Wir konnten keine Verbindung zur Ethereum-Blockchain aufbauen.",
                     "details": "Es liegt eine technische Störung vor. Ihre Verifizierungsanfrage kann gerade nicht verarbeitet werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.<br><br>Falls die Störung andauert, zögern Sie nicht, unseren Support zu kontaktieren. Wir sind gerne für Sie da."
@@ -146,45 +147,6 @@
                 "notFound": {
                     "status": "Für dieses Dokument konnten wir keinen Eintrag finden",
                     "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:<ul><li>durch \"Drucken als PDF\"</li><li>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.</li><li>durch Ausdrucken und Scannen</li></ul></li></ul>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
-                },
-                "signingComplete": {
-                    "status": "Dieses Dokument ist authentisch und wurde digital signiert.",
-                    "signerFootnote": {
-                        "signed": "Signiert am {signingDate}"
-                    },
-                    "details": {
-                        "tamperProof": "Fälschungssicher",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        },
-                        "valid": "Gültig (nicht widerrufen)",
-                        "signatures": {
-                            "complete": "Signieren abgeschlossen",
-                            "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        }
-                    }
-                },
-                "revoked": {
-                    "status": "Dieses Dokument wurde widerrufen.",
-                    "signerFootnote": {
-                        "signed": "Signiert am {signingDate}"
-                    },
-                    "details": {
-                        "tamperProof": "Fälschungssicher",
-                        "blockchain": {
-                            "secured": "Durch Blockchain gesichert",
-                            "registering": "Pendente Blockchain-Transaktion <span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        },
-                        "invalid": {
-                            "default": "Annulliert <span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>",
-                            "offchain": "Annulliert"
-                        },
-                        "signatures": {
-                            "complete": "Signieren abgeschlossen",
-                            "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
-                        }
-                    }
                 }
             }
         },

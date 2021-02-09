@@ -64,6 +64,10 @@ export default class CertifactionEthClient {
                 const registrationEvent = await this.getRegistrationEvent(fileHash)
                 const registrationBlock = (registrationEvent) ? await this.getBlock(registrationEvent.blockHash) : null
 
+                if (registrationBlock === null) {
+                    return resolve(null)
+                }
+
                 events.push({
                     scope: 'register',
                     date: new Date(registrationBlock.timestamp * 1000),
@@ -82,15 +86,24 @@ export default class CertifactionEthClient {
                     revocationEvent = await this.getRevocationEvent(fileHash)
                     revocationBlock = (revocationEvent) ? await this.getBlock(revocationEvent.blockHash) : null
 
-                    events.push({
+                    const event = {
                         scope: 'revoke',
-                        date: new Date(revocationBlock.timestamp * 1000),
                         issuerAddress,
                         issuer: issuerName,
-                        identityVerifier: null,
-                        smartContractAddress: revocationEvent.address,
-                        transactionHash: revocationEvent.transactionHash
-                    })
+                        identityVerifier: null
+                    }
+
+                    if (revocationBlock !== null) {
+                        event.date = new Date(revocationBlock.timestamp * 1000)
+                        event.smartContractAddress = revocationEvent.address
+                        event.transactionHash = revocationEvent.transactionHash
+                    } else {
+                        // Really old documents don't have a revocation event
+                        event.date = '-'
+                        event.transactionHash = '-'
+                    }
+
+                    events.push(event)
                 }
 
                 return resolve({

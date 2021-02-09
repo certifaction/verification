@@ -1,19 +1,17 @@
 <template>
-    <div class="result-detail"
-         :class="[verificationResultClass, {expanded: showDetails && showDropdownToggler}]">
+    <div class="result-detail" :class="[verificationStatus, { expanded: showDetails && showDropdownToggler }]">
         <div class="detail-header" @click="toggleDropdown">
             <div class="header-icon">
-                <img :src="headerIcon" alt="Certifaction"/>
+                <img :src="headerIcon" alt="Icon"/>
             </div>
             <div class="header-label">
-                <div v-html="_$t('verification.result.' + translationType + '.' + verificationResult + '.status')"></div>
+                <div v-html="headerLabel"/>
             </div>
             <div v-if="showDropdownToggler" class="header-action">
-                <button type="button"
-                        class="btn-link advanced-toggler">
-                    <img v-if="verificationInProgress || revocationInProgress || signatureInProgress"
-                         class="loading-spinner"
+                <button type="button" class="btn-link advanced-toggler">
+                    <img v-if="documentRegistrationInProgress || documentRevocationInProgress || signaturesInProgress > 0"
                          src="../../../assets/img/loading_spinner.svg"
+                         class="loading-spinner"
                          alt="Spinner"/>
                     <span>{{ _$t('verification.result.meta.details') }}</span>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
@@ -23,19 +21,18 @@
         <transition name="collapse">
             <div v-if="showDetails" class="detail-body">
                 <ul>
-                    <li class="detail"
-                        v-for="(item, index) in _$t('verification.result.' + translationType + '.' + verificationResult + '.details', { returnObjects: true, date: revocationDate })"
-                        :key="index">
-                        <template v-if="((verificationInProgress || revocationInProgress) && index === 'blockchain' || signatureInProgress && index === 'signatures')">
-                            <MDIcon class="in-progress"
-                                    :class="getDetailClass(index)"
-                                    :icon="mdiCircle"/>
-                            <img class="loading-spinner"
-                                 src="../../../assets/img/loading_spinner.svg"
+                    <li v-for="(item, index) in details"
+                        :key="index"
+                        class="detail"
+                        :class="[item.class, { 'in-progress': item.inProgress }]">
+                        <template v-if="item.inProgress">
+                            <MDIcon class="in-progress" :icon="mdiCircle"/>
+                            <img src="../../../assets/img/loading_spinner.svg"
+                                 class="loading-spinner"
                                  alt="Spinner"/>
                         </template>
-                        <MDIcon v-else :class="getDetailClass(index)" :icon="getDetailIcon(index)"/>
-                        <span v-html="getDetailLabel(index, item)"/>
+                        <MDIcon v-else :icon="getDetailIcon(item.icon)"/>
+                        <span v-html="item.label"/>
                     </li>
                 </ul>
             </div>
@@ -44,7 +41,6 @@
 </template>
 
 <script>
-
 import {
     mdiAlertCircle,
     mdiCheckCircle,
@@ -55,7 +51,6 @@ import {
     mdiShieldCheck
 } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
-import dateFormatter from '../../../mixins/date-formatter'
 import MDIcon from '../../MDIcon.vue'
 
 import headerSuccessShield from '../../../assets/img/shield_success.svg'
@@ -64,27 +59,59 @@ import headerErrorShield from '../../../assets/img/shield_error.svg'
 
 export default {
     name: 'ResultDetail',
-    mixins: [i18nWrapperMixin, dateFormatter],
+    mixins: [i18nWrapperMixin],
     components: {
         MDIcon
     },
     props: {
-        verificationResult: {
+        verificationMode: {
             type: String,
             required: true
         },
-        verificationInProgress: {
+        notFound: {
             type: Boolean,
             default: false
         },
-        revocationInProgress: {
+        hasTechnicalProblem: {
             type: Boolean,
             default: false
         },
-        revocationDate: null,
-        isSigning: {
+        hasUnverifiedIssuer: {
             type: Boolean,
             default: false
+        },
+        hasVerifiedIssuer: {
+            type: Boolean,
+            default: false
+        },
+        documentRegistrationInProgress: {
+            type: Boolean,
+            default: false
+        },
+        documentRevoked: {
+            type: Boolean,
+            default: false
+        },
+        documentRevocationInProgress: {
+            type: Boolean,
+            default: false
+        },
+        documentRevocationDate: null,
+        signaturesInProgress: {
+            type: Number,
+            default: 0
+        },
+        hasUnverifiedSigner: {
+            type: Boolean,
+            default: false
+        },
+        hasVerifiedSigner: {
+            type: Boolean,
+            default: false
+        },
+        signerCount: {
+            type: Number,
+            default: 0
         }
     },
     data() {
@@ -93,80 +120,165 @@ export default {
             mdiChevronUp,
             mdiChevronDown,
             mdiCircle,
-            mdiAlertCircle,
-            mdiCloseCircle,
-            mdiCheckCircle,
-            showDetails: false,
             headerSuccessShield,
             headerWarningShield,
-            headerErrorShield
+            headerErrorShield,
+            showDetails: false
         }
     },
     computed: {
-        togglerArrow() {
-            return this.showDetails ? mdiChevronUp : mdiChevronDown
-        },
         showDropdownToggler() {
-            return this.verificationResult !== 'notFound' && this.verificationResult !== 'technicalProblem'
+            return (!this.notFound && !this.hasTechnicalProblem)
+        },
+        verificationStatus() {
+            if (this.documentRevoked) {
+                return 'error'
+            }
+
+            if (this.notFound || this.hasTechnicalProblem || this.hasUnverifiedIssuer || this.hasUnverifiedSigner) {
+                return 'warning'
+            }
+
+            return 'success'
         },
         headerIcon() {
-            switch (this.verificationResult) {
-                case 'verifiedIssuer':
-                case 'signingComplete':
+            switch (this.verificationStatus) {
+                case 'success':
                     return headerSuccessShield
-                case 'unverifiedIssuer':
-                case 'technicalProblem':
-                case 'notFound':
+                case 'warning':
                     return headerWarningShield
+                case 'error':
                 default:
                     return headerErrorShield
             }
         },
-        verificationResultClass() {
-            return this.verificationResult.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+        headerLabel() {
+            if (this.notFound) {
+                return this._$t(`verification.result.${this.verificationMode}.notFound.status`)
+            }
+
+            if (this.hasTechnicalProblem) {
+                return this._$t(`verification.result.${this.verificationMode}.technicalProblem.status`)
+            }
+
+            if (this.documentRevoked) {
+                return this._$t(`verification.result.${this.verificationMode}.revoked.status`)
+            }
+
+            if (this.hasUnverifiedIssuer) {
+                return this._$t(`verification.result.${this.verificationMode}.unverifiedIssuer.status`)
+            }
+
+            if (this.hasVerifiedIssuer) {
+                return this._$t(`verification.result.${this.verificationMode}.verifiedIssuer.status`)
+            }
+
+            if (this.hasUnverifiedSigner) {
+                return this._$tc(`verification.result.${this.verificationMode}.unverifiedSigner.status`, this.signerCount)
+            }
+
+            if (this.hasVerifiedSigner) {
+                return this._$tc(`verification.result.${this.verificationMode}.verifiedSigner.status`, this.signerCount)
+            }
+
+            return null
         },
-        translationType() {
-            return this.isSigning ? 'signing' : 'verification'
-        },
-        signatureInProgress() {
-            // TODO (ani): Check if signature is in progress
-            return false
+        details() {
+            const langDetailsKeyPrefix = `verification.result.${this.verificationMode}.resultDetails`
+            const details = []
+
+            details.push({
+                label: this._$t(`${langDetailsKeyPrefix}.tamperProof`),
+                class: 'tamper-proof',
+                icon: 'check'
+            })
+
+            const documentDetail = { class: 'document' }
+            if (this.documentRegistrationInProgress) {
+                documentDetail.label = this._$t(`${langDetailsKeyPrefix}.document.registering`)
+                documentDetail.inProgress = true
+            } else {
+                documentDetail.label = this._$t(`${langDetailsKeyPrefix}.document.registered`)
+                documentDetail.icon = 'check'
+            }
+
+            let documentStatusDetail = {}
+            if (!this.documentRevoked) {
+                documentStatusDetail = {
+                    label: this._$t(`${langDetailsKeyPrefix}.valid`),
+                    class: 'valid',
+                    icon: 'check'
+                }
+            } else {
+                if (this.documentRevocationInProgress) {
+                    documentStatusDetail.label = this._$t(`${langDetailsKeyPrefix}.invalid.registering`)
+                } else {
+                    documentStatusDetail.label = this._$t(
+                        `${langDetailsKeyPrefix}.invalid.registered`,
+                        { revocationDate: this.documentRevocationDate }
+                    )
+                }
+                documentStatusDetail.class = 'invalid'
+                documentStatusDetail.icon = 'close'
+            }
+
+            switch (this.verificationMode) {
+                case 'certifying':
+                    if (this.hasUnverifiedIssuer) {
+                        details.push({
+                            label: this._$t(`${langDetailsKeyPrefix}.unverifiedIssuer`),
+                            class: 'unverified-issuer',
+                            icon: 'alert'
+                        })
+                    } else if (this.hasVerifiedIssuer) {
+                        details.push({
+                            label: this._$t(`${langDetailsKeyPrefix}.verifiedIssuer`),
+                            class: 'verified-issuer',
+                            icon: 'check'
+                        })
+                    }
+
+                    details.push(documentDetail)
+                    details.push(documentStatusDetail)
+                    break
+
+                case 'signing':
+                    details.push(documentDetail)
+                    details.push(documentStatusDetail)
+
+                    if (this.hasUnverifiedSigner) {
+                        details.push({
+                            label: this._$tc(`${langDetailsKeyPrefix}.unverifiedSigners.registered`, this.signerCount),
+                            class: 'unverified-signers',
+                            icon: 'alert'
+                        })
+                    } else if (this.hasVerifiedSigner) {
+                        details.push({
+                            label: this._$tc(`${langDetailsKeyPrefix}.verifiedSigners.registered`, this.signerCount),
+                            class: 'verified-signers',
+                            icon: 'check'
+                        })
+                    }
+                    break
+            }
+
+            return details
         }
     },
     methods: {
         toggleDropdown() {
             this.showDetails = this.showDropdownToggler ? !this.showDetails : this.showDetails
         },
-        getDetailIcon(detail) {
-            switch (detail) {
-                case 'tamperProof':
-                case 'verifiedIssuer':
-                case 'blockchain':
-                case 'valid':
-                case 'signatures':
+        getDetailIcon(icon) {
+            switch (icon) {
+                case 'check':
                     return mdiCheckCircle
-                case 'unverifiedIssuer':
+                case 'alert':
                     return mdiAlertCircle
-                case 'invalid':
+                case 'close':
                     return mdiCloseCircle
             }
-        },
-        getDetailLabel(index, item) {
-            if (index === 'blockchain') {
-                return this.verificationInProgress || this.revocationInProgress ? item.registering : item.secured
-            } else if (index === 'signatures') {
-                // TODO (ani): Add correct conditions (if 1< signature is registering)
-                // eslint-disable-next-line no-constant-condition
-                return false ? item.registering : item.complete
-            } else if (index === 'invalid') {
-                const labelType = this.revocationDate ? 'default' : 'offchain'
-                return this._$t('verification.result.' + this.translationType + '.' + this.verificationResult + '.details.invalid.' + labelType, { revocationDate: this.revocationDate ? this.dateFormat(this.revocationDate) : null })
-            }
-
-            return item
-        },
-        getDetailClass(index) {
-            return index.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+            return null
         }
     }
 }

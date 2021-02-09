@@ -1,7 +1,7 @@
 import { string } from 'rollup-plugin-string'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import babel from 'rollup-plugin-babel'
+import { babel } from '@rollup/plugin-babel'
 import webWorkerLoader from 'rollup-plugin-web-worker-loader'
 import pkg from '../package.json'
 
@@ -19,7 +19,7 @@ const plugins = [
     resolve(),
     commonjs(),
     babel({
-        runtimeHelpers: true
+        babelHelpers: 'runtime'
     }),
     webWorkerLoader({
         targetPlatform: 'browser'

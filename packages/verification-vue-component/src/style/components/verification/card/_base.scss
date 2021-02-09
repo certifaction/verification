@@ -56,10 +56,10 @@
                 border-radius: 8px;
 
                 &:nth-child(2n) {
-                    background-color: #F7F9FC;
+                    background-color: #f7f9fc;
                 }
 
-                ul.signers-list {
+                .signers-list {
                     margin: 0;
                     padding: 0;
 
@@ -76,45 +76,42 @@
                             margin-right: 10px;
                         }
 
-                        span.value > span {
+                        .value > span {
                             display: inline-block;
                         }
                     }
                 }
 
-                span {
-                    display: block;
+                .label {
+                    color: rgba(#14213d, 50%);
+                    font-size: 13px;
+                    line-height: 1.5em;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
 
-                    &.label {
-                        color: rgba(#14213d, 50%);
-                        font-size: 13px;
-                        line-height: 1.5em;
-                        font-weight: 600;
-                        text-transform: uppercase;
+                .footnote {
+                    display: flex;
+                    align-items: center;
+                    color: rgba(#14213d, 50%);
+
+                    svg {
+                        height: 12px;
+                        width: 12px;
+                        margin-right: 4px;
                     }
 
-                    &.footnote {
-                        display: flex;
-                        align-items: center;
-                        color: rgba(#14213d, 50%);
+                    span {
+                        font-size: 14px;
+                    }
 
-                        &.warning {
-                            margin-left: 0;
+                    &.warning {
+                        margin-left: 0;
 
-                            span, svg {
-                                display: inline-block;
-                                color: #F29E18;
-                            }
-                        }
-
+                        span,
                         svg {
-                            height: 12px;
-                            width: 12px;
-                            margin-right: 4px;
-                        }
-
-                        span {
-                            font-size: 14px;
+                            display: inline-block;
+                            color: #f29e18;
                         }
                     }
                 }
@@ -147,7 +144,7 @@
             }
 
             &.expert {
-                span.value {
+                .value {
                     font-size: 14px;
                 }
             }
@@ -162,6 +159,17 @@
 
         button {
             outline: none;
+        }
+    }
+
+    &.technical-problem-card,
+    &.not-found-card {
+        .card-body {
+            .result-detail {
+                .detail-header {
+                    cursor: auto;
+                }
+            }
         }
     }
 }
