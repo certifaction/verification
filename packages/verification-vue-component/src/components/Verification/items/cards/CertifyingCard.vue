@@ -56,7 +56,7 @@
                           :document-registration-in-progress="registrationInProgress"
                           :document-revoked="verificationItem.revoked"
                           :document-revocation-in-progress="revocationInProgress"
-                          :document-revocation-date="verificationItem.revoked ? revokeEvents[0].date : null"/>
+                          :document-revocation-date="revocationDate"/>
             <div class="verification-info">
                 <div v-if="registerEvents.length > 0" class="verification-entry issuer">
                     <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
@@ -90,10 +90,10 @@
                     <div class="label">{{ _$t('verification.result.meta.registrationDate') }}</div>
                     <div class="value">{{ _$d(registerEvents[0].date, 'long') }}</div>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].date"
+                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revocationDate"
                      class="verification-entry revocation-date">
                     <div class="label">{{ _$t('verification.result.meta.revocationDate') }}</div>
-                    <div class="value">{{ _$d(revokeEvents[0].date, 'long') }}</div>
+                    <div class="value">{{ revocationDate }}</div>
                 </div>
             </div>
         </template>
@@ -160,6 +160,17 @@ export default {
         },
         revocationInProgress() {
             return this.revokeEvents.filter(event => !event.transactionHash).length > 0
+        },
+        revocationDate() {
+            if (this.revokeEvents.length === 0) {
+                return null
+            }
+
+            if (this.revokeEvents[0].date instanceof Date) {
+                return this._$d(this.revokeEvents[0].date, 'long')
+            }
+
+            return this.revokeEvents[0].date
         },
         hasUnverifiedIssuer() {
             return this.registerEvents.filter(event => !event.identityVerifier).length > 0

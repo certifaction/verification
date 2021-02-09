@@ -9,7 +9,7 @@
             </div>
             <div v-if="showDropdownToggler" class="header-action">
                 <button type="button" class="btn-link advanced-toggler">
-                    <img v-if="documentRegistrationInProgress || documentRevocationInProgress || signatureInProgress"
+                    <img v-if="documentRegistrationInProgress || documentRevocationInProgress || signaturesInProgress > 0"
                          src="../../../assets/img/loading_spinner.svg"
                          class="loading-spinner"
                          alt="Spinner"/>
@@ -215,7 +215,7 @@ export default {
                 } else {
                     documentStatusDetail.label = this._$t(
                         `${langDetailsKeyPrefix}.invalid.registered`,
-                        { revocationDate: this._$d(this.documentRevocationDate, 'long') }
+                        { revocationDate: this.documentRevocationDate }
                     )
                 }
                 documentStatusDetail.class = 'invalid'
