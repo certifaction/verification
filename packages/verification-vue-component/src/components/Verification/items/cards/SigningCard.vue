@@ -92,6 +92,20 @@
                         </li>
                     </ul>
                 </div>
+                <div v-if="singleIdentityVerifier" class="verification-entry verifier">
+                    <div class="verifier-name">
+                        <div class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</div>
+                        <div v-if="singleIdentityVerifier.image" class="verifier-image">
+                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
+                            <img :src="(singleIdentityVerifier.image).split('.png')[0] + '_redesign.png'"
+                                 :alt="singleIdentityVerifier.name"
+                                 :title="singleIdentityVerifier.name"/>
+                        </div>
+                        <div v-else class="value">
+                            <span>{{ singleIdentityVerifier.name }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
         <template #footer>
@@ -178,6 +192,28 @@ export default {
             }
 
             return 'unknown'
+        },
+        singleIdentityVerifier() {
+            if (!this.hasVerifiedSigner) {
+                return null
+            }
+
+            const verifiedSignEvents = this.signEvents.filter(event => !!event.identityVerifier)
+
+            if (verifiedSignEvents.length !== this.signEvents.length) {
+                return null
+            }
+
+            const identityVerifiers = verifiedSignEvents.map(event => event.identityVerifier)
+            const uniqueIdentityVerifiers = identityVerifiers.filter(
+                (event, index) => identityVerifiers.findIndex(obj => obj.name === event.name) === index
+            )
+
+            if (uniqueIdentityVerifiers.length > 1) {
+                return null
+            }
+
+            return uniqueIdentityVerifiers[0]
         }
     },
     methods: {
