@@ -351,7 +351,7 @@ export default {
                 verification.offchainError = true
             }
 
-            console.log(`Verification result for file ${verification.hash}:`, verification)
+            console.log(`Verification result for file ${verification.hash}:`, JSON.parse(JSON.stringify(verification)))
 
             return verification
         },

@@ -35,6 +35,8 @@ class CertifactionOffchainVerifierExample {
                 }
                 if (data.issuer_verifiedby) {
                     fileVerification.issuerVerifiedBy = data.issuer_verifiedby
+                } else if (fileVerification.issuerVerified === true) {
+                    fileVerification.issuerVerifiedBy = 'Certifaction AG'
                 }
                 if (data.issuer_img) {
                     fileVerification.issuerVerifiedImg = data.issuer_img
