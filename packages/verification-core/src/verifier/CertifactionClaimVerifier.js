@@ -100,11 +100,15 @@ export default class CertifactionClaimVerifier {
                 fileVerification.issuerName = verifiedIssuer.issuerName
                 fileVerification.issuerImg = verifiedIssuer.issuerImg
                 fileVerification.issuerVerified = verifiedIssuer.issuerVerified
+                fileVerification.issuerVerifiedBy = 'Certifaction AG'
 
                 fileVerification.events = fileVerification.events.map(event => {
                     return {
                         ...event,
-                        issuer: verifiedIssuer.issuerName
+                        issuer: verifiedIssuer.issuerName,
+                        identityVerifier: {
+                            name: 'Certifaction AG'
+                        }
                     }
                 })
             }

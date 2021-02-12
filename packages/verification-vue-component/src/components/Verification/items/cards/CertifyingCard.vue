@@ -68,20 +68,17 @@
                         <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.issuerVerified"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].identityVerifier"
                      class="verification-entry verifier">
                     <div class="verifier-name">
                         <div class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</div>
-                        <div v-if="registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.image"
-                             class="verifier-image">
+                        <div v-if="registerEvents[0].identityVerifier.image" class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
                             <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'"
                                  alt=""/>
                         </div>
                         <div v-else class="value">
-                            <span>{{
-                                    (registerEvents[0].identityVerifier && registerEvents[0].identityVerifier.name) ? registerEvents[0].identityVerifier.name : 'Certifaction AG'
-                                }}</span>
+                            <span>{{ registerEvents[0].identityVerifier.name }}</span>
                         </div>
                     </div>
                 </div>
