@@ -33,7 +33,8 @@
 
                 <template v-else>
                     <FileDeclinedCard v-if="digitalTwinInformation.active && !digitalTwin.fileApproved"
-                                      :file-name="verificationItem.name"/>
+                                      :file-name="verificationItem.name"
+                                      @toggle-help="toggleHelp"/>
 
                     <SigningCard v-else-if="isSigning"
                                  :verification-item="verificationItem"
