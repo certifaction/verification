@@ -16,35 +16,35 @@
                         <span>{{ verificationItem.hash }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuerAddress"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id"
                      class="verification-entry issuer-address">
                     <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
                     <div class="value">
-                        <span>{{ registerEvents[0].issuerAddress }}</span>
+                        <span>{{ registerEvents[0].issuer.id }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].smartContractAddress"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
                      class="verification-entry smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/address/${registerEvents[0].smartContractAddress}`"
-                           target="_blank">{{ registerEvents[0].smartContractAddress }}</a>
+                        <a :href="`https://${net}/address/${registerEvents[0].on_blockchain.contract_address}`"
+                           target="_blank">{{ registerEvents[0].on_blockchain.contract_address }}</a>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].transactionHash"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
                      class="verification-entry registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/tx/${registerEvents[0].transactionHash}`"
-                           target="_blank">{{ registerEvents[0].transactionHash }}</a>
+                        <a :href="`https://${net}/tx/${registerEvents[0].on_blockchain.tx_hash}`"
+                           target="_blank">{{ registerEvents[0].on_blockchain.tx_hash }}</a>
                     </div>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash"
+                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain"
                      class="verification-entry revocation-hash">
                     <div class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/tx/${revokeEvents[0].transactionHash}`"
-                           target="_blank">{{ revokeEvents[0].transactionHash }}</a>
+                        <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
+                           target="_blank">{{ revokeEvents[0].on_blockchain.tx_hash }}</a>
                     </div>
                 </div>
             </div>
@@ -61,33 +61,33 @@
                 <div v-if="registerEvents.length > 0" class="verification-entry issuer">
                     <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
                     <div class="value">
-                        <span>{{ registerEvents[0].issuer }}</span>
+                        <span>{{ registerEvents[0].issuer.name }}</span>
                     </div>
                     <div v-if="registerEvents.length > 0 && hasUnverifiedIssuer" class="footnote warning">
                         <MDIcon :icon="mdiAlertCircle"/>
                         <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].identityVerifier"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.verified_by"
                      class="verification-entry verifier">
                     <div class="verifier-name">
                         <div class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</div>
-                        <div v-if="registerEvents[0].identityVerifier.image" class="verifier-image">
+                        <div v-if="registerEvents[0].issuer.verified_by.image" class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
-                            <img :src="(registerEvents[0].identityVerifier.image).split('.png')[0] + '_redesign.png'"
+                            <img :src="(registerEvents[0].issuer.verified_by.image).split('.png')[0] + '_redesign.png'"
                                  alt=""/>
                         </div>
                         <div v-else class="value">
-                            <span>{{ registerEvents[0].identityVerifier.name }}</span>
+                            <span>{{ registerEvents[0].issuer.verified_by.name }}</span>
                         </div>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'registering' && registerEvents[0].date"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].date"
                      class="verification-entry registration-date">
                     <div class="label">{{ _$t('verification.result.meta.registrationDate') }}</div>
-                    <div class="value">{{ _$d(registerEvents[0].date, 'long') }}</div>
+                    <div class="value">{{ _$d(new Date(registerEvents[0].date), 'long') }}</div>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revocationDate"
+                <div v-if="revokeEvents.length > 0 && revocationDate"
                      class="verification-entry revocation-date">
                     <div class="label">{{ _$t('verification.result.meta.revocationDate') }}</div>
                     <div class="value">{{ revocationDate }}</div>
@@ -153,27 +153,28 @@ export default {
             return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : []
         },
         registrationInProgress() {
-            return this.registerEvents.filter(event => !event.transactionHash).length > 0
+            return this.registerEvents.filter(event => !event.on_blockchain).length > 0
         },
         revocationInProgress() {
-            return this.revokeEvents.filter(event => !event.transactionHash).length > 0
+            return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
         },
         revocationDate() {
             if (this.revokeEvents.length === 0) {
                 return null
             }
 
-            if (this.revokeEvents[0].date instanceof Date) {
-                return this._$d(this.revokeEvents[0].date, 'long')
+            const revocationDate = new Date(this.revokeEvents[0].date)
+            if (!isNaN(revocationDate)) {
+                return this._$d(revocationDate, 'long')
             }
 
             return this.revokeEvents[0].date
         },
         hasUnverifiedIssuer() {
-            return this.registerEvents.filter(event => !event.identityVerifier).length > 0
+            return this.registerEvents.filter(event => !event.issuer.verified_by).length > 0
         },
         hasVerifiedIssuer() {
-            return this.registerEvents.filter(event => !!event.identityVerifier).length > 0
+            return this.registerEvents.filter(event => !!event.issuer.verified_by).length > 0
         },
         verificationItemType() {
             if (this.revokeEvents.length > 0) {

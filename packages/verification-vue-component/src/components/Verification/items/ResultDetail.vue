@@ -246,18 +246,26 @@ export default {
                     details.push(documentDetail)
                     details.push(documentStatusDetail)
 
+                    const signersDetail = {}
+                    let labelSuffix = 'registered'
+
+                    if (this.signaturesInProgress > 0) {
+                        signersDetail.inProgress = true
+                        labelSuffix = 'registering'
+                    }
+
                     if (this.hasUnverifiedSigner) {
-                        details.push({
-                            label: this._$tc(`${langDetailsKeyPrefix}.unverifiedSigners.registered`, this.signerCount),
-                            class: 'unverified-signers',
-                            icon: 'alert'
-                        })
+                        signersDetail.label = this._$tc(`${langDetailsKeyPrefix}.unverifiedSigners.${labelSuffix}`, this.signerCount)
+                        signersDetail.class = 'unverified-signers'
+                        signersDetail.icon = 'alert'
+
+                        details.push(signersDetail)
                     } else if (this.hasVerifiedSigner) {
-                        details.push({
-                            label: this._$tc(`${langDetailsKeyPrefix}.verifiedSigners.registered`, this.signerCount),
-                            class: 'verified-signers',
-                            icon: 'check'
-                        })
+                        signersDetail.label = this._$tc(`${langDetailsKeyPrefix}.verifiedSigners.${labelSuffix}`, this.signerCount)
+                        signersDetail.class = 'verified-signers'
+                        signersDetail.icon = 'check'
+
+                        details.push(signersDetail)
                     }
                     break
             }

@@ -266,6 +266,21 @@ export default {
                         if (!offchainVerification.issuerVerifiedImg && claimVerification.issuerVerifiedImg) {
                             offchainVerification.issuerVerifiedImg = claimVerification.issuerVerifiedImg
                         }
+
+                        // Merge events from decrypted claims with the events from the verify endpoint
+                        offchainVerification.events = claimVerification.events.map(claimEvent => {
+                            const offchainEvent = offchainVerification.events.find(offchainEvent => offchainEvent.ref === claimEvent.ref)
+                            const newEvent = { ...claimEvent }
+
+                            if (offchainEvent.date) {
+                                newEvent.date = offchainEvent.date
+                            }
+                            if (offchainEvent.on_blockchain) {
+                                newEvent.on_blockchain = offchainEvent.on_blockchain
+                            }
+
+                            return newEvent
+                        })
                     }
 
                     const identityVerifier = {}
@@ -276,19 +291,7 @@ export default {
                         identityVerifier.image = offchainVerification.issuerVerifiedImg
                     }
 
-                    if (!verification.events && offchainVerification.status === 'registering') {
-                        // File not found on blockchain and offchain status is registering
-                        verification = {
-                            ...verification,
-                            ...offchainVerification,
-                            // TODO(Cyrill): Remove when verify endpoint returns an events array
-                            events: [{
-                                scope: 'register',
-                                issuer: offchainVerification.issuerName,
-                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
-                            }]
-                        }
-                    } else if (['registered', 'registering', 'revoking', 'revoked'].indexOf(offchainVerification.status) >= 0) {
+                    if (verification.events && verification.events.length > 0 && offchainVerification.status !== 'registering') {
                         // If it's already verified on blockchain, do not override all values;
                         // just issuerName & issuer verifier can be taken from off-chain information
                         if (!verification.issuerName && offchainVerification.issuerName) {
@@ -307,42 +310,61 @@ export default {
                             verification.revoked = offchainVerification.revoked
                         }
 
-                        // TODO(Cyrill): Change logic when verify endpoint returns an events array
-                        if (verification.events && verification.events.length > 0) {
+                        if (offchainVerification.events.length > 0) {
+                            const mergedEvents = []
+
                             verification.events = verification.events.map(event => {
+                                const offchainEvent = offchainVerification.events.find(offchainEvent => offchainEvent.ref === event.ref)
+
+                                if (!offchainEvent) {
+                                    return event
+                                }
+
                                 const newEvent = { ...event }
-                                const identityVerifier = { ...event.identityVerifier }
 
-                                if (!event.issuer && offchainVerification.issuerName) {
-                                    newEvent.issuer = offchainVerification.issuerName
-                                }
-                                if (!identityVerifier.name && offchainVerification.issuerVerifiedBy) {
-                                    identityVerifier.name = offchainVerification.issuerVerifiedBy
-                                }
-                                if (!identityVerifier.image && offchainVerification.issuerVerifiedImg) {
-                                    identityVerifier.image = offchainVerification.issuerVerifiedImg
+                                if (offchainEvent.issuer) {
+                                    const issuer = { ...event.issuer }
+                                    if (!issuer.id && offchainEvent.issuer.id) {
+                                        issuer.id = offchainEvent.issuer.id
+                                    }
+                                    if (!issuer.name && offchainEvent.issuer.name) {
+                                        issuer.name = offchainEvent.issuer.name
+                                    }
+
+                                    if (offchainEvent.issuer.verified_by) {
+                                        const verifiedBy = { ...event.issuer.verified_by }
+                                        if (!verifiedBy.name && offchainEvent.issuer.verified_by.name) {
+                                            verifiedBy.name = offchainEvent.issuer.verified_by.name
+                                        }
+                                        if (!verifiedBy.image && offchainEvent.issuer.verified_by.image) {
+                                            verifiedBy.image = offchainEvent.issuer.verified_by.image
+                                        } else if (!verifiedBy.image && offchainVerification.issuerVerifiedImg) {
+                                            verifiedBy.image = offchainVerification.issuerVerifiedImg
+                                        }
+
+                                        issuer.verified = true
+                                        issuer.verified_by = verifiedBy
+                                    }
+
+                                    newEvent.issuer = issuer
                                 }
 
-                                if (Object.keys(identityVerifier).length > 0) {
-                                    newEvent.identityVerifier = identityVerifier
-                                }
+                                mergedEvents.push(offchainEvent.ref)
 
                                 return newEvent
                             })
-                        } else {
-                            verification.events = [{
-                                scope: 'register',
-                                issuer: offchainVerification.issuerName,
-                                identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
-                            }]
 
-                            if (offchainVerification.revoked === true) {
-                                verification.events.push({
-                                    scope: 'revoke',
-                                    issuer: offchainVerification.issuerName,
-                                    identityVerifier: (Object.keys(identityVerifier).length > 0) ? identityVerifier : null
-                                })
-                            }
+                            const unknownOffchainEvents = offchainVerification.events.filter(offchainEvent => mergedEvents.indexOf(offchainEvent.ref) < 0)
+                            verification.events = [
+                                ...verification.events,
+                                ...unknownOffchainEvents
+                            ]
+                        }
+                    } else {
+                        // File not found on blockchain and offchain status is registering
+                        verification = {
+                            ...verification,
+                            ...offchainVerification
                         }
                     }
                 }

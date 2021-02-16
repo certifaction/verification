@@ -8,7 +8,6 @@
  * @property {string} issuerVerifiedBy
  * @property {string} issuerVerifiedImg
  * @property {boolean} revoked
- * @property {number} expiry
  * @property {Object} registrationEvent
  * @property {Object} registrationBlock
  * @property {Object} revocationEvent
@@ -22,26 +21,34 @@
  *
  * @property {string} ref
  * @property {string} scope
- * @property {Date} date
- * @property {Date} expiry
- * @property {string} issuer
- * @property {IdentityVerifier} identityVerifier
- * @property {Object} claimEvent
- * @property {Object} claimBlock
+ * @property {string} rfc3339 date
+ * @property {Issuer} issuer
+ * @property {OnBlockchain} on_blockchain
  */
 
 /**
- * @typedef {Object} IssuerIdentity
+ * @typedef {Object} Issuer
  *
- * @property {string} issuer
- * @property {IdentityVerifier} identityVerifier
+ * @property {string} id
+ * @property {string} name
+ * @property {string} title
+ * @property {string} email
+ * @property {VerifiedBy} verified_by
  */
 
 /**
- * @typedef {Object} IdentityVerifier
+ * @typedef {Object} VerifiedBy
  *
  * @property {string} name
  * @property {string} image
+ */
+
+/**
+ * @typedef {Object} OnBlockchain
+ *
+ * @property {string} type
+ * @property {string} contract_address
+ * @property {string} tx_hash
  */
 
 import EthCrypto from 'eth-crypto'
@@ -103,13 +110,14 @@ export default class CertifactionClaimVerifier {
                 fileVerification.issuerVerifiedBy = 'Certifaction AG'
 
                 fileVerification.events = fileVerification.events.map(event => {
-                    return {
-                        ...event,
-                        issuer: verifiedIssuer.issuerName,
-                        identityVerifier: {
-                            name: 'Certifaction AG'
-                        }
+                    const newEvent = { ...event }
+                    newEvent.issuer.name = verifiedIssuer.issuerName
+                    newEvent.issuer.verified = true
+                    newEvent.issuer.verified_by = {
+                        name: 'Certifaction AG'
                     }
+
+                    return newEvent
                 })
             }
         }
@@ -229,9 +237,8 @@ export default class CertifactionClaimVerifier {
             issuerVerifiedBy: null,
             issuerVerifiedImg: null,
             revoked: false,
-            expiry: null,
             events: [],
-            claims: []
+            claims
         }
 
         for (let claim of claims) {
@@ -254,8 +261,6 @@ export default class CertifactionClaimVerifier {
                     }
                     break
             }
-
-            fileVerification.claims.push(claim)
 
             // Get Issuer Hash from Address from Signature
             const issuerAddress = await this.verifySignatureAndGetPubkey(claim)
@@ -288,14 +293,26 @@ export default class CertifactionClaimVerifier {
             }
 
             const fileEvent = {
-                ref: claim['@id'],
+                ref: claimHash,
                 scope: claim.scope,
-                expiry: (claim.exp !== undefined && claim.exp.value !== 0) ? new Date(claim.exp.value) : null,
-                issuerAddress
+                issuer: {
+                    id: issuerAddress
+                }
             }
             if (issuerIdentity) {
-                fileEvent.issuer = issuerIdentity.issuer
-                fileEvent.identityVerifier = issuerIdentity.identityVerifier
+                fileEvent.issuer.name = issuerIdentity.issuer
+                if (issuerIdentity.identityVerifier) {
+                    const verifiedBy = {}
+                    if (issuerIdentity.identityVerifier.name) {
+                        verifiedBy.name = issuerIdentity.identityVerifier.name
+                    }
+                    if (issuerIdentity.identityVerifier.image) {
+                        verifiedBy.image = issuerIdentity.identityVerifier.image
+                    }
+
+                    fileEvent.issuer.verified = true
+                    fileEvent.issuer.verified_by = verifiedBy
+                }
             }
 
             const claimEvent = (claimEvents) ? claimEvents.find(event => event.returnValues.hash === claimHash) : null
@@ -303,9 +320,12 @@ export default class CertifactionClaimVerifier {
             if (claimEvent) {
                 claimBlock = await this.certifactionEthClient.getBlock(claimEvent.blockHash)
 
-                fileEvent.date = new Date(claimBlock.timestamp * 1000)
-                fileEvent.smartContractAddress = claimEvent.address
-                fileEvent.transactionHash = claimEvent.transactionHash
+                fileEvent.date = new Date(claimBlock.timestamp * 1000).toISOString()
+                fileEvent.on_blockchain = {
+                    type: 'ethereum',
+                    contract_address: claimEvent.address,
+                    tx_hash: claimEvent.transactionHash
+                }
             }
 
             switch (claim.scope) {
@@ -313,7 +333,6 @@ export default class CertifactionClaimVerifier {
                 case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
                 case 'certify': // BP-2457: Verification Tool: Update the verification tool to accept "certify" claims as valid
                     console.log('It\'s a registration claim!')
-                    fileVerification.expiry = fileEvent.expiry
                     // TODO(Cyrill): Remove when using only events
                     if (claimEvent) {
                         fileVerification.registrationEvent = claimEvent
