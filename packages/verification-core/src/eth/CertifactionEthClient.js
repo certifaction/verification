@@ -70,12 +70,16 @@ export default class CertifactionEthClient {
 
                 events.push({
                     scope: 'register',
-                    date: new Date(registrationBlock.timestamp * 1000),
-                    issuerAddress,
-                    issuer: issuerName,
-                    identityVerifier: null,
-                    smartContractAddress: registrationEvent.address,
-                    transactionHash: registrationEvent.transactionHash
+                    date: new Date(registrationBlock.timestamp * 1000).toISOString(),
+                    issuer: {
+                        id: issuerAddress,
+                        name: issuerName
+                    },
+                    on_blockchain: {
+                        type: 'ethereum',
+                        contract_address: registrationEvent.address,
+                        tx_hash: registrationEvent.transactionHash
+                    }
                 })
 
                 let revocationEvent = null
@@ -88,19 +92,25 @@ export default class CertifactionEthClient {
 
                     const event = {
                         scope: 'revoke',
-                        issuerAddress,
-                        issuer: issuerName,
-                        identityVerifier: null
+                        issuer: {
+                            id: issuerAddress,
+                            name: issuerName
+                        }
                     }
 
                     if (revocationBlock !== null) {
-                        event.date = new Date(revocationBlock.timestamp * 1000)
-                        event.smartContractAddress = revocationEvent.address
-                        event.transactionHash = revocationEvent.transactionHash
+                        event.date = new Date(revocationBlock.timestamp * 1000).toISOString()
+                        event.on_blockchain = {
+                            type: 'ethereum',
+                            contract_address: revocationEvent.address,
+                            tx_hash: revocationEvent.transactionHash
+                        }
                     } else {
                         // Really old documents don't have a revocation event
                         event.date = '-'
-                        event.transactionHash = '-'
+                        event.on_blockchain = {
+                            tx_hash: '-'
+                        }
                     }
 
                     events.push(event)

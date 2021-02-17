@@ -70,7 +70,7 @@ export default class CertifactionEthVerifier {
             }
 
             if (fileVerification && fileVerification.events.length > 0) {
-                verification.onBlockchain = true
+                verification.on_blockchain = true
             }
 
             verification = { ...verification, ...fileVerification }

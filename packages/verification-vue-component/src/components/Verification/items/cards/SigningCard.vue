@@ -16,45 +16,45 @@
                         <span>{{ verificationItem.hash }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuerAddress"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id"
                      class="verification-entry issuer-address">
                     <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
                     <div class="value">
-                        <span>{{ registerEvents[0].issuerAddress }}</span>
+                        <span>{{ registerEvents[0].issuer.id }}</span>
                     </div>
                 </div>
-                <div v-if="signEvents.length > 0 && signEvents[0].smartContractAddress"
+                <div v-if="signEvents.length > 0 && signEvents[0].on_blockchain"
                      class="verification-entry smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/address/${signEvents[0].smartContractAddress}`"
-                           target="_blank">{{ signEvents[0].smartContractAddress }}</a>
+                        <a :href="`https://${net}/address/${signEvents[0].on_blockchain.contract_address}`"
+                           target="_blank">{{ signEvents[0].on_blockchain.contract_address }}</a>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && verificationItem.status !== 'revoking' && registerEvents[0].transactionHash"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
                      class="verification-entry registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/tx/${registerEvents[0].transactionHash}`"
-                           target="_blank">{{ registerEvents[0].transactionHash }}</a>
+                        <a :href="`https://${net}/tx/${registerEvents[0].on_blockchain.tx_hash}`"
+                           target="_blank">{{ registerEvents[0].on_blockchain.tx_hash }}</a>
                     </div>
                 </div>
-                <div v-if="revokeEvents.length > 0 && verificationItem.status !== 'revoking' && revokeEvents[0].transactionHash"
+                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain"
                      class="verification-entry revocation-hash">
                     <div class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</div>
                     <div class="value">
-                        <a :href="`https://${net}/tx/${revokeEvents[0].transactionHash}`"
-                           target="_blank">{{ revokeEvents[0].transactionHash }}</a>
+                        <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
+                           target="_blank">{{ revokeEvents[0].on_blockchain.tx_hash }}</a>
                     </div>
                 </div>
                 <div v-if="signEvents.length > 0" class="verification-entry signature-hashes">
                     <div class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</div>
                     <div class="value">
-                        <div class="signature-hash" v-for="(signerEvent, index) in signEvents" :key="index">
-                            <span>{{ signerEvent.issuer }}</span>
-                            <a v-if="signerEvent.transactionHash"
-                               :href="`https://${net}/tx/${signerEvent.transactionHash}`"
-                               target="_blank">{{ signerEvent.transactionHash }}</a>
+                        <div class="signature-hash" v-for="(signEvent, index) in signEvents" :key="index">
+                            <span>{{ signEvent.issuer.name }}</span>
+                            <a v-if="signEvent.on_blockchain"
+                               :href="`https://${net}/tx/${signEvent.on_blockchain.tx_hash}`"
+                               target="_blank">{{ signEvent.on_blockchain.tx_hash }}</a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <ResultDetail verification-mode="signing"
                           :document-revoked="verificationItem.revoked"
                           :document-revocation-in-progress="revocationInProgress"
-                          :document-revocation-date="verificationItem.revoked ? revokeEvents[0].date : null"
+                          :document-revocation-date="revocationDate"
                           :signatures-in-progress="signaturesInProgress"
                           :has-unverified-signer="hasUnverifiedSigner"
                           :has-verified-signer="hasVerifiedSigner"
@@ -79,12 +79,12 @@
                             </div>
                             <div class="right">
                                 <div class="value">
-                                    <span>{{ signEvent.issuer }}</span>
+                                    <span>{{ signEvent.issuer.name }}</span>
                                 </div>
                                 <div v-if="signEvent.date" class="footnote">
                                     <span>{{
                                             _$t(`verification.result.signing.${verificationItemType}.signerFootnote.signed`, {
-                                                signingDate: _$d(signEvent.date, 'short')
+                                                signingDate: _$d(new Date(signEvent.date), 'short')
                                             })
                                         }}</span>
                                 </div>
@@ -171,16 +171,28 @@ export default {
             return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
         },
         revocationInProgress() {
-            return this.revokeEvents.filter(event => !event.transactionHash).length > 0
+            return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
+        },
+        revocationDate() {
+            if (this.revokeEvents.length === 0) {
+                return null
+            }
+
+            const revocationDate = new Date(this.revokeEvents[0].date)
+            if (!isNaN(revocationDate)) {
+                return this._$d(revocationDate, 'long')
+            }
+
+            return this.revokeEvents[0].date
         },
         signaturesInProgress() {
-            return this.signEvents.filter(event => !event.transactionHash).length
+            return this.signEvents.filter(event => !event.on_blockchain).length
         },
         hasUnverifiedSigner() {
-            return this.signEvents.filter(event => !event.identityVerifier).length > 0
+            return this.signEvents.filter(event => !event.issuer.verified).length > 0
         },
         hasVerifiedSigner() {
-            return this.signEvents.filter(event => !!event.identityVerifier).length > 0
+            return this.signEvents.filter(event => !!event.issuer.verified).length > 0
         },
         verificationItemType() {
             if (this.hasUnverifiedSigner) {
@@ -198,15 +210,15 @@ export default {
                 return null
             }
 
-            const verifiedSignEvents = this.signEvents.filter(event => !!event.identityVerifier)
+            const verifiedSignEvents = this.signEvents.filter(event => !!event.issuer.verified)
 
             if (verifiedSignEvents.length !== this.signEvents.length) {
                 return null
             }
 
-            const identityVerifiers = verifiedSignEvents.map(event => event.identityVerifier)
+            const identityVerifiers = verifiedSignEvents.map(event => event.issuer.verified_by)
             const uniqueIdentityVerifiers = identityVerifiers.filter(
-                (event, index) => identityVerifiers.findIndex(obj => obj.name === event.name) === index
+                (identityVerifier, index) => identityVerifiers.findIndex(checkIdentityVerifier => checkIdentityVerifier.name === identityVerifier.name) === index
             )
 
             if (uniqueIdentityVerifiers.length > 1) {

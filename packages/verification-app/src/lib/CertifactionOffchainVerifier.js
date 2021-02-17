@@ -44,6 +44,9 @@ class CertifactionOffchainVerifier {
                 if (data.claims && data.claims.length > 0) {
                     fileVerification.claims = data.claims
                 }
+                if (data.events && data.events.length > 0) {
+                    fileVerification.events = data.events
+                }
 
                 return fileVerification
             }
