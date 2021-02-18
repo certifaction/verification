@@ -20,7 +20,7 @@ class CertifactionOffchainVerifierExample {
                 }
 
                 const fileVerification = {
-                    onBlockchain: data.on_blockchain,
+                    on_blockchain: data.on_blockchain,
                     issuerVerified: data.issuer_verified,
                     status: data.file.status,
                     encrypted: data.encrypted,
@@ -43,6 +43,9 @@ class CertifactionOffchainVerifierExample {
                 }
                 if (data.claims && data.claims.length > 0) {
                     fileVerification.claims = data.claims
+                }
+                if (data.events && data.events.length > 0) {
+                    fileVerification.events = data.events
                 }
 
                 return fileVerification

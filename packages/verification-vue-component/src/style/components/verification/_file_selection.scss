@@ -1,4 +1,5 @@
-.verification-dropbox, .verification-file-selector {
+.verification-dropbox,
+.verification-file-selector {
     border-width: $verification-dropbox-border-width;
     border-style: $verification-dropbox-border-style;
     border-color: $verification-blue;
@@ -27,9 +28,15 @@
 }
 
 .verification-dropbox {
-    height: 100%;
-    background-color: mix($verification-blue, $white, 10%);
+    display: none;
     pointer-events: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: mix($verification-blue, $white, 10%);
 
     .dropbox {
         height: 100%;
@@ -104,4 +111,3 @@
         }
     }
 }
-

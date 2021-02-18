@@ -2,4 +2,6 @@
 
 .certifaction-verification {
     @import "~@certifaction/verification-vue-component/dist/pdf/pdf_viewer";
+    overflow: hidden;
+    min-height: 100%;
 }

@@ -1,39 +1,37 @@
 <template>
     <div class="certifaction-verification"
+         :class="{ dragover: dropbox.draggingOver }"
          @dragover.prevent="dragOver"
          @dragleave="dragLeave"
          @drop.prevent="handleDrop">
 
         <VerificationDropBox v-if="!digitalTwinModeActive"
-                             v-show="dropbox.draggingOver"
                              :first-verification="filteredVerificationItems.length === 0"/>
 
-        <template v-show="!dropbox.draggingOver">
-            <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
-                              @verify-demo="verifyDemo"
-                              @dragging-demo-doc="onDraggingDemoDoc"/>
+        <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
+                          @verify-demo="verifyDemo"
+                          @dragging-demo-doc="onDraggingDemoDoc"/>
 
-            <div v-if="filteredVerificationItems.length"
-                 class="verification-item-list"
-                 :class="{ 'digital-twin': digitalTwinModeActive }"
-                 ref="results">
-                <VerificationItem v-for="verificationItem in filteredVerificationItems"
-                                  :key="verificationItem.hash"
-                                  :verification-item="verificationItem"
-                                  :verifier-information="verifierInformation"
-                                  :digital-twin-information="digitalTwinStatus"/>
-            </div>
+        <div v-if="filteredVerificationItems.length"
+             class="verification-item-list"
+             :class="{ 'digital-twin': digitalTwinModeActive }"
+             ref="results">
+            <VerificationItem v-for="verificationItem in filteredVerificationItems"
+                              :key="verificationItem.hash"
+                              :verification-item="verificationItem"
+                              :verifier-information="verifierInformation"
+                              :digital-twin-information="digitalTwinStatus"/>
+        </div>
 
-            <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
-                                      :first-verification="filteredVerificationItems.length === 0"/>
+        <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
+                                  :first-verification="filteredVerificationItems.length === 0"/>
 
-            <div v-if="!digitalTwinModeActive" class="powered-by">
-                <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
-                <a href="https://certifaction.com" target="_blank">
-                    <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
-                </a>
-            </div>
-        </template>
+        <div v-if="!digitalTwinModeActive" class="powered-by">
+            <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
+            <a href="https://certifaction.com" target="_blank">
+                <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+            </a>
+        </div>
     </div>
 </template>
 
