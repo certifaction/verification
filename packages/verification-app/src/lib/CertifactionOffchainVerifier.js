@@ -20,7 +20,7 @@ class CertifactionOffchainVerifier {
                 }
 
                 const fileVerification = {
-                    onBlockchain: data.on_blockchain,
+                    on_blockchain: data.on_blockchain,
                     issuerVerified: data.issuer_verified,
                     status: data.file.status,
                     encrypted: data.encrypted,

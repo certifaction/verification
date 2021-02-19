@@ -12,7 +12,7 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         const verification = await certifactionEthVerifier.verify(unverifiableHash)
 
         expect(verification.hash).toMatch(unverifiableHash)
-        expect(verification.onBlockchain).toBeFalsy()
+        expect(verification.on_blockchain).toBeFalsy()
         expect(verification.issuerAddress).toBeNull()
     })
 
@@ -20,7 +20,7 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         const verification = await certifactionEthVerifier.verify(verifiableHashLegecyContract201912)
 
         expect(verification.hash).toMatch(verifiableHashLegecyContract201912)
-        expect(verification.onBlockchain).toBeTruthy()
+        expect(verification.on_blockchain).toBeTruthy()
         expect(verification.revoked).toBeFalsy()
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()
@@ -34,7 +34,7 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         const verification = await certifactionEthVerifier.verify(verifiableHashLegacyContract202005)
 
         expect(verification.hash).toMatch(verifiableHashLegacyContract202005)
-        expect(verification.onBlockchain).toBeTruthy()
+        expect(verification.on_blockchain).toBeTruthy()
         expect(verification.revoked).toBeFalsy()
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()
@@ -48,7 +48,7 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         const verification = await certifactionEthVerifier.verify(verifiableHashClaim)
 
         expect(verification.hash).toMatch(verifiableHashClaim)
-        expect(verification.onBlockchain).toBeTruthy()
+        expect(verification.on_blockchain).toBeTruthy()
         expect(verification.revoked).toBeFalsy()
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()

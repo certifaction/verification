@@ -3,8 +3,6 @@
 .certifaction-verification {
     font-family: $font-family-sans-serif;
     font-size: $font-size-normal;
-    background-color: $verification-background;
-    height: 100%;
 
     *,
     :before,
@@ -73,6 +71,19 @@
                 width: 103px;
                 height: auto;
             }
+        }
+    }
+
+    &.dragover {
+        .verification-dropbox {
+            display: block;
+        }
+
+        .verification-demo,
+        .verification-item-list,
+        .verification-file-selector,
+        .powered-by {
+            display: none;
         }
     }
 }
