@@ -193,79 +193,71 @@ export default {
                 icon: 'check'
             })
 
-            const documentDetail = { class: 'document' }
+            const blockchainStatus = { class: 'blockchain', inProgress: true }
             if (this.documentRegistrationInProgress) {
-                documentDetail.label = this._$t(`${langDetailsKeyPrefix}.document.registering`)
-                documentDetail.inProgress = true
+                blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.registration`)
+            } else if (this.documentRevocationInProgress) {
+                blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.revocation`)
+            } else if (this.signaturesInProgress > 0) {
+                blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.signature`)
             } else {
-                documentDetail.label = this._$t(`${langDetailsKeyPrefix}.document.registered`)
-                documentDetail.icon = 'check'
+                blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.processed`)
+                blockchainStatus.inProgress = false
+                blockchainStatus.icon = 'check'
             }
 
-            let documentStatusDetail = {}
-            if (!this.documentRevoked) {
-                documentStatusDetail = {
-                    label: this._$t(`${langDetailsKeyPrefix}.valid`),
-                    class: 'valid',
-                    icon: 'check'
-                }
-            } else {
+            const documentStatus = { class: 'document-valid', icon: 'check' }
+            if (this.documentRevoked) {
                 if (this.documentRevocationInProgress) {
-                    documentStatusDetail.label = this._$t(`${langDetailsKeyPrefix}.invalid.registering`)
+                    documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.revoked.inProgress`)
                 } else {
-                    documentStatusDetail.label = this._$t(
-                        `${langDetailsKeyPrefix}.invalid.registered`,
+                    documentStatus.label = this._$t(
+                        `${langDetailsKeyPrefix}.document.revoked.processed`,
                         { revocationDate: this.documentRevocationDate }
                     )
                 }
-                documentStatusDetail.class = 'invalid'
-                documentStatusDetail.icon = 'close'
+                documentStatus.class = 'document-revoked'
+                documentStatus.icon = 'close'
+            } else {
+                documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.valid`)
             }
 
             switch (this.verificationMode) {
                 case 'certifying':
                     if (this.hasUnverifiedIssuer) {
                         details.push({
-                            label: this._$t(`${langDetailsKeyPrefix}.unverifiedIssuer`),
+                            label: this._$t(`${langDetailsKeyPrefix}.issuer.unverified`),
                             class: 'unverified-issuer',
                             icon: 'alert'
                         })
                     } else if (this.hasVerifiedIssuer) {
                         details.push({
-                            label: this._$t(`${langDetailsKeyPrefix}.verifiedIssuer`),
+                            label: this._$t(`${langDetailsKeyPrefix}.issuer.verified`),
                             class: 'verified-issuer',
                             icon: 'check'
                         })
                     }
 
-                    details.push(documentDetail)
-                    details.push(documentStatusDetail)
+                    details.push(blockchainStatus)
+                    details.push(documentStatus)
                     break
 
                 case 'signing':
-                    details.push(documentDetail)
-                    details.push(documentStatusDetail)
-
-                    const signersDetail = {}
-                    let labelSuffix = 'registered'
-
-                    if (this.signaturesInProgress > 0) {
-                        signersDetail.inProgress = true
-                        labelSuffix = 'registering'
-                    }
+                    details.push(blockchainStatus)
+                    details.push(documentStatus)
 
                     if (this.hasUnverifiedSigner) {
-                        signersDetail.label = this._$tc(`${langDetailsKeyPrefix}.unverifiedSigners.${labelSuffix}`, this.signerCount)
-                        signersDetail.class = 'unverified-signers'
-                        signersDetail.icon = 'alert'
-
-                        details.push(signersDetail)
+                        details.push({
+                            label: this._$tc(`${langDetailsKeyPrefix}.signer.unverified`, this.signerCount),
+                            class: 'unverified-signer',
+                            icon: 'alert'
+                        })
                     } else if (this.hasVerifiedSigner) {
-                        signersDetail.label = this._$tc(`${langDetailsKeyPrefix}.verifiedSigners.${labelSuffix}`, this.signerCount)
-                        signersDetail.class = 'verified-signers'
-                        signersDetail.icon = 'check'
-
-                        details.push(signersDetail)
+                        details.push({
+                            label: this._$tc(`${langDetailsKeyPrefix}.signer.verified`, this.signerCount),
+                            class: 'verified-signer',
+                            icon: 'check'
+                        })
                     }
                     break
             }

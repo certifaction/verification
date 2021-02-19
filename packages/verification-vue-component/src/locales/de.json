@@ -86,56 +86,58 @@
                 },
                 "resultDetails": {
                     "tamperProof": "Fälschungssicher zertifiziert",
-                    "unverifiedIssuer": "Unverifizierter Aussteller",
-                    "verifiedIssuer": "Verifizierter Aussteller",
-                    "document": {
-                        "registering": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
-                        "registered": "Durch Blockchain gesichert"
+                    "issuer": {
+                        "unverified": "Unverifizierter Aussteller",
+                        "verified": "Verifizierter Aussteller"
                     },
-                    "valid": "Gültig (nicht widerrufen)",
-                    "invalid": {
-                        "registering": "Annulliert",
-                        "registered": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                            "revocation": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>"
+                        },
+                        "processed": "Durch Blockchain gesichert"
+                    },
+                    "document": {
+                        "valid": "Gültig (nicht widerrufen)",
+                        "revoked": {
+                            "inProgress": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller widerrufen. Es ist nicht mehr gültig.</span>",
+                            "processed": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                        }
                     }
                 }
             },
             "signing": {
                 "revoked": {
-                    "status": "Dieses Dokument wurde widerrufen.",
-                    "signerFootnote": {
-                        "signed": "Signiert am {signingDate}"
-                    }
+                    "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedSigner": {
                     "status": "Dieses Dokument ist authentisch und wurde durch eine nicht verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch nicht verifizierte Personen digital signiert.",
-                    "signerFootnote": {
-                        "signed": "Signiert am {signingDate}"
-                    }
+                    "signerFootnote": "Signiert am {signingDate}"
                 },
                 "verifiedSigner": {
                     "status": "Dieses Dokument ist authentisch und wurde durch eine verifizierte Person digital signiert. | Dieses Dokument ist authentisch und wurde durch verifizierte Personen digital signiert.",
-                    "signerFootnote": {
-                        "signed": "Signiert am {signingDate}"
-                    }
+                    "signerFootnote": "Signiert am {signingDate}"
                 },
                 "resultDetails": {
                     "tamperProof": "Fälschungssicher",
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
+                            "revocation": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>",
+                            "signature": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>"
+                        },
+                        "processed": "Durch Blockchain gesichert"
+                    },
                     "document": {
-                        "registering": "Pendente Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
-                        "registered": "Durch Blockchain gesichert"
+                        "valid": "Gültig (nicht widerrufen)",
+                        "revoked": {
+                            "inProgress": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller widerrufen. Es ist nicht mehr gültig.</span>",
+                            "processed": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                        }
                     },
-                    "valid": "Gültig (nicht widerrufen)",
-                    "invalid": {
-                        "registering": "Annulliert",
-                        "registered": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
-                    },
-                    "unverifiedSigners": {
-                        "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
-                        "registered": "Unverified signer | Unverified signers"
-                    },
-                    "verifiedSigners": {
-                        "registering": "Pendente Signatur-Verankerung<span class=\"detail-footnote\">Eine digitale Signatur für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.</span>",
-                        "registered": "Verified signer | Verified signers"
+                    "signer": {
+                        "unverified": "Unverified signer | Unverified signers",
+                        "verified": "Verified signer | Verified signers"
                     }
                 }
             },

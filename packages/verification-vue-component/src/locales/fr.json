@@ -86,56 +86,58 @@
                 },
                 "resultDetails": {
                     "tamperProof": "Authenticité certifiée",
-                    "unverifiedIssuer": "Émetteur non vérifié",
-                    "verifiedIssuer": "Émetteur vérifié",
-                    "document": {
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Securisé sur la blockchain"
+                    "issuer": {
+                        "unverified": "Émetteur non vérifié",
+                        "verified": "Émetteur vérifié"
                     },
-                    "valid": "Valide (non révoqué)",
-                    "invalid": {
-                        "registering": "Révoqué",
-                        "registered": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>"
+                        },
+                        "processed": "Securisé sur la blockchain"
+                    },
+                    "document": {
+                        "valid": "Valide (non révoqué)",
+                        "revoked": {
+                            "inProgress": "Révoqué<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "processed": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                        }
                     }
                 }
             },
             "signing": {
                 "revoked": {
-                    "status": "Ce document a été révoqué.",
-                    "signerFootnote": {
-                        "signed": "Signé le {signingDate}"
-                    }
+                    "status": "Ce document a été révoqué."
                 },
                 "unverifiedSigner": {
                     "status": "Ce document est authentique et signé électroniquement par un signataire non vérifié. | Ce document est authentique et signé électroniquement par des signataires non vérifiés.",
-                    "signerFootnote": {
-                        "signed": "Signé le {signingDate}"
-                    }
+                    "signerFootnote": "Signé le {signingDate}"
                 },
                 "verifiedSigner": {
                     "status": "Ce document est authentique et signé électroniquement par un signataire vérifié. | Ce document est authentique et signé électroniquement par des signataires vérifiés.",
-                    "signerFootnote": {
-                        "signed": "Signé le {signingDate}"
-                    }
+                    "signerFootnote": "Signé le {signingDate}"
                 },
                 "resultDetails": {
                     "tamperProof": "Authenticité certifiée",
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>",
+                            "signature": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                        },
+                        "processed": "Securisé sur la blockchain"
+                    },
                     "document": {
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Securisé sur la blockchain"
+                        "valid": "Valide (non révoqué)",
+                        "revoked": {
+                            "inProgress": "Révoqué<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "processed": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
+                        }
                     },
-                    "valid": "Valide (non révoqué)",
-                    "invalid": {
-                        "registering": "Révoqué",
-                        "registered": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
-                    },
-                    "unverifiedSigners": {
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Signataire non vérifié. | Signataires non vérifiés."
-                    },
-                    "verifiedSigners": {
-                        "registering": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                        "registered": "Signataire vérifié. | Signataires vérifiés."
+                    "signer": {
+                        "unverified": "Signataire non vérifié | Signataires non vérifiés",
+                        "verified": "Signataire vérifié | Signataires vérifiés"
                     }
                 }
             },
