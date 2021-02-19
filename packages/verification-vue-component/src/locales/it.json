@@ -86,56 +86,58 @@
                 },
                 "resultDetails": {
                     "tamperProof": "Autenticità certificata",
-                    "unverifiedIssuer": "Emittente non verificato",
-                    "verifiedIssuer": "Emittente verificato",
-                    "document": {
-                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
-                        "registered": "Protetto dalla blockchain"
+                    "issuer": {
+                        "unverified": "Emittente non verificato",
+                        "verified": "Emittente verificato"
                     },
-                    "valid": "Valido (non revocato)",
-                    "invalid": {
-                        "registering": "Revocato",
-                        "registered": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
+                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.</span>"
+                        },
+                        "processed": "Protetto dalla blockchain"
+                    },
+                    "document": {
+                        "valid": "Valido (non revocato)",
+                        "revoked": {
+                            "inProgress": "Revocato<span class=\"detail-footnote\">Questo documento è stato revocato dall'emittente. Non è più valido.</span>",
+                            "processed": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                        }
                     }
                 }
             },
             "signing": {
                 "revoked": {
-                    "status": "Questo documento è stato revocato.",
-                    "signerFootnote": {
-                        "signed": "Firmato il {signingDate}"
-                    }
+                    "status": "Questo documento è stato revocato."
                 },
                 "unverifiedSigner": {
                     "status": "Questo documento è autentico e firmato digitalmente da un'emittente non verificato. | Questo documento è autentico e firmato digitalmente da emittenti non verificati.",
-                    "signerFootnote": {
-                        "signed": "Firmato il {signingDate}"
-                    }
+                    "signerFootnote": "Firmato il {signingDate}"
                 },
                 "verifiedSigner": {
                     "status": "Questo documento è autentico e firmato digitalmente da un'emittente verificato. | Questo documento è autentico e firmato digitalmente da emittenti verificati.",
-                    "signerFootnote": {
-                        "signed": "Firmato il {signingDate}"
-                    }
+                    "signerFootnote": "Firmato il {signingDate}"
                 },
                 "resultDetails": {
                     "tamperProof": "Autenticità certificata",
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
+                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.</span>",
+                            "signature": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>"
+                        },
+                        "processed": "Protetto dalla blockchain"
+                    },
                     "document": {
-                        "registering": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
-                        "registered": "Protetto dalla blockchain"
+                        "valid": "Valido (non revocato)",
+                        "revoked": {
+                            "inProgress": "Revocato<span class=\"detail-footnote\">Questo documento è stato revocato dall'emittente. Non è più valido.</span>",
+                            "processed": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                        }
                     },
-                    "valid": "Valido (non revocato)",
-                    "invalid": {
-                        "registering": "Revocato",
-                        "registered": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
-                    },
-                    "unverifiedSigners": {
-                        "registering": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>",
-                        "registered": "Firmatario non verificato | Firmatari non verificati"
-                    },
-                    "verifiedSigners": {
-                        "registering": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>",
-                        "registered": "Firmatario verificato | Firmatari verificati"
+                    "signer": {
+                        "unverified": "Firmatario non verificato | Firmatari non verificati",
+                        "verified": "Firmatario verificato | Firmatari verificati"
                     }
                 }
             },

@@ -86,56 +86,58 @@
                 },
                 "resultDetails": {
                     "tamperProof": "Tamper-proof certification",
-                    "unverifiedIssuer": "Unverified issuer",
-                    "verifiedIssuer": "Verified issuer",
-                    "document": {
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                        "registered": "Secured by blockchain"
+                    "issuer": {
+                        "unverified": "Unverified issuer",
+                        "verified": "Verified issuer"
                     },
-                    "valid": "Valid (no revocation)",
-                    "invalid": {
-                        "registering": "Revoked",
-                        "registered": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
+                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>"
+                        },
+                        "processed": "Secured by blockchain"
+                    },
+                    "document": {
+                        "valid": "Valid (no revocation)",
+                        "revoked": {
+                            "inProgress": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "processed": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+                        }
                     }
                 }
             },
             "signing": {
                 "revoked": {
-                    "status": "This document has been revoked.",
-                    "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
-                    }
+                    "status": "This document has been revoked."
                 },
                 "unverifiedSigner": {
                     "status": "This document is authentic and digitally signed by an unverified signer. | This document is authentic and digitally signed by unverified signers.",
-                    "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
-                    }
+                    "signerFootnote": "Signed at {signingDate}"
                 },
                 "verifiedSigner": {
                     "status": "This document is authentic and digitally signed by a verified signer. | This document is authentic and digitally signed by verified signers.",
-                    "signerFootnote": {
-                        "signed": "Signed at {signingDate}"
-                    }
+                    "signerFootnote": "Signed at {signingDate}"
                 },
                 "resultDetails": {
                     "tamperProof": "Tamper-proof",
+                    "blockchain": {
+                        "inProgress": {
+                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
+                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>",
+                            "signature": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                        },
+                        "processed": "Secured by blockchain"
+                    },
                     "document": {
-                        "registering": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                        "registered": "Secured by blockchain"
+                        "valid": "Valid (no revocation)",
+                        "revoked": {
+                            "inProgress": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "processed": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+                        }
                     },
-                    "valid": "Valid document (no revocation)",
-                    "invalid": {
-                        "registering": "Revoked",
-                        "registered": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
-                    },
-                    "unverifiedSigners": {
-                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                        "registered": "Unverified signer | Unverified signers"
-                    },
-                    "verifiedSigners": {
-                        "registering": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                        "registered": "Verified signer | Verified signers"
+                    "signer": {
+                        "unverified": "Unverified signer | Unverified signers",
+                        "verified": "Verified signer | Verified signers"
                     }
                 }
             },

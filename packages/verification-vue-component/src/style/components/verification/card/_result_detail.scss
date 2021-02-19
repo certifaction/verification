@@ -116,24 +116,24 @@
                 }
 
                 &.tamper-proof,
-                &.document,
-                &.valid,
+                &.blockchain,
+                &.document-valid,
                 &.verified-issuer,
-                &.verified-signers {
+                &.verified-signer {
                     .md-icon {
                         color: $verification-result-success-dark;
                     }
                 }
 
                 &.unverified-issuer,
-                &.unverified-signers,
+                &.unverified-signer,
                 &.in-progress {
                     .md-icon {
                         color: $verification-result-warning-dark;
                     }
                 }
 
-                &.invalid {
+                &.document-revoked {
                     .md-icon {
                         color: $verification-result-error-dark;
                     }

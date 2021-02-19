@@ -62,7 +62,7 @@
         </template>
         <template v-else #body>
             <ResultDetail verification-mode="signing"
-                          :document-revoked="verificationItem.revoked"
+                          :document-revoked="revokeEvents.length > 0"
                           :document-revocation-in-progress="revocationInProgress"
                           :document-revocation-date="revocationDate"
                           :signatures-in-progress="signaturesInProgress"
@@ -81,12 +81,8 @@
                                 <div class="value">
                                     <span>{{ signEvent.issuer.name }}</span>
                                 </div>
-                                <div v-if="signEvent.date" class="footnote">
-                                    <span>{{
-                                            _$t(`verification.result.signing.${verificationItemType}.signerFootnote.signed`, {
-                                                signingDate: _$d(new Date(signEvent.date), 'short')
-                                            })
-                                        }}</span>
+                                <div v-if="signEvent.on_blockchain && signEvent.date" class="footnote">
+                                    <span>{{ signerFootnote(signEvent) }}</span>
                                 </div>
                             </div>
                         </li>
@@ -194,17 +190,6 @@ export default {
         hasVerifiedSigner() {
             return this.signEvents.filter(event => !!event.issuer.verified).length > 0
         },
-        verificationItemType() {
-            if (this.hasUnverifiedSigner) {
-                return 'unverifiedSigner'
-            }
-
-            if (this.hasVerifiedSigner) {
-                return 'verifiedSigner'
-            }
-
-            return 'unknown'
-        },
         singleIdentityVerifier() {
             if (!this.hasVerifiedSigner) {
                 return null
@@ -229,6 +214,16 @@ export default {
         }
     },
     methods: {
+        signerFootnote(signEvent) {
+            let signerState = 'unverifiedSigner'
+            if (signEvent.issuer.verified) {
+                signerState = 'verifiedSigner'
+            }
+
+            return this._$t(`verification.result.signing.${signerState}.signerFootnote`, {
+                signingDate: this._$d(new Date(signEvent.date), 'short')
+            })
+        },
         toggleHelp(type) {
             this.$emit('toggle-help', type)
         }

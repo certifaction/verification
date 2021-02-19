@@ -54,7 +54,7 @@
                           :has-unverified-issuer="hasUnverifiedIssuer"
                           :has-verified-issuer="hasVerifiedIssuer"
                           :document-registration-in-progress="registrationInProgress"
-                          :document-revoked="verificationItem.revoked"
+                          :document-revoked="revokeEvents.length > 0"
                           :document-revocation-in-progress="revocationInProgress"
                           :document-revocation-date="revocationDate"/>
             <div class="verification-info">
@@ -63,7 +63,7 @@
                     <div class="value">
                         <span>{{ registerEvents[0].issuer.name }}</span>
                     </div>
-                    <div v-if="registerEvents.length > 0 && hasUnverifiedIssuer" class="footnote warning">
+                    <div v-if="registerEvents.length > 0 && !registerEvents[0].issuer.verified" class="footnote warning">
                         <MDIcon :icon="mdiAlertCircle"/>
                         <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
                     </div>
@@ -82,12 +82,12 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].date"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain && registerEvents[0].date"
                      class="verification-entry registration-date">
                     <div class="label">{{ _$t('verification.result.meta.registrationDate') }}</div>
                     <div class="value">{{ _$d(new Date(registerEvents[0].date), 'long') }}</div>
                 </div>
-                <div v-if="revokeEvents.length > 0 && revocationDate"
+                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain && revocationDate"
                      class="verification-entry revocation-date">
                     <div class="label">{{ _$t('verification.result.meta.revocationDate') }}</div>
                     <div class="value">{{ revocationDate }}</div>
@@ -175,21 +175,6 @@ export default {
         },
         hasVerifiedIssuer() {
             return this.registerEvents.filter(event => !!event.issuer.verified_by).length > 0
-        },
-        verificationItemType() {
-            if (this.revokeEvents.length > 0) {
-                return 'revoked'
-            }
-
-            if (this.hasUnverifiedIssuer) {
-                return 'unverifiedIssuer'
-            }
-
-            if (this.hasVerifiedIssuer) {
-                return 'verifiedIssuer'
-            }
-
-            return 'unknown'
         }
     },
     methods: {
