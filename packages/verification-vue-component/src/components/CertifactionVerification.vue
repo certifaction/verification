@@ -229,7 +229,7 @@ export default {
                 verification.loaded = true
             }
 
-            if (this.verificationItems[key].status === 'registering') {
+            if (this.verificationItems[key].on_blockchain === false) {
                 this.itemTimeouts[verification.hash] = window.setTimeout(() => {
                     this.verifyItem(item, key)
                 }, 20000)
@@ -304,7 +304,11 @@ export default {
                         if (!verification.issuerVerifiedImg && offchainVerification.issuerVerifiedImg) {
                             verification.issuerVerifiedImg = offchainVerification.issuerVerifiedImg
                         }
-                        if (typeof verification.revoked !== 'boolean' && typeof offchainVerification.revoked === 'boolean') {
+
+                        if (typeof offchainVerification.on_blockchain === 'boolean') {
+                            verification.on_blockchain = offchainVerification.on_blockchain
+                        }
+                        if (typeof offchainVerification.revoked === 'boolean') {
                             verification.revoked = offchainVerification.revoked
                         }
 
