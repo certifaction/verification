@@ -93,14 +93,14 @@
                     "blockchain": {
                         "inProgress": {
                             "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>"
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
                     },
                     "document": {
                         "valid": "Valide (non révoqué)",
                         "revoked": {
-                            "inProgress": "Révoqué<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "inProgress": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur. Il n'est plus valide.</span>",
                             "processed": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
                         }
                     }
@@ -123,7 +123,7 @@
                     "blockchain": {
                         "inProgress": {
                             "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>",
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.</span>",
                             "signature": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
@@ -131,7 +131,7 @@
                     "document": {
                         "valid": "Valide (non révoqué)",
                         "revoked": {
-                            "inProgress": "Révoqué<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
+                            "inProgress": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur. Il n'est plus valide.</span>",
                             "processed": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
                         }
                     },
