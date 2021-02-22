@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contrat",
                 "issuer": "Émetteur",
-                "signers": "Signataire",
+                "signer": "Signataire | Signataires",
                 "issuerVerifiedBy": "Émetteur vérifié par",
-                "signersVerifiedBy": "Signataire(s) vérifié par",
+                "signerVerifiedBy": "Signataire vérifié par | Signataires vérifiés par",
                 "issuerAddress": "Clef publique de l'émetteur",
                 "fingerprint": "Empreinte numérique du document",
                 "registrationDate": "Date & heure de l'émission",

@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contratto",
                 "issuer": "Emittente",
-                "signers": "Firmatari",
+                "signer": "Firmatario | Firmatari",
                 "issuerVerifiedBy": "Emittente verificato da",
-                "signersVerifiedBy": "Firmatari verificato da",
+                "signerVerifiedBy": "Firmatario verificato da | Firmatari verificato da",
                 "issuerAddress": "Chiave pubblica dell'emittente",
                 "fingerprint": "Impronta numerica del documento",
                 "registrationDate": "Data e ora di emissione",
