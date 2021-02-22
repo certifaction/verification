@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Issuer",
-                "signers": "Signers",
+                "signer": "Signer | Signers",
                 "issuerVerifiedBy": "Issuer verified by",
-                "signersVerifiedBy": "Signer(s) verified by",
+                "signerVerifiedBy": "Signer verified by | Signers verified by",
                 "issuerAddress": "Issuer Public Key",
                 "fingerprint": "Document Hash",
                 "registrationDate": "Issue Date & Time",

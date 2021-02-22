@@ -71,7 +71,7 @@
                           :signer-count="signEvents.length"/>
             <div class="verification-info">
                 <div v-if="signEvents.length > 0" class="verification-entry signers">
-                    <span class="label">{{ _$t('verification.result.meta.signers') }}</span>
+                    <span class="label">{{ _$tc('verification.result.meta.signer', signEvents.length) }}</span>
                     <ul class="signers-list">
                         <li class="signer" v-for="(signEvent, index) in signEvents" :key="index">
                             <div class="left">
@@ -90,7 +90,9 @@
                 </div>
                 <div v-if="singleIdentityVerifier" class="verification-entry verifier">
                     <div class="verifier-name">
-                        <div class="label">{{ _$t('verification.result.meta.signersVerifiedBy') }}</div>
+                        <div class="label">
+                            {{ _$tc('verification.result.meta.signerVerifiedBy', signEvents.length) }}
+                        </div>
                         <div v-if="singleIdentityVerifier.image" class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
                             <img :src="(singleIdentityVerifier.image).split('.png')[0] + '_redesign.png'"

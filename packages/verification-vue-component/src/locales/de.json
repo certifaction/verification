@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Aussteller",
-                "signers": "Unterzeichner",
-                "issuerVerifiedBy": "Verifiziert durch",
-                "signersVerifiedBy": "Verifiziert durch",
+                "signer": "Unterzeichner",
+                "issuerVerifiedBy": "Aussteller verifiziert durch",
+                "signerVerifiedBy": "Unterzeichner verifiziert durch",
                 "issuerAddress": "Public Key des Ausstellers",
                 "fingerprint": "Dokumenten-Hash",
                 "registrationDate": "Ausstelldatum & -Zeit",
