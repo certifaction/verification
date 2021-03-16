@@ -77,7 +77,7 @@ export default class CertifactionEthVerifier {
 
             console.log(`Consolidated verification result for file ${fileHash}:`, JSON.parse(JSON.stringify(verification)))
         } catch (e) {
-            console.log(`Error while verifying file hash "${fileHash}": ${e.name} - ${e.message}`)
+            console.error(`Error while verifying file hash "${fileHash}": ${e.name} - ${e.message}`)
             verification.error = e
         }
 

@@ -8,6 +8,7 @@ export default class PdfService {
      *
      * @constructor
      *
+     * @param {string} baseUrl
      * @param {string} pdfWasmUrl
      */
     constructor(baseUrl, pdfWasmUrl) {

@@ -7,6 +7,9 @@ self.addEventListener('message', async (e) => {
         switch (e.data.cmd) {
             case 'extract_encryption_keys': {
                 const encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
+                if ('error' in encryptionKeys) {
+                    throw encryptionKeys.error
+                }
 
                 self.postMessage({
                     status: true,
@@ -17,8 +20,8 @@ self.addEventListener('message', async (e) => {
 
             case 'decrypt_pdf': {
                 const decryptedPdfBytes = await PdfWasmWrapper.decryptPdf(e.data.pdfBytes, e.data.encryptionKey)
-                if (decryptedPdfBytes === null) {
-                    throw new Error('couldn\t decrypt pdf')
+                if ('error' in decryptedPdfBytes) {
+                    throw decryptedPdfBytes.error
                 }
 
                 self.postMessage({
