@@ -332,6 +332,15 @@ export default {
                                     if (!issuer.name && offchainEvent.issuer.name) {
                                         issuer.name = offchainEvent.issuer.name
                                     }
+                                    if (!issuer.name_verified && typeof offchainEvent.issuer.name_verified === 'boolean') {
+                                        issuer.name_verified = offchainEvent.issuer.name_verified
+                                    }
+                                    if (!issuer.email && offchainEvent.issuer.email) {
+                                        issuer.email = offchainEvent.issuer.email
+                                    }
+                                    if (!issuer.email_verified && typeof offchainEvent.issuer.email_verified === 'boolean') {
+                                        issuer.email_verified = offchainEvent.issuer.email_verified
+                                    }
 
                                     if (offchainEvent.issuer.verified_by) {
                                         const verifiedBy = { ...event.issuer.verified_by }

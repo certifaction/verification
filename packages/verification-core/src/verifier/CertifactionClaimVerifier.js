@@ -31,8 +31,9 @@
  *
  * @property {string} id
  * @property {string} name
- * @property {string} title
+ * @property {boolean} name_verified
  * @property {string} email
+ * @property {boolean} email_verified
  * @property {VerifiedBy} verified_by
  */
 
@@ -277,16 +278,18 @@ export default class CertifactionClaimVerifier {
             if (claim.idclaims instanceof Array) {
                 issuerIdentity = await this.resolveAndVerifyIssuerIdentity(claim.idclaims, issuerAddress)
                 if (issuerIdentity !== null) {
-                    fileVerification.issuerName = issuerIdentity.issuer
+                    if (issuerIdentity.name) {
+                        fileVerification.issuerName = issuerIdentity.name
+                    }
 
-                    if (issuerIdentity.identityVerifier !== null) {
+                    if (issuerIdentity.verified_by) {
                         fileVerification.issuerVerified = true
 
-                        if (issuerIdentity.identityVerifier.name) {
-                            fileVerification.issuerVerifiedBy = issuerIdentity.identityVerifier.name
+                        if (issuerIdentity.verified_by.name) {
+                            fileVerification.issuerVerifiedBy = issuerIdentity.verified_by.name
                         }
-                        if (issuerIdentity.identityVerifier.image) {
-                            fileVerification.issuerVerifiedImg = issuerIdentity.identityVerifier.image
+                        if (issuerIdentity.verified_by.image) {
+                            fileVerification.issuerVerifiedImg = issuerIdentity.verified_by.image
                         }
                     }
                 }
@@ -300,19 +303,7 @@ export default class CertifactionClaimVerifier {
                 }
             }
             if (issuerIdentity) {
-                fileEvent.issuer.name = issuerIdentity.issuer
-                if (issuerIdentity.identityVerifier) {
-                    const verifiedBy = {}
-                    if (issuerIdentity.identityVerifier.name) {
-                        verifiedBy.name = issuerIdentity.identityVerifier.name
-                    }
-                    if (issuerIdentity.identityVerifier.image) {
-                        verifiedBy.image = issuerIdentity.identityVerifier.image
-                    }
-
-                    fileEvent.issuer.verified = true
-                    fileEvent.issuer.verified_by = verifiedBy
-                }
+                fileEvent.issuer = issuerIdentity
             }
 
             const claimEvent = (claimEvents) ? claimEvents.find(event => event.returnValues.hash === claimHash) : null
@@ -328,11 +319,11 @@ export default class CertifactionClaimVerifier {
                 }
             }
 
+            console.log(`Claim scope: ${claim.scope}`)
             switch (claim.scope) {
                 case 'register':
                 case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
                 case 'certify': // BP-2457: Verification Tool: Update the verification tool to accept "certify" claims as valid
-                    console.log('It\'s a registration claim!')
                     // TODO(Cyrill): Remove when using only events
                     if (claimEvent) {
                         fileVerification.registrationEvent = claimEvent
@@ -341,7 +332,6 @@ export default class CertifactionClaimVerifier {
                     break
 
                 case 'revoke':
-                    console.log('It\'s a revocation claim')
                     fileVerification.revoked = true
                     // TODO(Cyrill): Remove when using only events
                     if (claimEvent) {
@@ -407,11 +397,10 @@ export default class CertifactionClaimVerifier {
      * @param idClaims
      * @param claimIssuerAddress
      *
-     * @returns {Promise<IssuerIdentity|null>}
+     * @returns {Promise<Issuer|null>}
      */
     async resolveAndVerifyIssuerIdentity(idClaims, claimIssuerAddress) {
-        let issuer = null
-        let identityVerifier = null
+        let issuer = {}
 
         for (const idClaim of idClaims) {
             if (idClaim['@id'].toLowerCase() !== 'cert:addr:' + claimIssuerAddress.toLowerCase()) {
@@ -430,17 +419,34 @@ export default class CertifactionClaimVerifier {
                 continue
             }
 
+            issuer.id = claimIssuerAddress
+
             if (idClaim.name !== undefined) {
-                issuer = idClaim.name
+                issuer.name = idClaim.name
+                issuer.name_verified = false
+
+                if (idClaim.name_verified !== undefined) {
+                    issuer.name_verified = idClaim.name_verified
+                }
+            }
+
+            if (idClaim.email !== undefined) {
+                issuer.email = idClaim.email
+                issuer.email_verified = false
+
+                if (idClaim.email_verified !== undefined) {
+                    issuer.email_verified = idClaim.email_verified
+                }
             }
 
             if (idClaim.verifiedBy !== undefined) {
-                identityVerifier = { name: idClaim.verifiedBy }
+                issuer.verified = true
+                issuer.verified_by = { name: idClaim.verifiedBy }
 
                 // TODO(Cyrill): Add verifier image
             }
 
-            return { issuer, identityVerifier }
+            return issuer
         }
 
         return null
