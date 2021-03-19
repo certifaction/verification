@@ -55,39 +55,16 @@
                 padding: 12px;
                 border-radius: 8px;
 
-                &:nth-child(2n) {
-                    background-color: #f7f9fc;
-                }
-
-                .signers-list {
-                    margin: 0;
-                    padding: 0;
-
-                    li {
-                        display: flex;
-                        list-style-type: none;
-                        padding-top: 8px;
-
-                        .signed {
-                            display: inline-block;
-                            color: $verification-result-success-dark;
-                            width: 20px;
-                            height: 20px;
-                            margin-right: 10px;
-                        }
-
-                        .value > span {
-                            display: inline-block;
-                        }
-                    }
-                }
-
                 .label {
                     color: rgba(#14213d, 50%);
                     font-size: 13px;
                     line-height: 1.5em;
                     font-weight: 600;
                     text-transform: uppercase;
+                }
+
+                .value {
+                    overflow-wrap: break-word;
                 }
 
                 .footnote {
@@ -116,10 +93,6 @@
                     }
                 }
 
-                .value {
-                    overflow-wrap: break-word;
-                }
-
                 .signature-hash {
                     padding-top: 10px;
 
@@ -140,6 +113,55 @@
                         max-width: 100%;
                         height: 100%;
                     }
+                }
+
+                .signature-list {
+                    margin: 0;
+                    padding: 0;
+
+                    .signature {
+                        display: flex;
+                        list-style-type: none;
+                        padding-top: 8px;
+
+                        .icon {
+                            display: inline-block;
+                            position: relative;
+                            width: 26px;
+                            height: 26px;
+                            border-radius: 50%;
+                            background-color: #c4ddff;
+
+                            > img {
+                                display: block;
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
+                                margin: auto;
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+
+                        .value > span {
+                            display: inline-block;
+                        }
+
+                        .left {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+
+                + .verification-entry {
+                    margin-top: 5px;
+                }
+
+                &:nth-child(2n),
+                &.initiator {
+                    background-color: #f7f9fc;
                 }
             }
 

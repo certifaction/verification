@@ -13,9 +13,9 @@
         "card": {
             "btn": {
                 "expertInfo": "Technische Details",
-                "questions": "Fragen?",
+                "support": "Support",
                 "back": "Zurück",
-                "support": "Support kontaktieren"
+                "contact": "Support kontaktieren"
             },
             "faq": {
                 "title": "Häufig gestellte Fragen",
@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Aussteller",
-                "signer": "Unterzeichner",
+                "signature": "Unterzeichner | Unterzeichner",
                 "issuerVerifiedBy": "Aussteller verifiziert durch",
-                "signerVerifiedBy": "Unterzeichner verifiziert durch",
+                "signedVia": "Unterzeichnet über",
                 "issuerAddress": "Public Key des Ausstellers",
                 "fingerprint": "Dokumenten-Hash",
                 "registrationDate": "Ausstelldatum & -Zeit",
@@ -71,7 +71,8 @@
                 "revocationDate": "Annullierungsdatum & -Zeit",
                 "smartContractAddress": "Smart Contract-Adresse",
                 "signatureTransactions": "Unterzeichnungstranskationen",
-                "details": "Details"
+                "details": "Details",
+                "initiator": "Initiator"
             },
             "certifying": {
                 "revoked": {
@@ -111,11 +112,11 @@
                     "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und wurde durch eine nicht verifizierte Person digital unterzeichnet. | Dieses Dokument ist authentisch und wurde durch nicht verifizierte Personen digital unterzeichnet.",
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
                     "signerFootnote": "Unterzeichnet am {signingDate}"
                 },
                 "verifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und wurde durch eine verifizierte Person digital unterzeichnet. | Dieses Dokument ist authentisch und wurde durch verifizierte Personen digital unterzeichnet.",
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
                     "signerFootnote": "Unterzeichnet am {signingDate}"
                 },
                 "resultDetails": {

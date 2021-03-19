@@ -13,9 +13,9 @@
         "card": {
             "btn": {
                 "expertInfo": "Expert info",
-                "questions": "Questions?",
+                "support": "Support",
                 "back": "Back",
-                "support": "Contact support"
+                "contact": "Contact support"
             },
             "faq": {
                 "title": "Frequently asked questions",
@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contract",
                 "issuer": "Issuer",
-                "signer": "Signer | Signers",
+                "signature": "Signature | Signatures",
                 "issuerVerifiedBy": "Issuer verified by",
-                "signerVerifiedBy": "Signer verified by | Signers verified by",
+                "signedVia": "Signed via",
                 "issuerAddress": "Issuer Public Key",
                 "fingerprint": "Document Hash",
                 "registrationDate": "Issue Date & Time",
@@ -71,7 +71,8 @@
                 "revocationDate": "Revocation Date & Time",
                 "smartContractAddress": "Smart Contract Address",
                 "signatureTransactions": "Signature transactions",
-                "details": "Details"
+                "details": "Details",
+                "initiator": "Initiator"
             },
             "certifying": {
                 "revoked": {
@@ -111,12 +112,12 @@
                     "status": "This document has been revoked."
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed by an unverified signer. | This document is authentic and digitally signed by unverified signers.",
-                    "signerFootnote": "Signed at {signingDate}"
+                    "status": "This document is authentic and digitally signed.",
+                    "signerFootnote": "Signed {signingDate}"
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed by a verified signer. | This document is authentic and digitally signed by verified signers.",
-                    "signerFootnote": "Signed at {signingDate}"
+                    "status": "This document is authentic and digitally signed.",
+                    "signerFootnote": "Signed {signingDate}"
                 },
                 "resultDetails": {
                     "tamperProof": "Tamper-proof",

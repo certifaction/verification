@@ -51,7 +51,7 @@
                     <div class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</div>
                     <div class="value">
                         <div class="signature-hash" v-for="(signEvent, index) in signEvents" :key="index">
-                            <span>{{ signEvent.issuer.name }}</span>
+                            <span>{{ $parent.issuerDisplayName(signEvent.issuer) }}</span>
                             <a v-if="signEvent.on_blockchain"
                                :href="`https://${net}/tx/${signEvent.on_blockchain.tx_hash}`"
                                target="_blank">{{ signEvent.on_blockchain.tx_hash }}</a>
@@ -70,16 +70,18 @@
                           :has-verified-signer="hasVerifiedSigner"
                           :signer-count="signEvents.length"/>
             <div class="verification-info">
-                <div v-if="signEvents.length > 0" class="verification-entry signers">
-                    <span class="label">{{ _$tc('verification.result.meta.signer', signEvents.length) }}</span>
-                    <ul class="signers-list">
-                        <li class="signer" v-for="(signEvent, index) in signEvents" :key="index">
+                <div v-if="signEvents.length > 0" class="verification-entry signatures">
+                    <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
+                    <ul class="signature-list">
+                        <li class="signature" v-for="(signEvent, index) in signEvents" :key="index">
                             <div class="left">
-                                <MDIcon class="signed" :icon="mdiCheckCircle"/>
+                                <span class="icon">
+                                    <img src="../../../../assets/img/icon_signature.svg" alt="Signature"/>
+                                </span>
                             </div>
                             <div class="right">
                                 <div class="value">
-                                    <span>{{ signEvent.issuer.name }}</span>
+                                    <span>{{ $parent.issuerDisplayName(signEvent.issuer) }}</span>
                                 </div>
                                 <div v-if="signEvent.on_blockchain && signEvent.date" class="footnote">
                                     <span>{{ signerFootnote(signEvent) }}</span>
@@ -90,9 +92,7 @@
                 </div>
                 <div v-if="singleIdentityVerifier" class="verification-entry verifier">
                     <div class="verifier-name">
-                        <div class="label">
-                            {{ _$tc('verification.result.meta.signerVerifiedBy', signEvents.length) }}
-                        </div>
+                        <div class="label">{{ _$t('verification.result.meta.signedVia') }}</div>
                         <div v-if="singleIdentityVerifier.image" class="verifier-image">
                             <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
                             <img :src="(singleIdentityVerifier.image).split('.png')[0] + '_redesign.png'"
@@ -101,6 +101,14 @@
                         </div>
                         <div v-else class="value">
                             <span>{{ singleIdentityVerifier.name }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="initiator" class="verification-entry initiator">
+                    <div class="verifier-name">
+                        <div class="label">{{ _$t('verification.result.meta.initiator') }}</div>
+                        <div class="value">
+                            <span>{{ $parent.issuerDisplayName(initiator.issuer) }}</span>
                         </div>
                     </div>
                 </div>
@@ -113,11 +121,11 @@
                 </button>
             </div>
             <div class="right">
+                <button class="btn secondary" @click="toggleHelp('support')">
+                    <span>{{ _$t('verification.card.btn.support') }}</span>
+                </button>
                 <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
                     <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
-                </button>
-                <button class="btn secondary" @click="toggleHelp('faq')">
-                    <span>{{ _$t('verification.card.btn.questions') }}</span>
                 </button>
             </div>
         </template>
@@ -128,7 +136,7 @@
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import { mdiAlertCircle, mdiCheckCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
@@ -144,7 +152,6 @@ export default {
             mdiShieldCheck,
             mdiFileDocument,
             mdiAlertCircle,
-            mdiCheckCircle,
             showExpertInfo: false
         }
     },
@@ -166,7 +173,23 @@ export default {
             return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : []
         },
         signEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
+            const signEvents = this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
+            if (signEvents.length > 1) {
+                signEvents.sort((a, b) => {
+                    const aDate = (a.date) ? new Date(a.date) : null
+                    const bDate = (b.data) ? new Date(b.date) : null
+
+                    if (aDate < bDate) {
+                        return -1
+                    }
+                    if (aDate > bDate) {
+                        return 1
+                    }
+
+                    return 0
+                })
+            }
+            return signEvents
         },
         revocationInProgress() {
             return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
@@ -213,6 +236,17 @@ export default {
             }
 
             return uniqueIdentityVerifiers[0]
+        },
+        initiator() {
+            if (this.registerEvents.length > 0) {
+                return this.registerEvents[0]
+            }
+
+            if (this.signEvents.length > 1) {
+                return this.signEvents[0]
+            }
+
+            return null
         }
     },
     methods: {
