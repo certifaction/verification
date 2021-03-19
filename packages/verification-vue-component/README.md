@@ -196,7 +196,7 @@ Type: `string` (HEX format) | Required: `false` | Default: `0x3f647d9f6a22768EA9
 
 #### certifactionApiUrl
 
-Type: `string` | Required: `false` | Default: `https://api.certifaction.io/`
+Type: `string` | Required: `false` | Default: `https://api.certifaction.io`
 
 #### offchainVerifier
 

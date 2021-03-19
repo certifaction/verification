@@ -179,7 +179,7 @@ export default class CertifactionClaimVerifier {
      */
     async getClaim(claimHash) {
         try {
-            const res = await axios.get(`${this.certifactionApiUrl}claim/${claimHash}`)
+            const res = await axios.get(`${this.certifactionApiUrl}/claim/${claimHash}`)
             if (res.status === 200) {
                 return res.data
             }

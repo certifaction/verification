@@ -8,11 +8,10 @@ export default class PdfService {
      *
      * @constructor
      *
-     * @param {string} baseUrl
-     * @param {string} pdfWasmUrl
+     * @param {URL} pdfWasmUrl
      */
-    constructor(baseUrl, pdfWasmUrl) {
-        this.pdfWasmUrl = new URL(pdfWasmUrl, baseUrl)
+    constructor(pdfWasmUrl) {
+        this.pdfWasmUrl = pdfWasmUrl
 
         const browser = Bowser.getParser(self.navigator.userAgent)
         this.isNonChromiumEdge = browser.satisfies({ edge: '<=18' })
