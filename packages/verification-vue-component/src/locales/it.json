@@ -13,9 +13,9 @@
         "card": {
             "btn": {
                 "expertInfo": "Info avanzate",
-                "questions": "Avete domande?",
+                "support": "Supporto",
                 "back": "Indietro",
-                "support": "Chiedere aiuto"
+                "contact": "Chiedere aiuto"
             },
             "faq": {
                 "title": "FAQ",
@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contratto",
                 "issuer": "Emittente",
-                "signer": "Firmatario | Firmatari",
+                "signature": "Firma | Firme",
                 "issuerVerifiedBy": "Emittente verificato da",
-                "signerVerifiedBy": "Firmatario verificato da | Firmatari verificato da",
+                "signedVia": "Firmato tramite",
                 "issuerAddress": "Chiave pubblica dell'emittente",
                 "fingerprint": "Impronta numerica del documento",
                 "registrationDate": "Data e ora di emissione",
@@ -71,7 +71,8 @@
                 "revocationDate": "Data e ora di annullamento",
                 "smartContractAddress": "Indirizzo del Smart Contract",
                 "signatureTransactions": "Transazioni di firma",
-                "details": "Dettagli"
+                "details": "Dettagli",
+                "initiator": "Iniziatore"
             },
             "certifying": {
                 "revoked": {
@@ -111,11 +112,11 @@
                     "status": "Questo documento è stato revocato."
                 },
                 "unverifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente da un'emittente non verificato. | Questo documento è autentico e firmato digitalmente da emittenti non verificati.",
+                    "status": "Questo documento è autentico e firmato digitalmente.",
                     "signerFootnote": "Firmato il {signingDate}"
                 },
                 "verifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente da un'emittente verificato. | Questo documento è autentico e firmato digitalmente da emittenti verificati.",
+                    "status": "Questo documento è autentico e firmato digitalmente.",
                     "signerFootnote": "Firmato il {signingDate}"
                 },
                 "resultDetails": {

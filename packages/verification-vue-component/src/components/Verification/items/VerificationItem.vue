@@ -8,8 +8,8 @@
 
             <ShadowCard v-if="isLoading"/>
 
-            <FaqCard v-else-if="showFaq"
-                     @toggle-help="toggleHelp"/>
+            <SupportCard v-else-if="showSupport"
+                         @toggle-help="toggleHelp"/>
 
             <ContactCard v-else-if="showContact"
                          @toggle-help="toggleHelp"
@@ -71,7 +71,7 @@ import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import ShadowCard from './cards/ShadowCard.vue'
 import NotFoundCard from './cards/NotFoundCard.vue'
 import TechnicalProblemCard from './cards/TechnicalProblemCard.vue'
-import FaqCard from './cards/FaqCard.vue'
+import SupportCard from './cards/SupportCard.vue'
 import ContactCard from './cards/ContactCard.vue'
 import CertifyingCard from './cards/CertifyingCard.vue'
 import SigningCard from './cards/SigningCard.vue'
@@ -89,7 +89,7 @@ export default {
         ShadowCard,
         NotFoundCard,
         TechnicalProblemCard,
-        FaqCard,
+        SupportCard,
         ContactCard,
         CertifyingCard,
         SigningCard,
@@ -100,7 +100,7 @@ export default {
     },
     data() {
         return {
-            showFaq: false,
+            showSupport: false,
             showContact: false,
             confirmationStep: true,
             digitalTwin: {
@@ -161,12 +161,12 @@ export default {
     methods: {
         toggleHelp(type) {
             switch (type) {
-                case 'faq':
+                case 'support':
                     this.showContact = false
-                    this.showFaq = !this.showFaq
+                    this.showSupport = !this.showSupport
                     break
                 case 'contact':
-                    this.showFaq = false
+                    this.showSupport = false
                     this.showContact = !this.showContact
             }
         },
@@ -177,8 +177,20 @@ export default {
         digitalTwinRecheck() {
             this.digitalTwin.confirmationStep = true
             this.digitalTwin.fileApproved = false
-            this.showFaq = false
+            this.showSupport = false
             this.showContact = false
+        },
+        issuerDisplayName(issuer) {
+            if (issuer.name_verified === true) {
+                return issuer.name
+            }
+            if (issuer.email_verified === true) {
+                return issuer.email
+            }
+            if (issuer.email) {
+                return issuer.email
+            }
+            return issuer.name
         }
     }
 }

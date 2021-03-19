@@ -13,9 +13,9 @@
         "card": {
             "btn": {
                 "expertInfo": "Mode expert",
-                "questions": "Des questions?",
+                "support": "Service à la clientèle",
                 "back": "Retour",
-                "support": "Demander de l'aide"
+                "contact": "Demander de l'aide"
             },
             "faq": {
                 "title": "FAQ",
@@ -60,9 +60,9 @@
             "meta": {
                 "contract": "Contrat",
                 "issuer": "Émetteur",
-                "signer": "Signataire | Signataires",
+                "signature": "Signature | Signatures",
                 "issuerVerifiedBy": "Émetteur vérifié par",
-                "signerVerifiedBy": "Signataire vérifié par | Signataires vérifiés par",
+                "signedVia": "Signé via",
                 "issuerAddress": "Clef publique de l'émetteur",
                 "fingerprint": "Empreinte numérique du document",
                 "registrationDate": "Date & heure de l'émission",
@@ -71,7 +71,8 @@
                 "revocationDate": "Date & heure de la révocation",
                 "smartContractAddress": "Adresse du Smart Contract",
                 "signatureTransactions": "Transactions de signature",
-                "details": "Détails"
+                "details": "Détails",
+                "initiator": "Initiateur"
             },
             "certifying": {
                 "revoked": {
@@ -111,11 +112,11 @@
                     "status": "Ce document a été révoqué."
                 },
                 "unverifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement par un signataire non vérifié. | Ce document est authentique et signé électroniquement par des signataires non vérifiés.",
+                    "status": "Ce document est authentique et signé électroniquement.",
                     "signerFootnote": "Signé le {signingDate}"
                 },
                 "verifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement par un signataire vérifié. | Ce document est authentique et signé électroniquement par des signataires vérifiés.",
+                    "status": "Ce document est authentique et signé électroniquement.",
                     "signerFootnote": "Signé le {signingDate}"
                 },
                 "resultDetails": {

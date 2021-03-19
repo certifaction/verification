@@ -61,9 +61,10 @@
                 <div v-if="registerEvents.length > 0" class="verification-entry issuer">
                     <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
                     <div class="value">
-                        <span>{{ registerEvents[0].issuer.name }}</span>
+                        <span>{{ $parent.issuerDisplayName(registerEvents[0].issuer) }}</span>
                     </div>
-                    <div v-if="registerEvents.length > 0 && !registerEvents[0].issuer.verified" class="footnote warning">
+                    <div v-if="registerEvents.length > 0 && !registerEvents[0].issuer.verified"
+                         class="footnote warning">
                         <MDIcon :icon="mdiAlertCircle"/>
                         <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
                     </div>
@@ -101,11 +102,11 @@
                 </button>
             </div>
             <div class="right">
+                <button class="btn secondary" @click="toggleHelp('support')">
+                    <span>{{ _$t('verification.card.btn.support') }}</span>
+                </button>
                 <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
                     <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
-                </button>
-                <button class="btn secondary" @click="toggleHelp('faq')">
-                    <span>{{ _$t('verification.card.btn.questions') }}</span>
                 </button>
             </div>
         </template>

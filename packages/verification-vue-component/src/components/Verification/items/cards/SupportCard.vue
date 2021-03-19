@@ -25,13 +25,13 @@
         </template>
         <template #footer>
             <div class="left">
-                <button class="btn secondary" @click="toggleHelp('faq')">
+                <button class="btn secondary" @click="toggleHelp('support')">
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
             <div class="right">
                 <button class="btn primary" @click="toggleHelp('contact')">
-                    <span>{{ _$t('verification.card.btn.support') }}</span>
+                    <span>{{ _$t('verification.card.btn.contact') }}</span>
                 </button>
             </div>
         </template>
@@ -45,7 +45,7 @@ import { mdiChevronDown } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
 
 export default {
-    name: 'FaqCard',
+    name: 'SupportCard',
     mixins: [i18nWrapperMixin],
     components: {
         BaseCard,

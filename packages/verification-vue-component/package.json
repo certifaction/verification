@@ -63,7 +63,7 @@
         "postcss": "^8.2.8",
         "postcss-cli": "^8.3.1",
         "rimraf": "^3.0.2",
-        "rollup": "^2.41.3",
+        "rollup": "^2.42.0",
         "rollup-plugin-copy": "^3.4.0",
         "rollup-plugin-ignore": "^1.0.9",
         "rollup-plugin-vue": "^5.1.9",
