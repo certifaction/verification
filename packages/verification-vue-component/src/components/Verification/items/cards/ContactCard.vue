@@ -127,7 +127,7 @@ export default {
             this.contactFormSubmitting = true
 
             try {
-                await axios.post(`${this.certifactionApiUrl}support/request`, {
+                await axios.post(`${this.certifactionApiUrl}/support/request`, {
                     origin: 'Verification Tool',
                     contact_email: this.email,
                     subject: 'Support request',

@@ -1,6 +1,6 @@
 <template>
     <BaseCard class="technical-problem-card">
-        <template #header>
+        <template v-if="verificationItem.name" #header>
             <div class="icon">
                 <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
             </div>
@@ -26,10 +26,10 @@
             <div class="left"/>
             <div class="right">
                 <button class="btn primary" @click="toggleHelp('contact')">
-                    <span>{{ _$t('verification.card.btn.support') }}</span>
+                    <span>{{ _$t('verification.card.btn.contact') }}</span>
                 </button>
-                <button class="btn secondary" @click="toggleHelp('faq')">
-                    <span>{{ _$t('verification.card.btn.questions') }}</span>
+                <button class="btn secondary" @click="toggleHelp('support')">
+                    <span>{{ _$t('verification.card.btn.support') }}</span>
                 </button>
             </div>
         </template>

@@ -23,7 +23,7 @@ export default class CertifactionEthVerifier {
         legacyContractFallbackAddresses = ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'],
         claimContractAddress = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
         acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
-        certifactionApiUrl = 'https://api.certifaction.io/'
+        certifactionApiUrl = 'https://api.certifaction.io'
     ) {
         const eth = new Eth(providerUrl)
         const legacyContract = new eth.Contract(LegacySmartContractABI, legacyContractAddress)

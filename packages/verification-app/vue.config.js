@@ -1,3 +1,5 @@
+process.env.VUE_APP_CACHE_BUSTER = new Date().getTime().toString()
+
 module.exports = {
     pluginOptions: {
         i18n: {
@@ -19,17 +21,6 @@ module.exports = {
             .loader('file-loader')
             .tap(() => ({
                 name: 'js/[name].[hash:8].[ext]',
-                esModule: false
-            }))
-
-        config.module
-            .rule('wasm')
-            .test(/\.wasm$/)
-            .type('javascript/auto')
-            .use('file-loader')
-            .loader('file-loader')
-            .tap(() => ({
-                name: 'wasm/[name].[hash:8].[ext]',
                 esModule: false
             }))
 

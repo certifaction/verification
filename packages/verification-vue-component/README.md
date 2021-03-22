@@ -107,24 +107,16 @@ Show demo documents to see the different verification results.
 
 #### pdfWasmUrl
 
-Type: `string` | Required: `true`
+Type: `URL` | Required: `true`
 
-URL to the PDF webassembly file ([`@certifaction/verification-app/src/wasm/pdf_reader.wasm`](https://github.com/certifaction/verification/blob/master/packages/verification-app/src/wasm/pdf_reader.wasm)).
+URL to the PDF webassembly file.
 
-vue.config.js example:
+Example to use the wasm from the Certifaction CDN:
 ```js
-chainWebpack: config => {
-    config.module
-        .rule('wasm')
-        .test(/\.wasm$/)
-        .type('javascript/auto')
-        .use('file-loader')
-        .loader('file-loader')
-        .tap(() => ({
-            name: 'wasm/[name].[hash:8].[ext]',
-            esModule: false
-        }))
-}
+// vue.config.js
+process.env.VUE_APP_CACHE_BUSTER = new Date().getTime().toString()
+
+const pdfWasmUrl = new URL(`/wasm/pdf_reader.wasm?t=${process.env.VUE_APP_CACHE_BUSTER}`, process.env.VUE_APP_CERTIFACTION_CDN_BASE_URL)
 ```
 
 #### pdfjsWorkerSrc
@@ -196,7 +188,7 @@ Type: `string` (HEX format) | Required: `false` | Default: `0x3f647d9f6a22768EA9
 
 #### certifactionApiUrl
 
-Type: `string` | Required: `false` | Default: `https://api.certifaction.io/`
+Type: `string` | Required: `false` | Default: `https://api.certifaction.io`
 
 #### offchainVerifier
 

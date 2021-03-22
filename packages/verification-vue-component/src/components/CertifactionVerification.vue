@@ -71,7 +71,7 @@ export default {
             default: false
         },
         pdfWasmUrl: {
-            type: String,
+            type: URL,
             required: true
         },
         pdfjsWorkerSrc: {
@@ -131,7 +131,7 @@ export default {
                 this.acceptedIssuerKey,
                 this.certifactionApiUrl
             ),
-            pdfService: new PdfService(self.location.origin, this.pdfWasmUrl),
+            pdfService: new PdfService(this.pdfWasmUrl),
             verificationItems: [],
             draggingDemoDoc: undefined,
             dropbox: {
