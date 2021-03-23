@@ -7,6 +7,10 @@ import verificationDE from '@certifaction/verification-vue-component/src/locales
 import verificationEN from '@certifaction/verification-vue-component/src/locales/en.json'
 import verificationFR from '@certifaction/verification-vue-component/src/locales/fr.json'
 import verificationIT from '@certifaction/verification-vue-component/src/locales/it.json'
+import pdfViewerDE from '@certifaction/vue-pdf-viewer/src/locales/de.json'
+import pdfViewerEN from '@certifaction/vue-pdf-viewer/src/locales/en.json'
+import pdfViewerFR from '@certifaction/vue-pdf-viewer/src/locales/fr.json'
+import pdfViewerIT from '@certifaction/vue-pdf-viewer/src/locales/it.json'
 
 const dateTimeFormats = {
     de: verificationDateTimeFormats.default,
@@ -30,12 +34,18 @@ function loadLocaleMessages() {
     return messages
 }
 
-const messages = merge({
+let messages = merge({
     de: verificationDE,
     en: verificationEN,
     fr: verificationFR,
     it: verificationIT
 }, loadLocaleMessages())
+messages = merge({
+    de: pdfViewerDE,
+    en: pdfViewerEN,
+    fr: pdfViewerFR,
+    it: pdfViewerIT
+}, messages)
 
 export default new VueI18n({
     locale: process.env.VUE_APP_I18N_LOCALE || 'en',

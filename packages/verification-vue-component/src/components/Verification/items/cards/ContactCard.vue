@@ -29,12 +29,12 @@
         </template>
         <template #footer>
             <div class="left">
-                <button class="btn secondary" @click="toggleHelp('contact')">
+                <button class="btn btn-secondary" @click="toggleHelp('contact')">
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
             <div class="right">
-                <button type="submit" form="contact-form" class="btn primary" :disabled="contactFormSubmitting">
+                <button type="submit" form="contact-form" class="btn btn-primary" :disabled="contactFormSubmitting">
                     <img v-if="contactFormSubmitting" class="loading-spinner" src="../../../../assets/img/loading_spinner.svg" alt="Spinner"/>
                     <span v-else>{{ _$t('verification.card.contact.form.submit') }}</span>
                 </button>

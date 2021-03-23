@@ -5,7 +5,7 @@
             <div class="error-message">
                 <span>{{ _$t('verification.digitalTwin.error.decryption') }}</span>
             </div>
-            <button class="btn primary" @click="toggleHelp('contact')">
+            <button class="btn btn-primary" @click="toggleHelp('contact')">
                 <span>{{ _$t('verification.digitalTwin.error.btn.contactSupport') }}</span>
             </button>
         </template>

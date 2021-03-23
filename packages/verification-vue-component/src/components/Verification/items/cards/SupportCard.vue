@@ -25,12 +25,12 @@
         </template>
         <template #footer>
             <div class="left">
-                <button class="btn secondary" @click="toggleHelp('support')">
+                <button class="btn btn-secondary" @click="toggleHelp('support')">
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
             <div class="right">
-                <button class="btn primary" @click="toggleHelp('contact')">
+                <button class="btn btn-primary" @click="toggleHelp('contact')">
                     <span>{{ _$t('verification.card.btn.contact') }}</span>
                 </button>
             </div>

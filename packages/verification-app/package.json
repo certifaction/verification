@@ -16,7 +16,7 @@
         "core-js": "^3.9.1",
         "lodash.merge": "^4.6.2",
         "vue": "^2.6.12",
-        "vue-i18n": "^8.24.1"
+        "vue-i18n": "^8.24.2"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.12",

@@ -25,7 +25,7 @@
         <template #footer>
             <div class="left"/>
             <div class="right">
-                <button class="btn primary" @click="toggleHelp('contact')">
+                <button class="btn btn-primary" @click="toggleHelp('contact')">
                     <span>{{ _$t('verification.card.btn.contact') }}</span>
                 </button>
             </div>

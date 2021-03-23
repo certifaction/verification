@@ -183,15 +183,6 @@
                 "btn": {
                     "contactSupport": "Contatta supporto"
                 }
-            },
-            "pdfViewer": {
-                "page": "Pagina",
-                "scale": {
-                    "auto": "Zoom automatico",
-                    "pageActual": "Dimensioni effettive",
-                    "pageFit": "Adatta a una pagina",
-                    "pageWidth": "Larghezza pagina"
-                }
             }
         },
         "poweredBy": {

@@ -16,19 +16,19 @@
     &:active {
         outline: none;
     }
+}
 
-    &.primary {
-        background-color: $verification-blue;
-        color: $white;
-    }
+.btn-primary {
+    background-color: $verification-blue;
+    color: $white;
+}
 
-    &.secondary {
-        background-color: #eef3fa;
-        color: $verification-blue;
-    }
+.btn-secondary {
+    background-color: #eef3fa;
+    color: $verification-blue;
+}
 
-    &.light {
-        background-color: white;
-        color: #0669f2;
-    }
+.btn-light {
+    background-color: white;
+    color: #0669f2;
 }

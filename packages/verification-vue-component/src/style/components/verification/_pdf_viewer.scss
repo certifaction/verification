@@ -1,81 +1,8 @@
 .pdf-viewer {
-    position: relative;
-
-    .viewer-container {
-        position: relative;
-        overflow: auto;
-        width: 100%;
-        height: 100%;
-        background-color: $gray-800;
-
-        .viewer {
-            position: relative;
-
-            .page {
-                box-sizing: content-box;
-            }
-        }
-    }
-
     .controls {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transform: translateX(-50%);
-        position: absolute;
-        z-index: 100;
-        bottom: 20px;
-        left: 50%;
-        box-shadow: 0 0 6px rgba($gray-800, 0.8);
-        border-radius: 3px;
-        padding: 10px;
-        background-color: rgba($gray-800, 0.9);
-
-        .pages {
-            margin-bottom: 6px;
-            color: white;
-        }
-
         .scale {
-            display: flex;
-            align-items: center;
-
             .btn {
-                padding: 6px 8px;
-
-                .md-icon {
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-        }
-
-        .scale-selector {
-            margin-left: 12px;
-            border-radius: 3px;
-            padding: 4px 6px;
-
-            option {
-                &.hidden {
-                    display: none;
-                }
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .pdf-viewer {
-        .controls {
-            flex-direction: row;
-
-            .pages {
-                margin-bottom: 0;
-            }
-
-            .scale {
-                margin-left: 12px;
+                @extend .btn-secondary
             }
         }
     }

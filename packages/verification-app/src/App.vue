@@ -16,7 +16,7 @@
 
 <script>
 import CertifactionOffchainVerifier from './lib/CertifactionOffchainVerifier'
-import pdfjsWorkerSrc from '@certifaction/verification-vue-component/dist/pdf/pdfjs.worker.min'
+import pdfjsWorkerSrc from '@certifaction/pdfjs/dist/pdfjs.worker.min'
 
 export default {
     name: 'App',

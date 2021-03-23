@@ -116,15 +116,15 @@
         </template>
         <template #footer>
             <div class="left">
-                <button v-if="showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
+                <button v-if="showExpertInfo" class="btn btn-secondary" @click="showExpertInfo = !showExpertInfo">
                     <span>{{ _$t('verification.card.btn.back') }}</span>
                 </button>
             </div>
             <div class="right">
-                <button class="btn secondary" @click="toggleHelp('support')">
+                <button class="btn btn-secondary" @click="toggleHelp('support')">
                     <span>{{ _$t('verification.card.btn.support') }}</span>
                 </button>
-                <button v-if="!showExpertInfo" class="btn secondary" @click="showExpertInfo = !showExpertInfo">
+                <button v-if="!showExpertInfo" class="btn btn-secondary" @click="showExpertInfo = !showExpertInfo">
                     <span>{{ _$t('verification.card.btn.expertInfo') }}</span>
                 </button>
             </div>

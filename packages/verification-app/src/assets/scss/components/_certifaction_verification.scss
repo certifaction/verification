@@ -1,7 +1,9 @@
 @import "~@certifaction/verification-vue-component/src/style/components/certifaction_verification";
 
+$pdf-viewer-asset-base-path: "../../../node_modules/@certifaction/pdfjs/dist/";
+
 .certifaction-verification {
-    @import "~@certifaction/verification-vue-component/dist/pdf/pdf_viewer";
+    @import "@certifaction/vue-pdf-viewer/src/style/index";
     overflow: hidden;
     min-height: 100%;
 }
