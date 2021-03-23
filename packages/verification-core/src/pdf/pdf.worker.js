@@ -7,7 +7,7 @@ self.addEventListener('message', async (e) => {
         switch (e.data.cmd) {
             case 'extract_encryption_keys': {
                 const encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
-                if ('error' in encryptionKeys) {
+                if (encryptionKeys !== null && 'error' in encryptionKeys) {
                     throw encryptionKeys.error
                 }
 
