@@ -27,7 +27,7 @@ module.exports = {
         config.plugin('copy')
             .tap(args => {
                 args[0].push({
-                    from: '@certifaction/verification-vue-component/dist/pdf/cmaps',
+                    from: '@certifaction/pdfjs/dist/cmaps',
                     to: 'pdf/cmaps',
                     toType: 'dir',
                     context: '../../node_modules'

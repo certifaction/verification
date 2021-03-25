@@ -50,11 +50,11 @@
 
             <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
                 <div class="actions navigate">
-                    <button class="btn light" @click="digitalTwinRecheck">
+                    <button class="btn btn-light" @click="digitalTwinRecheck">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
                     <a :href="digitalTwinInformation.fileUrl"
-                       class="btn primary"
+                       class="btn btn-primary"
                        :download="digitalTwinDownloadFileName">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.download') }}</span>
                     </a>
@@ -62,11 +62,14 @@
             </div>
         </div>
         <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
-                   :url="digitalTwinInformation.fileUrl"/>
+                   :url="digitalTwinInformation.fileUrl"
+                   :pdfjs-worker-src="pdfjsWorkerSrc"
+                   :pdfjs-c-map-url="pdfjsCMapUrl"/>
     </div>
 </template>
 
 <script>
+import PDFViewer from '@certifaction/vue-pdf-viewer'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import ShadowCard from './cards/ShadowCard.vue'
 import NotFoundCard from './cards/NotFoundCard.vue'
@@ -78,7 +81,6 @@ import SigningCard from './cards/SigningCard.vue'
 import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
 import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
 import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
-import PDFViewer from './cards/DigitalTwin/PDFViewer.vue'
 
 export default {
     name: 'VerificationItem',
@@ -98,17 +100,6 @@ export default {
         FileErrorCard,
         PDFViewer
     },
-    data() {
-        return {
-            showSupport: false,
-            showContact: false,
-            confirmationStep: true,
-            digitalTwin: {
-                confirmationStep: true,
-                fileApproved: false
-            }
-        }
-    },
     props: {
         verificationItem: {
             type: Object,
@@ -121,6 +112,18 @@ export default {
         digitalTwinInformation: {
             type: Object,
             required: false
+        }
+    },
+    inject: ['pdfjsWorkerSrc', 'pdfjsCMapUrl'],
+    data() {
+        return {
+            showSupport: false,
+            showContact: false,
+            confirmationStep: true,
+            digitalTwin: {
+                confirmationStep: true,
+                fileApproved: false
+            }
         }
     },
     computed: {
