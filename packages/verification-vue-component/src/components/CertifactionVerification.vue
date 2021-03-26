@@ -281,14 +281,6 @@ export default {
                         })
                     }
 
-                    const identityVerifier = {}
-                    if (offchainVerification.issuerVerifiedBy) {
-                        identityVerifier.name = offchainVerification.issuerVerifiedBy
-                    }
-                    if (offchainVerification.issuerVerifiedImg) {
-                        identityVerifier.image = offchainVerification.issuerVerifiedImg
-                    }
-
                     if (verification.events && verification.events.length > 0 && offchainVerification.status !== 'registering') {
                         // If it's already verified on blockchain, do not override all values;
                         // just issuerName & issuer verifier can be taken from off-chain information
@@ -349,8 +341,6 @@ export default {
                                         }
                                         if (!verifiedBy.image && offchainEvent.issuer.verified_by.image) {
                                             verifiedBy.image = offchainEvent.issuer.verified_by.image
-                                        } else if (!verifiedBy.image && offchainVerification.issuerVerifiedImg) {
-                                            verifiedBy.image = offchainVerification.issuerVerifiedImg
                                         }
 
                                         issuer.verified = true
@@ -377,6 +367,17 @@ export default {
                             ...verification,
                             ...offchainVerification
                         }
+                    }
+
+                    // Use legacy issuerVerifiedImg to support encrypted claims in progress (https://certifaction.atlassian.net/browse/BP-2741)
+                    if (verification.issuerVerifiedImg && verification.events && verification.events.length > 0) {
+                        verification.events = verification.events.map(event => {
+                            if (event.issuer.verified_by && !event.issuer.verified_by.image) {
+                                event.issuer.verified_by.image = verification.issuerVerifiedImg
+                            }
+
+                            return event
+                        })
                     }
                 }
             } catch (e) {
