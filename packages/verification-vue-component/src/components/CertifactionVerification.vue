@@ -185,6 +185,8 @@ export default {
     },
     methods: {
         async verify(files) {
+            this.$emit('verificationStart')
+
             if (Object.values(this.itemTimeouts).length > 0) {
                 Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
                 this.itemTimeouts = {}
@@ -206,6 +208,8 @@ export default {
             } catch (e) {
                 console.error(`Error while verifying files: ${e.name} - ${e.message}`)
             }
+
+            this.$emit('verificationComplete')
         },
         async verifyItem(item, key) {
             const pdfBytes = await this.pdfService.readPdfBytes(item.file)
@@ -462,7 +466,10 @@ export default {
     },
     async mounted() {
         if (this.digitalTwinInformation) {
+            this.$emit('initialized', true)
             await this.processDigitalTwinUrl()
+        } else {
+            this.$emit('initialized', false)
         }
     }
 }
