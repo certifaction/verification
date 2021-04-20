@@ -57,10 +57,10 @@ export default class PdfService {
                     return resolve()
                 }
 
-                // Fail if the wasm isn't loaded after 10 seconds
-                if (count > 1000) {
+                // Fail if the wasm isn't loaded after 15 seconds
+                if (count > 1500) {
                     self.clearInterval(checkInterval)
-                    return reject(new Error('PDF wasm wasn\'t loaded after 10 seconds.'))
+                    return reject(new Error('PDF wasm wasn\'t loaded after 15 seconds.'))
                 }
 
                 count++

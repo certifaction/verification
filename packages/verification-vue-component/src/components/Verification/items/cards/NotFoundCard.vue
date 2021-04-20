@@ -1,6 +1,6 @@
 <template>
     <BaseCard class="not-found-card">
-        <template #header>
+        <template v-if="verificationItem.name" #header>
             <div class="icon">
                 <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
             </div>
