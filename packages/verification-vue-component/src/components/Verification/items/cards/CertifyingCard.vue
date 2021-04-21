@@ -61,7 +61,7 @@
                 <div v-if="registerEvents.length > 0" class="verification-entry issuer">
                     <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
                     <div class="value">
-                        <span>{{ $parent.issuerDisplayName(registerEvents[0].issuer) }}</span>
+                        <span>{{ $parent.issuerDisplayName(registerEvents[0]) }}</span>
                     </div>
                     <div v-if="registerEvents.length > 0 && !registerEvents[0].issuer.verified"
                          class="footnote warning">

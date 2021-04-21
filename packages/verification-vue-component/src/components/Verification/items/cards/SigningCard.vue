@@ -51,7 +51,7 @@
                     <div class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</div>
                     <div class="value">
                         <div class="signature-hash" v-for="(signEvent, index) in signEvents" :key="index">
-                            <span>{{ $parent.issuerDisplayName(signEvent.issuer) }}</span>
+                            <span>{{ $parent.issuerDisplayName(signEvent) }}</span>
                             <a v-if="signEvent.on_blockchain"
                                :href="`https://${net}/tx/${signEvent.on_blockchain.tx_hash}`"
                                target="_blank">{{ signEvent.on_blockchain.tx_hash }}</a>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="right">
                                 <div class="value">
-                                    <span>{{ $parent.issuerDisplayName(signEvent.issuer) }}</span>
+                                    <span>{{ $parent.issuerDisplayName(signEvent) }}</span>
                                 </div>
                                 <div v-if="signEvent.on_blockchain && signEvent.date" class="footnote">
                                     <span>{{ signerFootnote(signEvent) }}</span>
@@ -108,7 +108,7 @@
                     <div class="verifier-name">
                         <div class="label">{{ _$t('verification.result.meta.initiator') }}</div>
                         <div class="value">
-                            <span>{{ $parent.issuerDisplayName(initiator.issuer) }}</span>
+                            <span>{{ $parent.issuerDisplayName(initiator) }}</span>
                         </div>
                     </div>
                 </div>
