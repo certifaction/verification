@@ -183,17 +183,25 @@ export default {
             this.showSupport = false
             this.showContact = false
         },
-        issuerDisplayName(issuer) {
-            if (issuer.name_verified === true) {
-                return issuer.name
+        issuerDisplayName(event) {
+            const eventDate = new Date(event.date)
+            if (eventDate instanceof Date && !isNaN(eventDate)) {
+                const migrationDate = new Date('2021-04-22')
+                if (eventDate < migrationDate && event.issuer.name) {
+                    return event.issuer.name
+                }
             }
-            if (issuer.email_verified === true) {
-                return issuer.email
+
+            if (event.issuer.name_verified === true) {
+                return event.issuer.name
             }
-            if (issuer.email) {
-                return issuer.email
+            if (event.issuer.email_verified === true) {
+                return event.issuer.email
             }
-            return issuer.name
+            if (event.issuer.email) {
+                return event.issuer.email
+            }
+            return event.issuer.name
         }
     }
 }
