@@ -341,7 +341,11 @@ export default class CertifactionClaimVerifier {
                     break
             }
 
-            fileVerification.events.push(fileEvent)
+            const duplicateEvent = fileVerification.events.find(event => event.ref === claimHash)
+
+            if (!duplicateEvent) {
+                fileVerification.events.push(fileEvent)
+            }
         }
 
         if (fileVerification.events.length === 0) {
