@@ -242,10 +242,6 @@ export default {
                 return this.registerEvents[0]
             }
 
-            if (this.signEvents.length > 1) {
-                return this.signEvents[0]
-            }
-
             return null
         }
     },
