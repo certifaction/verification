@@ -138,7 +138,6 @@ export default {
                 draggingOver: false,
                 dragLeaveLocked: false
             },
-            itemTimeouts: {},
             digitalTwin: {
                 error: false,
                 fileUrl: null
@@ -187,10 +186,6 @@ export default {
         async verify(files) {
             this.$emit('verificationStart')
 
-            if (Object.values(this.itemTimeouts).length > 0) {
-                Object.values(this.itemTimeouts).forEach(timeoutId => window.clearTimeout(timeoutId))
-                this.itemTimeouts = {}
-            }
             this.verificationItems = []
 
             try {
@@ -231,12 +226,6 @@ export default {
             if (oldResult !== newResult) {
                 Vue.set(this.verificationItems, key, { ...item, ...verification })
                 verification.loaded = true
-            }
-
-            if (this.verificationItems[key].on_blockchain === false) {
-                this.itemTimeouts[verification.hash] = window.setTimeout(() => {
-                    this.verifyItem(item, key)
-                }, 20000)
             }
         },
         async offchainVerification(verification, decryptionKey) {
