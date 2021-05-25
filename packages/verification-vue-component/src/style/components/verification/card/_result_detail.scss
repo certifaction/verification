@@ -2,21 +2,6 @@
     position: relative;
     margin: 12px 0;
 
-    .warning-indicator {
-        position: relative;
-        display: inline-block;
-        width: 28px;
-        height: 12px;
-        margin: 4px 9px 0 1px;
-        border-radius: 50%;
-        background-color: $verification-result-warning-dark;
-
-        .loading-spinner {
-            position: absolute;
-            width: 100%;
-        }
-    }
-
     .detail-header {
         display: flex;
         flex-direction: row;
@@ -48,11 +33,6 @@
                 padding-left: 4px;
                 border-radius: 4px;
                 outline: none;
-
-                .loading-spinner {
-                    height: 15px;
-                    width: auto;
-                }
 
                 span {
                     font-size: 12px;
@@ -91,13 +71,6 @@
                     padding-bottom: 0;
                 }
 
-                .loading-spinner {
-                    position: absolute;
-                    width: 12px;
-                    top: 4px;
-                    left: 1px;
-                }
-
                 .md-icon {
                     display: inline-block;
                     flex: 14px 0 0;
@@ -120,15 +93,15 @@
                 &.blockchain,
                 &.document-valid,
                 &.verified-issuer,
-                &.verified-signer {
+                &.verified-signer,
+                &.in-progress {
                     .md-icon {
                         color: $verification-result-success-dark;
                     }
                 }
 
                 &.unverified-issuer,
-                &.unverified-signer,
-                &.in-progress {
+                &.unverified-signer {
                     .md-icon {
                         color: $verification-result-warning-dark;
                     }

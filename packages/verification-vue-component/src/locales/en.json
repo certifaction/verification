@@ -93,8 +93,8 @@
                     },
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>"
+                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.<br>This may take up to 24 hours. You do not need to wait for this to finish. The document is already valid and can be used immediately.</span>",
+                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.<br>This may take up to 24 hours. You do not need to wait for this to finish.</span>"
                         },
                         "processed": "Secured by blockchain"
                     },
@@ -123,9 +123,9 @@
                     "tamperProof": "Tamper-proof",
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.</span>",
-                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.</span>",
-                            "signature": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.</span>"
+                            "registration": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be anchored on the Ethereum blockchain. This ensures the highest level of security.<br>This may take up to 24 hours. You do not need to wait for this to finish. The document is already valid and can be used immediately.</span>",
+                            "revocation": "Registering on the blockchain<span class=\"detail-footnote\">This document is currently in the queue to be revoked on the Ethereum blockchain.<br>This may take up to 24 hours. You do not need to wait for this to finish.</span>",
+                            "signature": "Anchoring signature(s)<span class=\"detail-footnote\">One of the received signatures is currently in the queue to be registered on the Ethereum blockchain. This ensures the highest level of security.<br>This may take up to 24 hours. You do not need to wait for this to finish. The signature is already valid and can be used immediately.</span>"
                         },
                         "processed": "Secured by blockchain"
                     },
