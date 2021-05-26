@@ -93,8 +93,8 @@
                     },
                     "blockchain": {
                         "inProgress": {
-                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.</span>"
+                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.<br>Cela peut prendre jusqu'à 24 heures. Vous n'avez pas besoin d'attendre la fin de cette procédure. Le document est déjà valide et peut être utilisé immédiatement.</span>",
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.<br>Ceci peut prendre jusqu'à 24 heures. Il n'est pas nécessaire d'attendre la fin de cette procédure.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
                     },
@@ -123,9 +123,9 @@
                     "tamperProof": "Authenticité certifiée",
                     "blockchain": {
                         "inProgress": {
-                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>",
-                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.</span>",
-                            "signature": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.</span>"
+                            "registration": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité.<br>Cela peut prendre jusqu'à 24 heures. Vous n'avez pas besoin d'attendre la fin de cette procédure. Le document est déjà valide et peut être utilisé immédiatement.</span>",
+                            "revocation": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en train d'être révoqué sur la blockchain Ethereum.<br>Ceci peut prendre jusqu'à 24 heures. Il n'est pas nécessaire d'attendre la fin de cette procédure.</span>",
+                            "signature": "En cours d'enregistrement sur la blockchain<span class=\"detail-footnote\">Ce document est en cours d'enregistrement sur la blockchain Ethereum. Ceci permettra le plus haut niveau de sécurité..<br>Cela peut prendre jusqu'à 24 heures. Vous n'avez pas besoin d'attendre la fin de cette procédure. Le document est déjà valide et peut être utilisé immédiatement.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
                     },

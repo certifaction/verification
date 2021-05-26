@@ -9,10 +9,6 @@
             </div>
             <div v-if="showDropdownToggler" class="header-action">
                 <button type="button" class="btn-link advanced-toggler">
-                    <img v-if="documentRegistrationInProgress || documentRevocationInProgress || signaturesInProgress > 0"
-                         src="../../../assets/img/loading_spinner.svg"
-                         class="loading-spinner"
-                         alt="Spinner"/>
                     <span>{{ _$t('verification.result.meta.details') }}</span>
                     <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
                 </button>
@@ -25,12 +21,7 @@
                         :key="index"
                         class="detail"
                         :class="[item.class, { 'in-progress': item.inProgress }]">
-                        <template v-if="item.inProgress">
-                            <MDIcon class="in-progress" :icon="mdiCircle"/>
-                            <img src="../../../assets/img/loading_spinner.svg"
-                                 class="loading-spinner"
-                                 alt="Spinner"/>
-                        </template>
+                        <MDIcon v-if="item.inProgress" class="in-progress" :icon="mdiCircleSlice7"/>
                         <MDIcon v-else :icon="getDetailIcon(item.icon)"/>
                         <span v-html="item.label"/>
                     </li>
@@ -46,7 +37,7 @@ import {
     mdiCheckCircle,
     mdiChevronDown,
     mdiChevronUp,
-    mdiCircle,
+    mdiCircleSlice7,
     mdiCloseCircle,
     mdiShieldCheck
 } from '@mdi/js'
@@ -119,7 +110,7 @@ export default {
             mdiShieldCheck,
             mdiChevronUp,
             mdiChevronDown,
-            mdiCircle,
+            mdiCircleSlice7,
             headerSuccessShield,
             headerWarningShield,
             headerErrorShield,
