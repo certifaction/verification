@@ -93,8 +93,8 @@
                     },
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
-                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.</span>"
+                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.<br>Potrebbero volerci fino a 24 ore. Non c'è bisogno di attendere finchè finisce. Il documento è già valido e può essere utilizzato immediatamente.</span>",
+                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.<br>Potrebbero volerci fino a 24 ore. Non c'è bisogno di attendere finchè finisce.</span>"
                         },
                         "processed": "Protetto dalla blockchain"
                     },
@@ -123,9 +123,9 @@
                     "tamperProof": "Autenticità certificata",
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.</span>",
-                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.</span>",
-                            "signature": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.</span>"
+                            "registration": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è in fase di registrazione su Ethereum blockchain. Questo permetterà il massimo livello di sicurezza.<br>Potrebbero volerci fino a 24 ore. Non c'è bisogno di attendere finchè finisce. Il documento è già valido e può essere utilizzato immediatamente.</span>",
+                            "revocation": "Registrazione sulla blockchain<span class=\"detail-footnote\">Questo documento è momentaneamente in coda e sta per essere revocato su Ethereum blockchain.<br>Potrebbero volerci fino a 24 ore. Non c'è bisogno di attendere finchè finisce.</span>",
+                            "signature": "In finalizzazione...<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in coda su Ethereum Blockchain. Questo passaggio assicurerà il massimo livello di sicurezza.<br>Potrebbero volerci fino a 24 ore. Non c'è bisogno di attendere finchè finisce. La firma è già valida e può essere utilizzato immediatamente.</span>"
                         },
                         "processed": "Protetto dalla blockchain"
                     },
