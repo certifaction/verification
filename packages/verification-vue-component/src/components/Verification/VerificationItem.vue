@@ -3,7 +3,7 @@
          :class="{ 'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error }">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
-                <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                <img src="../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
             </div>
 
             <ShadowCard v-if="isLoading"/>
@@ -70,17 +70,17 @@
 
 <script>
 import PDFViewer from '@certifaction/vue-pdf-viewer'
-import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
-import ShadowCard from './cards/ShadowCard.vue'
-import NotFoundCard from './cards/NotFoundCard.vue'
-import TechnicalProblemCard from './cards/TechnicalProblemCard.vue'
-import SupportCard from './cards/SupportCard.vue'
-import ContactCard from './cards/ContactCard.vue'
-import CertifyingCard from './cards/CertifyingCard.vue'
-import SigningCard from './cards/SigningCard.vue'
-import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
-import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
-import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
+import i18nWrapperMixin from '../../mixins/i18n-wrapper'
+import ShadowCard from './item/cards/ShadowCard.vue'
+import NotFoundCard from './item/cards/NotFoundCard.vue'
+import TechnicalProblemCard from './item/cards/TechnicalProblemCard.vue'
+import SupportCard from './item/cards/SupportCard.vue'
+import ContactCard from './item/cards/ContactCard.vue'
+import CertifyingCard from './item/cards/CertifyingCard.vue'
+import SigningCard from './item/cards/SigningCard.vue'
+import FileConfirmationCard from './item/cards/DigitalTwin/FileConfirmationCard.vue'
+import FileDeclinedCard from './item/cards/DigitalTwin/FileDeclinedCard.vue'
+import FileErrorCard from './item/cards/DigitalTwin/FileErrorCard.vue'
 
 export default {
     name: 'VerificationItem',

@@ -177,7 +177,7 @@ export default {
             if (signEvents.length > 1) {
                 signEvents.sort((a, b) => {
                     const aDate = (a.date) ? new Date(a.date) : null
-                    const bDate = (b.data) ? new Date(b.date) : null
+                    const bDate = (b.date) ? new Date(b.date) : null
 
                     if (aDate < bDate) {
                         return -1

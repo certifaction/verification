@@ -49,7 +49,7 @@ import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
-import VerificationItem from './Verification/items/VerificationItem.vue'
+import VerificationItem from './Verification/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
 import axios from 'axios'
 
