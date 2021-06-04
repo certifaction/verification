@@ -50,7 +50,7 @@
 
             <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
                 <div class="actions navigate">
-                    <button class="btn btn-light" @click="digitalTwinRecheck">
+                    <button class="btn btn-secondary" @click="digitalTwinRecheck">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
                     <a :href="digitalTwinInformation.fileUrl"
@@ -112,6 +112,32 @@ export default {
         digitalTwinInformation: {
             type: Object,
             required: false
+        }
+    },
+    provide: {
+        isBeforeDetailedVerifiedMigration(event) {
+            const eventDate = new Date(event.date)
+            if (!(eventDate instanceof Date) || isNaN(eventDate)) {
+                return false
+            }
+            const migrationDate = new Date('2021-04-22')
+            return (eventDate < migrationDate)
+        },
+        issuerDisplayName(event) {
+            if (event.issuer.name && this.isBeforeDetailedVerifiedMigration(event)) {
+                return event.issuer.name
+            }
+
+            if (event.issuer.name_verified === true) {
+                return event.issuer.name
+            }
+            if (event.issuer.email_verified === true) {
+                return event.issuer.email
+            }
+            if (event.issuer.email) {
+                return event.issuer.email
+            }
+            return event.issuer.name
         }
     },
     inject: ['pdfjsWorkerSrc', 'pdfjsCMapUrl'],
@@ -182,26 +208,6 @@ export default {
             this.digitalTwin.fileApproved = false
             this.showSupport = false
             this.showContact = false
-        },
-        issuerDisplayName(event) {
-            const eventDate = new Date(event.date)
-            if (eventDate instanceof Date && !isNaN(eventDate)) {
-                const migrationDate = new Date('2021-04-22')
-                if (eventDate < migrationDate && event.issuer.name) {
-                    return event.issuer.name
-                }
-            }
-
-            if (event.issuer.name_verified === true) {
-                return event.issuer.name
-            }
-            if (event.issuer.email_verified === true) {
-                return event.issuer.email
-            }
-            if (event.issuer.email) {
-                return event.issuer.email
-            }
-            return event.issuer.name
         }
     }
 }

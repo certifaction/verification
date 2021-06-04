@@ -61,10 +61,11 @@
                 "contract": "Contratto",
                 "issuer": "Emittente",
                 "signature": "Firma | Firme",
-                "issuerVerifiedBy": "Emittente verificato da",
+                "verifiedBy": "Verificato da",
+                "signedAt": "Signed at",
                 "signedVia": "Firmato tramite",
                 "issuerAddress": "Chiave pubblica dell'emittente",
-                "fingerprint": "Impronta numerica del documento",
+                "documentHash": "Impronta numerica del documento",
                 "registrationDate": "Data e ora di emissione",
                 "registrationTransaction": "Transazione di emissione",
                 "revocationTransaction": "Transazione di annullamento",
@@ -72,15 +73,18 @@
                 "smartContractAddress": "Indirizzo del Smart Contract",
                 "signatureTransactions": "Transazioni di firma",
                 "details": "Dettagli",
-                "initiator": "Iniziatore"
+                "initiator": "Iniziatore",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Phone",
+                "company": "Company"
             },
             "certifying": {
                 "revoked": {
                     "status": "Questo documento è stato revocato."
                 },
                 "unverifiedIssuer": {
-                    "status": "Questo documento è stato registrato da un emittente non verificato",
-                    "issuerFootnote": "Identità non confermata"
+                    "status": "Questo documento è stato registrato da un emittente non verificato"
                 },
                 "verifiedIssuer": {
                     "status": "Il presente documento è autentico e proviene da un emittente verificato."

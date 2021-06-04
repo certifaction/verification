@@ -61,10 +61,11 @@
                 "contract": "Contract",
                 "issuer": "Aussteller",
                 "signature": "Unterzeichner | Unterzeichner",
-                "issuerVerifiedBy": "Aussteller verifiziert durch",
+                "verifiedBy": "Verifiziert durch",
+                "signedAt": "Signed at",
                 "signedVia": "Unterzeichnet über",
                 "issuerAddress": "Public Key des Ausstellers",
-                "fingerprint": "Dokumenten-Hash",
+                "documentHash": "Dokumenten-Hash",
                 "registrationDate": "Ausstelldatum & -Zeit",
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
@@ -72,15 +73,18 @@
                 "smartContractAddress": "Smart Contract-Adresse",
                 "signatureTransactions": "Unterzeichnungstranskationen",
                 "details": "Details",
-                "initiator": "Initiator"
+                "initiator": "Initiator",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Phone",
+                "company": "Company"
             },
             "certifying": {
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedIssuer": {
-                    "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
-                    "issuerFootnote": "Identität nicht bestätigt"
+                    "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert."
                 },
                 "verifiedIssuer": {
                     "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller."

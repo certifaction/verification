@@ -10,29 +10,29 @@
         </template>
         <template v-if="showExpertInfo" #body>
             <div class="verification-info expert">
-                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
-                    <div class="label">{{ _$t('verification.result.meta.fingerprint') }}</div>
+                <div v-if="verificationItem.hash" class="section document-hash">
+                    <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
                     <div class="value">
                         <span>{{ verificationItem.hash }}</span>
                     </div>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id"
-                     class="verification-entry issuer-address">
-                    <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
-                    <div class="value">
-                        <span>{{ registerEvents[0].issuer.id }}</span>
-                    </div>
-                </div>
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
-                     class="verification-entry smart-contract-address">
+                     class="section smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
                     <div class="value">
                         <a :href="`https://${net}/address/${registerEvents[0].on_blockchain.contract_address}`"
                            target="_blank">{{ registerEvents[0].on_blockchain.contract_address }}</a>
                     </div>
                 </div>
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id"
+                     class="section issuer-address">
+                    <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
+                    <div class="value">
+                        <span>{{ registerEvents[0].issuer.id }}</span>
+                    </div>
+                </div>
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
-                     class="verification-entry registration-hash">
+                     class="section registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
                     <div class="value">
                         <a :href="`https://${net}/tx/${registerEvents[0].on_blockchain.tx_hash}`"
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain"
-                     class="verification-entry revocation-hash">
+                     class="section revocation-hash">
                     <div class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</div>
                     <div class="value">
                         <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
@@ -57,41 +57,29 @@
                           :document-revoked="revokeEvents.length > 0"
                           :document-revocation-in-progress="revocationInProgress"
                           :document-revocation-date="revocationDate"/>
+
             <div class="verification-info">
-                <div v-if="registerEvents.length > 0" class="verification-entry issuer">
-                    <div class="label">{{ _$t('verification.result.meta.issuer') }}</div>
-                    <div class="value">
-                        <span>{{ $parent.issuerDisplayName(registerEvents[0]) }}</span>
-                    </div>
-                    <div v-if="registerEvents.length > 0 && !registerEvents[0].issuer.verified"
-                         class="footnote warning">
-                        <MDIcon :icon="mdiAlertCircle"/>
-                        <span>{{ _$t('verification.result.certifying.unverifiedIssuer.issuerFootnote') }}</span>
-                    </div>
+                <div v-if="registerEvents.length > 0" class="section issuer">
+                    <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
+
+                    <DataEntry :icon-src="(registerEvents[0].scope !== 'certify') ? iconUser : null"
+                               :md-icon="(registerEvents[0].scope === 'certify') ? mdiDomain : null"
+                               :title="issuerDisplayName(registerEvents[0])"
+                               :event="registerEvents[0]"/>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.verified_by"
-                     class="verification-entry verifier">
-                    <div class="verifier-name">
-                        <div class="label">{{ _$t('verification.result.meta.issuerVerifiedBy') }}</div>
-                        <div v-if="registerEvents[0].issuer.verified_by.image" class="verifier-image">
-                            <!-- Workaround because old verification tool should still use the old switch logo but the redesign should use a new switch logo, needs to be removed when event structure is final -->
-                            <img :src="(registerEvents[0].issuer.verified_by.image).split('.png')[0] + '_redesign.png'"
-                                 alt=""/>
-                        </div>
-                        <div v-else class="value">
-                            <span>{{ registerEvents[0].issuer.verified_by.name }}</span>
-                        </div>
-                    </div>
-                </div>
+
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain && registerEvents[0].date"
-                     class="verification-entry registration-date">
-                    <div class="label">{{ _$t('verification.result.meta.registrationDate') }}</div>
-                    <div class="value">{{ _$d(new Date(registerEvents[0].date), 'long') }}</div>
+                     class="section registration-date">
+                    <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
+                    <DataEntry :md-icon="mdiCalendarClock"
+                               :title="_$d(new Date(registerEvents[0].date), 'long')"/>
                 </div>
+
                 <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain && revocationDate"
-                     class="verification-entry revocation-date">
-                    <div class="label">{{ _$t('verification.result.meta.revocationDate') }}</div>
-                    <div class="value">{{ revocationDate }}</div>
+                     class="section revocation-date">
+                    <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
+                    <DataEntry :md-icon="mdiClose"
+                               :title="revocationDate"/>
                 </div>
             </div>
         </template>
@@ -114,11 +102,14 @@
 </template>
 
 <script>
+import { mdiAlertCircle, mdiCalendarClock, mdiClose, mdiDomain, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
 import MDIcon from '../../../MDIcon.vue'
+import DataEntry from '../DataEntry.vue'
+
+import iconUser from '../../../../assets/img/icon_user.svg'
 
 export default {
     name: 'CertifyingCard',
@@ -126,13 +117,19 @@ export default {
     components: {
         BaseCard,
         ResultDetail,
-        MDIcon
+        MDIcon,
+        DataEntry
     },
+    inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {
         return {
-            mdiShieldCheck,
-            mdiFileDocument,
             mdiAlertCircle,
+            mdiCalendarClock,
+            mdiClose,
+            mdiDomain,
+            mdiFileDocument,
+            mdiShieldCheck,
+            iconUser,
             showExpertInfo: false
         }
     },

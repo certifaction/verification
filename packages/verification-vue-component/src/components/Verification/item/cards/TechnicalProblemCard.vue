@@ -11,11 +11,11 @@
         <template #body>
             <ResultDetail verification-mode="error" :has-technical-problem="true"/>
             <div class="verification-info">
-                <div class="verification-entry error">
+                <div class="section error">
                     <p v-html="_$t(`verification.result.error.technicalProblem.details`)"/>
                 </div>
-                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
-                    <div class="label">{{ _$t('verification.result.meta.fingerprint') }}</div>
+                <div v-if="verificationItem.hash" class="section document-hash">
+                    <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
                     <div class="value">
                         <span class="hash">{{ verificationItem.hash }}</span>
                     </div>

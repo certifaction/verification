@@ -1,6 +1,7 @@
 .item-container {
-    padding-top: 1.5rem;
     margin: 0 0.75rem;
+    padding-top: 1.5rem;
+    color: $verification-dark-blue;
 }
 
 .base-card {
@@ -28,7 +29,7 @@
             padding-right: 5px;
 
             .md-icon {
-                color: $verification-card-text-grey;
+                color: $verification-dark-blue-50;
                 height: 16px;
                 width: 16px;
             }
@@ -38,7 +39,7 @@
             width: calc(100% - 26px);
 
             .filename {
-                color: $verification-card-text-grey;
+                color: $verification-dark-blue-50;
                 font-size: $font-size-medium;
                 line-height: $line-height;
                 overflow-wrap: break-word;
@@ -50,124 +51,194 @@
         flex-grow: 1;
 
         .verification-info {
-            .verification-entry {
-                background-color: $white;
-                padding: 12px;
+            .label {
+                display: inline-block;
+                color: $verification-dark-blue-60;
+                font-size: $font-size-small;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .section {
+                > .label {
+                    margin-bottom: 0.5rem;
+                }
+
+                + .section {
+                    margin-top: 1rem;
+                }
+            }
+
+            .data-entry {
+                box-shadow: 0 1px 2px rgba(#001384, 0.08);
+                border: 1px solid $gray-100;
                 border-radius: 8px;
+                padding-bottom: 9px;
 
-                .label {
-                    color: rgba(#14213d, 50%);
-                    font-size: 13px;
-                    line-height: 1.5em;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                }
+                .header {
+                    position: relative;
+                    cursor: pointer;
+                    padding: 17px 40px 8px 46px;
 
-                .value {
-                    overflow-wrap: break-word;
-                }
+                    .icon {
+                        display: block;
+                        position: absolute;
+                        top: 17px;
+                        left: 12px;
+                        width: 26px;
+                        height: 26px;
+                        border-radius: 50%;
+                        background-color: $verification-light-blue;
+                        color: $verification-blue;
 
-                .footnote {
-                    display: flex;
-                    align-items: center;
-                    color: rgba(#14213d, 50%);
-
-                    svg {
-                        height: 12px;
-                        width: 12px;
-                        margin-right: 4px;
+                        > img,
+                        > .md-icon {
+                            display: block;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            margin: auto;
+                            width: 20px;
+                            height: auto;
+                        }
                     }
 
-                    span {
-                        font-size: 14px;
+                    .title {
+                        overflow-wrap: break-word;
+                        margin-top: 1px;
                     }
 
-                    &.warning {
-                        margin-left: 0;
+                    .collapse-indicator {
+                        position: absolute;
+                        top: 22px;
+                        right: 16px;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 4px;
+                        background-color: $gray-200;
+                        color: $verification-dark-blue;
 
-                        span,
-                        svg {
-                            display: inline-block;
-                            color: #f29e18;
+                        .md-icon {
+                            width: 16px;
+                            height: 16px;
                         }
                     }
                 }
 
-                .signature-hash {
-                    padding-top: 10px;
-
-                    &:first-child {
-                        padding-top: 0;
-                    }
-                }
-
-                .verifier-image {
-                    flex: 1 1 auto;
+                .details {
                     overflow: hidden;
-                    margin-top: 5px;
-                    height: 25px;
+                    padding-right: 16px;
+                    padding-left: 16px;
+                    font-size: $font-size-medium;
 
-                    img {
-                        display: block;
-                        width: auto;
-                        max-width: 100%;
-                        height: 100%;
+                    &.collapse-enter-active,
+                    &.collapse-leave-active {
+                        transition: height 0.15s ease-in-out;
                     }
                 }
 
-                .signature-list {
-                    margin: 0;
-                    padding: 0;
+                .event-data {
+                    .data-row {
+                        //display: flex;
+                        //align-items: baseline;
+                        position: relative;
+                        max-width: 100%;
+                        padding: 4px 0 4px 30px;
 
-                    .signature {
-                        display: flex;
-                        list-style-type: none;
-                        padding-top: 8px;
-
-                        .icon {
-                            display: inline-block;
-                            position: relative;
-                            width: 26px;
-                            height: 26px;
+                        .verified,
+                        .unverified {
+                            position: absolute;
+                            //top: 6px;
+                            top: 10px;
+                            left: 0;
+                            width: 16px;
+                            height: 16px;
                             border-radius: 50%;
-                            background-color: #c4ddff;
+                            color: white;
 
-                            > img {
-                                display: block;
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
-                                margin: auto;
-                                width: 20px;
-                                height: 20px;
+                            .md-icon {
+                                margin: 2px;
+                                width: 12px;
+                                height: 12px;
                             }
                         }
 
-                        .value > span {
-                            display: inline-block;
+                        .verified {
+                            background-color: $verification-result-success-dark;
                         }
 
-                        .left {
-                            margin-right: 10px;
+                        .unverified {
+                            border: 1px solid $gray-700;
+
+                            .md-icon {
+                                display: none;
+                            }
+                        }
+
+                        .label {
+                            //flex: 0 0 auto;
+                            //width: 90px;
+                            display: block;
+                            margin-bottom: -2px;
+                            font-size: 0.625rem;
+                        }
+
+                        .value {
+                            //flex: 1 1 auto;
+                            overflow-wrap: break-word;
+                            //min-width: 100px;
+                            color: $verification-dark-blue-80;
+                            font-size: $font-size-medium;
+
+                            img {
+                                display: inline-block;
+                                width: auto;
+                                height: 16px;
+                                vertical-align: text-bottom;
+                            }
                         }
                     }
                 }
 
-                + .verification-entry {
-                    margin-top: 5px;
+                + .data-entry {
+                    margin-top: 0.5rem;
                 }
 
-                &:nth-child(2n),
-                &.initiator {
-                    background-color: #f7f9fc;
+                &.no-details {
+                    .header {
+                        cursor: auto;
+                    }
+                }
+
+                &.collapsed {
+                    .header {
+                        .collapse-indicator {
+                            .md-icon {
+                                transform: rotate(180deg);
+                            }
+                        }
+                    }
                 }
             }
 
             &.expert {
+                padding: 12px 6px;
+
+                .label {
+                    margin-bottom: 0;
+                }
+
                 .value {
-                    font-size: 14px;
+                    font-size: $font-size-medium;
+                    overflow-wrap: break-word;
+                }
+
+                .signature-hash {
+                    + .signature-hash {
+                        margin-top: 0.25rem;
+                    }
                 }
             }
         }

@@ -30,7 +30,7 @@
                 width: 100%;
                 padding: 5px;
                 background: $white;
-                border: 1px solid #E5E5E5;
+                border: 1px solid #e5e5e5;
                 box-sizing: border-box;
                 border-radius: 4px;
 
@@ -60,12 +60,12 @@
                         background-color: rgba(#00BF86, 0.25);
 
                         &:before {
-                            background-color: #00BF86;
+                            background-color: #00bf86;
                         }
                     }
 
                     &:focus + .slider {
-                        box-shadow: 0 0 1px #2196F3;
+                        box-shadow: 0 0 1px #2196f3;
                     }
 
                     &:checked + .slider:before {
@@ -149,7 +149,6 @@
                     font-size: $font-size-medium;
 
                     .chevron {
-                        transition: transform 0.1s linear;
                         position: absolute;
                         top: 0.5rem;
                         right: 0.5rem;
@@ -165,7 +164,7 @@
 
                     &.collapse-enter-active,
                     &.collapse-leave-active {
-                        transition: height 0.3s ease-in-out;
+                        transition: height 0.15s ease-in-out;
                         overflow: hidden;
                     }
                 }

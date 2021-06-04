@@ -1,8 +1,6 @@
 .verification-dropbox,
 .verification-file-selector {
-    border-width: $verification-dropbox-border-width;
-    border-style: $verification-dropbox-border-style;
-    border-color: $verification-blue;
+    border: 2px dashed $verification-blue;
 
     .content {
         display: flex;
@@ -17,11 +15,11 @@
 
             .title {
                 padding-top: 0;
-                color: $verification-dropbox-title-color;
+                color: $gray-700;
             }
 
             .subtitle {
-                color: $verification-dropbox-subtitle-color;
+                color: $gray-500;
             }
         }
     }

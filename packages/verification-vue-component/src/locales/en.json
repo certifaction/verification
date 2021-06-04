@@ -61,10 +61,12 @@
                 "contract": "Contract",
                 "issuer": "Issuer",
                 "signature": "Signature | Signatures",
-                "issuerVerifiedBy": "Issuer verified by",
+                "signatureType": "Signature type",
+                "verifiedBy": "Verified by",
+                "signedAt": "Signed at",
                 "signedVia": "Signed via",
                 "issuerAddress": "Issuer Public Key",
-                "fingerprint": "Document Hash",
+                "documentHash": "Document Hash",
                 "registrationDate": "Issue Date & Time",
                 "registrationTransaction": "Registration Transaction",
                 "revocationTransaction": "Revocation Transaction",
@@ -72,15 +74,18 @@
                 "smartContractAddress": "Smart Contract Address",
                 "signatureTransactions": "Signature transactions",
                 "details": "Details",
-                "initiator": "Initiator"
+                "initiator": "Initiator",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Phone",
+                "company": "Company"
             },
             "certifying": {
                 "revoked": {
                     "status": "This document has been revoked."
                 },
                 "unverifiedIssuer": {
-                    "status": "This document has been registered by an unverified issuer.",
-                    "issuerFootnote": "Identity not confirmed"
+                    "status": "This document has been registered by an unverified issuer."
                 },
                 "verifiedIssuer": {
                     "status": "This document is authentic and from a verified issuer."
