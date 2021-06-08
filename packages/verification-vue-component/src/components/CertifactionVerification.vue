@@ -343,6 +343,18 @@ export default {
                                     newEvent.issuer = issuer
                                 }
 
+                                if (offchainEvent.signature) {
+                                    const signature = { ...event.signature }
+                                    if (!signature.level && offchainEvent.signature.level) {
+                                        signature.level = offchainEvent.signature.level
+                                    }
+                                    if (!signature.jurisdiction && offchainEvent.signature.jurisdiction) {
+                                        signature.jurisdiction = offchainEvent.signature.jurisdiction
+                                    }
+
+                                    newEvent.signature = signature
+                                }
+
                                 mergedEvents.push(offchainEvent.ref)
 
                                 return newEvent
