@@ -79,6 +79,18 @@
                 "phone": "Phone",
                 "company": "Company"
             },
+            "signature": {
+                "level": {
+                    "AES": {
+                        "title": "Blockchain eSignature",
+                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                    },
+                    "QES": {
+                        "title": "Blockchain eSignature + Qualified Electronic Signature (CH)",
+                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                    }
+                }
+            },
             "certifying": {
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen."

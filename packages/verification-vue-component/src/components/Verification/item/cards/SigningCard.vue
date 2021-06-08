@@ -83,12 +83,11 @@
                     </div>
                 </div>
 
-                <div class="section signature-type">
+                <div v-if="signatureType" class="section signature-type">
                     <span class="label">{{ _$t('verification.result.meta.signatureType') }}</span>
 
-                    <DataEntry :icon-src="iconFingerprint" title="Blockchain eSignature">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-                        ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                    <DataEntry :icon-src="iconFingerprint" :title="signatureType.title">
+                        {{ signatureType.description }}
                     </DataEntry>
                 </div>
 
@@ -211,6 +210,28 @@ export default {
         },
         hasVerifiedSigner() {
             return this.signEvents.filter(event => !!event.issuer.verified).length > 0
+        },
+        signatureType() {
+            if (this.signEvents.length === 0) {
+                return null
+            }
+            if (!this.signEvents[0].signature) {
+                return null
+            }
+
+            const event = this.signEvents[0]
+            const level = event.signature.level
+            const signatureType = {
+                level,
+                title: this._$t(`verification.result.signature.level.${level}.title`),
+                description: this._$t(`verification.result.signature.level.${level}.description`)
+            }
+
+            if (event.signature.jurisdiction) {
+                signatureType.jurisdiction = event.signature.jurisdiction
+            }
+
+            return signatureType
         },
         initiator() {
             if (this.registerEvents.length > 0) {
