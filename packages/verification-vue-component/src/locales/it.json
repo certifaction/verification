@@ -128,12 +128,10 @@
                     "status": "Questo documento è stato revocato."
                 },
                 "unverifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente.",
-                    "signerFootnote": "Firmato il {signingDate}"
+                    "status": "Questo documento è autentico e firmato digitalmente."
                 },
                 "verifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente.",
-                    "signerFootnote": "Firmato il {signingDate}"
+                    "status": "Questo documento è autentico e firmato digitalmente."
                 },
                 "resultDetails": {
                     "tamperProof": "Autenticità certificata",

@@ -129,12 +129,10 @@
                     "status": "This document has been revoked."
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed.",
-                    "signerFootnote": "Signed {signingDate}"
+                    "status": "This document is authentic and digitally signed."
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed.",
-                    "signerFootnote": "Signed {signingDate}"
+                    "status": "This document is authentic and digitally signed."
                 },
                 "resultDetails": {
                     "tamperProof": "Tamper-proof",

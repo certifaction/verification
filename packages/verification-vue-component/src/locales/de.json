@@ -128,12 +128,10 @@
                     "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
-                    "signerFootnote": "Unterzeichnet am {signingDate}"
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet."
                 },
                 "verifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
-                    "signerFootnote": "Unterzeichnet am {signingDate}"
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet."
                 },
                 "resultDetails": {
                     "tamperProof": "Fälschungssicher",

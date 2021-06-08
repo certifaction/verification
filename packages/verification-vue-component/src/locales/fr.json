@@ -128,12 +128,10 @@
                     "status": "Ce document a été révoqué."
                 },
                 "unverifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement.",
-                    "signerFootnote": "Signé le {signingDate}"
+                    "status": "Ce document est authentique et signé électroniquement."
                 },
                 "verifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement.",
-                    "signerFootnote": "Signé le {signingDate}"
+                    "status": "Ce document est authentique et signé électroniquement."
                 },
                 "resultDetails": {
                     "tamperProof": "Authenticité certifiée",
