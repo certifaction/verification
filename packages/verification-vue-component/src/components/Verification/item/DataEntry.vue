@@ -15,35 +15,18 @@
                     @after-enter="onAfterEnterTransition"
                     @leave="onLeaveTransition">
             <div v-if="hasDetails && !collapsed" class="details">
-                <div v-if="eventDetails" class="event-data">
-                    <div v-for="details in eventDetails" :key="details.label" class="data-row">
-                        <div v-if="details.verifiable" :class="details.verified === true ? 'verified' : 'unverified'">
-                            <MDIcon :icon="mdiCheck"/>
-                        </div>
-                        <div class="label">{{ details.label }}</div>
-                        <div class="value">
-                            <img v-if="details.imageSrc"
-                                 :src="details.imageSrc"
-                                 :alt="details.value"
-                                 :title="details.value"/>
-                            <template v-else>{{ details.value }}</template>
-                        </div>
-                    </div>
-                </div>
-                <slot v-else/>
+                <slot/>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-import { mdiChevronUp, mdiCheck } from '@mdi/js'
-import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
+import { mdiChevronUp } from '@mdi/js'
 import MDIcon from '../../MDIcon.vue'
 
 export default {
     name: 'DataEntry',
-    mixins: [i18nWrapperMixin],
     components: {
         MDIcon
     },
@@ -57,82 +40,17 @@ export default {
         title: {
             type: String,
             required: true
-        },
-        event: {
-            type: Object
         }
     },
-    inject: ['isBeforeDetailedVerifiedMigration'],
     data() {
         return {
             mdiChevronUp,
-            mdiCheck,
             collapsed: true
         }
     },
     computed: {
         hasDetails() {
-            if (this.event) {
-                return true
-            }
-            if (this.$slots.default) {
-                return true
-            }
-            return false
-        },
-        eventDetails() {
-            if (!this.event) {
-                return null
-            }
-
-            const details = []
-
-            if (this.event.issuer.name) {
-                details.push({
-                    label: this._$t('verification.result.meta.name'),
-                    value: this.event.issuer.name,
-                    verifiable: true,
-                    verified: (this.event.issuer.name_verified === true || (this.isBeforeDetailedVerifiedMigration(this.event) && !!this.event.issuer.verified_by))
-                })
-            }
-            if (this.event.scope !== 'certify') {
-                if (this.event.issuer.email) {
-                    details.push({
-                        label: this._$t('verification.result.meta.email'),
-                        value: this.event.issuer.email,
-                        verifiable: true,
-                        verified: (this.event.issuer.email_verified === true)
-                    })
-                }
-                if (this.event.issuer.phone) {
-                    details.push({
-                        label: this._$t('verification.result.meta.phone'),
-                        value: this.event.issuer.phone,
-                        verifiable: true,
-                        verified: (this.event.issuer.phone_verified === true)
-                    })
-                }
-            }
-
-            if (this.event.scope === 'sign' && this.event.date) {
-                details.push({
-                    label: this._$t('verification.result.meta.signedAt'),
-                    value: this._$d(new Date(this.event.date), 'short')
-                })
-            }
-
-            if (this.event.issuer.verified_by) {
-                const verifiedBy = {
-                    label: this._$t('verification.result.meta.' + ((this.event.scope === 'sign') ? 'signedVia' : 'verifiedBy')),
-                    value: this.event.issuer.verified_by.name
-                }
-                if (this.event.issuer.verified_by.image) {
-                    verifiedBy.imageSrc = this.event.issuer.verified_by.image
-                }
-                details.push(verifiedBy)
-            }
-
-            return details
+            return !!this.$slots.default
         }
     },
     methods: {

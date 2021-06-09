@@ -64,8 +64,9 @@
 
                     <DataEntry :icon-src="(registerEvents[0].scope !== 'certify') ? iconUser : null"
                                :md-icon="(registerEvents[0].scope === 'certify') ? mdiDomain : null"
-                               :title="issuerDisplayName(registerEvents[0])"
-                               :event="registerEvents[0]"/>
+                               :title="issuerDisplayName(registerEvents[0])">
+                        <EventDetails :event="registerEvents[0]"/>
+                    </DataEntry>
                 </div>
 
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain && registerEvents[0].date"
@@ -108,6 +109,7 @@ import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
 import DataEntry from '../DataEntry.vue'
+import EventDetails from '../EventDetails.vue'
 
 import iconUser from '../../../../assets/img/icon_user.svg'
 
@@ -118,7 +120,8 @@ export default {
         BaseCard,
         ResultDetail,
         MDIcon,
-        DataEntry
+        DataEntry,
+        EventDetails
     },
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {

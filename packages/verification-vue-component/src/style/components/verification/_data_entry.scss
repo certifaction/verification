@@ -1,0 +1,98 @@
+.data-entry {
+    box-shadow: 0 1px 2px rgba(#001384, 0.08);
+    border: 1px solid $gray-100;
+    border-radius: 8px;
+    padding-bottom: 9px;
+
+    .header {
+        position: relative;
+        cursor: pointer;
+        padding: 17px 40px 8px 46px;
+
+        .icon {
+            display: block;
+            position: absolute;
+            top: 17px;
+            left: 12px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: $verification-light-blue;
+            color: $verification-blue;
+
+            > img,
+            > .md-icon {
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+                width: 20px;
+                height: auto;
+            }
+        }
+
+        .title {
+            overflow-wrap: break-word;
+            margin-top: 1px;
+        }
+
+        .collapse-indicator {
+            position: absolute;
+            top: 22px;
+            right: 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            background-color: $gray-200;
+            color: $verification-dark-blue;
+
+            .md-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    .details {
+        overflow: hidden;
+        padding-right: 16px;
+        padding-left: 16px;
+        font-size: $font-size-medium;
+
+        p {
+            margin: 0;
+
+            + p {
+                margin-top: 1rem;
+            }
+        }
+
+        &.collapse-enter-active,
+        &.collapse-leave-active {
+            transition: height 0.15s ease-in-out;
+        }
+    }
+
+    + .data-entry {
+        margin-top: 0.5rem;
+    }
+
+    &.no-details {
+        .header {
+            cursor: auto;
+        }
+    }
+
+    &.collapsed {
+        .header {
+            .collapse-indicator {
+                .md-icon {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}

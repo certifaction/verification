@@ -78,8 +78,9 @@
                         <DataEntry v-for="(signEvent, index) in signEvents"
                                    :key="index"
                                    :icon-src="iconSignature"
-                                   :title="issuerDisplayName(signEvent)"
-                                   :event="signEvent"/>
+                                   :title="issuerDisplayName(signEvent)">
+                            <EventDetails :event="signEvent"/>
+                        </DataEntry>
                     </div>
                 </div>
 
@@ -87,7 +88,7 @@
                     <span class="label">{{ _$t('verification.result.meta.signatureType') }}</span>
 
                     <DataEntry :icon-src="iconFingerprint" :title="signatureType.title">
-                        {{ signatureType.description }}
+                        <p v-html="signatureType.description"/>
                     </DataEntry>
                 </div>
 
@@ -95,8 +96,9 @@
                     <span class="label">{{ _$t('verification.result.meta.initiator') }}</span>
 
                     <DataEntry :icon-src="iconUser"
-                               :title="issuerDisplayName(initiator)"
-                               :event="initiator"/>
+                               :title="issuerDisplayName(initiator)">
+                        <EventDetails :event="initiator"/>
+                    </DataEntry>
                 </div>
             </div>
         </template>
@@ -125,6 +127,7 @@ import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
 import DataEntry from '../DataEntry.vue'
+import EventDetails from '../EventDetails.vue'
 
 import iconSignature from '../../../../assets/img/icon_signature.svg'
 import iconFingerprint from '../../../../assets/img/icon_fingerprint.svg'
@@ -137,7 +140,8 @@ export default {
         BaseCard,
         ResultDetail,
         MDIcon,
-        DataEntry
+        DataEntry,
+        EventDetails
     },
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {
