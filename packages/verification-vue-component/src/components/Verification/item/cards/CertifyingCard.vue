@@ -62,24 +62,24 @@
                 <div v-if="registerEvents.length > 0" class="section issuer">
                     <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
 
-                    <DataEntry :icon-src="(registerEvents[0].scope !== 'certify') ? iconUser : null"
+                    <DataPanel :icon-src="(registerEvents[0].scope !== 'certify') ? iconUser : null"
                                :md-icon="(registerEvents[0].scope === 'certify') ? mdiDomain : null"
                                :title="issuerDisplayName(registerEvents[0])">
                         <EventDetails :event="registerEvents[0]"/>
-                    </DataEntry>
+                    </DataPanel>
                 </div>
 
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain && registerEvents[0].date"
                      class="section registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
-                    <DataEntry :md-icon="mdiCalendarClock"
+                    <DataPanel :md-icon="mdiCalendarClock"
                                :title="_$d(new Date(registerEvents[0].date), 'long')"/>
                 </div>
 
                 <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain && revocationDate"
                      class="section revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
-                    <DataEntry :md-icon="mdiClose"
+                    <DataPanel :md-icon="mdiClose"
                                :title="revocationDate"/>
                 </div>
             </div>
@@ -108,7 +108,7 @@ import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
-import DataEntry from '../DataEntry.vue'
+import DataPanel from '../DataPanel.vue'
 import EventDetails from '../EventDetails.vue'
 
 import iconUser from '../../../../assets/img/icon_user.svg'
@@ -120,7 +120,7 @@ export default {
         BaseCard,
         ResultDetail,
         MDIcon,
-        DataEntry,
+        DataPanel,
         EventDetails
     },
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],

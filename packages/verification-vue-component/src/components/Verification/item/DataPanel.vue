@@ -1,12 +1,13 @@
 <template>
-    <div class="data-entry" :class="{ collapsed: hasDetails && collapsed, 'no-details': !hasDetails }">
+    <div class="data-panel"
+         :class="{ collapsed: hasContent && collapsed, 'has-icon': iconSrc || mdIcon, 'has-content': hasContent }">
         <div class="header" @click="onClickHeader">
             <div v-if="iconSrc || mdIcon" class="icon">
                 <img v-if="iconSrc" :src="iconSrc" class="icon" alt="Icon"/>
                 <MDIcon v-if="mdIcon" :icon="mdIcon"/>
             </div>
             <div class="title" v-html="title"/>
-            <div v-if="hasDetails" class="collapse-indicator">
+            <div v-if="hasContent" class="collapse-indicator">
                 <MDIcon :icon="mdiChevronUp"/>
             </div>
         </div>
@@ -14,7 +15,7 @@
                     @enter="onEnterTransition"
                     @after-enter="onAfterEnterTransition"
                     @leave="onLeaveTransition">
-            <div v-if="hasDetails && !collapsed" class="details">
+            <div v-if="hasContent && !collapsed" class="content">
                 <slot/>
             </div>
         </transition>
@@ -26,7 +27,7 @@ import { mdiChevronUp } from '@mdi/js'
 import MDIcon from '../../MDIcon.vue'
 
 export default {
-    name: 'DataEntry',
+    name: 'DataPanel',
     components: {
         MDIcon
     },
@@ -49,13 +50,13 @@ export default {
         }
     },
     computed: {
-        hasDetails() {
+        hasContent() {
             return !!this.$slots.default
         }
     },
     methods: {
         onClickHeader() {
-            if (this.hasDetails) {
+            if (this.hasContent) {
                 this.collapsed = !this.collapsed
             }
         },

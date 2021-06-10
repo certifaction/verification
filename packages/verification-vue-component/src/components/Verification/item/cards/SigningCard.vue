@@ -75,30 +75,30 @@
                     <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
 
                     <div class="signature-list">
-                        <DataEntry v-for="(signEvent, index) in signEvents"
+                        <DataPanel v-for="(signEvent, index) in signEvents"
                                    :key="index"
                                    :icon-src="iconSignature"
                                    :title="issuerDisplayName(signEvent)">
                             <EventDetails :event="signEvent"/>
-                        </DataEntry>
+                        </DataPanel>
                     </div>
                 </div>
 
                 <div v-if="signatureType" class="section signature-type">
                     <span class="label">{{ _$t('verification.result.meta.signatureType') }}</span>
 
-                    <DataEntry :icon-src="iconFingerprint" :title="signatureType.title">
+                    <DataPanel :icon-src="iconFingerprint" :title="signatureType.title">
                         <p v-html="signatureType.description"/>
-                    </DataEntry>
+                    </DataPanel>
                 </div>
 
                 <div v-if="initiator" class="section initiator">
                     <span class="label">{{ _$t('verification.result.meta.initiator') }}</span>
 
-                    <DataEntry :icon-src="iconUser"
+                    <DataPanel :icon-src="iconUser"
                                :title="issuerDisplayName(initiator)">
                         <EventDetails :event="initiator"/>
-                    </DataEntry>
+                    </DataPanel>
                 </div>
             </div>
         </template>
@@ -126,7 +126,7 @@ import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
-import DataEntry from '../DataEntry.vue'
+import DataPanel from '../DataPanel.vue'
 import EventDetails from '../EventDetails.vue'
 
 import iconSignature from '../../../../assets/img/icon_signature.svg'
@@ -140,7 +140,7 @@ export default {
         BaseCard,
         ResultDetail,
         MDIcon,
-        DataEntry,
+        DataPanel,
         EventDetails
     },
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],

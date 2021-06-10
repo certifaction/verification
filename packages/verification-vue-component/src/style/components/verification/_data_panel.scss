@@ -1,4 +1,4 @@
-.data-entry {
+.data-panel {
     box-shadow: 0 1px 2px rgba(#001384, 0.08);
     border: 1px solid $gray-100;
     border-radius: 8px;
@@ -6,8 +6,7 @@
 
     .header {
         position: relative;
-        cursor: pointer;
-        padding: 17px 40px 8px 46px;
+        padding: 17px 16px 8px 16px;
 
         .icon {
             display: block;
@@ -56,7 +55,7 @@
         }
     }
 
-    .details {
+    .content {
         overflow: hidden;
         padding-right: 16px;
         padding-left: 16px;
@@ -76,13 +75,20 @@
         }
     }
 
-    + .data-entry {
+    + .data-panel {
         margin-top: 0.5rem;
     }
 
-    &.no-details {
+    &.has-icon {
         .header {
-            cursor: auto;
+            padding-left: 46px;
+        }
+    }
+
+    &.has-content {
+        .header {
+            cursor: pointer;
+            padding-right: 40px;
         }
     }
 
