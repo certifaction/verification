@@ -56,13 +56,11 @@
                 "hide": "Nascondere info avanzate ",
                 "show": "Info avanzate"
             },
-            "issuer": "Emittente",
             "meta": {
-                "contract": "Contratto",
                 "issuer": "Emittente",
                 "signature": "Firma | Firme",
                 "verifiedBy": "Verificato da",
-                "signedAt": "Signed at",
+                "signedAt": "Firmato il",
                 "signedVia": "Firmato tramite",
                 "issuerAddress": "Chiave pubblica dell'emittente",
                 "documentHash": "Impronta numerica del documento",
@@ -76,18 +74,18 @@
                 "initiator": "Iniziatore",
                 "name": "Name",
                 "email": "E-Mail",
-                "phone": "Phone",
-                "company": "Company"
+                "phone": "Telefono",
+                "company": "Azienda"
             },
             "signature": {
                 "level": {
                     "AES": {
                         "title": "Blockchain eSignature",
-                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                        "description": "Le firme aggiunte al documento sono crittograficamente assicurate da record immutabili e timestamped sulla blockchain Ethereum. Guarda i dettagli delle firme qui sopra per scoprire com'è stata verificata l'identità di ogni firmatario."
                     },
                     "QES": {
-                        "title": "Blockchain eSignature + Qualified Electronic Signature (CH)",
-                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                        "title": "Blockchain eSignature +<br>Qualified Electronic Signature (CH)",
+                        "description": "Le firme su questo documento sono conformi alla Legge federale sui servizi di certificazione nel campo della firma elettronica e di altre applicazioni di certificati digitali ed hanno lo stesso valore legale di una firma fatta a mano. Inoltre, il documento è stato assicurato da un timestamp immutabile sulla blockchain Ethereum."
                     }
                 }
             },

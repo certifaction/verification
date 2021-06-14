@@ -56,13 +56,11 @@
                 "hide": "Technische Details verbergen",
                 "show": "Technische Details anzeigen"
             },
-            "issuer": "Aussteller",
             "meta": {
-                "contract": "Contract",
                 "issuer": "Aussteller",
                 "signature": "Unterzeichner | Unterzeichner",
                 "verifiedBy": "Verifiziert durch",
-                "signedAt": "Signed at",
+                "signedAt": "Unterzeichnet am",
                 "signedVia": "Unterzeichnet über",
                 "issuerAddress": "Public Key des Ausstellers",
                 "documentHash": "Dokumenten-Hash",
@@ -76,8 +74,8 @@
                 "initiator": "Initiator",
                 "name": "Name",
                 "email": "E-Mail",
-                "phone": "Phone",
-                "company": "Company"
+                "phone": "Telefon",
+                "company": "Unternehmen"
             },
             "signature": {
                 "level": {

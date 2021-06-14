@@ -56,9 +56,7 @@
                 "hide": "Cacher le mode expert",
                 "show": "Mode expert"
             },
-            "issuer": "Émetteur",
             "meta": {
-                "contract": "Contrat",
                 "issuer": "Émetteur",
                 "signature": "Signature | Signatures",
                 "verifiedBy": "Vérifié par",
@@ -83,11 +81,11 @@
                 "level": {
                     "AES": {
                         "title": "Blockchain eSignature",
-                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                        "description": "Les signatures ajoutées à ce document sont sécurisées cryptographiquement par des enregistrements horodatés et immuables sur la blockchain Ethereum. Veuillez consulter les détails des signatures ci-dessus pour savoir comment l’identité de chaque signataire a été vérifiée."
                     },
                     "QES": {
-                        "title": "Blockchain eSignature + Qualified Electronic Signature (CH)",
-                        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                        "title": "Blockchain eSignature +<br>Qualified Electronic Signature (CH)",
+                        "description": "Les signatures données pour ce document sont conformes à la loi fédérale suisse sur les signatures électroniques et ont le même poids juridique qu’une signature manuscrite. En outre, le document a été sécurisé par un enregistrement horodaté et immuable sur la blockchain Ethereum."
                     }
                 }
             },
