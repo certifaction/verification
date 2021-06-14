@@ -82,11 +82,11 @@
                 "level": {
                     "AES": {
                         "title": "Blockchain eSignature",
-                        "description": "Les signatures ajoutées à ce document sont sécurisées cryptographiquement par des enregistrements horodatés et immuables sur la blockchain Ethereum. Veuillez consulter les détails des signatures ci-dessus pour savoir comment l’identité de chaque signataire a été vérifiée."
+                        "description": "Les signatures électroniques de ce document sont sécurisées cryptographiquement par des entrées immuables horodatées dans la blockchain Ethereum. Veuillez consulter les détails des signatures pour savoir comment l'identité de chaque signataire a été vérifiée. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
                     },
                     "QES": {
                         "title": "Blockchain eSignature +<br>Qualified Electronic Signature (CH)",
-                        "description": "Les signatures données pour ce document sont conformes à la loi fédérale suisse sur les signatures électroniques et ont le même poids juridique qu’une signature manuscrite. En outre, le document a été sécurisé par un enregistrement horodaté et immuable sur la blockchain Ethereum."
+                        "description": "Les signatures de ce document sont conformes à la loi fédérale suisse sur la signature électronique et ont la plus haute valeur probante prevue par cette loi. En outre, ce document a été sécurisé par une entrée immuable et horodatée dans la blockchain Ethereum. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
                     }
                 }
             },
