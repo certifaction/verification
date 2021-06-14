@@ -59,6 +59,7 @@
             "meta": {
                 "issuer": "Émetteur",
                 "signature": "Signature | Signatures",
+                "signatureType": "Signature type",
                 "verifiedBy": "Vérifié par",
                 "signedAt": "Signed at",
                 "signedVia": "Signé via",
