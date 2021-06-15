@@ -56,15 +56,15 @@
                 "hide": "Technische Details verbergen",
                 "show": "Technische Details anzeigen"
             },
-            "issuer": "Aussteller",
             "meta": {
-                "contract": "Contract",
                 "issuer": "Aussteller",
                 "signature": "Unterzeichner | Unterzeichner",
-                "issuerVerifiedBy": "Aussteller verifiziert durch",
+                "signatureType": "Unterschriftstyp",
+                "verifiedBy": "Verifiziert durch",
+                "signedAt": "Unterzeichnet am",
                 "signedVia": "Unterzeichnet über",
                 "issuerAddress": "Public Key des Ausstellers",
-                "fingerprint": "Dokumenten-Hash",
+                "documentHash": "Dokumenten-Hash",
                 "registrationDate": "Ausstelldatum & -Zeit",
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
@@ -72,15 +72,30 @@
                 "smartContractAddress": "Smart Contract-Adresse",
                 "signatureTransactions": "Unterzeichnungstranskationen",
                 "details": "Details",
-                "initiator": "Initiator"
+                "initiator": "Initiator",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Telefon",
+                "company": "Unternehmen"
+            },
+            "signature": {
+                "level": {
+                    "standard": {
+                        "title": "Blockchain eSignature",
+                        "description": "Die digitalen Unterschriften dieses Dokuments sind kryptografisch durch zeitgestempelte, unveränderliche Einträge in der Ethereum-Blockchain gesichert. Bitte sehen Sie sich die Details der Signaturen, um zu erfahren, wie die Identität der einzelnen Unterzeichner überprüft wurde. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
+                    },
+                    "QES": {
+                        "title": "Blockchain eSignature + Qualified Electronic Signature (CH)",
+                        "description": "Die Unterschriften, die für dieses Dokument geleistet wurden, sind konform mit dem Schweizer Bundesgesetz über die elektronische Signatur und weisen die höchste darin vorgesehene Beweiskraft auf. Darüber hinaus wurde das Dokument durch einen zeitgestempelten, unveränderlichen Eintrag in der Ethereum-Blockchain gesichert. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
+                    }
+                }
             },
             "certifying": {
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedIssuer": {
-                    "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert.",
-                    "issuerFootnote": "Identität nicht bestätigt"
+                    "status": "Dieses Dokument wurde von einem nicht verifizierten Aussteller registriert."
                 },
                 "verifiedIssuer": {
                     "status": "Dieses Dokument ist authentisch und von einem verifizierten Aussteller."
@@ -112,12 +127,10 @@
                     "status": "Dieses Dokument wurde widerrufen."
                 },
                 "unverifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
-                    "signerFootnote": "Unterzeichnet am {signingDate}"
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet."
                 },
                 "verifiedSigner": {
-                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet.",
-                    "signerFootnote": "Unterzeichnet am {signingDate}"
+                    "status": "Dieses Dokument ist authentisch und digital unterzeichnet."
                 },
                 "resultDetails": {
                     "tamperProof": "Fälschungssicher",

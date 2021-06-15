@@ -3,7 +3,7 @@
          :class="{ 'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error }">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
-                <img src="../../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                <img src="../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
             </div>
 
             <ShadowCard v-if="isLoading"/>
@@ -50,7 +50,7 @@
 
             <div v-if="digitalTwinInformation.active && !digitalTwin.confirmationStep" class="action-box">
                 <div class="actions navigate">
-                    <button class="btn btn-light" @click="digitalTwinRecheck">
+                    <button class="btn btn-secondary" @click="digitalTwinRecheck">
                         <span>{{ _$t('verification.digitalTwin.actionBox.actions.recheck') }}</span>
                     </button>
                     <a :href="digitalTwinInformation.fileUrl"
@@ -70,17 +70,17 @@
 
 <script>
 import PDFViewer from '@certifaction/vue-pdf-viewer'
-import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
-import ShadowCard from './cards/ShadowCard.vue'
-import NotFoundCard from './cards/NotFoundCard.vue'
-import TechnicalProblemCard from './cards/TechnicalProblemCard.vue'
-import SupportCard from './cards/SupportCard.vue'
-import ContactCard from './cards/ContactCard.vue'
-import CertifyingCard from './cards/CertifyingCard.vue'
-import SigningCard from './cards/SigningCard.vue'
-import FileConfirmationCard from './cards/DigitalTwin/FileConfirmationCard.vue'
-import FileDeclinedCard from './cards/DigitalTwin/FileDeclinedCard.vue'
-import FileErrorCard from './cards/DigitalTwin/FileErrorCard.vue'
+import i18nWrapperMixin from '../../mixins/i18n-wrapper'
+import ShadowCard from './item/cards/ShadowCard.vue'
+import NotFoundCard from './item/cards/NotFoundCard.vue'
+import TechnicalProblemCard from './item/cards/TechnicalProblemCard.vue'
+import SupportCard from './item/cards/SupportCard.vue'
+import ContactCard from './item/cards/ContactCard.vue'
+import CertifyingCard from './item/cards/CertifyingCard.vue'
+import SigningCard from './item/cards/SigningCard.vue'
+import FileConfirmationCard from './item/cards/DigitalTwin/FileConfirmationCard.vue'
+import FileDeclinedCard from './item/cards/DigitalTwin/FileDeclinedCard.vue'
+import FileErrorCard from './item/cards/DigitalTwin/FileErrorCard.vue'
 
 export default {
     name: 'VerificationItem',
@@ -112,6 +112,32 @@ export default {
         digitalTwinInformation: {
             type: Object,
             required: false
+        }
+    },
+    provide: {
+        isBeforeDetailedVerifiedMigration(event) {
+            const eventDate = new Date(event.date)
+            if (!(eventDate instanceof Date) || isNaN(eventDate)) {
+                return false
+            }
+            const migrationDate = new Date('2021-04-22')
+            return (eventDate < migrationDate)
+        },
+        issuerDisplayName(event) {
+            if (event.issuer.name && this.isBeforeDetailedVerifiedMigration(event)) {
+                return event.issuer.name
+            }
+
+            if (event.issuer.name_verified === true) {
+                return event.issuer.name
+            }
+            if (event.issuer.email_verified === true) {
+                return event.issuer.email
+            }
+            if (event.issuer.email) {
+                return event.issuer.email
+            }
+            return event.issuer.name
         }
     },
     inject: ['pdfjsWorkerSrc', 'pdfjsCMapUrl'],
@@ -182,26 +208,6 @@ export default {
             this.digitalTwin.fileApproved = false
             this.showSupport = false
             this.showContact = false
-        },
-        issuerDisplayName(event) {
-            const eventDate = new Date(event.date)
-            if (eventDate instanceof Date && !isNaN(eventDate)) {
-                const migrationDate = new Date('2021-04-22')
-                if (eventDate < migrationDate && event.issuer.name) {
-                    return event.issuer.name
-                }
-            }
-
-            if (event.issuer.name_verified === true) {
-                return event.issuer.name
-            }
-            if (event.issuer.email_verified === true) {
-                return event.issuer.email
-            }
-            if (event.issuer.email) {
-                return event.issuer.email
-            }
-            return event.issuer.name
         }
     }
 }

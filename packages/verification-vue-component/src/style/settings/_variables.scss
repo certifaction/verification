@@ -25,7 +25,6 @@ $primary: #0062c7 !default;
 
 $body-color: $gray-900 !default;
 $text-muted: $gray-600 !default;
-$border-color: $gray-200 !default;
 
 // FONTS
 $font-family-sans-serif:
@@ -42,26 +41,20 @@ $font-family-sans-serif:
     // Emoji fonts
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-normal: 1rem !default;
-$font-size-small: 13px !default;
-$font-size-medium: 14px !default;
+$font-size-small: 0.8125rem !default;
+$font-size-medium: 0.875rem !default;
 $line-height: 1.5 !default;
 
 // SPACING
 $spacer: 1.5rem !default;
 
-// Shadows
-$box-shadow-standard: 0px 1px 30px rgba($gray-700, .15) !default;
-
 // Verification
-$verification-dropbox-border: 9px dashed $gray-300 !default;
-$verification-dropbox-title-color: $gray-700 !default;
-$verification-dropbox-subtitle-color: $gray-500 !default;
-
-$verification-dropbox-border-width: 2px !default;
-$verification-dropbox-border-style: dashed !default;
-
-$verification-blue: #1376FF !default;
-$verification-card-text-grey: rgba(20, 33, 61, 0.5) !default;
+$verification-blue: #0669f2 !default;
+$verification-light-blue: #c4ddff !default;
+$verification-dark-blue: #14213d !default;
+$verification-dark-blue-50: mix($verification-dark-blue, white, 50%);
+$verification-dark-blue-60: mix($verification-dark-blue, white, 60%);
+$verification-dark-blue-80: mix($verification-dark-blue, white, 80%);
 
 $verification-result-success-light: rgba(#e6f9f3, 0.95);
 $verification-result-success-dark: #00bf86;
@@ -69,7 +62,3 @@ $verification-result-warning-light: rgba(#fef5e8, 0.95);
 $verification-result-warning-dark: #f29e18;
 $verification-result-error-light: rgba(#fdecf0, 0.95);
 $verification-result-error-dark: #ee4266;
-
-// Digital Twin
-$digital-twin-action-box-background: #e6f0fe !default;
-$digital-twin-action-box-text: #0669f2 !default;

@@ -1,5 +1,5 @@
 <template>
-    <BaseCard class="technical-problem-card">
+    <BaseCard class="not-found-card">
         <template v-if="verificationItem.name" #header>
             <div class="icon">
                 <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
@@ -9,13 +9,13 @@
             </div>
         </template>
         <template #body>
-            <ResultDetail verification-mode="error" :has-technical-problem="true"/>
+            <ResultDetail verification-mode="error" :not-found="true"/>
             <div class="verification-info">
-                <div class="verification-entry error">
-                    <p v-html="_$t(`verification.result.error.technicalProblem.details`)"/>
+                <div class="section error">
+                    <p v-html="_$t(`verification.result.error.notFound.details`)"/>
                 </div>
-                <div v-if="verificationItem.hash" class="verification-entry fingerprint">
-                    <div class="label">{{ _$t('verification.result.meta.fingerprint') }}</div>
+                <div v-if="verificationItem.hash" class="verification-entry document-hash">
+                    <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
                     <div class="value">
                         <span class="hash">{{ verificationItem.hash }}</span>
                     </div>
@@ -27,9 +27,6 @@
             <div class="right">
                 <button class="btn btn-primary" @click="toggleHelp('contact')">
                     <span>{{ _$t('verification.card.btn.contact') }}</span>
-                </button>
-                <button class="btn btn-secondary" @click="toggleHelp('support')">
-                    <span>{{ _$t('verification.card.btn.support') }}</span>
                 </button>
             </div>
         </template>
@@ -44,7 +41,7 @@ import MDIcon from '../../../MDIcon.vue'
 import ResultDetail from '../ResultDetail.vue'
 
 export default {
-    name: 'TechnicalProblemCard',
+    name: 'NotFoundCard',
     mixins: [i18nWrapperMixin],
     components: {
         BaseCard,

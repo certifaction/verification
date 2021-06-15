@@ -56,15 +56,15 @@
                 "hide": "Nascondere info avanzate ",
                 "show": "Info avanzate"
             },
-            "issuer": "Emittente",
             "meta": {
-                "contract": "Contratto",
                 "issuer": "Emittente",
                 "signature": "Firma | Firme",
-                "issuerVerifiedBy": "Emittente verificato da",
+                "signatureType": "Tipo di firma",
+                "verifiedBy": "Verificato da",
+                "signedAt": "Firmato il",
                 "signedVia": "Firmato tramite",
                 "issuerAddress": "Chiave pubblica dell'emittente",
-                "fingerprint": "Impronta numerica del documento",
+                "documentHash": "Impronta numerica del documento",
                 "registrationDate": "Data e ora di emissione",
                 "registrationTransaction": "Transazione di emissione",
                 "revocationTransaction": "Transazione di annullamento",
@@ -72,15 +72,30 @@
                 "smartContractAddress": "Indirizzo del Smart Contract",
                 "signatureTransactions": "Transazioni di firma",
                 "details": "Dettagli",
-                "initiator": "Iniziatore"
+                "initiator": "Iniziatore",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Telefono",
+                "company": "Azienda"
+            },
+            "signature": {
+                "level": {
+                    "standard": {
+                        "title": "Blockchain eSignature",
+                        "description": "Le firme applicate al documento sono crittograficamente assicurate da record immutabili e timestamped sulla blockchain Ethereum. Guarda i dettagli delle firme qui sopra per scoprire com'è stata verificata l'identità di ogni firmatario. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Scopri di più</a>"
+                    },
+                    "QES": {
+                        "title": "Blockchain eSignature +<br>Firma Elettronica Qualificata (CH)",
+                        "description": "Le firme su questo documento sono conformi alla legge federale sui servizi di certificazione nel campo della firma elettronica e di altre applicazioni di certificati digitali ed hanno il valore legale più alto per una firma in Svizzera. Inoltre, il documento è stato assicurato da un timestamp immutabile sulla blockchain Ethereum. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Scopri di più</a>"
+                    }
+                }
             },
             "certifying": {
                 "revoked": {
                     "status": "Questo documento è stato revocato."
                 },
                 "unverifiedIssuer": {
-                    "status": "Questo documento è stato registrato da un emittente non verificato",
-                    "issuerFootnote": "Identità non confermata"
+                    "status": "Questo documento è stato registrato da un emittente non verificato"
                 },
                 "verifiedIssuer": {
                     "status": "Il presente documento è autentico e proviene da un emittente verificato."
@@ -112,12 +127,10 @@
                     "status": "Questo documento è stato revocato."
                 },
                 "unverifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente.",
-                    "signerFootnote": "Firmato il {signingDate}"
+                    "status": "Questo documento è autentico e firmato digitalmente."
                 },
                 "verifiedSigner": {
-                    "status": "Questo documento è autentico e firmato digitalmente.",
-                    "signerFootnote": "Firmato il {signingDate}"
+                    "status": "Questo documento è autentico e firmato digitalmente."
                 },
                 "resultDetails": {
                     "tamperProof": "Autenticità certificata",

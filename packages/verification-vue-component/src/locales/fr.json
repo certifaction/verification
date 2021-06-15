@@ -56,31 +56,46 @@
                 "hide": "Cacher le mode expert",
                 "show": "Mode expert"
             },
-            "issuer": "Émetteur",
             "meta": {
-                "contract": "Contrat",
                 "issuer": "Émetteur",
                 "signature": "Signature | Signatures",
-                "issuerVerifiedBy": "Émetteur vérifié par",
+                "signatureType": "Type de signature",
+                "verifiedBy": "Vérifié par",
+                "signedAt": "Signé à",
                 "signedVia": "Signé via",
                 "issuerAddress": "Clef publique de l'émetteur",
-                "fingerprint": "Empreinte numérique du document",
+                "documentHash": "Empreinte numérique du document",
                 "registrationDate": "Date & heure de l'émission",
                 "registrationTransaction": "Transaction d'énregistrement",
                 "revocationTransaction": "Transaction de révocation",
                 "revocationDate": "Date & heure de la révocation",
                 "smartContractAddress": "Adresse du Smart Contract",
-                "signatureTransactions": "Transactions de signature",
+                "signatureTransactions": "Transactions des signatures",
                 "details": "Détails",
-                "initiator": "Initiateur"
+                "initiator": "Initiateur",
+                "name": "Nom",
+                "email": "Émail",
+                "phone": "Téléphone",
+                "company": "Companie"
+            },
+            "signature": {
+                "level": {
+                    "standard": {
+                        "title": "eSignature sur la Blockchain",
+                        "description": "Les signatures électroniques de ce document sont sécurisées cryptographiquement par des entrées immuables horodatées dans la blockchain Ethereum. Veuillez consulter les détails des signatures pour savoir comment l'identité de chaque signataire a été vérifiée. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
+                    },
+                    "QES": {
+                        "title": "eSignature sur la Blockchain +<br>Signature Électronique Qualifiée (CH)",
+                        "description": "Les signatures de ce document sont conformes à la loi fédérale suisse sur la signature électronique et ont la plus haute valeur probante prevue par cette loi. En outre, ce document a été sécurisé par une entrée immuable et horodatée dans la blockchain Ethereum. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
+                    }
+                }
             },
             "certifying": {
                 "revoked": {
                     "status": "Ce document a été révoqué."
                 },
                 "unverifiedIssuer": {
-                    "status": "Ce document a été enregistré par un émetteur non vérifié.",
-                    "issuerFootnote": "Identité non confirmée"
+                    "status": "Ce document a été enregistré par un émetteur non vérifié."
                 },
                 "verifiedIssuer": {
                     "status": "Ce document est authentique et provient d'un émetteur vérifié."
@@ -112,12 +127,10 @@
                     "status": "Ce document a été révoqué."
                 },
                 "unverifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement.",
-                    "signerFootnote": "Signé le {signingDate}"
+                    "status": "Ce document est authentique et signé électroniquement."
                 },
                 "verifiedSigner": {
-                    "status": "Ce document est authentique et signé électroniquement.",
-                    "signerFootnote": "Signé le {signingDate}"
+                    "status": "Ce document est authentique et signé électroniquement."
                 },
                 "resultDetails": {
                     "tamperProof": "Authenticité certifiée",

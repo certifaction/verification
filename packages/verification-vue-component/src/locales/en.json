@@ -56,15 +56,15 @@
                 "hide": "Hide expert info",
                 "show": "Show expert info"
             },
-            "issuer": "Issuer",
             "meta": {
-                "contract": "Contract",
                 "issuer": "Issuer",
                 "signature": "Signature | Signatures",
-                "issuerVerifiedBy": "Issuer verified by",
+                "signatureType": "Signature type",
+                "verifiedBy": "Verified by",
+                "signedAt": "Signed at",
                 "signedVia": "Signed via",
                 "issuerAddress": "Issuer Public Key",
-                "fingerprint": "Document Hash",
+                "documentHash": "Document Hash",
                 "registrationDate": "Issue Date & Time",
                 "registrationTransaction": "Registration Transaction",
                 "revocationTransaction": "Revocation Transaction",
@@ -72,15 +72,30 @@
                 "smartContractAddress": "Smart Contract Address",
                 "signatureTransactions": "Signature transactions",
                 "details": "Details",
-                "initiator": "Initiator"
+                "initiator": "Initiator",
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Phone",
+                "company": "Company"
+            },
+            "signature": {
+                "level": {
+                    "standard": {
+                        "title": "Blockchain eSignature",
+                        "description": "The signatures given to this document are cryptographically secured by timestamped, immutable records on the Ethereum blockchain. Please see the signature details above to learn how the identity of each signer was verified. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Learn more</a>"
+                    },
+                    "QES": {
+                        "title": "Blockchain eSignature +<br>Qualified Electronic Signature (CH)",
+                        "description": "The signatures given to this document comply with the Swiss Federal Electronic Signature Act and hold the maximum legal weight achievable for electronic signatures in Switzerland. In addition, the document was secured by a time-stamped, immutable record on the Ethereum blockchain. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Learn more</a>"
+                    }
+                }
             },
             "certifying": {
                 "revoked": {
                     "status": "This document has been revoked."
                 },
                 "unverifiedIssuer": {
-                    "status": "This document has been registered by an unverified issuer.",
-                    "issuerFootnote": "Identity not confirmed"
+                    "status": "This document has been registered by an unverified issuer."
                 },
                 "verifiedIssuer": {
                     "status": "This document is authentic and from a verified issuer."
@@ -112,12 +127,10 @@
                     "status": "This document has been revoked."
                 },
                 "unverifiedSigner": {
-                    "status": "This document is authentic and digitally signed.",
-                    "signerFootnote": "Signed {signingDate}"
+                    "status": "This document is authentic and digitally signed."
                 },
                 "verifiedSigner": {
-                    "status": "This document is authentic and digitally signed.",
-                    "signerFootnote": "Signed {signingDate}"
+                    "status": "This document is authentic and digitally signed."
                 },
                 "resultDetails": {
                     "tamperProof": "Tamper-proof",

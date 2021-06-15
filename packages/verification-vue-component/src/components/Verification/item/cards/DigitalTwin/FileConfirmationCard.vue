@@ -24,11 +24,11 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn btn-light decline" @click="approveOrDecline(false)">
+                    <button class="btn btn-secondary decline" @click="approveOrDecline(false)">
                         <MDIcon :icon="mdiCloseCircle"/>
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.decline') }}
                     </button>
-                    <button class="btn btn-light approve" @click="approveOrDecline(true)">
+                    <button class="btn btn-secondary approve" @click="approveOrDecline(true)">
                         <MDIcon :icon="mdiCheckCircle"/>
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.approve') }}
                     </button>

@@ -22,15 +22,15 @@
                 position: fixed;
                 bottom: 0;
                 padding: 8px 16px;
-                background-color: $digital-twin-action-box-background;
+                background-color: #e6f0fe;
                 height: 70px;
                 width: 100%;
 
                 .text {
-                    color: $digital-twin-action-box-text;
+                    color: $verification-blue;
 
                     h4 {
-                        margin-bottom: 0.25em;
+                        margin-bottom: 0.25rem;
                         font-size: $font-size-normal;
                         line-height: $line-height;
                     }
@@ -104,7 +104,7 @@
                 position: relative;
                 height: 100%;
 
-                .header {
+                > .header {
                     height: 65px;
                     padding: 20px;
                     background-color: $white;

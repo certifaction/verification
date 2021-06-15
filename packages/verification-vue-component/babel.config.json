@@ -1,4 +1,11 @@
 {
-    "presets": ["@babel/env"],
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "corejs": "3.14"
+            }
+        ]
+    ],
     "comments": false
 }

@@ -58,10 +58,10 @@ export default {
                     return resolve()
                 }
 
-                // Fail if the wasm isn't ready after 10 seconds
-                if (count > 1000) {
+                // Fail if the wasm isn't ready after 15 seconds
+                if (count > 1500) {
                     self.clearInterval(checkInterval)
-                    return reject(new Error('PDF wasm wasn\'t ready after 10 seconds.'))
+                    return reject(new Error('PDF wasm wasn\'t ready after 15 seconds.'))
                 }
 
                 count++

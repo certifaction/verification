@@ -49,7 +49,7 @@ import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
-import VerificationItem from './Verification/items/VerificationItem.vue'
+import VerificationItem from './Verification/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
 import axios from 'axios'
 
@@ -341,6 +341,18 @@ export default {
                                     }
 
                                     newEvent.issuer = issuer
+                                }
+
+                                if (offchainEvent.signature) {
+                                    const signature = { ...event.signature }
+                                    if (!signature.level && offchainEvent.signature.level) {
+                                        signature.level = offchainEvent.signature.level
+                                    }
+                                    if (!signature.jurisdiction && offchainEvent.signature.jurisdiction) {
+                                        signature.jurisdiction = offchainEvent.signature.jurisdiction
+                                    }
+
+                                    newEvent.signature = signature
                                 }
 
                                 mergedEvents.push(offchainEvent.ref)

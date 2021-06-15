@@ -1,6 +1,7 @@
 .item-container {
-    padding-top: 1.5rem;
     margin: 0 0.75rem;
+    padding-top: 1.5rem;
+    color: $verification-dark-blue;
 }
 
 .base-card {
@@ -28,7 +29,7 @@
             padding-right: 5px;
 
             .md-icon {
-                color: $verification-card-text-grey;
+                color: $verification-dark-blue-50;
                 height: 16px;
                 width: 16px;
             }
@@ -38,7 +39,7 @@
             width: calc(100% - 26px);
 
             .filename {
-                color: $verification-card-text-grey;
+                color: $verification-dark-blue-50;
                 font-size: $font-size-medium;
                 line-height: $line-height;
                 overflow-wrap: break-word;
@@ -50,124 +51,96 @@
         flex-grow: 1;
 
         .verification-info {
-            .verification-entry {
-                background-color: $white;
-                padding: 12px;
-                border-radius: 8px;
+            .label {
+                display: inline-block;
+                color: $verification-dark-blue-60;
+                font-size: $font-size-small;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
 
-                .label {
-                    color: rgba(#14213d, 50%);
-                    font-size: 13px;
-                    line-height: 1.5em;
-                    font-weight: 600;
-                    text-transform: uppercase;
+            .section {
+                > .label {
+                    margin-bottom: 0.5rem;
                 }
 
-                .value {
-                    overflow-wrap: break-word;
+                + .section {
+                    margin-top: 1rem;
                 }
+            }
 
-                .footnote {
-                    display: flex;
-                    align-items: center;
-                    color: rgba(#14213d, 50%);
+            .event-details {
+                .data-row {
+                    position: relative;
+                    max-width: 100%;
+                    padding: 4px 0 4px 30px;
 
-                    svg {
-                        height: 12px;
-                        width: 12px;
-                        margin-right: 4px;
-                    }
+                    .verified,
+                    .unverified {
+                        position: absolute;
+                        top: 10px;
+                        left: 0;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 50%;
+                        color: white;
 
-                    span {
-                        font-size: 14px;
-                    }
-
-                    &.warning {
-                        margin-left: 0;
-
-                        span,
-                        svg {
-                            display: inline-block;
-                            color: #f29e18;
+                        .md-icon {
+                            margin: 2px;
+                            width: 12px;
+                            height: 12px;
                         }
                     }
-                }
 
-                .signature-hash {
-                    padding-top: 10px;
-
-                    &:first-child {
-                        padding-top: 0;
+                    .verified {
+                        background-color: $verification-result-success-dark;
                     }
-                }
 
-                .verifier-image {
-                    flex: 1 1 auto;
-                    overflow: hidden;
-                    margin-top: 5px;
-                    height: 25px;
+                    .unverified {
+                        border: 1px solid $gray-700;
 
-                    img {
+                        .md-icon {
+                            display: none;
+                        }
+                    }
+
+                    .label {
                         display: block;
-                        width: auto;
-                        max-width: 100%;
-                        height: 100%;
+                        margin-bottom: -2px;
+                        font-size: 0.625rem;
                     }
-                }
 
-                .signature-list {
-                    margin: 0;
-                    padding: 0;
+                    .value {
+                        overflow-wrap: break-word;
+                        color: $verification-dark-blue-80;
+                        font-size: $font-size-medium;
 
-                    .signature {
-                        display: flex;
-                        list-style-type: none;
-                        padding-top: 8px;
-
-                        .icon {
+                        img {
                             display: inline-block;
-                            position: relative;
-                            width: 26px;
-                            height: 26px;
-                            border-radius: 50%;
-                            background-color: #c4ddff;
-
-                            > img {
-                                display: block;
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
-                                margin: auto;
-                                width: 20px;
-                                height: 20px;
-                            }
-                        }
-
-                        .value > span {
-                            display: inline-block;
-                        }
-
-                        .left {
-                            margin-right: 10px;
+                            width: auto;
+                            height: 16px;
+                            vertical-align: text-bottom;
                         }
                     }
-                }
-
-                + .verification-entry {
-                    margin-top: 5px;
-                }
-
-                &:nth-child(2n),
-                &.initiator {
-                    background-color: #f7f9fc;
                 }
             }
 
             &.expert {
+                padding: 12px 6px;
+
+                .label {
+                    margin-bottom: 0;
+                }
+
                 .value {
-                    font-size: 14px;
+                    font-size: $font-size-medium;
+                    overflow-wrap: break-word;
+                }
+
+                .signature-hash {
+                    + .signature-hash {
+                        margin-top: 0.25rem;
+                    }
                 }
             }
         }

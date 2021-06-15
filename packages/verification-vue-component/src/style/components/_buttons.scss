@@ -1,11 +1,12 @@
 .btn {
     display: inline-block;
     outline: none;
-    border: none;
+    box-shadow: 0 1px 2px rgba(#001384, 0.08);
+    border: 1px solid $gray-100;
     border-radius: 3px;
-    padding: 8px 10px;
+    padding: 8px 16px;
     font-size: $font-size-medium;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     text-align: center;
 
@@ -24,11 +25,6 @@
 }
 
 .btn-secondary {
-    background-color: #eef3fa;
+    background-color: $white;
     color: $verification-blue;
-}
-
-.btn-light {
-    background-color: white;
-    color: #0669f2;
 }

@@ -45,6 +45,7 @@
     @import "verification/demo";
     @import "verification/file_selection";
     @import "verification/item_list";
+    @import "verification/data_panel";
     @import "verification/card/all";
     @import "verification/pdf_viewer";
 
@@ -63,7 +64,7 @@
         line-height: 14px;
 
         .label {
-            color: $verification-card-text-grey;
+            color: $verification-dark-blue-50;
         }
 
         a {

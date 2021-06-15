@@ -306,6 +306,19 @@ export default class CertifactionClaimVerifier {
                 fileEvent.issuer = issuerIdentity
             }
 
+            const signature = {}
+            if (claim.level) {
+                signature.level = claim.level
+            } else if (claim.scope === 'sign') {
+                signature.level = 'standard'
+            }
+            if (claim.jurisdiction) {
+                signature.jurisdiction = claim.jurisdiction
+            }
+            if (Object.keys(signature).length > 0) {
+                fileEvent.signature = signature
+            }
+
             const claimEvent = (claimEvents) ? claimEvents.find(event => event.returnValues.hash === claimHash) : null
             let claimBlock = null
             if (claimEvent) {
