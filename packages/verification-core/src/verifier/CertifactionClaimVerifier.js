@@ -310,7 +310,7 @@ export default class CertifactionClaimVerifier {
             if (claim.level) {
                 signature.level = claim.level
             } else if (claim.scope === 'sign') {
-                signature.level = 'AES'
+                signature.level = 'standard'
             }
             if (claim.jurisdiction) {
                 signature.jurisdiction = claim.jurisdiction
