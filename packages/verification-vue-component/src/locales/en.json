@@ -80,7 +80,7 @@
             },
             "signature": {
                 "level": {
-                    "AES": {
+                    "standard": {
                         "title": "Blockchain eSignature",
                         "description": "The signatures given to this document are cryptographically secured by timestamped, immutable records on the Ethereum blockchain. Please see the signature details above to learn how the identity of each signer was verified. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Learn more</a>"
                     },

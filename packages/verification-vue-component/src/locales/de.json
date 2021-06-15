@@ -80,7 +80,7 @@
             },
             "signature": {
                 "level": {
-                    "AES": {
+                    "standard": {
                         "title": "Blockchain eSignature",
                         "description": "Die digitalen Unterschriften dieses Dokuments sind kryptografisch durch zeitgestempelte, unveränderliche Einträge in der Ethereum-Blockchain gesichert. Bitte sehen Sie sich die Details der Signaturen, um zu erfahren, wie die Identität der einzelnen Unterzeichner überprüft wurde. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
                     },

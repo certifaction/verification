@@ -80,7 +80,7 @@
             },
             "signature": {
                 "level": {
-                    "AES": {
+                    "standard": {
                         "title": "eSignature sur la Blockchain",
                         "description": "Les signatures électroniques de ce document sont sécurisées cryptographiquement par des entrées immuables horodatées dans la blockchain Ethereum. Veuillez consulter les détails des signatures pour savoir comment l'identité de chaque signataire a été vérifiée. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
                     },
