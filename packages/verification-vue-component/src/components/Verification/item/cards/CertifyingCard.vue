@@ -69,14 +69,14 @@
                     </DataPanel>
                 </div>
 
-                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain && registerEvents[0].date"
+                <div v-if="registerEvents.length > 0 && registerEvents[0].date"
                      class="section registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
                     <DataPanel :md-icon="mdiCalendarClock"
                                :title="_$d(new Date(registerEvents[0].date), 'long')"/>
                 </div>
 
-                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain && revocationDate"
+                <div v-if="revokeEvents.length > 0 && revocationDate"
                      class="section revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
                     <DataPanel :md-icon="mdiClose"

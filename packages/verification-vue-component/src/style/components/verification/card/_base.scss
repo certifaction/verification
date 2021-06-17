@@ -64,6 +64,11 @@
                     margin-bottom: 0.5rem;
                 }
 
+                > .value {
+                    overflow-wrap: break-word;
+                    font-size: $font-size-medium;
+                }
+
                 + .section {
                     margin-top: 1rem;
                 }
@@ -130,11 +135,6 @@
 
                 .label {
                     margin-bottom: 0;
-                }
-
-                .value {
-                    font-size: $font-size-medium;
-                    overflow-wrap: break-word;
                 }
 
                 .signature-hash {
