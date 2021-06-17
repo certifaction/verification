@@ -14,7 +14,7 @@
                 <div class="section error">
                     <p v-html="_$t(`verification.result.error.notFound.details`)"/>
                 </div>
-                <div v-if="verificationItem.hash" class="verification-entry document-hash">
+                <div v-if="verificationItem.hash" class="section document-hash">
                     <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
                     <div class="value">
                         <span class="hash">{{ verificationItem.hash }}</span>
