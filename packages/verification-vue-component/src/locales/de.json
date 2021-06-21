@@ -108,8 +108,8 @@
                     },
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Ausstehende Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.<br>Dieser Vorgang kann bis zu 24 Stunden dauern. Sie müssen dies nicht abwarten. Das Dokument ist bereits jetzt gültig und kann sofort verwendet werden.</span>",
-                            "revocation": "Ausstehende Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain widerrufen zu werden.<br>Dieser Vorgang kann bis zu 24 Stunden dauern. Sie müssen dies nicht abwarten.</span>"
+                            "registration": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Dieser Vorgang kann von einigen Minuten bis zu mehreren Stunden dauern. Sie müssen dies nicht abwarten. Das Dokument ist bereits jetzt gültig und kann verteilt werden.</span>",
+                            "revocation": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain widerrufen zu werden. Sie müssen dies nicht abwarten. Die Annullierung ist bereits final.</span>"
                         },
                         "processed": "Durch Blockchain gesichert"
                     },
@@ -136,9 +136,9 @@
                     "tamperProof": "Fälschungssicher",
                     "blockchain": {
                         "inProgress": {
-                            "registration": "Ausstehende Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.<br>Dieser Vorgang kann bis zu 24 Stunden dauern. Sie müssen dies nicht abwarten. Das Dokument ist bereits jetzt gültig und kann sofort verwendet werden.</span>",
-                            "revocation": "Ausstehende Blockchain-Transaktion<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain widerrufen zu werden.<br>Dieser Vorgang kann bis zu 24 Stunden dauern. Sie müssen dies nicht abwarten.</span>",
-                            "signature": "Ausstehende Unterschrifts-Verankerung<span class=\"detail-footnote\">Eine digitale Unterschrift für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Damit wird die höchste Sicherheitsstufe erreicht.<br>Dieser Vorgang kann bis zu 24 Stunden dauern. Sie müssen dies nicht abwarten. Die Signatur ist bereits jetzt gültig und kann sofort verwendet werden.</span>"
+                            "registration": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Dieser Vorgang kann von einigen Minuten bis zu mehreren Stunden dauern. Sie müssen dies nicht abwarten. Das Dokument ist bereits jetzt gültig und kann verteilt werden.</span>",
+                            "revocation": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain widerrufen zu werden. Sie müssen dies nicht abwarten. Die Annullierung ist bereits final.</span>",
+                            "signature": "Blockchain-Verankerung<span class=\"detail-footnote\">Eine digitale Unterschrift für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Dieser Vorgang kann von einigen Minuten bis zu mehreren Stunden dauern. Die Signatur ist bereits jetzt gültig und das Dokument kann verteilt werden.</span>"
                         },
                         "processed": "Durch Blockchain gesichert"
                     },
