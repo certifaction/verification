@@ -108,8 +108,8 @@
                     },
                     "blockchain": {
                         "inProgress": {
-                            "registration" : "Ancrage sur la blockchain<span class=\"detail-footnote\">L’empreinte digitale de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. Le document est déjà valide et peut être utilisé immédiatement.</span>",
-                            "revocation" : "Ancrage sur la blockchain<span class=\"detail-footnote\">La révocation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La révocation est déjà définitive.</span>"
+                            "registration": "Ancrage sur la blockchain<span class=\"detail-footnote\">L’empreinte digitale de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. Le document est déjà valide et peut être utilisé immédiatement.</span>",
+                            "revocation": "Ancrage sur la blockchain<span class=\"detail-footnote\">La révocation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La révocation est déjà définitive.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
                     },
@@ -136,9 +136,9 @@
                     "tamperProof": "Authenticité certifiée",
                     "blockchain": {
                         "inProgress": {
-                            "registration" : "Ancrage sur la blockchain<span class=\"detail-footnote\">L’empreinte digitale de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. Le document est déjà valide et peut être utilisé immédiatement.</span>",
-                            "revocation" : "Ancrage sur la blockchain<span class=\"detail-footnote\">La révocation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La révocation est déjà définitive.</span>",
-                            "signature" : "Ancrage de la blockchain<span class=\"detail-footnote\">L'une des signatures reçues est en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Les signature sont déjà entièrement valides et le document peut être partagé.</span>"
+                            "registration": "Ancrage sur la blockchain<span class=\"detail-footnote\">L’empreinte digitale de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. Le document est déjà valide et peut être utilisé immédiatement.</span>",
+                            "revocation": "Ancrage sur la blockchain<span class=\"detail-footnote\">La révocation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La révocation est déjà définitive.</span>",
+                            "signature": "Ancrage de la blockchain<span class=\"detail-footnote\">L'une des signatures reçues est en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Les signature sont déjà entièrement valides et le document peut être partagé.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
                     },
