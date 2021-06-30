@@ -263,16 +263,14 @@ export default class CertifactionClaimVerifier {
                     break
             }
 
-            // Get Issuer Hash from Address from Signature
-            const issuerAddress = await this.verifySignatureAndGetPubkey(claim)
-            console.log('Recovered Signer address:', issuerAddress)
-
-            if (issuerAddress !== claim.proof.creator) {
-                console.error('Signer Address does NOT match Claim Creator attribute, discarding.')
+            // Get issuer address from signature
+            const issuerAddress = await this.verifySignatureAndGetPubKey(claim)
+            if (!issuerAddress) {
+                console.error('Signature couldn\'t be verified, discarding.')
                 continue
             }
+            console.log('Signer address matches Claim Creator attribute')
             fileVerification.issuerAddress = issuerAddress
-            console.log('Signer Address matches Claim Creator attribute')
 
             let issuerIdentity = null
             if (claim.idclaims instanceof Array) {
@@ -425,9 +423,9 @@ export default class CertifactionClaimVerifier {
                 continue
             }
 
-            const issuerAddress = await this.verifySignatureAndGetPubkey(idClaim)
-            if (issuerAddress !== idClaim.proof.creator) {
-                console.error('Signer Address does NOT match IdClaim Creator attribute, discarding.')
+            const issuerAddress = await this.verifySignatureAndGetPubKey(idClaim)
+            if (!issuerAddress) {
+                console.error('IdClaim signature couldn\t be verified, discarding.')
                 continue
             }
 
@@ -474,27 +472,62 @@ export default class CertifactionClaimVerifier {
      *
      * @param {Object} claim
      *
-     * @returns {string}
+     * @returns {string|null}
      */
-    verifySignatureAndGetPubkey(claim) {
+    verifySignatureAndGetPubKey(claim) {
         console.log('Verifying Signature...')
 
-        // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
-        const plainSignature = claim.proof.signatureValue.slice(0, 128)
-        const recoveryId = claim.proof.signatureValue.slice(128, 130)
-        const fixedRecoveryId = parseInt(recoveryId, 16) + 27
-        const ethereuSignature = '0x' + plainSignature + (fixedRecoveryId.toString(16))
-        console.log('Signature Value (Hex): ' + ethereuSignature)
+        let proofs = claim.proof
+        if (!Array.isArray(proofs)) {
+            proofs = [proofs]
+        }
 
         const unsignedClaim = JSON.parse(JSON.stringify(claim))
-        delete unsignedClaim.proof.signatureValue
+        if (Array.isArray(unsignedClaim.proof)) {
+            const unsignedProofs = JSON.parse(JSON.stringify(unsignedClaim.proof))
+            for (const key in unsignedProofs) {
+                if (unsignedProofs.hasOwnProperty(key)) {
+                    delete unsignedProofs[key].signatureValue
+                }
+            }
+            unsignedClaim.proof = unsignedProofs
+        } else {
+            delete unsignedClaim.proof.signatureValue
+        }
         if (unsignedClaim.idclaims !== undefined) {
             delete unsignedClaim.idclaims
         }
 
         const unsignedClaimHash = this.getClaimHash(unsignedClaim)
-        console.log('Unsigned ClaimHash: ' + unsignedClaimHash)
 
-        return EthCrypto.recover(ethereuSignature, unsignedClaimHash)
+        let pubKey = null
+
+        for (const proof of proofs) {
+            switch (proof.type) {
+                case 'ECDSA':
+                    // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
+                    const plainSignature = proof.signatureValue.slice(0, 128)
+                    const recoveryId = proof.signatureValue.slice(128, 130)
+                    const fixedRecoveryId = parseInt(recoveryId, 16) + 27
+                    const ethereuSignature = '0x' + plainSignature + (fixedRecoveryId.toString(16))
+                    console.log('Signature Value (Hex): ' + ethereuSignature)
+                    console.log('Unsigned ClaimHash: ' + unsignedClaimHash)
+
+                    pubKey = EthCrypto.recover(ethereuSignature, unsignedClaimHash)
+                    console.log('Recovered public key: ' + pubKey)
+
+                    if (pubKey !== proof.creator) {
+                        console.error(`Public key (${pubKey}) does NOT match Claim creator attribute (${proof.creator}.`)
+                        return null
+                    }
+                    break
+
+                case 'QES-eIDAS':
+                    // Ignore QES-eIDAS for the moment
+                    break
+            }
+        }
+
+        return pubKey
     }
 }
