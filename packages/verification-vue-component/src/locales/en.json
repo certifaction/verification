@@ -61,7 +61,7 @@
                 "signature": "Signature | Signatures",
                 "signatureType": "Signature type",
                 "verifiedBy": "Verified by",
-                "signedAt": "Signed at",
+                "signedAt": "Signing date",
                 "signedVia": "Signed via",
                 "issuerAddress": "Issuer Public Key",
                 "documentHash": "Document Hash",
