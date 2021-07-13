@@ -8,6 +8,9 @@ import CertifactionClaimVerifier from './verifier/CertifactionClaimVerifier'
 import hashingService from './hashing/hashing.service'
 import PdfService from './pdf/PdfService'
 
+export const SIGNATURE_LEVEL_STANDARD = 'standard'
+export const SIGNATURE_LEVEL_QES = 'QES'
+
 export {
     Interface,
     LegacySmartContractABI,

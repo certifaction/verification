@@ -59,6 +59,12 @@
                 text-transform: uppercase;
             }
 
+            .data-panel {
+                .body {
+                    overflow-wrap: break-word;
+                }
+            }
+
             .section {
                 > .label {
                     margin-bottom: 0.5rem;
@@ -84,7 +90,7 @@
                     .unverified {
                         position: absolute;
                         top: 10px;
-                        left: 0;
+                        left: 4px;
                         width: 16px;
                         height: 16px;
                         border-radius: 50%;
@@ -133,13 +139,27 @@
             &.expert {
                 padding: 12px 6px;
 
-                .label {
-                    margin-bottom: 0;
+                .data-panel {
+                    a {
+                        text-decoration: none;
+                    }
                 }
 
-                .signature-hash {
-                    + .signature-hash {
-                        margin-top: 0.25rem;
+                .signature-details {
+                    .data-panel {
+                        .body {
+                            > div {
+                                + div {
+                                    margin-top: 8px;
+                                }
+                            }
+                        }
+                    }
+
+                    .download-signature {
+                        a {
+                            display: inline-block;
+                        }
                     }
                 }
             }

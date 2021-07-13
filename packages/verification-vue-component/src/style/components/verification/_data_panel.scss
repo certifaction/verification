@@ -2,16 +2,18 @@
     box-shadow: 0 1px 2px rgba(#001384, 0.08);
     border: 1px solid $gray-100;
     border-radius: 8px;
-    padding-bottom: 9px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 
     .header {
         position: relative;
-        padding: 17px 16px 8px 16px;
+        overflow-wrap: break-word;
+        padding: 5px 12px;
 
         .icon {
             display: block;
             position: absolute;
-            top: 17px;
+            top: 5px;
             left: 12px;
             width: 26px;
             height: 26px;
@@ -33,14 +35,9 @@
             }
         }
 
-        .title {
-            overflow-wrap: break-word;
-            margin-top: 1px;
-        }
-
         .collapse-indicator {
             position: absolute;
-            top: 22px;
+            top: 10px;
             right: 16px;
             width: 16px;
             height: 16px;
@@ -55,10 +52,10 @@
         }
     }
 
-    .content {
+    .body {
         overflow: hidden;
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-right: 12px;
+        padding-left: 12px;
         font-size: $font-size-medium;
 
         p {
@@ -81,11 +78,12 @@
 
     &.has-icon {
         .header {
+            min-height: 36px;
             padding-left: 46px;
         }
     }
 
-    &.has-content {
+    &.has-body {
         .header {
             cursor: pointer;
             padding-right: 40px;

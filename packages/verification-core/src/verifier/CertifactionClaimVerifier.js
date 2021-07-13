@@ -55,6 +55,7 @@
 import EthCrypto from 'eth-crypto'
 import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
+import { SIGNATURE_LEVEL_QES, SIGNATURE_LEVEL_STANDARD } from '../index'
 
 export default class CertifactionClaimVerifier {
     /**
@@ -308,10 +309,14 @@ export default class CertifactionClaimVerifier {
             if (claim.level) {
                 signature.level = claim.level
             } else if (claim.scope === 'sign') {
-                signature.level = 'standard'
+                signature.level = SIGNATURE_LEVEL_STANDARD
             }
             if (claim.jurisdiction) {
                 signature.jurisdiction = claim.jurisdiction
+            }
+            if (claim.level === SIGNATURE_LEVEL_QES && claim.jurisdiction && Array.isArray(claim.proof)) {
+                const proof = claim.proof.find(proof => proof.type === claim.level + '-' + claim.jurisdiction)
+                signature.pkcs7Data = proof.signatureValue
             }
             if (Object.keys(signature).length > 0) {
                 fileEvent.signature = signature

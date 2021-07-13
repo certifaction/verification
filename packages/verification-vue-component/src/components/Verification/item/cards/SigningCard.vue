@@ -12,51 +12,75 @@
             <div class="verification-info expert">
                 <div v-if="verificationItem.hash" class="section document-hash">
                     <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
-                    <div class="value">
-                        <span>{{ verificationItem.hash }}</span>
-                    </div>
+
+                    <DataPanel :key="`expert-${verificationItem.hash}`">
+                        {{ verificationItem.hash }}
+                    </DataPanel>
                 </div>
-                <div v-if="signEvents.length > 0 && signEvents[0].on_blockchain"
-                     class="section smart-contract-address">
+                <div v-if="signEvents.length > 0 && signEvents[0].on_blockchain" class="section smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
-                    <div class="value">
+
+                    <DataPanel :key="`expert-${signEvents[0].on_blockchain.contract_address}`">
                         <a :href="`https://${net}/address/${signEvents[0].on_blockchain.contract_address}`"
                            target="_blank">{{ signEvents[0].on_blockchain.contract_address }}</a>
-                    </div>
+                    </DataPanel>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id"
-                     class="section issuer-address">
+                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id" class="section issuer-address">
                     <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
-                    <div class="value">
-                        <span>{{ registerEvents[0].issuer.id }}</span>
-                    </div>
+
+                    <DataPanel :key="`expert-${registerEvents[0].issuer.id}`">
+                        {{ registerEvents[0].issuer.id }}
+                    </DataPanel>
                 </div>
                 <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
                      class="section registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
-                    <div class="value">
+
+                    <DataPanel :key="`expert-${registerEvents[0].ref}`">
                         <a :href="`https://${net}/tx/${registerEvents[0].on_blockchain.tx_hash}`"
                            target="_blank">{{ registerEvents[0].on_blockchain.tx_hash }}</a>
-                    </div>
+                    </DataPanel>
                 </div>
-                <div v-if="signEvents.length > 0" class="section signature-hashes">
-                    <div class="label">{{ _$t('verification.result.meta.signatureTransactions') }}</div>
-                    <div class="value">
-                        <div class="signature-hash" v-for="(signEvent, index) in signEvents" :key="index">
-                            <span>{{ issuerDisplayName(signEvent) }}</span>
+                <div v-if="signEvents.length > 0" class="section signature-details">
+                    <div class="label">{{ _$t('verification.result.meta.signatureDetails') }}</div>
+
+                    <DataPanel v-for="signEvent in signEvents"
+                               :key="`expert-${signEvent.ref}`"
+                               :icon-src="iconSignature"
+                               :title="issuerDisplayName(signEvent)">
+                        <div class="transaction-hash">
+                            <div class="label">{{ _$t('verification.result.meta.txHash') }}</div>
                             <a v-if="signEvent.on_blockchain"
                                :href="`https://${net}/tx/${signEvent.on_blockchain.tx_hash}`"
                                target="_blank">{{ signEvent.on_blockchain.tx_hash }}</a>
                         </div>
-                    </div>
+                        <div v-if="signEvent.signature.level" class="signature-level">
+                            <div class="label">{{ _$t('verification.result.meta.signatureLevel') }}</div>
+                            <div class="value">{{ signEvent.signature.level }}</div>
+                        </div>
+                        <div v-if="signEvent.signature.jurisdiction" class="jurisdiction">
+                            <div class="label">{{ _$t('verification.result.meta.jurisdiction') }}</div>
+                            <div class="value">{{ signEvent.signature.jurisdiction }}</div>
+                        </div>
+                        <div v-if="signEvent.signature.level === SIGNATURE_LEVEL_QES" class="download-signature">
+                            <button type="button" class="btn btn-secondary" @click="downloadQesSignature(signEvent)">
+                                <img src="../../../../assets/img/icon_signature_download.svg"
+                                     class="icon"
+                                     alt="Download"/>
+                                {{ _$t('verification.result.meta.downloadSignature') }}
+                            </button>
+                        </div>
+                    </DataPanel>
                 </div>
-                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain"
-                     class="section revocation-hash">
+                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain" class="section revocation-hash">
                     <div class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</div>
-                    <div class="value">
-                        <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
-                           target="_blank">{{ revokeEvents[0].on_blockchain.tx_hash }}</a>
-                    </div>
+
+                    <DataPanel :key="`expert-${revokeEvents[0].ref}`">
+                        <template #header>
+                            <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
+                               target="_blank">{{ revokeEvents[0].on_blockchain.tx_hash }}</a>
+                        </template>
+                    </DataPanel>
                 </div>
             </div>
         </template>
@@ -75,8 +99,8 @@
                     <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
 
                     <div class="signature-list">
-                        <DataPanel v-for="(signEvent, index) in signEvents"
-                                   :key="index"
+                        <DataPanel v-for="signEvent in signEvents"
+                                   :key="signEvent.ref"
                                    :icon-src="iconSignature"
                                    :title="issuerDisplayName(signEvent)">
                             <EventDetails :event="signEvent"/>
@@ -87,7 +111,7 @@
                 <div v-if="signatureType" class="section signature-type">
                     <span class="label">{{ _$t('verification.result.meta.signatureType') }}</span>
 
-                    <DataPanel :icon-src="iconFingerprint" :title="signatureType.title">
+                    <DataPanel :key="signatureType.level" :icon-src="iconFingerprint" :title="signatureType.title">
                         <p v-html="signatureType.description"/>
                     </DataPanel>
                 </div>
@@ -95,7 +119,8 @@
                 <div v-if="initiator" class="section initiator">
                     <span class="label">{{ _$t('verification.result.meta.initiator') }}</span>
 
-                    <DataPanel :icon-src="iconUser"
+                    <DataPanel :key="`initiator-${initiator.ref}`"
+                               :icon-src="iconUser"
                                :title="issuerDisplayName(initiator)">
                         <EventDetails :event="initiator"/>
                     </DataPanel>
@@ -122,6 +147,7 @@
 
 <script>
 import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import { SIGNATURE_LEVEL_QES } from '@certifaction/verification-core'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import BaseCard from './BaseCard.vue'
 import ResultDetail from '../ResultDetail.vue'
@@ -152,6 +178,7 @@ export default {
             iconSignature,
             iconFingerprint,
             iconUser,
+            SIGNATURE_LEVEL_QES,
             showExpertInfo: false
         }
     },
@@ -246,6 +273,21 @@ export default {
         }
     },
     methods: {
+        downloadQesSignature(event) {
+            const content = `-----BEGIN PKCS7-----\n${event.signature.pkcs7Data}\n-----END PKCS7-----`
+            const filename = `qes_signature_${event.issuer.name.toLowerCase().replaceAll(/\s+/g, '_')}.p7b`
+
+            const element = document.createElement('a')
+            element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(content)}`)
+            element.setAttribute('download', filename)
+            element.style.display = 'none'
+
+            document.body.appendChild(element)
+
+            element.click()
+
+            document.body.removeChild(element)
+        },
         toggleHelp(type) {
             this.$emit('toggle-help', type)
         }

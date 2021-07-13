@@ -22,10 +22,13 @@
                     </label>
                     <label for="consent" class="consent" v-html="_$t('verification.card.contact.form.consent')"/>
                 </div>
-                <span v-if="contactFormSuccessful" class="message-sent success">{{ _$t('verification.card.contact.form.submitted') }}</span>
-                <span v-if="contactFormFailed" class="message-sent failed">{{ _$t('verification.card.contact.form.failed') }}</span>
+                <span v-if="contactFormSuccessful" class="message-sent success">
+                    {{ _$t('verification.card.contact.form.submitted') }}
+                </span>
+                <span v-if="contactFormFailed" class="message-sent failed">
+                    {{ _$t('verification.card.contact.form.failed') }}
+                </span>
             </form>
-
         </template>
         <template #footer>
             <div class="left">
@@ -35,7 +38,10 @@
             </div>
             <div class="right">
                 <button type="submit" form="contact-form" class="btn btn-primary" :disabled="contactFormSubmitting">
-                    <img v-if="contactFormSubmitting" class="loading-spinner" src="../../../../assets/img/loading_spinner.svg" alt="Spinner"/>
+                    <img v-if="contactFormSubmitting"
+                         class="loading-spinner"
+                         src="../../../../assets/img/loading_spinner.svg"
+                         alt="Spinner"/>
                     <span v-else>{{ _$t('verification.card.contact.form.submit') }}</span>
                 </button>
             </div>
