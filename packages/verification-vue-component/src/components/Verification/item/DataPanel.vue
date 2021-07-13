@@ -1,13 +1,15 @@
 <template>
-    <div class="data-panel"
-         :class="{ collapsed: hasContent && collapsed, 'has-icon': iconSrc || mdIcon, 'has-content': hasContent }">
-        <div class="header" @click="onClickHeader">
-            <div v-if="iconSrc || mdIcon" class="icon">
-                <img v-if="iconSrc" :src="iconSrc" class="icon" alt="Icon"/>
-                <MDIcon v-if="mdIcon" :icon="mdIcon"/>
-            </div>
-            <div class="title" v-html="title"/>
-            <div v-if="hasContent" class="collapse-indicator">
+    <div class="data-panel" :class="{ collapsed: isBodyCollapsed, 'has-icon': hasIcon, 'has-body': hasBody }">
+        <div v-if="hasHeaderContent" class="header" @click="onClickHeader">
+            <slot name="header">
+                <div v-if="hasIcon" class="icon">
+                    <img v-if="iconSrc" :src="iconSrc" class="icon" alt="Icon"/>
+                    <MDIcon v-if="mdIcon" :icon="mdIcon"/>
+                </div>
+                <div v-if="title" class="title" v-html="title"/>
+            </slot>
+
+            <div v-if="hasBody && bodyCollapsible" class="collapse-indicator">
                 <MDIcon :icon="mdiChevronUp"/>
             </div>
         </div>
@@ -15,7 +17,7 @@
                     @enter="onEnterTransition"
                     @after-enter="onAfterEnterTransition"
                     @leave="onLeaveTransition">
-            <div v-if="hasContent && !collapsed" class="content">
+            <div v-if="hasBody && !isBodyCollapsed" class="body">
                 <slot/>
             </div>
         </transition>
@@ -39,25 +41,41 @@ export default {
             type: String
         },
         title: {
-            type: String,
-            required: true
+            type: String
+        },
+        bodyCollapsible: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
         return {
             mdiChevronUp,
-            collapsed: true
+            bodyCollapsed: true
         }
     },
     computed: {
-        hasContent() {
+        hasIcon() {
+            return !!(this.iconSrc || this.mdIcon)
+        },
+        hasHeaderContent() {
+            return !!(this.hasIcon || this.title || this.$slots.header)
+        },
+        hasBody() {
             return !!this.$slots.default
+        },
+        isBodyCollapsed() {
+            if (!this.bodyCollapsible || !this.hasHeaderContent) {
+                return false
+            }
+
+            return this.bodyCollapsed
         }
     },
     methods: {
         onClickHeader() {
-            if (this.hasContent) {
-                this.collapsed = !this.collapsed
+            if (this.hasBody && this.bodyCollapsible) {
+                this.bodyCollapsed = !this.bodyCollapsed
             }
         },
         onEnterTransition(el) {
