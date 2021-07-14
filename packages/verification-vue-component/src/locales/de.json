@@ -58,23 +58,23 @@
             },
             "meta": {
                 "issuer": "Aussteller",
-                "signature": "Unterzeichner | Unterzeichner",
+                "signature": "Unterzeichnende | Unterzeichnende",
                 "signatureType": "Unterschriftstyp",
                 "verifiedBy": "Verifiziert durch",
                 "signedAt": "Unterzeichnet am",
                 "signedVia": "Unterzeichnet über",
-                "issuerAddress": "Public Key des Ausstellers",
-                "documentHash": "Dokumenten-Hash",
-                "txHash": "Transaction hash",
-                "registrationDate": "Ausstelldatum & -Zeit",
+                "issuerAddress": "Public-Key des Ausstellers",
+                "documentHash": "Dokument-Hash",
+                "txHash": "Transaktionshash",
+                "registrationDate": "Ausstelldatum & -zeit",
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
-                "revocationDate": "Annullierungsdatum & -Zeit",
+                "revocationDate": "Annullierungsdatum & -zeit",
                 "smartContractAddress": "Smart Contract-Adresse",
-                "signatureDetails": "Signature details",
-                "signatureLevel": "Signature level",
-                "jurisdiction": "Jurisdiction",
-                "downloadSignature": "Download signature",
+                "signatureDetails": "Unterschriftsdetails",
+                "signatureLevel": "Unterschriftslevel",
+                "jurisdiction": "Rechtsraum",
+                "downloadSignature": "Unterschrift herunterladen",
                 "details": "Details",
                 "initiator": "Initiator",
                 "name": "Name",
@@ -89,7 +89,7 @@
                         "description": "Die digitalen Unterschriften dieses Dokuments sind kryptografisch durch zeitgestempelte, unveränderliche Einträge in der Ethereum-Blockchain gesichert. Bitte sehen Sie sich die Details der Signaturen, um zu erfahren, wie die Identität der einzelnen Unterzeichner überprüft wurde. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
                     },
                     "QES": {
-                        "title": "Blockchain eSignature + Qualified Electronic Signature (CH)",
+                        "title": "Blockchain eSignature + Qualified Electronic Signature (QES)",
                         "description": "Die Unterschriften, die für dieses Dokument geleistet wurden, sind konform mit dem Schweizer Bundesgesetz über die elektronische Signatur und weisen die höchste darin vorgesehene Beweiskraft auf. Darüber hinaus wurde das Dokument durch einen zeitgestempelten, unveränderlichen Eintrag in der Ethereum-Blockchain gesichert. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
                     }
                 }
