@@ -16,9 +16,10 @@
                 </div>
                 <div v-if="verificationItem.hash" class="section document-hash">
                     <div class="label">{{ _$t('verification.result.meta.documentHash') }}</div>
-                    <div class="value">
-                        <span class="hash">{{ verificationItem.hash }}</span>
-                    </div>
+
+                    <DataPanel :key="verificationItem.hash">
+                        {{ verificationItem.hash }}
+                    </DataPanel>
                 </div>
             </div>
         </template>
@@ -38,6 +39,7 @@ import { mdiFileDocument } from '@mdi/js'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
 import BaseCard from './BaseCard.vue'
 import MDIcon from '../../../MDIcon.vue'
+import DataPanel from '../DataPanel.vue'
 import ResultDetail from '../ResultDetail.vue'
 
 export default {
@@ -46,6 +48,7 @@ export default {
     components: {
         BaseCard,
         MDIcon,
+        DataPanel,
         ResultDetail
     },
     props: {

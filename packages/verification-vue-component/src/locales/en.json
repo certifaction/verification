@@ -63,14 +63,18 @@
                 "verifiedBy": "Verified by",
                 "signedAt": "Signing date",
                 "signedVia": "Signed via",
-                "issuerAddress": "Issuer Public Key",
-                "documentHash": "Document Hash",
-                "registrationDate": "Issue Date & Time",
-                "registrationTransaction": "Registration Transaction",
-                "revocationTransaction": "Revocation Transaction",
-                "revocationDate": "Revocation Date & Time",
-                "smartContractAddress": "Smart Contract Address",
-                "signatureTransactions": "Signature transactions",
+                "issuerAddress": "Issuer public key",
+                "documentHash": "Document hash",
+                "txHash": "Transaction hash",
+                "registrationDate": "Issue date & time",
+                "registrationTransaction": "Registration transaction",
+                "revocationTransaction": "Revocation transaction",
+                "revocationDate": "Revocation date & time",
+                "smartContractAddress": "Smart contract address",
+                "signatureDetails": "Signature details",
+                "signatureLevel": "Signature level",
+                "jurisdiction": "Jurisdiction",
+                "downloadSignature": "Download signature",
                 "details": "Details",
                 "initiator": "Initiator",
                 "name": "Name",
@@ -85,7 +89,7 @@
                         "description": "The signatures given to this document are cryptographically secured by timestamped, immutable records on the Ethereum blockchain. Please see the signature details above to learn how the identity of each signer was verified. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Learn more</a>"
                     },
                     "QES": {
-                        "title": "Blockchain eSignature +<br>Qualified Electronic Signature (CH)",
+                        "title": "Blockchain eSignature +<br>Qualified Electronic Signature (QES)",
                         "description": "The signatures given to this document comply with the Swiss Federal Electronic Signature Act and hold the maximum legal weight achievable for electronic signatures in Switzerland. In addition, the document was secured by a time-stamped, immutable record on the Ethereum blockchain. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Learn more</a>"
                     }
                 }

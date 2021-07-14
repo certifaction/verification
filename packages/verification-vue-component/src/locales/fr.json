@@ -65,12 +65,16 @@
                 "signedVia": "Signé via",
                 "issuerAddress": "Clef publique de l'émetteur",
                 "documentHash": "Empreinte numérique du document",
+                "txHash": "Transaction hash",
                 "registrationDate": "Date & heure de l'émission",
                 "registrationTransaction": "Transaction d'énregistrement",
                 "revocationTransaction": "Transaction de révocation",
                 "revocationDate": "Date & heure de la révocation",
                 "smartContractAddress": "Adresse du Smart Contract",
-                "signatureTransactions": "Transactions des signatures",
+                "signatureDetails": "Détails de la signature",
+                "signatureLevel": "Niveau de la signature",
+                "jurisdiction": "Juridiction",
+                "downloadSignature": "Télécharger la signature",
                 "details": "Détails",
                 "initiator": "Initiateur",
                 "name": "Nom",
@@ -85,7 +89,7 @@
                         "description": "Les signatures électroniques de ce document sont sécurisées cryptographiquement par des entrées immuables horodatées dans la blockchain Ethereum. Veuillez consulter les détails des signatures pour savoir comment l'identité de chaque signataire a été vérifiée. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
                     },
                     "QES": {
-                        "title": "eSignature sur la Blockchain +<br>Signature Électronique Qualifiée (CH)",
+                        "title": "eSignature sur la Blockchain +<br>Signature Électronique Qualifiée (QES)",
                         "description": "Les signatures de ce document sont conformes à la loi fédérale suisse sur la signature électronique et ont la plus haute valeur probante prevue par cette loi. En outre, ce document a été sécurisé par une entrée immuable et horodatée dans la blockchain Ethereum. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">En savoir plus</a>"
                     }
                 }
