@@ -227,8 +227,6 @@ export default {
                 Vue.set(this.verificationItems, key, { ...item, ...verification })
                 verification.loaded = true
             }
-
-            console.log(this.verificationItems)
         },
         async offchainVerification(verification, decryptionKey) {
             // TODO(Cyrill): Simplify offchain verification
