@@ -69,6 +69,7 @@
                 "registrationDate": "Issue date & time",
                 "registrationTransaction": "Registration transaction",
                 "revocationTransaction": "Revocation transaction",
+                "retractionTransaction": "Retraction transaction",
                 "revocationDate": "Revocation date & time",
                 "smartContractAddress": "Smart contract address",
                 "signatureDetails": "Signature details",
@@ -130,6 +131,9 @@
                 "revoked": {
                     "status": "This document has been revoked."
                 },
+                "retracted": {
+                    "status": "The initiator has marked this document as retracted. The existing signatures remain valid."
+                },
                 "unverifiedSigner": {
                     "status": "This document is authentic and digitally signed."
                 },
@@ -142,6 +146,7 @@
                         "inProgress": {
                             "registration": "Blockchain anchoring<span class=\"detail-footnote\">This document is currently being anchored on the Ethereum blockchain. This may take from a few minutes to several hours. You do not need to wait for this to finish. The document is already valid and can be used immediately.</span>",
                             "revocation": "Blockchain anchoring<span class=\"detail-footnote\">The revocation of this document is currently being anchored on the Ethereum blockchain. This may take from a few minutes to several hours. You do not need to wait for this to finish. The revocation is already final.</span>",
+                            "retraction": "Blockchain anchoring<span class=\"detail-footnote\">The retraction of this document is currently being anchored on the Ethereum blockchain. This may take from a few minutes to several hours. You do not need to wait for this to finish. The retraction is already final.</span>",
                             "signature": "Blockchain anchoring<span class=\"detail-footnote\">One of the received signatures is currently being registered on the Ethereum blockchain. This may take from a few minutes to several hours. The signature is already fully valid and the document can be distributed.</span>"
                         },
                         "processed": "Secured by blockchain"
@@ -151,6 +156,10 @@
                         "revoked": {
                             "inProgress": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer. It is no longer valid.</span>",
                             "processed": "Revoked<span class=\"detail-footnote\">This document has been revoked by the issuer on the {revocationDate}. It is no longer valid.</span>"
+                        },
+                        "retracted": {
+                            "inProgress": "Retracted<span class=\"detail-footnote\">This document has been retracted by the issuer. Given signatures remain valid.</span>",
+                            "processed": "Retracted<span class=\"detail-footnote\">This document has been retracted by the issuer on the {retractionDate}. Given signatures remain valid.</span>"
                         }
                     },
                     "signer": {

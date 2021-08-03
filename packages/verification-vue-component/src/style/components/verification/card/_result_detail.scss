@@ -112,6 +112,12 @@
                         color: $verification-result-error-dark;
                     }
                 }
+
+                &.document-retracted {
+                    .md-icon {
+                        color: $verification-result-warning-dark;
+                    }
+                }
             }
         }
     }

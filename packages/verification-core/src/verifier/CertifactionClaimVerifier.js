@@ -305,6 +305,10 @@ export default class CertifactionClaimVerifier {
                 fileEvent.issuer = issuerIdentity
             }
 
+            if (fileEvent.scope === 'retract') {
+                fileEvent.retraction_note = claim.note
+            }
+
             const signature = {}
             if (claim.level) {
                 signature.level = claim.level

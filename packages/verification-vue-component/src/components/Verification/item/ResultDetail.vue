@@ -33,6 +33,7 @@
 
 <script>
 import {
+    mdiAlert,
     mdiAlertCircle,
     mdiCheckCircle,
     mdiChevronDown,
@@ -83,10 +84,19 @@ export default {
             type: Boolean,
             default: false
         },
+        documentRetracted: {
+            type: Boolean,
+            default: false
+        },
         documentRevocationInProgress: {
             type: Boolean,
             default: false
         },
+        documentRetractionInProgress: {
+            type: Boolean,
+            default: false
+        },
+        documentRetractionDate: null,
         documentRevocationDate: null,
         signaturesInProgress: {
             type: Number,
@@ -125,8 +135,7 @@ export default {
             if (this.documentRevoked) {
                 return 'error'
             }
-
-            if (this.notFound || this.hasTechnicalProblem || this.hasUnverifiedIssuer || this.hasUnverifiedSigner) {
+            if (this.notFound || this.hasTechnicalProblem || this.hasUnverifiedIssuer || this.hasUnverifiedSigner || this.documentRetracted) {
                 return 'warning'
             }
 
@@ -154,6 +163,10 @@ export default {
 
             if (this.documentRevoked) {
                 return this._$t(`verification.result.${this.verificationMode}.revoked.status`)
+            }
+
+            if (this.documentRetracted) {
+                return this._$t(`verification.result.${this.verificationMode}.retracted.status`)
             }
 
             if (this.hasUnverifiedIssuer) {
@@ -189,6 +202,8 @@ export default {
                 blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.registration`)
             } else if (this.documentRevocationInProgress) {
                 blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.revocation`)
+            } else if (this.documentRetractionInProgress) {
+                blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.retraction`)
             } else if (this.signaturesInProgress > 0) {
                 blockchainStatus.label = this._$t(`${langDetailsKeyPrefix}.blockchain.inProgress.signature`)
             } else {
@@ -209,6 +224,17 @@ export default {
                 }
                 documentStatus.class = 'document-revoked'
                 documentStatus.icon = 'close'
+            } else if (this.documentRetracted) {
+                if (this.documentRetractionInProgress) {
+                    documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.retracted.inProgress`)
+                } else {
+                    documentStatus.label = this._$t(
+                        `${langDetailsKeyPrefix}.document.retracted.processed`,
+                        { retractionDate: this.documentRetractionDate }
+                    )
+                }
+                documentStatus.class = 'document-retracted'
+                documentStatus.icon = 'alertTriangle'
             } else {
                 documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.valid`)
             }
@@ -266,6 +292,8 @@ export default {
                     return mdiCheckCircle
                 case 'alert':
                     return mdiAlertCircle
+                case 'alertTriangle':
+                    return mdiAlert
                 case 'close':
                     return mdiCloseCircle
             }
