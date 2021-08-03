@@ -109,7 +109,7 @@
 
             <div class="verification-info">
                 <div v-if="retractEvents.length > 0" class="section retraction-note">
-                    <span class="note-label">note from initiator</span>
+                    <span class="note-label" v-html="_$t('verification.result.meta.retractionNote')"/>
                     <span class="note-value" v-html="retractionNote" />
                 </div>
 

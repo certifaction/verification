@@ -59,6 +59,7 @@
             "meta": {
                 "issuer": "Issuer",
                 "signature": "Signature | Signatures",
+                "retractionNote": "Note from the initiator",
                 "signatureType": "Signature type",
                 "verifiedBy": "Verified by",
                 "signedAt": "Signing date",
