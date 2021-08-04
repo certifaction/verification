@@ -59,6 +59,7 @@
             "meta": {
                 "issuer": "Aussteller",
                 "signature": "Unterzeichnende | Unterzeichnende",
+                "retractionNote": "Anmerkung des Initiators",
                 "signatureType": "Unterschriftstyp",
                 "verifiedBy": "Verifiziert durch",
                 "signedAt": "Unterzeichnet am",
@@ -69,6 +70,7 @@
                 "registrationDate": "Ausstelldatum & -zeit",
                 "registrationTransaction": "Ausstellungstransaktion",
                 "revocationTransaction": "Annullierungstransaktion",
+                "retractionTransaction": "Rückzugstransaktion",
                 "revocationDate": "Annullierungsdatum & -zeit",
                 "smartContractAddress": "Smart Contract-Adresse",
                 "signatureDetails": "Unterschriftsdetails",
@@ -130,6 +132,9 @@
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen."
                 },
+                "retracted": {
+                    "status": "Dieses Dokument wurde vom Initiator zurückgezogen. Bestehende Signaturen bleiben gültig."
+                },
                 "unverifiedSigner": {
                     "status": "Dieses Dokument ist authentisch und digital unterzeichnet."
                 },
@@ -142,6 +147,7 @@
                         "inProgress": {
                             "registration": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Dieser Vorgang kann von einigen Minuten bis zu mehreren Stunden dauern. Sie müssen dies nicht abwarten. Das Dokument ist bereits jetzt gültig und kann verteilt werden.</span>",
                             "revocation": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain widerrufen zu werden. Sie müssen dies nicht abwarten. Die Annullierung ist bereits final.</span>",
+                            "retraction": "Blockchain-Verankerung<span class=\"detail-footnote\">Dieses Dokument befindet sich derzeit in der Warteschlange, um auf der Ethereum-Blockchain zurückgezogen zu werden. Sie müssen dies nicht abwarten. Das Zurückziehen ist bereits final.</span>",
                             "signature": "Blockchain-Verankerung<span class=\"detail-footnote\">Eine digitale Unterschrift für dieses Dokument wird gerade auf der Ethereum-Blockchain verankert. Dieser Vorgang kann von einigen Minuten bis zu mehreren Stunden dauern. Die Signatur ist bereits jetzt gültig und das Dokument kann verteilt werden.</span>"
                         },
                         "processed": "Durch Blockchain gesichert"
@@ -151,6 +157,10 @@
                         "revoked": {
                             "inProgress": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller widerrufen. Es ist nicht mehr gültig.</span>",
                             "processed": "Annulliert<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller am {revocationDate} widerrufen. Es ist nicht mehr gültig.</span>"
+                        },
+                        "retracted": {
+                            "inProgress": "Zurückgezogen<span class=\"detail-footnote\">Dieses Dokument wurde vom Aussteller zurückgezogen. Bestehende Signaturen bleiben gültig.</span>",
+                            "processed": "Zurückgezogen<span class=\"detail-footnote\">Dieses Dokument wurde am {retractionDate} vom Aussteller zurückgezogen. Bestehende Signaturen bleiben gültig.</span>"
                         }
                     },
                     "signer": {

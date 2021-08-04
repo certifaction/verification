@@ -59,6 +59,7 @@
             "meta": {
                 "issuer": "Emittente",
                 "signature": "Firma | Firme",
+                "retractionNote": "Nota dell'iniziatore",
                 "signatureType": "Tipo di firma",
                 "verifiedBy": "Verificato da",
                 "signedAt": "Firmato il",
@@ -69,6 +70,7 @@
                 "registrationDate": "Data e ora di emissione",
                 "registrationTransaction": "Transazione di emissione",
                 "revocationTransaction": "Transazione di annullamento",
+                "retractionTransaction": "Transazione di ritrattazione",
                 "revocationDate": "Data e ora di annullamento",
                 "smartContractAddress": "Indirizzo del Smart Contract",
                 "signatureDetails": "Dettagli firma",
@@ -130,6 +132,9 @@
                 "revoked": {
                     "status": "Questo documento è stato revocato."
                 },
+                "retracted": {
+                    "status": "L'iniziatore ha segnato questo documento come ritrattato. Le firme esistenti rimangono valide."
+                },
                 "unverifiedSigner": {
                     "status": "Questo documento è autentico e firmato digitalmente."
                 },
@@ -142,6 +147,7 @@
                         "inProgress": {
                             "registration": "Registrazione su blockchain<span class=\"detail-footnote\">Questo documento è attualmente ancorato alla blockchain di Ethereum. Questo potrebbe richiedere da pochi minuti a diverse ore. Non è necessario aspettare che questo processo finisca. Il documento è già valido e può essere utilizzato immediatamente.</span>",
                             "revocation": "Registrazione su blockchain<span class=\"detail-footnote\">La revoca di questo documento è stato trasmesso alla blockchain di Ethereum. Questo potrebbe richiedere da pochi minuti a diverse ore. Non è necessario aspettare che questo processo finisca. La revoca è già definitiva.</span>",
+                            "retraction": "Registrazione su blockchain<span class=\"detail-footnote\">La ritrattazione di questo documento è stato trasmesso alla blockchain di Ethereum. Questo potrebbe richiedere da pochi minuti a diverse ore. Non è necessario aspettare che questo processo finisca. La ritrattazione è già definitiva.</span>",
                             "signature": "Registrazione su blockchain<span class=\"detail-footnote\">Una delle firme ricevute è attualmente in fase di registrazione sulla blockchain di Ethereum. Questo processo potrebbe richiedere da pochi minuti a diverse ore. La firma è da subito perfettamente valida e il documento può essere distribuito.</span>"
                         },
                         "processed": "Protetto dalla blockchain"
@@ -151,6 +157,10 @@
                         "revoked": {
                             "inProgress": "Revocato<span class=\"detail-footnote\">Questo documento è stato revocato dall'emittente. Non è più valido.</span>",
                             "processed": "Revocato<span class=\"detail-footnote\">Il presente documento è stato revocato dall'emittente il {revocationDate}. Non è più valido.</span>"
+                        },
+                        "retracted": {
+                            "inProgress": "Ritirato<span class=\"detail-footnote\">Questo documento è stato ritirato dall'emittente. Le firme date rimangono valide.</span>",
+                            "processed": "Ritirato<span class=\"detail-footnote\">Questo documento è stato ritirato dall'emittente il retractionDate. Le firme date rimangono valide.</span>"
                         }
                     },
                     "signer": {
