@@ -59,7 +59,7 @@
             "meta": {
                 "issuer": "Aussteller",
                 "signature": "Unterzeichnende | Unterzeichnende",
-                "retractionNote": "Anmerkung des Initiators",
+                "retractionNote": "Hinweis des Initiators",
                 "signatureType": "Unterschriftstyp",
                 "verifiedBy": "Verifiziert durch",
                 "signedAt": "Unterzeichnet am",
