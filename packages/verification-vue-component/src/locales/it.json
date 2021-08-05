@@ -133,7 +133,7 @@
                     "status": "Questo documento è stato revocato."
                 },
                 "retracted": {
-                    "status": "L'iniziatore ha segnato questo documento come ritrattato. Le firme esistenti rimangono valide."
+                    "status": "L'iniziatore ha segnato questo documento come ritirato. Le firme esistenti rimangono valide."
                 },
                 "unverifiedSigner": {
                     "status": "Questo documento è autentico e firmato digitalmente."
