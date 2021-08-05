@@ -70,7 +70,7 @@
                 "registrationDate": "Data e ora di emissione",
                 "registrationTransaction": "Transazione di emissione",
                 "revocationTransaction": "Transazione di annullamento",
-                "retractionTransaction": "Transazione di ritrattazione",
+                "retractionTransaction": "Transazione di ritiro",
                 "revocationDate": "Data e ora di annullamento",
                 "smartContractAddress": "Indirizzo del Smart Contract",
                 "signatureDetails": "Dettagli firma",
