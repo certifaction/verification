@@ -160,7 +160,7 @@
                         },
                         "retracted": {
                             "inProgress": "Ritirato<span class=\"detail-footnote\">Questo documento è stato ritirato dall'emittente. Le firme date rimangono valide.</span>",
-                            "processed": "Ritirato<span class=\"detail-footnote\">Questo documento è stato ritirato dall'emittente il retractionDate. Le firme date rimangono valide.</span>"
+                            "processed": "Ritirato<span class=\"detail-footnote\">Questo documento è stato ritirato dall'emittente il {retractionDate}. Le firme date rimangono valide.</span>"
                         }
                     },
                     "signer": {
