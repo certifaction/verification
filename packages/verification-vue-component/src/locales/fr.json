@@ -147,7 +147,7 @@
                         "inProgress": {
                             "registration": "Ancrage sur la blockchain<span class=\"detail-footnote\">L’empreinte digitale de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. Le document est déjà valide et peut être utilisé immédiatement.</span>",
                             "revocation": "Ancrage sur la blockchain<span class=\"detail-footnote\">La révocation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La révocation est déjà définitive.</span>",
-                            "retraction": "Ancrage sur la blockchain<span class=\"detail-footnote\">La rétractation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La rétractation est déjà définitive.</span>",
+                            "retraction": "Ancrage sur la blockchain<span class=\"detail-footnote\">La rétractation de ce document est actuellement en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Vous n'avez pas besoin d'attendre que cela se termine. La rétractation est déjà actée.</span>",
                             "signature": "Ancrage de la blockchain<span class=\"detail-footnote\">L'une des signatures reçues est en cours d'enregistrement sur la blockchain Ethereum. Cela peut prendre de quelques minutes à plusieurs heures. Les signature sont déjà entièrement valides et le document peut être partagé.</span>"
                         },
                         "processed": "Securisé sur la blockchain"
@@ -159,8 +159,8 @@
                             "processed": "Révoqué<span class=\"detail-footnote\">Ce document a été révoqué par son émetteur le {revocationDate}. Il n'est plus valide.</span>"
                         },
                         "retracted": {
-                            "inProgress": "Rétracté<span class=\"detail-footnote\">Ce document a été rétracté par son émetteur. Les signatures données restent valides.</span>",
-                            "processed": "Rétracté<span class=\"detail-footnote\">Ce document a été rétracté par son émetteur le {retractionDate}. Les signatures données restent valides."
+                            "inProgress": "Rétracté<span class=\"detail-footnote\">Ce document a été rétracté par son initiateur. Les signatures dans ce document restent cependant valides.</span>",
+                            "processed": "Rétracté<span class=\"detail-footnote\">Ce document a été rétracté par son initiateur le {retractionDate}. Les signatures dans ce document restent cependant valides."
                         }
                     },
                     "signer": {
