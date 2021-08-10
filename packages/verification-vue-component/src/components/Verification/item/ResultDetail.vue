@@ -33,7 +33,6 @@
 
 <script>
 import {
-    mdiAlert,
     mdiAlertCircle,
     mdiCheckCircle,
     mdiChevronDown,
