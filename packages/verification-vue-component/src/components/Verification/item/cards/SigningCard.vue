@@ -82,6 +82,16 @@
                         </template>
                     </DataPanel>
                 </div>
+                <div v-if="retractEvents.length > 0 && retractEvents[0].on_blockchain" class="section retraction-hash">
+                    <div class="label">{{ _$t('verification.result.meta.retractionTransaction') }}</div>
+
+                    <DataPanel :key="`expert-${retractEvents[0].ref}`">
+                        <template #header>
+                            <a :href="`https://${net}/tx/${retractEvents[0].on_blockchain.tx_hash}`"
+                               target="_blank">{{ retractEvents[0].on_blockchain.tx_hash }}</a>
+                        </template>
+                    </DataPanel>
+                </div>
             </div>
         </template>
         <template v-else #body>
@@ -89,12 +99,20 @@
                           :document-revoked="revokeEvents.length > 0"
                           :document-revocation-in-progress="revocationInProgress"
                           :document-revocation-date="revocationDate"
+                          :document-retracted="retractEvents.length > 0"
+                          :document-retraction-in-progress="retractionInProgress"
+                          :document-retraction-date="retractionDate"
                           :signatures-in-progress="signaturesInProgress"
                           :has-unverified-signer="hasUnverifiedSigner"
                           :has-verified-signer="hasVerifiedSigner"
                           :signer-count="signEvents.length"/>
 
             <div class="verification-info">
+                <div v-if="retractEvents.length > 0" class="section retraction-note">
+                    <div class="label">{{ _$t('verification.result.meta.retractionNote') }}</div>
+                    <div class="value">{{ retractionNote }}</div>
+                </div>
+
                 <div v-if="signEvents.length > 0" class="section signatures">
                     <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
 
@@ -199,6 +217,9 @@ export default {
         revokeEvents() {
             return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : []
         },
+        retractEvents() {
+            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'retract') : []
+        },
         signEvents() {
             const signEvents = this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
             if (signEvents.length > 1) {
@@ -218,9 +239,6 @@ export default {
             }
             return signEvents
         },
-        revocationInProgress() {
-            return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
-        },
         revocationDate() {
             if (this.revokeEvents.length === 0) {
                 return null
@@ -232,6 +250,31 @@ export default {
             }
 
             return this.revokeEvents[0].date
+        },
+        retractionDate() {
+            if (this.retractEvents.length === 0) {
+                return null
+            }
+
+            const retractionDate = new Date(this.retractEvents[0].date)
+            if (!isNaN(retractionDate)) {
+                return this._$d(retractionDate, 'long')
+            }
+
+            return this.retractEvents[0].date
+        },
+        retractionNote() {
+            if (this.retractEvents.length === 0) {
+                return null
+            }
+
+            return this.retractEvents[0].note
+        },
+        revocationInProgress() {
+            return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
+        },
+        retractionInProgress() {
+            return this.retractEvents.filter(event => !event.on_blockchain).length > 0
         },
         signaturesInProgress() {
             return this.signEvents.filter(event => !event.on_blockchain).length

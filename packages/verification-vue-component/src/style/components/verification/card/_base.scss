@@ -78,6 +78,24 @@
                 + .section {
                     margin-top: 1rem;
                 }
+
+                &.retraction-note {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 12px;
+                    border-radius: 8px;
+                    background-color: $verification-light-blue;
+
+                    .label {
+                        margin-bottom: 5px;
+                        color: $verification-pure-blue;
+                    }
+
+                    .value {
+                        font-size: 1rem;
+                        color: $verification-dark-blue-80;
+                    }
+                }
             }
 
             .event-details {

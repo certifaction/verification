@@ -101,7 +101,8 @@
                 }
 
                 &.unverified-issuer,
-                &.unverified-signer {
+                &.unverified-signer,
+                &.document-retracted {
                     .md-icon {
                         color: $verification-result-warning-dark;
                     }
