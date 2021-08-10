@@ -84,18 +84,16 @@
                     flex-direction: column;
                     padding: 12px;
                     border-radius: 8px;
-                    background-color: #e8f1fe;
+                    background-color: $verification-light-blue;
 
-                    .note-label {
-                        padding-bottom: 5px;
-                        text-transform: uppercase;
-                        color: #0551bb;
-                        font-size: 13px;
-                        font-weight: 600;
+                    .label {
+                        margin-bottom: 5px;
+                        color: $verification-pure-blue;
                     }
 
-                    .note-value {
-                        color: #434d64;
+                    .value {
+                        font-size: 1rem;
+                        color: $verification-dark-blue-80;
                     }
                 }
             }

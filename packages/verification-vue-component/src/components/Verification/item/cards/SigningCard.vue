@@ -109,8 +109,8 @@
 
             <div class="verification-info">
                 <div v-if="retractEvents.length > 0" class="section retraction-note">
-                    <span class="note-label" v-html="_$t('verification.result.meta.retractionNote')"/>
-                    <span class="note-value" v-html="retractionNote" />
+                    <div class="label">{{ _$t('verification.result.meta.retractionNote') }}</div>
+                    <div class="value">{{ retractionNote }}</div>
                 </div>
 
                 <div v-if="signEvents.length > 0" class="section signatures">
@@ -268,7 +268,7 @@ export default {
                 return null
             }
 
-            return this.retractEvents[0].retraction_note
+            return this.retractEvents[0].note
         },
         revocationInProgress() {
             return this.revokeEvents.filter(event => !event.on_blockchain).length > 0

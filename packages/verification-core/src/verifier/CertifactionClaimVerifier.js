@@ -306,7 +306,7 @@ export default class CertifactionClaimVerifier {
             }
 
             if (fileEvent.scope === 'retract') {
-                fileEvent.retraction_note = claim.note
+                fileEvent.note = claim.note
             }
 
             const signature = {}

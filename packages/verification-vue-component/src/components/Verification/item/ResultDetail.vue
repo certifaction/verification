@@ -234,7 +234,7 @@ export default {
                     )
                 }
                 documentStatus.class = 'document-retracted'
-                documentStatus.icon = 'alertTriangle'
+                documentStatus.icon = 'alert'
             } else {
                 documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.valid`)
             }
@@ -292,8 +292,6 @@ export default {
                     return mdiCheckCircle
                 case 'alert':
                     return mdiAlertCircle
-                case 'alertTriangle':
-                    return mdiAlert
                 case 'close':
                     return mdiCloseCircle
             }
