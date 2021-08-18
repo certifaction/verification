@@ -82,7 +82,9 @@
                 "name": "Name",
                 "email": "E-Mail",
                 "phone": "Telefon",
-                "company": "Unternehmen"
+                "company": "Unternehmen",
+                "attributeVerified": "Dieses Attribut wurde verifiziert",
+                "attributeUnverified": "Dieses Attribut wurde nicht verifiziert"
             },
             "signature": {
                 "level": {
