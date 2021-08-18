@@ -1,8 +1,15 @@
 <template>
     <div class="event-details">
         <div v-for="detail in details" :key="detail.label" class="data-row">
-            <div v-if="detail.verifiable" :class="detail.verified === true ? 'verified' : 'unverified'">
-                <MDIcon :icon="mdiCheck"/>
+            <div v-if="detail.verifiable"
+                 :class="detail.verified === true ? 'verified' : 'unverified'"
+                 v-tooltip="{
+                    content: detail.verified === true ? $t('verification.result.meta.attributeVerified') : $t('verification.result.meta.attributeUnverified'),
+                    placement: 'right'
+                }"
+            >
+                <img v-if="detail.verified" src="../../../assets/img/verified_icon.svg" alt="Blue checkmark icon">
+                <img v-else src="../../../assets/img/unverified_icon.svg" alt="Orange question mark icon">
             </div>
             <div class="label">{{ detail.label }}</div>
             <div class="value">
@@ -19,14 +26,15 @@
 <script>
 import { mdiCheck } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
-import MDIcon from '../../MDIcon.vue'
+// Register vue tooltip
+import Vue from 'vue'
+import { VTooltip } from 'v-tooltip'
+
+Vue.directive('tooltip', VTooltip)
 
 export default {
     name: 'EventDetails',
     mixins: [i18nWrapperMixin],
-    components: {
-        MDIcon
-    },
     props: {
         event: {
             type: Object,
