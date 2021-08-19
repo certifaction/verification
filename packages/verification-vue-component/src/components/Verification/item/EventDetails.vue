@@ -3,7 +3,7 @@
         <div v-for="detail in details" :key="detail.label" class="data-row">
             <div v-if="detail.verifiable"
                  :class="detail.verified === true ? 'verified' : 'unverified'"
-                 v-tooltip.right="detail.verified === true ? _$t('verification.result.meta.attributeVerified') : $t('verification.result.meta.attributeUnverified')"
+                 v-tooltip.right="detail.verified === true ? _$t('verification.result.meta.attributeVerified') : _$t('verification.result.meta.attributeUnverified')"
             >
                 <img v-if="detail.verified" src="../../../assets/img/verified_icon.svg" alt="Blue checkmark icon">
                 <img v-else src="../../../assets/img/unverified_icon.svg" alt="Orange question mark icon">
