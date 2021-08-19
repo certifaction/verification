@@ -115,7 +115,9 @@
                         color: white;
 
                         img {
-                            position: absolute;
+                            display: block;
+                            height: auto;
+                            width: 100%;
                         }
                     }
 
