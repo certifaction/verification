@@ -25,7 +25,6 @@ import { mdiCheck } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import { VTooltip } from 'v-tooltip'
 
-
 export default {
     name: 'EventDetails',
     mixins: [i18nWrapperMixin],
