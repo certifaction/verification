@@ -114,22 +114,10 @@
                         border-radius: 50%;
                         color: white;
 
-                        .md-icon {
-                            margin: 2px;
-                            width: 12px;
-                            height: 12px;
-                        }
-                    }
-
-                    .verified {
-                        background-color: $verification-result-success-dark;
-                    }
-
-                    .unverified {
-                        border: 1px solid $gray-700;
-
-                        .md-icon {
-                            display: none;
+                        img {
+                            display: block;
+                            height: auto;
+                            width: 100%;
                         }
                     }
 
