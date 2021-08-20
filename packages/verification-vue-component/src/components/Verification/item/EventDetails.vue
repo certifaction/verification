@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mdiCheck } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import { VTooltip } from 'v-tooltip'
 
@@ -39,9 +38,7 @@ export default {
     },
     inject: ['isBeforeDetailedVerifiedMigration'],
     data() {
-        return {
-            mdiCheck
-        }
+        return {}
     },
     computed: {
         details() {
