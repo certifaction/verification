@@ -317,11 +317,11 @@ export default {
     },
     methods: {
         downloadQesSignature(event) {
-            const content = `-----BEGIN PKCS7-----\n${event.signature.pkcs7Data}\n-----END PKCS7-----`
+            const content = event.signature.pkcs7Data
             const filename = `qes_signature_${event.issuer.name.toLowerCase().replaceAll(/\s+/g, '_')}.p7b`
 
             const element = document.createElement('a')
-            element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(content)}`)
+            element.setAttribute('href', `data:text/plain;base64,${encodeURIComponent(content)}`)
             element.setAttribute('download', filename)
             element.style.display = 'none'
 
