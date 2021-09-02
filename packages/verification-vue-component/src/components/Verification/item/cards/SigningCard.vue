@@ -317,7 +317,7 @@ export default {
     },
     methods: {
         downloadQesSignature(event) {
-            const content = event.signature.pkcs7Data
+            const content = event.signature.pkcs7_data
             const filename = `qes_signature_${event.issuer.name.toLowerCase().replaceAll(/\s+/g, '_')}.p7b`
 
             const element = document.createElement('a')

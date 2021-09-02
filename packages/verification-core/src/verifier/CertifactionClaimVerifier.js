@@ -320,7 +320,7 @@ export default class CertifactionClaimVerifier {
             }
             if (claim.level === SIGNATURE_LEVEL_QES && claim.jurisdiction && Array.isArray(claim.proof)) {
                 const proof = claim.proof.find(proof => proof.type === claim.level + '-' + claim.jurisdiction)
-                signature.pkcs7Data = proof.signatureValue
+                signature.pkcs7_data = proof.signatureValue
             }
             if (Object.keys(signature).length > 0) {
                 fileEvent.signature = signature
