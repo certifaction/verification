@@ -178,7 +178,7 @@
                 },
                 "notFound": {
                     "status": "No match could be found for this document.",
-                    "details": "This document is not known to us. It is possible that it was modified unintentionally.<br><br>Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:<ul><li>by printing it as a PDF</li><li>by saving it with a PDF writer that ignored the protection</li><li>by printing and scanning it</li></ul></li></ul>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
+                    "details": "This document is not known to us. It is possible that it was modified unintentionally.<br><br>Potential error sources:<br><ul><li>The issuer distributed the wrong version of the document.</li><li>The issuer has requested signatures for this document, but none were given yet.</li><li>The document owner sent you the wrong version of the document.</li><li>The file was unintentionally altered:<ul><li>by printing it as a PDF</li><li>by saving it with a PDF writer that ignored the protection</li><li>by printing and scanning it</li></ul></li></ul>If you have any questions, please contact the issuer of the document directly or get in touch with our support."
                 }
             }
         },

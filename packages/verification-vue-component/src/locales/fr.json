@@ -178,7 +178,7 @@
                 },
                 "notFound": {
                     "status": "Aucune référence n'a pu être trouvée pour ce document",
-                    "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
+                    "details": "Ce document nous est inconnu.  Il a pu être modifié par erreur.<br><br>Par example:<br><ul><li>L'émetteur a distribué la mauvaise version du document.</li><li>L'émetteur a demandé des signatures pour ce document, mais aucune n'a encore été donnée.</li><li>Le détenteur du document vous a envoyé une mauvaise version.</li><li>Le fichier a été modifié par erreur:<ul><li>soit en l'imprimant sous forme de PDF</li><li>soit en le sauvant à l'aide d'un lecteur de PDF qui ne respecte pas les indications de protection du document</li><li>soit en imprimant et en scannant le document</li></ul></li></ul>Contactez l'émetteur du document ou prenez contact avec notre support technique."
                 }
             }
         },

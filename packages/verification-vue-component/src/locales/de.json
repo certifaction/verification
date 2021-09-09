@@ -178,7 +178,7 @@
                 },
                 "notFound": {
                     "status": "Für dieses Dokument konnten wir keinen Eintrag finden",
-                    "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:<ul><li>durch \"Drucken als PDF\"</li><li>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.</li><li>durch Ausdrucken und Scannen</li></ul></li></ul>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
+                    "details": "Dieses Dokument ist uns nicht bekannt. Möglicherweise wurde es unabsichtlich modifiziert. <br><br> Mögliche Fehlerquellen:<br><ul><li>Der Aussteller hat die falsche Version publiziert.</li><li>Der Aussteller hat um Unterschriften für dieses Dokument gebeten, aber es wurden noch keine geleistet.</li><li>Der Halter des Dokuments hat Ihnen die falsche Version des Dokuments zugestellt.</li><li>Die Datei wurde versehentlich verändert:<ul><li>durch \"Drucken als PDF\"</li><li>durch das Abspeichern in einem PDF-Bearbeitungsprogramm, das den Schutz aufgehoben hat.</li><li>durch Ausdrucken und Scannen</li></ul></li></ul>Bei Fragen kontaktieren Sie bitte den auf dem Dokument vermerkten Aussteller oder wenden Sie sich an unseren Support."
                 }
             }
         },
