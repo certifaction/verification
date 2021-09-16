@@ -89,12 +89,12 @@
             "signature": {
                 "level": {
                     "standard": {
-                        "title": "Blockchain eSignature",
-                        "description": "Die digitalen Unterschriften dieses Dokuments sind kryptografisch durch zeitgestempelte, unveränderliche Einträge in der Ethereum-Blockchain gesichert. Bitte sehen Sie sich die Details der Signaturen, um zu erfahren, wie die Identität der einzelnen Unterzeichner überprüft wurde. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
+                        "title": "Standard-eSignatur",
+                        "description": "Die digitalen Unterschriften dieses Dokuments sind kryptografisch durch zeitgestempelte, unveränderliche Einträge gesichert. Bitte sehen Sie sich die Details der Signaturen, um zu erfahren, wie die Identität der einzelnen Unterzeichner überprüft wurde. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
                     },
                     "QES": {
-                        "title": "Blockchain eSignature + Qualified Electronic Signature (QES)",
-                        "description": "Die Unterschriften, die für dieses Dokument geleistet wurden, sind konform mit dem Schweizer Bundesgesetz über die elektronische Signatur und weisen die höchste darin vorgesehene Beweiskraft auf. Darüber hinaus wurde das Dokument durch einen zeitgestempelten, unveränderlichen Eintrag in der Ethereum-Blockchain gesichert. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
+                        "title": "Qualifizierte elektronische Signatur (QES)",
+                        "description": "Die Unterschriften, die für dieses Dokument geleistet wurden, sind konform mit dem Schweizer Bundesgesetz über die elektronische Signatur und weisen die höchste darin vorgesehene Beweiskraft auf. <a href=\"https://certifaction.io/blockchain-esignatures/\" target=\"_blank\">Mehr erfahren</a>"
                     }
                 }
             },
