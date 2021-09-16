@@ -3,7 +3,7 @@
         [
             "@babel/env",
             {
-                "corejs": "3.15"
+                "corejs": "3.17"
             }
         ]
     ],
