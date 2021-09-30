@@ -29,7 +29,7 @@ This monorepo contains these packages:
 
 ### Requirements
 
-* [NodeJS](https://nodejs.org) >= 12
+* [NodeJS](https://nodejs.org) >= 16
 * [Yarn](https://yarnpkg.com)
 * [Lerna](https://lerna.js.org/)
 
