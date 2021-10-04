@@ -3,8 +3,7 @@
         <div v-for="detail in details" :key="detail.label" class="data-row">
             <div v-if="detail.verifiable"
                  :class="detail.verified === true ? 'verified' : 'unverified'"
-                 v-tooltip.right="detail.verified === true ? _$t('verification.result.meta.attributeVerified') : _$t('verification.result.meta.attributeUnverified')"
-            >
+                 v-tooltip.right="detail.verified === true ? _$t('verification.result.meta.attributeVerified') : _$t('verification.result.meta.attributeUnverified')">
                 <img v-if="detail.verified" src="../../../assets/img/verified_icon.svg" alt="Blue checkmark icon">
                 <img v-else src="../../../assets/img/unverified_icon.svg" alt="Orange question mark icon">
             </div>
@@ -52,15 +51,15 @@ export default {
                     verified: (this.event.issuer.name_verified === true || (this.isBeforeDetailedVerifiedMigration(this.event) && !!this.event.issuer.verified_by))
                 })
             }
+            if (this.event.issuer.email) {
+                details.push({
+                    label: this._$t('verification.result.meta.email'),
+                    value: this.event.issuer.email,
+                    verifiable: true,
+                    verified: (this.event.issuer.email_verified === true)
+                })
+            }
             if (this.event.scope !== 'certify') {
-                if (this.event.issuer.email) {
-                    details.push({
-                        label: this._$t('verification.result.meta.email'),
-                        value: this.event.issuer.email,
-                        verifiable: true,
-                        verified: (this.event.issuer.email_verified === true)
-                    })
-                }
                 if (this.event.issuer.phone) {
                     details.push({
                         label: this._$t('verification.result.meta.phone'),

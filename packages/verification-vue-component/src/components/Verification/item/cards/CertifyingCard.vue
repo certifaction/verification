@@ -68,7 +68,7 @@
                     <DataPanel :key="registerEvents[0].ref"
                                :icon-src="(registerEvents[0].scope !== 'certify') ? iconUser : null"
                                :md-icon="(registerEvents[0].scope === 'certify') ? mdiDomain : null"
-                               :title="issuerDisplayName(registerEvents[0])">
+                               :title="registerEvents[0].issuer.name">
                         <EventDetails :event="registerEvents[0]"/>
                     </DataPanel>
                 </div>
@@ -127,7 +127,6 @@ export default {
         DataPanel,
         EventDetails
     },
-    inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {
         return {
             mdiAlertCircle,
@@ -176,10 +175,16 @@ export default {
             return this.revokeEvents[0].date
         },
         hasUnverifiedIssuer() {
-            return this.registerEvents.filter(event => !event.issuer.verified_by).length > 0
+            return this.registerEvents.filter(
+                event => event.issuer.email_verified === true && !event.issuer.name_verified
+            ).length > 0
         },
         hasVerifiedIssuer() {
-            return this.registerEvents.filter(event => !!event.issuer.verified_by).length > 0
+            return this.registerEvents.filter(
+                event =>
+                    event.issuer.name_verified === true ||
+                    (event.issuer.email_verified === undefined && !!event.issuer.verified_by)
+            ).length > 0
         }
     },
     methods: {
