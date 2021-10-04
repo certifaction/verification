@@ -127,7 +127,6 @@ export default {
         DataPanel,
         EventDetails
     },
-    inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {
         return {
             mdiAlertCircle,
