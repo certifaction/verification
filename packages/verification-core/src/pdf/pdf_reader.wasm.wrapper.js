@@ -46,14 +46,14 @@ export default {
      */
     waitUntilReady() {
         return new Promise((resolve, reject) => {
-            if (typeof self.wasmPdfReaderReady !== 'undefined' && self.wasmPdfReaderReady === true) {
+            if (typeof self.wasmPdfReader !== 'undefined') {
                 return resolve()
             }
 
             let count = 0
 
             const checkInterval = self.setInterval(() => {
-                if (typeof self.wasmPdfReaderReady !== 'undefined' && self.wasmPdfReaderReady === true) {
+                if (typeof self.wasmPdfReader !== 'undefined') {
                     self.clearInterval(checkInterval)
                     return resolve()
                 }
@@ -61,7 +61,7 @@ export default {
                 // Fail if the wasm isn't ready after 15 seconds
                 if (count > 1500) {
                     self.clearInterval(checkInterval)
-                    return reject(new Error('PDF wasm wasn\'t ready after 15 seconds.'))
+                    return reject(new Error('PDF reader wasm wasn\'t ready after 15 seconds.'))
                 }
 
                 count++
@@ -69,7 +69,18 @@ export default {
         })
     },
     /**
-     * Wrapper function for "wasmPdfExtractEncryptionKeys"
+     * Wrapper function for "wasmPdfReader.extractMetadata"
+     *
+     * @param {Uint8Array} pdfBytes
+     *
+     * @returns {Promise<Object>}
+     */
+    async extractMetadata(pdfBytes) {
+        await this.waitUntilReady()
+        return self.wasmPdfReader.extractMetadata(pdfBytes)
+    },
+    /**
+     * Wrapper function for "wasmPdfReader.extractEncryptionKeys"
      *
      * @param {Uint8Array} pdfBytes
      *
@@ -77,18 +88,18 @@ export default {
      */
     async extractEncryptionKeys(pdfBytes) {
         await this.waitUntilReady()
-        return self.wasmPdfExtractEncryptionKeys(pdfBytes)
+        return self.wasmPdfReader.extractEncryptionKeys(pdfBytes)
     },
     /**
-     * Wrapper function for "wasmDecryptPdf"
+     * Wrapper function for "wasmPdfReader.decrypt"
      *
      * @param {Uint8Array} pdfBytes
      * @param {string} encryptionKey
      *
      * @returns {Promise<void>}
      */
-    async decryptPdf(pdfBytes, encryptionKey) {
+    async decrypt(pdfBytes, encryptionKey) {
         await this.waitUntilReady()
-        return self.wasmDecryptPdf(pdfBytes, encryptionKey)
+        return self.wasmPdfReader.decrypt(pdfBytes, encryptionKey)
     }
 }

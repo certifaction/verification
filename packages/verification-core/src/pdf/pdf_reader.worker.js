@@ -1,12 +1,25 @@
-import PdfWasmWrapper from './pdf.wasm.wrapper'
+import PdfReaderWasmWrapper from './pdf_reader.wasm.wrapper'
 
 self.addEventListener('message', async (e) => {
     try {
-        PdfWasmWrapper.run(e.data.pdfWasmModule)
+        PdfReaderWasmWrapper.run(e.data.pdfWasmModule)
 
         switch (e.data.cmd) {
+            case 'extract_metadata': {
+                const metadata = await PdfReaderWasmWrapper.extractMetadata(e.data.pdfBytes)
+                if (metadata !== null && 'error' in metadata) {
+                    throw metadata.error
+                }
+
+                self.postMessage({
+                    status: true,
+                    metadata
+                })
+                break
+            }
+
             case 'extract_encryption_keys': {
-                const encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
+                const encryptionKeys = await PdfReaderWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
                 if (encryptionKeys !== null && 'error' in encryptionKeys) {
                     throw encryptionKeys.error
                 }
@@ -18,8 +31,8 @@ self.addEventListener('message', async (e) => {
                 break
             }
 
-            case 'decrypt_pdf': {
-                const decryptedPdfBytes = await PdfWasmWrapper.decryptPdf(e.data.pdfBytes, e.data.encryptionKey)
+            case 'decrypt': {
+                const decryptedPdfBytes = await PdfReaderWasmWrapper.decrypt(e.data.pdfBytes, e.data.encryptionKey)
                 if ('error' in decryptedPdfBytes) {
                     throw decryptedPdfBytes.error
                 }

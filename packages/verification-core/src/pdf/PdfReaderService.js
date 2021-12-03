@@ -1,8 +1,8 @@
 import Bowser from 'bowser'
-import PdfWasmWrapper from './pdf.wasm.wrapper'
-import PdfWorker from 'web-worker:./pdf.worker'
+import PdfReaderWasmWrapper from './pdf_reader.wasm.wrapper'
+import PdfReaderWorker from 'web-worker:./pdf_reader.worker'
 
-export default class PdfService {
+export default class PdfReaderService {
     /**
      * PDF Service
      *
@@ -26,10 +26,10 @@ export default class PdfService {
      */
     async loadPdfWasm() {
         try {
-            const wasmModule = await PdfWasmWrapper.load(this.pdfWasmUrl)
+            const wasmModule = await PdfReaderWasmWrapper.load(this.pdfWasmUrl)
 
             if (this.isNonChromiumEdge === true) {
-                PdfWasmWrapper.run(wasmModule)
+                PdfReaderWasmWrapper.run(wasmModule)
             }
 
             this.pdfWasmModule = wasmModule
@@ -60,7 +60,7 @@ export default class PdfService {
                 // Fail if the wasm isn't loaded after 15 seconds
                 if (count > 1500) {
                     self.clearInterval(checkInterval)
-                    return reject(new Error('PDF wasm wasn\'t loaded after 15 seconds.'))
+                    return reject(new Error('PDF reader wasm wasn\'t loaded after 15 seconds.'))
                 }
 
                 count++
@@ -69,13 +69,13 @@ export default class PdfService {
     }
 
     /**
-     * Reads the given file and returns an Uint8Array
+     * Get pdf bytes (Uint8Array) of the give pdf file
      *
-     * @param {File} file
+     * @param {File} pdfFile
      *
      * @returns {Promise<Uint8Array>}
      */
-    readPdfBytes(file) {
+    getPdfBytes(pdfFile) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader()
 
@@ -83,11 +83,47 @@ export default class PdfService {
                 resolve(new Uint8Array(reader.result))
             }
 
-            reader.onerror = (error) => {
-                reject(error)
-            }
+            reader.onerror = reject
 
-            reader.readAsArrayBuffer(file)
+            reader.readAsArrayBuffer(pdfFile)
+        })
+    }
+
+    /**
+     * Extract metadata from pdf
+     *
+     * @param {Uint8Array} pdfBytes
+     *
+     * @returns {Promise<Object>}
+     */
+    async extractMetadata(pdfBytes) {
+        await this.waitUntilLoaded()
+
+        let metadata = null
+        if (this.isNonChromiumEdge === true) {
+            metadata = await PdfReaderWasmWrapper.extractMetadata(pdfBytes)
+        }
+
+        return new Promise((resolve, reject) => {
+            if (this.isNonChromiumEdge === true) {
+                resolve(metadata)
+            } else {
+                const worker = new PdfReaderWorker()
+
+                worker.addEventListener('message', (event) => {
+                    if (event.data.status === true) {
+                        resolve(event.data.metadata)
+                    } else {
+                        reject(event.data.error)
+                    }
+                })
+
+                worker.postMessage({
+                    cmd: 'extract_metadata',
+                    pdfWasmModule: this.pdfWasmModule,
+                    pdfBytes
+                })
+            }
         })
     }
 
@@ -103,14 +139,14 @@ export default class PdfService {
 
         let encryptionKeys = null
         if (this.isNonChromiumEdge === true) {
-            encryptionKeys = await PdfWasmWrapper.extractEncryptionKeys(pdfBytes)
+            encryptionKeys = await PdfReaderWasmWrapper.extractEncryptionKeys(pdfBytes)
         }
 
         return new Promise((resolve, reject) => {
             if (this.isNonChromiumEdge === true) {
                 resolve(encryptionKeys)
             } else {
-                const worker = new PdfWorker()
+                const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', (event) => {
                     if (event.data.status === true) {
@@ -137,12 +173,12 @@ export default class PdfService {
      *
      * @returns {Promise<void>}
      */
-    async decryptPdf(pdfBytes, encryptionKey) {
+    async decrypt(pdfBytes, encryptionKey) {
         await this.waitUntilLoaded()
 
         let decryptedPdfBytes = null
         if (this.isNonChromiumEdge === true) {
-            decryptedPdfBytes = await PdfWasmWrapper.decryptPdf(pdfBytes, encryptionKey)
+            decryptedPdfBytes = await PdfReaderWasmWrapper.decrypt(pdfBytes, encryptionKey)
         }
 
         return new Promise((resolve, reject) => {
@@ -153,7 +189,7 @@ export default class PdfService {
 
                 resolve(decryptedPdfBytes)
             } else {
-                const worker = new PdfWorker()
+                const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', function(e) {
                     if (e.data.status === true) {
@@ -164,7 +200,7 @@ export default class PdfService {
                 }, false)
 
                 worker.postMessage({
-                    cmd: 'decrypt_pdf',
+                    cmd: 'decrypt',
                     pdfWasmModule: this.pdfWasmModule,
                     pdfBytes,
                     encryptionKey
