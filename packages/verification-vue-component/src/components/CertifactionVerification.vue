@@ -42,7 +42,7 @@ import {
     CertifactionEthVerifier,
     hashingService,
     Interface,
-    PdfService,
+    PdfReaderService,
     VerifierInterface
 } from '@certifaction/verification-core'
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
@@ -131,7 +131,7 @@ export default {
                 this.acceptedIssuerKey,
                 this.certifactionApiUrl
             ),
-            pdfService: new PdfService(this.pdfWasmUrl),
+            pdfReaderService: new PdfReaderService(this.pdfWasmUrl),
             verificationItems: [],
             draggingDemoDoc: undefined,
             dropbox: {
@@ -207,10 +207,10 @@ export default {
             this.$emit('verificationComplete')
         },
         async verifyItem(item, key) {
-            const pdfBytes = await this.pdfService.readPdfBytes(item.file)
+            const pdfBytes = await this.pdfReaderService.getPdfBytes(item.file)
             const [fileHash, encryptionKeys] = await Promise.all([
                 hashingService.hashFile(pdfBytes),
-                this.pdfService.extractEncryptionKeys(pdfBytes)
+                this.pdfReaderService.extractEncryptionKeys(pdfBytes)
             ])
             const decryptionKey = (encryptionKeys !== null) ? encryptionKeys.claimPrivateKey : null
 
@@ -408,7 +408,7 @@ export default {
 
                 if (response.status === 200) {
                     const encryptedArrayBuffer = await response.data.arrayBuffer()
-                    const decryptedPdfBytes = await this.pdfService.decryptPdf(new Uint8Array(encryptedArrayBuffer), this.digitalTwinInformation.decryptionKey)
+                    const decryptedPdfBytes = await this.pdfReaderService.decrypt(new Uint8Array(encryptedArrayBuffer), this.digitalTwinInformation.decryptionKey)
                     const decryptedFile = new File([decryptedPdfBytes.buffer], '', {
                         type: 'application/pdf'
                     })
