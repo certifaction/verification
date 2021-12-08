@@ -212,7 +212,7 @@ export default {
                 hashingService.hashFile(pdfBytes),
                 this.pdfReaderService.extractEncryptionKeys(pdfBytes)
             ])
-            const decryptionKey = (encryptionKeys !== null) ? encryptionKeys.claimPrivateKey : null
+            const decryptionKey = (encryptionKeys !== null) ? encryptionKeys.encryptionPrivateKey : null
 
             let verification = await this.certifactionEthVerifier.verify(fileHash, decryptionKey)
 
