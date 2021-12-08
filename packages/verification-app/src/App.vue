@@ -26,8 +26,12 @@ export default {
                 .then(({ CertifactionVerification }) => CertifactionVerification)
     },
     data() {
+        const pdfWasmVersion = process.env.VUE_APP_PDF_WASM_VERSION
+        const cacheBuster = process.env.VUE_APP_CACHE_BUSTER
+        const cdnBaseUrl = process.env.VUE_APP_CERTIFACTION_CDN_BASE_URL
+
         return {
-            pdfReaderWasmUrl: new URL(`/wasm/pdf_reader.wasm?t=${process.env.VUE_APP_CACHE_BUSTER}`, process.env.VUE_APP_CERTIFACTION_CDN_BASE_URL),
+            pdfReaderWasmUrl: new URL(`/wasm/pdf-${pdfWasmVersion}/pdf_reader.wasm?t=${cacheBuster}`, cdnBaseUrl),
             pdfjsWorkerSrc,
             pdfjsCMapUrl: 'pdf/cmaps/',
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
