@@ -101,5 +101,27 @@ export default {
     async decrypt(pdfBytes, encryptionKey) {
         await this.waitUntilReady()
         return self.wasmPdfReader.decrypt(pdfBytes, encryptionKey)
-    }
+    },
+    /**
+     * Wrapper function for "wasmPdfReader.fetchDocument"
+     *
+     * @param {string} digitalArchiveUriWithEncryptionKey
+     *
+     * @returns {Promise<Object>}
+     */
+    async fetchDocument(digitalArchiveUriWithEncryptionKey) {
+        await this.waitUntilReady()
+        return self.wasmPdfReader.fetchDocument(digitalArchiveUriWithEncryptionKey)
+    },
+    /**
+     * Wrapper function for "wasmPdfReader.hasCertifactionPadesSignatures"
+     *
+     * @param {Uint8Array} pdfBytes
+     *
+     * @returns {Promise<boolean>}
+     */
+    async hasCertifactionPadesSignatures(pdfBytes) {
+        await this.waitUntilReady()
+        return self.wasmPdfReader.hasCertifactionPadesSignatures(pdfBytes)
+    },
 }

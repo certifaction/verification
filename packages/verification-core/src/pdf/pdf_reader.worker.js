@@ -44,6 +44,34 @@ self.addEventListener('message', async (e) => {
                 break
             }
 
+            case 'fetch_document': {
+                const fetchedDocumentObject = await PdfReaderWasmWrapper.fetchDocument(
+                    e.data.digitalArchiveUriWithEncryptionKey
+                )
+                if (fetchedDocumentObject !== null && 'error' in fetchedDocumentObject) {
+                    throw fetchedDocumentObject.error
+                }
+
+                self.postMessage({
+                    status: true,
+                    fetchedDocumentObject
+                })
+                break
+            }
+
+            case 'has_certifaction_pades_signatures': {
+                const hasCertifactionPadesSignatures = await PdfReaderWasmWrapper.hasCertifactionPadesSignatures(e.data.pdfBytes)
+                if (typeof hasCertifactionPadesSignatures === 'object' && 'error' in hasCertifactionPadesSignatures) {
+                    throw hasCertifactionPadesSignatures.error
+                }
+
+                self.postMessage({
+                    status: true,
+                    hasCertifactionPadesSignatures
+                })
+                break
+            }
+
             default: {
                 throw new Error('invalid cmd')
             }

@@ -183,8 +183,8 @@ export default class PdfReaderService {
 
         return new Promise((resolve, reject) => {
             if (this.isNonChromiumEdge === true) {
-                if (decryptedPdfBytes === null) {
-                    reject(new Error('decryptedPdfBytes is null'))
+                if ('error' in decryptedPdfBytes) {
+                    throw reject(decryptedPdfBytes.error)
                 }
 
                 resolve(decryptedPdfBytes)
@@ -204,6 +204,88 @@ export default class PdfReaderService {
                     pdfWasmModule: this.pdfWasmModule,
                     pdfBytes,
                     encryptionKey
+                })
+            }
+        })
+    }
+
+    /**
+     * Fetch document from digital archive
+     *
+     * @param {string} digitalArchiveUriWithEncryptionKey
+     *
+     * @returns {Promise<Object>}
+     */
+    async fetchDocument(digitalArchiveUriWithEncryptionKey) {
+        await this.waitUntilLoaded()
+
+        let fetchedDocumentObject = null
+        if (this.isNonChromiumEdge === true) {
+            fetchedDocumentObject = await PdfReaderWasmWrapper.fetchDocument(digitalArchiveUriWithEncryptionKey)
+        }
+
+        return new Promise((resolve, reject) => {
+            if (this.isNonChromiumEdge === true) {
+                if ('error' in fetchedDocumentObject) {
+                    throw reject(fetchedDocumentObject.error)
+                }
+
+                return resolve(fetchedDocumentObject)
+            } else {
+                const worker = new PdfReaderWorker()
+
+                worker.addEventListener('message', (e) => {
+                    if (e.data.status === true) {
+                        return resolve(e.data.fetchedDocumentObject)
+                    }
+                    return reject(e.data.error)
+                }, false)
+
+                worker.postMessage({
+                    cmd: 'fetch_document',
+                    pdfWasmModule: this.pdfWasmModule,
+                    digitalArchiveUriWithEncryptionKey
+                })
+            }
+        })
+    }
+
+    /**
+     * Check if the given document has Certifaction PAdES PDF signatures
+     *
+     * @param {Uint8Array} pdfBytes
+     *
+     * @returns {Promise<boolean>}
+     */
+    async hasCertifactionPadesSignatures(pdfBytes) {
+        await this.waitUntilLoaded()
+
+        let hasCertifactionPadesSignatures = null
+        if (this.isNonChromiumEdge === true) {
+            hasCertifactionPadesSignatures = PdfReaderWasmWrapper.hasCertifactionPadesSignatures(pdfBytes)
+        }
+
+        return new Promise((resolve, reject) => {
+            if (this.isNonChromiumEdge === true) {
+                if (typeof hasCertifactionPadesSignatures === 'object' && 'error' in hasCertifactionPadesSignatures) {
+                    throw reject(hasCertifactionPadesSignatures.error)
+                }
+
+                return resolve(hasCertifactionPadesSignatures)
+            } else {
+                const worker = new PdfReaderWorker()
+
+                worker.addEventListener('message', (e) => {
+                    if (e.data.status === true) {
+                        return resolve(e.data.hasCertifactionPadesSignatures)
+                    }
+                    return reject(e.data.error)
+                }, false)
+
+                worker.postMessage({
+                    cmd: 'has_certifaction_pades_signatures',
+                    pdfWasmModule: this.pdfWasmModule,
+                    pdfBytes
                 })
             }
         })
