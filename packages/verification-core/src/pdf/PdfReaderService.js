@@ -111,6 +111,7 @@ export default class PdfReaderService {
                 const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', (event) => {
+                    worker.terminate()
                     if (event.data.status === true) {
                         resolve(event.data.metadata)
                     } else {
@@ -149,6 +150,7 @@ export default class PdfReaderService {
                 const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', (event) => {
+                    worker.terminate()
                     if (event.data.status === true) {
                         resolve(event.data.encryptionKeys)
                     } else {
@@ -192,6 +194,7 @@ export default class PdfReaderService {
                 const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', function(e) {
+                    worker.terminate()
                     if (e.data.status === true) {
                         resolve(e.data.decryptedPdfBytes)
                     } else {
@@ -235,6 +238,7 @@ export default class PdfReaderService {
                 const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', (e) => {
+                    worker.terminate()
                     if (e.data.status === true) {
                         return resolve(e.data.fetchedDocumentObject)
                     }
@@ -276,6 +280,7 @@ export default class PdfReaderService {
                 const worker = new PdfReaderWorker()
 
                 worker.addEventListener('message', (e) => {
+                    worker.terminate()
                     if (e.data.status === true) {
                         return resolve(e.data.hasCertifactionPadesSignatures)
                     }
