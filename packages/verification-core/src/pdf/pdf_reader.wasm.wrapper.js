@@ -123,5 +123,5 @@ export default {
     async hasCertifactionPadesSignatures(pdfBytes) {
         await this.waitUntilReady()
         return self.wasmPdfReader.hasCertifactionPadesSignatures(pdfBytes)
-    },
+    }
 }
