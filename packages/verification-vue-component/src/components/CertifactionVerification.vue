@@ -404,25 +404,24 @@ export default {
             axios.defaults.headers.common['Certifaction-Analytics-Dt'] = true
 
             try {
-                const response = await axios.get(this.digitalTwinInformation.fileUrl, { responseType: 'blob' })
+                const documentUrl = `${this.digitalTwinInformation.fileUrl}#${this.digitalTwinInformation.decryptionKey}`
+                const fetchedDocumentObject = await this.pdfReaderService.fetchDocument(documentUrl)
 
-                if (response.status === 200) {
-                    const encryptedArrayBuffer = await response.data.arrayBuffer()
-                    const decryptedPdfBytes = await this.pdfReaderService.decrypt(new Uint8Array(encryptedArrayBuffer), this.digitalTwinInformation.decryptionKey)
-                    const decryptedFile = new File([decryptedPdfBytes.buffer], '', {
+                if (fetchedDocumentObject.pdfBytes instanceof Uint8Array && fetchedDocumentObject.pdfBytes.length > 0) {
+                    const decryptedFile = new File([fetchedDocumentObject.pdfBytes.buffer], '', {
                         type: 'application/pdf'
                     })
 
-                    const filesNew = []
-                    filesNew.push(decryptedFile)
-
-                    await this.verify(filesNew)
+                    await this.verify([decryptedFile])
 
                     this.digitalTwin.fileUrl = URL.createObjectURL(decryptedFile)
                 } else {
                     this.digitalTwin.error = true
                 }
             } catch (e) {
+                if (!(e instanceof Error) && e.error?.message) {
+                    e = new Error(e.error.message)
+                }
                 console.error(`Error while processing digital twin url: ${e.name} - ${e.message}`)
                 this.digitalTwin.error = true
             }
