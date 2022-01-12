@@ -99,8 +99,8 @@
                 }
             },
             "pades": {
-                "status": "PDF signatures found",
-                "details": "This document contains PDF signatures. To verify them, download the document and open it in <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
+                "status": "Trovate firme PDF",
+                "details": "Questo documento contiene firme PDF. Per verificarle, scarica il documento e aprilo con <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
             },
             "certifying": {
                 "revoked": {
