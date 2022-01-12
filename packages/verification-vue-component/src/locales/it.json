@@ -98,6 +98,10 @@
                     }
                 }
             },
+            "pades": {
+                "status": "Trovate firme PDF",
+                "details": "Questo documento contiene firme PDF. Per verificarle, scarica il documento e aprilo con <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
+            },
             "certifying": {
                 "revoked": {
                     "status": "Questo documento è stato revocato."

@@ -208,24 +208,40 @@ export default {
         },
         async verifyItem(item, key) {
             const pdfBytes = await this.pdfReaderService.getPdfBytes(item.file)
-            const [fileHash, encryptionKeys] = await Promise.all([
-                hashingService.hashFile(pdfBytes),
-                this.pdfReaderService.extractEncryptionKeys(pdfBytes)
+
+            const [isPadesDocument, metadata, fileHash] = await Promise.all([
+                this.pdfReaderService.hasCertifactionPadesSignatures(pdfBytes),
+                this.pdfReaderService.extractMetadata(pdfBytes),
+                hashingService.hashFile(pdfBytes)
             ])
-            const decryptionKey = (encryptionKeys !== null) ? encryptionKeys.encryptionPrivateKey : null
 
-            let verification = await this.certifactionEthVerifier.verify(fileHash, decryptionKey)
+            let verification = null
 
-            if (this.offchainVerifier) {
-                verification = await this.offchainVerification(verification, decryptionKey)
+            if (isPadesDocument) {
+                verification = {
+                    pades: true,
+                    hash: fileHash,
+                    name: item.name
+                }
+            } else {
+                let decryptionKey = null
+                if (metadata && metadata.CertifactionEncryptionPrivateKey) {
+                    decryptionKey = metadata.CertifactionEncryptionPrivateKey
+                }
+
+                verification = await this.certifactionEthVerifier.verify(fileHash, decryptionKey)
+                if (this.offchainVerifier) {
+                    verification = await this.offchainVerification(verification, decryptionKey)
+                }
+                verification.pades = false
             }
 
             const oldResult = JSON.stringify(this.verificationItems[key])
             const newResult = JSON.stringify({ ...item, ...verification })
 
             if (oldResult !== newResult) {
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
                 verification.loaded = true
+                Vue.set(this.verificationItems, key, { ...item, ...verification })
             }
         },
         async offchainVerification(verification, decryptionKey) {

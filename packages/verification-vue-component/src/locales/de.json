@@ -98,6 +98,10 @@
                     }
                 }
             },
+            "pades": {
+                "status": "PDF-Signaturen gefunden",
+                "details": "Dieses Dokument enthält PDF-Signaturen. Um diese zu überprüfen, laden Sie das Dokument herunter und öffnen Sie es im <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
+            },
             "certifying": {
                 "revoked": {
                     "status": "Dieses Dokument wurde widerrufen."
