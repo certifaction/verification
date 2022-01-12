@@ -36,6 +36,10 @@
                                       :file-name="verificationItem.name"
                                       @toggle-help="toggleHelp"/>
 
+                    <PadesCard v-else-if="isPades"
+                               :verification-item="verificationItem"
+                               @toggle-help="toggleHelp"/>
+
                     <SigningCard v-else-if="isSigning"
                                  :verification-item="verificationItem"
                                  :net="verifierInformation.net"
@@ -76,6 +80,7 @@ import NotFoundCard from './item/cards/NotFoundCard.vue'
 import TechnicalProblemCard from './item/cards/TechnicalProblemCard.vue'
 import SupportCard from './item/cards/SupportCard.vue'
 import ContactCard from './item/cards/ContactCard.vue'
+import PadesCard from './item/cards/PadesCard.vue'
 import CertifyingCard from './item/cards/CertifyingCard.vue'
 import SigningCard from './item/cards/SigningCard.vue'
 import FileConfirmationCard from './item/cards/DigitalTwin/FileConfirmationCard.vue'
@@ -93,6 +98,7 @@ export default {
         TechnicalProblemCard,
         SupportCard,
         ContactCard,
+        PadesCard,
         CertifyingCard,
         SigningCard,
         FileConfirmationCard,
@@ -167,10 +173,14 @@ export default {
                 return (this.verificationItem.offchainError && this.verificationItem.error)
             }
         },
+        isPades() {
+            return (this.verificationItem.pades === true)
+        },
         isNotFound() {
             return (
                 !this.isLoading &&
                 !this.isTechnicalProblem &&
+                !this.isPades &&
                 (!this.verificationItem.events || (this.verificationItem.events && this.verificationItem.events.length === 0))
             )
         },
