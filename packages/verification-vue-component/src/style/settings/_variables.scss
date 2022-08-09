@@ -16,6 +16,7 @@ $btn-default-text-color:var(#{--cf-verification-color-secondary});
 $btn-secondary-text-color:var(#{--cf-verification-primary-color});
 $action-box-bg-color:var(#{--cf-verification-action-box-bg-color});
 $action-box-text-color:var(#{--cf-verification-action-box-text-color});
+$link-color:var(#{--cf-verification-primary-color});
 
 
 
@@ -41,7 +42,6 @@ $white: #ffffff !default;
 $black: #000000 !default;
 $red: #f21a25 !default;
 $orange: #fea534 !default;
-$pink:var(#{--cf-verification-color-secondary});
 $green: #32c264 !default;
 $primary: #0062c7 !default;
 

@@ -3,7 +3,12 @@
          :class="{ 'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error }">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
-                <img src="../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                <template v-if="urlTypeLoaded === 'HIN'">
+                    <img src="../../assets/img/hin-logo.svg" alt="Hin"/>
+                </template>
+                <template v-else>
+                    <img src="../../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                </template>
             </div>
 
             <ShadowCard v-if="isLoading"/>
@@ -117,6 +122,10 @@ export default {
         },
         digitalTwinInformation: {
             type: Object,
+            required: false
+        },
+        urlTypeLoaded: {
+            type: String,
             required: false
         }
     },
