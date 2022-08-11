@@ -29,16 +29,9 @@
 
         <div v-if="!digitalTwinModeActive" class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
-              <template v-if="urlTypeLoaded === 'HIN'">
-                   <a href="https://certifaction.com" target="_blank">
-                        <img src="../assets/img/hin-logo.svg" alt="Hin"/>
-                    </a>
-                </template>
-                <template v-else>
                    <a href="https://certifaction.com" target="_blank">
                         <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
                    </a>
-                </template>
         </div>
     </div>
 </template>
