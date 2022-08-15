@@ -18,9 +18,9 @@
              ref="results">
             <VerificationItem v-for="verificationItem in filteredVerificationItems"
                               :key="verificationItem.hash"
-                              :urlTypeLoaded="urlTypeLoaded"
                               :verification-item="verificationItem"
                               :verifier-information="verifierInformation"
+                              :headerLogo="headerLogo"
                               :digital-twin-information="digitalTwinStatus"/>
         </div>
 
@@ -29,9 +29,9 @@
 
         <div v-if="!digitalTwinModeActive" class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
-                   <a href="https://certifaction.com" target="_blank">
-                        <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
-                   </a>
+            <a href="https://certifaction.com" target="_blank">
+                <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+            </a>
         </div>
     </div>
 </template>
@@ -71,10 +71,6 @@ export default {
             required: false,
             default: false
         },
-        urlTypeLoaded: {
-            type: String,
-            required: false
-        },
         pdfWasmUrl: {
             type: URL,
             required: true
@@ -108,6 +104,10 @@ export default {
             required: false
         },
         certifactionApiUrl: {
+            type: String,
+            required: false
+        },
+        headerLogo: {
             type: String,
             required: false
         },

@@ -7,16 +7,12 @@
     --cf-verification-action-box-text-color: #0d6efd ;
 }
 
-
-
 $btn-default-bg-color:var(#{--cf-verification-primary-color});
 $btn-secondary-bg-color:var(#{--cf-verification-secondary-btn-bg-color});
 $btn-secondary-text-color:var(#{--cf-verification-primary-color});
 $action-box-bg-color:var(#{--cf-verification-action-box-bg-color});
 $action-box-text-color:var(#{--cf-verification-action-box-text-color});
 $link-color:var(#{--cf-verification-primary-color});
-
-
 
 // COLORS
 $gray-50: #f8f9fa;
@@ -42,7 +38,6 @@ $red: #f21a25 !default;
 $orange: #fea534 !default;
 $green: #32c264 !default;
 $primary: #0062c7 !default;
-
 $body-color: $gray-900 !default;
 $text-muted: $gray-600 !default;
 
