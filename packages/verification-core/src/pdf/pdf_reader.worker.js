@@ -18,8 +18,8 @@ self.addEventListener('message', async (e) => {
                 break
             }
 
-            case 'extract_encryption_keys': {
-                const encryptionKeys = await PdfReaderWasmWrapper.extractEncryptionKeys(e.data.pdfBytes)
+            case 'extract_claim_encryption_keys': {
+                const encryptionKeys = await PdfReaderWasmWrapper.extractClaimEncryptionKeys(e.data.pdfBytes)
                 if (encryptionKeys !== null && 'error' in encryptionKeys) {
                     throw encryptionKeys.error
                 }
@@ -73,7 +73,7 @@ self.addEventListener('message', async (e) => {
             }
 
             default: {
-                throw new Error('invalid cmd')
+                throw new Error(`pdf_reader worker: cmd "${e.data.cmd}" invalid`)
             }
         }
     } catch (e) {

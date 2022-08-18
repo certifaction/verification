@@ -135,12 +135,12 @@ export default class PdfReaderService {
      *
      * @returns {Promise<Object>}
      */
-    async extractEncryptionKeys(pdfBytes) {
+    async extractClaimEncryptionKeys(pdfBytes) {
         await this.waitUntilLoaded()
 
         let encryptionKeys = null
         if (this.isNonChromiumEdge === true) {
-            encryptionKeys = await PdfReaderWasmWrapper.extractEncryptionKeys(pdfBytes)
+            encryptionKeys = await PdfReaderWasmWrapper.extractClaimEncryptionKeys(pdfBytes)
         }
 
         return new Promise((resolve, reject) => {
@@ -159,7 +159,7 @@ export default class PdfReaderService {
                 })
 
                 worker.postMessage({
-                    cmd: 'extract_encryption_keys',
+                    cmd: 'extract_claim_encryption_keys',
                     pdfWasmModule: this.pdfWasmModule,
                     pdfBytes
                 })
