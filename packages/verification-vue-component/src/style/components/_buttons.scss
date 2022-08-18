@@ -20,12 +20,12 @@
 }
 
 .btn-primary {
-    background-color: $btn-default-bg-color;
+    background-color: var(--cf-verification-primary-color);
     color: $white;
-    border: $btn-default-bg-color;
+    border: var(--cf-verification-primary-color);
 }
 
 .btn-secondary {
     background-color: $white;
-    color: $btn-secondary-text-color;
+    color: var(--cf-verification-primary-color);
 }

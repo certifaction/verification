@@ -1,18 +1,11 @@
 
 :root {
-    --cf-verification-primary-color: #0669f2;
-    --cf-verification-secondary-btn-bg-color: #e5e3d6;
-    --cf-verification-default-btn-bg-color: #ffffff ;
-    --cf-verification-action-box-bg-color: #e6f0fe ;
-    --cf-verification-action-box-text-color: #0d6efd ;
+    --cf-verification-primary-color:#0669f2;
+    --cf-verification-secondary-color:#e5e3d6;
+    --cf-verification-default-btn-bg-color:#ffffff;
+    --cf-verification-action-box-bg-color:#e6f0fe;
+    --cf-verification-action-box-text-color:#0d6efd;
 }
-
-$btn-default-bg-color:var(#{--cf-verification-primary-color});
-$btn-secondary-bg-color:var(#{--cf-verification-secondary-btn-bg-color});
-$btn-secondary-text-color:var(#{--cf-verification-primary-color});
-$action-box-bg-color:var(#{--cf-verification-action-box-bg-color});
-$action-box-text-color:var(#{--cf-verification-action-box-text-color});
-$link-color:var(#{--cf-verification-primary-color});
 
 // COLORS
 $gray-50: #f8f9fa;

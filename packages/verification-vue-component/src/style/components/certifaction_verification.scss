@@ -42,7 +42,7 @@
     }
 
     a {
-        color: $link-color;
+        color: var(--cf-verification-primary-color);
     }
 
     @import "buttons";

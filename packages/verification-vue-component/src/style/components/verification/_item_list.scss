@@ -22,12 +22,12 @@
                 position: fixed;
                 bottom: 0;
                 padding: 8px 16px;
-                background-color: $action-box-bg-color;
+                background-color: var(--cf-verification-action-box-bg-color);
                 height: 70px;
                 width: 100%;
 
                 .text {
-                    color: $btn-secondary-text-color;
+                    color: var(--cf-verification-primary-color);
 
                     h4 {
                         margin-bottom: 0.25rem;
@@ -37,7 +37,7 @@
 
                     p {
                         font-size: $font-size-medium;
-                        color: $action-box-text-color;
+                        color: var(--cf-verification-action-box-text-color);
                     }
                 }
 
