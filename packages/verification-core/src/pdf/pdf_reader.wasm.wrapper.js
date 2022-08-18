@@ -80,15 +80,15 @@ export default {
         return self.wasmPdfReader.extractMetadata(pdfBytes)
     },
     /**
-     * Wrapper function for "wasmPdfReader.extractEncryptionKeys"
+     * Wrapper function for "wasmPdfReader.extractClaimEncryptionKeys"
      *
      * @param {Uint8Array} pdfBytes
      *
-     * @returns {Promise<Object>}
+     * @returns {Promise<ClaimEncryptionKeys>}
      */
-    async extractEncryptionKeys(pdfBytes) {
+    async extractClaimEncryptionKeys(pdfBytes) {
         await this.waitUntilReady()
-        return self.wasmPdfReader.extractEncryptionKeys(pdfBytes)
+        return self.wasmPdfReader.extractClaimEncryptionKeys(pdfBytes)
     },
     /**
      * Wrapper function for "wasmPdfReader.decrypt"
@@ -96,7 +96,7 @@ export default {
      * @param {Uint8Array} pdfBytes
      * @param {string} encryptionKey
      *
-     * @returns {Promise<void>}
+     * @returns {Promise<Uint8Array>}
      */
     async decrypt(pdfBytes, encryptionKey) {
         await this.waitUntilReady()
@@ -107,7 +107,7 @@ export default {
      *
      * @param {string} digitalArchiveUriWithEncryptionKey
      *
-     * @returns {Promise<Object>}
+     * @returns {Promise<FetchedDocument>}
      */
     async fetchDocument(digitalArchiveUriWithEncryptionKey) {
         await this.waitUntilReady()
