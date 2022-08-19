@@ -106,9 +106,12 @@
                 height: 100%;
 
                 > .header {
-                    height: 65px;
+                    height: 78px;
                     padding: 20px;
                     background-color: $white;
+                    background-repeat: no-repeat;
+                    background-position: 12px 5px;
+                    background-image: var(--cf-verification-logo-url);
 
                     img {
                         display: block;

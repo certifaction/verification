@@ -3,7 +3,6 @@
          :class="{ 'confirmation-step': digitalTwin.confirmationStep, 'error': digitalTwinInformation.error }">
         <div class="card-container">
             <div v-if="digitalTwinInformation.active" class="header">
-                <img :src="headerLogo" alt="logo"/>
             </div>
 
             <ShadowCard v-if="isLoading"/>
@@ -117,10 +116,6 @@ export default {
         },
         digitalTwinInformation: {
             type: Object,
-            required: false
-        },
-        headerLogo: {
-            type: String,
             required: false
         }
     },

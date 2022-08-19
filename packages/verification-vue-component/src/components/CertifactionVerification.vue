@@ -20,7 +20,6 @@
                               :key="verificationItem.hash"
                               :verification-item="verificationItem"
                               :verifier-information="verifierInformation"
-                              :headerLogo="headerLogo"
                               :digital-twin-information="digitalTwinStatus"/>
         </div>
 
@@ -104,10 +103,6 @@ export default {
             required: false
         },
         certifactionApiUrl: {
-            type: String,
-            required: false
-        },
-        headerLogo: {
             type: String,
             required: false
         },
