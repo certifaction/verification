@@ -1,3 +1,24 @@
+
+:root {
+    --cf-verification-primary-color: #F29800 ;
+    --cf-verification-secondary-btn-bg-color: #E5E3D6 ;
+    --cf-verification-default-btn-bg-color: #ffffff ;
+    --cf-verification-action-box-bg-color: #E5E3D6 ;
+    --cf-verification-action-box-text-color: #000 ;
+    --cf-verification-message-text-color: #e6f0fe ;
+}
+
+
+
+$btn-default-bg-color:var(#{--cf-verification-primary-color});
+$btn-secondary-bg-color:var(#{--cf-verification-secondary-btn-bg-color});
+$btn-default-text-color:var(#{--cf-verification-color-secondary});
+$btn-secondary-text-color:var(#{--cf-verification-primary-color});
+$action-box-bg-color:var(#{--cf-verification-action-box-bg-color});
+$action-box-text-color:var(#{--cf-verification-action-box-text-color});
+
+
+
 // COLORS
 $gray-50: #f8f9fa;
 $gray-100: #f2f4f6 !default;
@@ -20,6 +41,7 @@ $white: #ffffff !default;
 $black: #000000 !default;
 $red: #f21a25 !default;
 $orange: #fea534 !default;
+$pink:var(#{--cf-verification-color-secondary});
 $green: #32c264 !default;
 $primary: #0062c7 !default;
 
