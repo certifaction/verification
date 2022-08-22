@@ -41,6 +41,10 @@
         font-size: $font-size-small;
     }
 
+    a {
+        color: var(--cf-verification-primary-color);
+    }
+
     @import "buttons";
     @import "verification/demo";
     @import "verification/file_selection";

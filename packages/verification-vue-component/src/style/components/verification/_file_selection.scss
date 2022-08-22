@@ -1,6 +1,6 @@
 .verification-dropbox,
 .verification-file-selector {
-    border: 2px dashed $verification-blue;
+    border: 2px dashed var(--cf-verification-primary-color);
 
     .content {
         display: flex;
