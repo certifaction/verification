@@ -111,14 +111,8 @@
                     background-color: $white;
                     background-repeat: no-repeat;
                     background-position: 12px 5px;
-                    background-size: contain;background-size: contain;
+                    background-size: contain;
                     background-image: var(--cf-verification-logo-url);
-
-                    img {
-                        display: block;
-                        width: auto;
-                        height: 100%;
-                    }
 
                     &.error {
                         text-align: center;
