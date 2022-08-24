@@ -1,5 +1,17 @@
 import wasmExec from '../wasm/wasm_exec.js'
 
+/**
+ * @typedef {Object} ClaimEncryptionKeys
+ * @property {string} encryptionPublicKey
+ * @property {string} encryptionPrivateKey
+ */
+
+/**
+ * @typedef {Object} FetchedDocument
+ * @property {Uint8Array} pdfBytes
+ * @property {Object} metadata
+ */
+
 export default {
     /**
      * Load the given PDF wasm

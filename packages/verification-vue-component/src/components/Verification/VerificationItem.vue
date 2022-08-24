@@ -64,8 +64,9 @@
                 </div>
             </div>
         </div>
+
         <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
-                   :url="digitalTwinInformation.fileUrl"
+                   :source="digitalTwinInformation.fileUrl"
                    :pdfjs-worker-src="pdfjsWorkerSrc"
                    :pdfjs-c-map-url="pdfjsCMapUrl"/>
     </div>
