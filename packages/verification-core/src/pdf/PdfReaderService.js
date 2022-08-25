@@ -2,6 +2,10 @@ import Bowser from 'bowser'
 import PdfReaderWasmWrapper from './pdf_reader.wasm.wrapper'
 import PdfReaderWorker from 'web-worker:./pdf_reader.worker'
 
+const maxWasmLoadingTime = 20 // in seconds
+
+export const ErrPdfReaderWasmLoadingTimeout = new Error(`PDF reader WASM wasn't loaded after ${maxWasmLoadingTime} seconds.`)
+
 export default class PdfReaderService {
     /**
      * PDF Service
@@ -17,6 +21,14 @@ export default class PdfReaderService {
         this.isNonChromiumEdge = browser.satisfies({ edge: '<=18' })
 
         this.loadPdfWasm()
+    }
+
+    static getInstance(pdfWasmUrl) {
+        if (!this.instance) {
+            this.instance = new PdfReaderService(pdfWasmUrl)
+        }
+
+        return this.instance
     }
 
     /**
@@ -57,14 +69,14 @@ export default class PdfReaderService {
                     return resolve()
                 }
 
-                // Fail if the wasm isn't loaded after 15 seconds
-                if (count > 1500) {
+                // Fail if the wasm isn't loaded after maxWasmLoadingTime
+                if (count > maxWasmLoadingTime * 10) {
                     self.clearInterval(checkInterval)
-                    return reject(new Error('PDF reader wasm wasn\'t loaded after 15 seconds.'))
+                    return reject(ErrPdfReaderWasmLoadingTimeout)
                 }
 
                 count++
-            }, 10)
+            }, 100)
         })
     }
 

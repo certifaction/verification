@@ -29,7 +29,7 @@ This monorepo contains these packages:
 
 ### Requirements
 
-* [NodeJS](https://nodejs.org) >= 16
+* [NodeJS](https://nodejs.org) >= 17
 * [Yarn](https://yarnpkg.com)
 * [Lerna](https://lerna.js.org/)
 
@@ -39,17 +39,18 @@ Clone the git repo and install dependencies.
 ```shell script
 git clone https://github.com/certifaction/verification
 cd verification
-lerna bootstrap
+yarn install
+yarn bootstrap
 ```
 
 Check and fix linting errors
 ```shell script
-lerna run lint
+yarn lint
 ```
 
 Build libraries
 ```shell script
-lerna run build
+yarn build
 ```
 
 ### Publishing
@@ -57,8 +58,8 @@ lerna run build
 To publish a new version please commit your changes to master and then execute
 
 ```shell script
-lerna run build
-lerna publish
+yarn build
+yarn publish
 ```
 
 This will start the wizard to publish a new version to NPM.
