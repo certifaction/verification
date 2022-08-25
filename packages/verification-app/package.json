@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-app",
-    "version": "3.4.0",
+    "version": "3.4.1",
     "private": true,
     "scripts": {
         "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
@@ -10,7 +10,7 @@
         "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
     },
     "dependencies": {
-        "@certifaction/verification-vue-component": "^3.4.0",
+        "@certifaction/verification-vue-component": "^3.4.1",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0",
         "core-js": "^3.24.1",
