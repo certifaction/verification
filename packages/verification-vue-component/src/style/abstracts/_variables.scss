@@ -1,12 +1,5 @@
-
-:root {
-    --cf-verification-primary-color: #0669f2;
-    --cf-verification-secondary-color: #e5e3d6;
-    --cf-verification-default-btn-bg-color: #ffffff;
-    --cf-verification-action-box-bg-color: #e6f0fe;
-    --cf-verification-action-box-text-color: #0d6efd;
-    --cf-verification-logo-url: url("./assets/images/certifaction-logo.svg");
-}
+// ASSETS
+$cf-verification-asset-base-path: "" !default;
 
 // COLORS
 $gray-50: #f8f9fa;

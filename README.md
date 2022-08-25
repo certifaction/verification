@@ -40,17 +40,17 @@ Clone the git repo and install dependencies.
 git clone https://github.com/certifaction/verification
 cd verification
 yarn install
-yarn bootstrap
+yarn run bootstrap
 ```
 
 Check and fix linting errors
 ```shell script
-yarn lint
+yarn run lint
 ```
 
 Build libraries
 ```shell script
-yarn build
+yarn run build
 ```
 
 ### Publishing
@@ -58,8 +58,8 @@ yarn build
 To publish a new version please commit your changes to master and then execute
 
 ```shell script
-yarn build
-yarn publish
+yarn run build
+yarn run publish
 ```
 
 This will start the wizard to publish a new version to NPM.
