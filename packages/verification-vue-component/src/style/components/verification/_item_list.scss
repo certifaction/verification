@@ -108,11 +108,13 @@
                 > .header {
                     height: 65px;
                     padding: 20px;
-                    background-color: $white;
-                    background-repeat: no-repeat;
-                    background-position: 12px 5px;
-                    background-size: contain;
-                    background-image: var(--cf-verification-logo-url);
+
+                    .logo {
+                        height: 100%;
+                        background-image: var(--cf-verification-logo-url);
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
 
                     &.error {
                         text-align: center;

@@ -1,0 +1,3 @@
+@function cf-verification-asset($file) {
+    @return url($cf-verification-asset-base-path + $file);
+}
