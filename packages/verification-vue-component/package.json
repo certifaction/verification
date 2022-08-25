@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "3.4.1",
+    "version": "3.4.2",
     "description": "Vue component for Certifaction verification",
     "private": false,
     "license": "MIT",
@@ -27,7 +27,7 @@
         "build": "npm-run-all clean build:js banner"
     },
     "dependencies": {
-        "@certifaction/verification-core": "^3.4.1",
+        "@certifaction/verification-core": "^3.4.2",
         "@certifaction/vue-pdf-viewer": "^1.3.6",
         "@mdi/js": "^7.0.96",
         "axios": "^0.27.2",
@@ -54,8 +54,8 @@
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.3.1",
-        "eslint-plugin-vue": "^7.20.0",
         "eslint-plugin-standard": "^4.1.0",
+        "eslint-plugin-vue": "^7.20.0",
         "glob": "^8.0.3",
         "npm-run-all": "^4.1.5",
         "postcss": "^8.4.16",

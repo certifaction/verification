@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-app",
-    "version": "3.4.1",
+    "version": "3.4.2",
     "private": true,
     "scripts": {
         "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
@@ -10,7 +10,7 @@
         "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
     },
     "dependencies": {
-        "@certifaction/verification-vue-component": "^3.4.1",
+        "@certifaction/verification-vue-component": "^3.4.2",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0",
         "core-js": "^3.25.0",
@@ -26,10 +26,10 @@
         "babel-eslint": "^10.1.0",
         "cross-env": "^7.0.3",
         "eslint": "^6.8.0",
-        "eslint-plugin-standard": "^4.1.0",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.3.1",
+        "eslint-plugin-standard": "^4.1.0",
         "eslint-plugin-vue": "^7.20.0",
         "sass": "^1.54.5",
         "sass-loader": "^10.3.1",
