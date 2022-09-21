@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "3.4.2",
+    "version": "3.5.0",
     "description": "Vue component for Certifaction verification",
     "private": false,
     "license": "MIT",
@@ -27,7 +27,7 @@
         "build": "npm-run-all clean build:js banner"
     },
     "dependencies": {
-        "@certifaction/verification-core": "^3.4.2",
+        "@certifaction/verification-core": "^3.5.0",
         "@certifaction/vue-pdf-viewer": "^1.3.6",
         "@mdi/js": "^7.0.96",
         "axios": "^0.27.2",
