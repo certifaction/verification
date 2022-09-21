@@ -31,7 +31,7 @@
         "@certifaction/vue-pdf-viewer": "^1.3.6",
         "@mdi/js": "^7.0.96",
         "axios": "^0.27.2",
-        "core-js": "^3.25.0",
+        "core-js": "^3.25.2",
         "v-tooltip": "^2.1.3",
         "vue-scrollto": "^2.20.0",
         "vue-simple-spinner": "^1.2.10"
@@ -41,13 +41,13 @@
         "vue-i18n": "^8.27"
     },
     "devDependencies": {
-        "@babel/core": "^7.18.13",
-        "@babel/preset-env": "^7.18.10",
+        "@babel/core": "^7.19.1",
+        "@babel/preset-env": "^7.19.1",
         "@rollup/plugin-babel": "^5.3.1",
         "@rollup/plugin-commonjs": "^22.0.2",
         "@rollup/plugin-image": "^2.1.1",
         "@rollup/plugin-node-resolve": "^13.3.0",
-        "autoprefixer": "^10.4.8",
+        "autoprefixer": "^10.4.12",
         "babel-eslint": "^10.1.0",
         "eslint": "^6.8.0",
         "eslint-config-standard": "^14.1.1",
@@ -61,9 +61,9 @@
         "postcss": "^8.4.16",
         "postcss-cli": "^9.1.0",
         "rimraf": "^3.0.2",
-        "rollup": "^2.78.1",
+        "rollup": "^2.79.0",
         "rollup-plugin-vue": "^5.1.9",
-        "sass": "^1.54.5",
+        "sass": "^1.54.9",
         "vue": "^2.6.14",
         "vue-template-compiler": "^2.6.14"
     },
