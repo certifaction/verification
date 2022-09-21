@@ -160,7 +160,7 @@ export default {
         },
         verifierInformation() {
             return {
-                net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('ropsten') >= 0 ? 'ropsten.etherscan.io' : 'etherscan.io',
+                net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('goerli') >= 0 ? 'goerli.etherscan.io' : 'etherscan.io',
                 certifactionApiUrl: this.certifactionApiUrl
             }
         },

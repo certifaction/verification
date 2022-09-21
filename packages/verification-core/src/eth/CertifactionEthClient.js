@@ -21,7 +21,7 @@ export default class CertifactionEthClient {
         this.fallbackLegacyContracts = fallbackLegacyContracts
         this.claimContract = claimContract
 
-        this.ethScanUrl = 'https://' + ((this.eth.currentProvider.host.indexOf('ropsten') >= 0) ? 'ropsten.etherscan.io' : 'etherscan.io')
+        this.ethScanUrl = 'https://' + ((this.eth.currentProvider.host.indexOf('goerli') >= 0) ? 'goerli.etherscan.io' : 'etherscan.io')
     }
 
     /**
