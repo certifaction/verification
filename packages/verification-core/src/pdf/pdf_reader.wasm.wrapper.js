@@ -117,13 +117,14 @@ export default {
     /**
      * Wrapper function for "wasmPdfReader.fetchDocument"
      *
-     * @param {string} digitalArchiveUriWithEncryptionKey
+     * @param {string} digitalArchiveUri
+     * @param {string} encryptionKeyPassword
      *
      * @returns {Promise<FetchedDocument>}
      */
-    async fetchDocument(digitalArchiveUriWithEncryptionKey) {
+    async fetchDocument(digitalArchiveUri, encryptionKeyPassword) {
         await this.waitUntilReady()
-        return self.wasmPdfReader.fetchDocument(digitalArchiveUriWithEncryptionKey)
+        return self.wasmPdfReader.fetchDocument(digitalArchiveUri, encryptionKeyPassword)
     },
     /**
      * Wrapper function for "wasmPdfReader.hasCertifactionPadesSignatures"

@@ -227,16 +227,17 @@ export default class PdfReaderService {
     /**
      * Fetch document from digital archive
      *
-     * @param {string} digitalArchiveUriWithEncryptionKey
+     * @param {string} digitalArchiveUri
+     * @param {string} encryptionKeyPassword
      *
      * @returns {Promise<Object>}
      */
-    async fetchDocument(digitalArchiveUriWithEncryptionKey) {
+    async fetchDocument(digitalArchiveUri, encryptionKeyPassword) {
         await this.waitUntilLoaded()
 
         let fetchedDocumentObject = null
         if (this.isNonChromiumEdge === true) {
-            fetchedDocumentObject = await PdfReaderWasmWrapper.fetchDocument(digitalArchiveUriWithEncryptionKey)
+            fetchedDocumentObject = await PdfReaderWasmWrapper.fetchDocument(digitalArchiveUri, encryptionKeyPassword)
         }
 
         return new Promise((resolve, reject) => {
@@ -260,7 +261,8 @@ export default class PdfReaderService {
                 worker.postMessage({
                     cmd: 'fetch_document',
                     pdfWasmModule: this.pdfWasmModule,
-                    digitalArchiveUriWithEncryptionKey
+                    digitalArchiveUri,
+                    encryptionKeyPassword
                 })
             }
         })
