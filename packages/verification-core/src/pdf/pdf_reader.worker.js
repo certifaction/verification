@@ -46,7 +46,8 @@ self.addEventListener('message', async (e) => {
 
             case 'fetch_document': {
                 const fetchedDocumentObject = await PdfReaderWasmWrapper.fetchDocument(
-                    e.data.digitalArchiveUriWithEncryptionKey
+                    e.data.digitalArchiveUri,
+                    e.data.encryptionKeyPassword
                 )
                 if (fetchedDocumentObject !== null && 'error' in fetchedDocumentObject) {
                     throw fetchedDocumentObject.error
