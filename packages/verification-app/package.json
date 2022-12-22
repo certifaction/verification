@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-app",
-    "version": "3.5.0",
+    "version": "3.6.0",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
@@ -10,7 +10,7 @@
         "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
     },
     "dependencies": {
-        "@certifaction/verification-vue-component": "^3.5.0",
+        "@certifaction/verification-vue-component": "^3.6.0",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.3",
         "core-js": "^3.26.1",
@@ -19,11 +19,11 @@
         "vue-i18n": "^8.27.2"
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.19.1",
         "@vue/cli-plugin-babel": "~5.0.8",
         "@vue/cli-plugin-eslint": "~5.0.8",
         "@vue/cli-service": "~5.0.8",
         "@vue/eslint-config-standard": "^5.1.2",
-        "@babel/eslint-parser": "^7.19.1",
         "cross-env": "^7.0.3",
         "eslint": "^8.30.0",
         "eslint-config-standard": "^17.0.0",

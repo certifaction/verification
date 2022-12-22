@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-core",
-    "version": "3.5.0",
+    "version": "3.6.0",
     "description": "Provides a client that can verify a hash against the certifaction Ethereum smart contract.",
     "private": false,
     "license": "MIT",
@@ -40,12 +40,12 @@
     },
     "devDependencies": {
         "@babel/core": "^7.20.7",
+        "@babel/eslint-parser": "^7.19.1",
         "@babel/plugin-transform-runtime": "^7.19.6",
         "@babel/preset-env": "^7.20.2",
         "@rollup/plugin-babel": "^5.3.1",
         "@rollup/plugin-commonjs": "^22.0.2",
         "@rollup/plugin-node-resolve": "^13.3.0",
-        "@babel/eslint-parser": "^7.19.1",
         "babel-jest": "^27.5.1",
         "eslint": "^8.30.0",
         "eslint-config-standard": "^17.0.0",
