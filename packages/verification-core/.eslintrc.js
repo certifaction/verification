@@ -8,7 +8,7 @@ module.exports = {
         'plugin:jest/recommended'
     ],
     parserOptions: {
-        parser: 'babel-eslint',
+        parser: '@babel/eslint-parser',
         sourceType: 'module'
     },
     rules: {
