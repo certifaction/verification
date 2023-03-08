@@ -100,7 +100,7 @@
             },
             "pades": {
                 "status": "Signatures PDF",
-                "details": "Ce document contient des signatures PDF. Pour les vérifier, téléchargez le document et ouvrez-le dans <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
+                "details": "Ce document contient des signatures PDF. Pour les vérifier, téléchargez le document et ouvrez-le sur votre ordinateur dans <a href=\"https://get.adobe.com/reader/\" target=\"_blank\">Adobe Acrobat Reader</a>."
             },
             "certifying": {
                 "revoked": {
