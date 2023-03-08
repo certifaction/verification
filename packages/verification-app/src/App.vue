@@ -2,7 +2,7 @@
     <div id="app" class="verification-app">
         <CertifactionVerification :demo="false"
                                   :pdf-wasm-url="pdfReaderWasmUrl"
-                                  :pdfjs-worker-src="pdfjsWorkerSrc"
+                                  :pdfjs-worker-instance="pdfjsWorker"
                                   :pdfjs-c-map-url="pdfjsCMapUrl"
                                   :provider-url="providerUrl"
                                   :legacy-contract-address="legacyContractAddress"
@@ -16,7 +16,7 @@
 
 <script>
 import CertifactionOffchainVerifier from './lib/CertifactionOffchainVerifier'
-import pdfjsWorkerSrc from '@certifaction/pdfjs/dist/pdfjs.worker.min'
+import PdfjsWorker from '@certifaction/pdfjs/dist/pdfjs.worker.min'
 
 export default {
     name: 'App',
@@ -32,7 +32,7 @@ export default {
 
         return {
             pdfReaderWasmUrl: new URL(`/wasm/pdf-${pdfWasmVersion}/pdf_reader.wasm?t=${cacheBuster}`, cdnBaseUrl),
-            pdfjsWorkerSrc,
+            pdfjsWorker: new PdfjsWorker(),
             pdfjsCMapUrl: 'pdf/cmaps/',
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
             legacyContractAddress: process.env.VUE_APP_LEGACY_CONTRACT_ADDRESS,

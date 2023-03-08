@@ -69,6 +69,7 @@
         <PDFViewer v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
                    :source="digitalTwinInformation.fileUrl"
                    :pdfjs-worker-src="pdfjsWorkerSrc"
+                   :pdfjs-worker-instance="pdfjsWorkerInstance"
                    :pdfjs-c-map-url="pdfjsCMapUrl"/>
     </div>
 </template>
@@ -147,7 +148,7 @@ export default {
             return event.issuer.name
         }
     },
-    inject: ['pdfjsWorkerSrc', 'pdfjsCMapUrl'],
+    inject: ['pdfjsWorkerSrc', 'pdfjsWorkerInstance', 'pdfjsCMapUrl'],
     data() {
         return {
             showSupport: false,
