@@ -1,15 +1,24 @@
+const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service')
 
 process.env.VUE_APP_CACHE_BUSTER = new Date().getTime().toString()
 
 module.exports = defineConfig({
     configureWebpack: {
+        plugins: [
+            new webpack.ProvidePlugin({
+                Buffer: ['buffer', 'Buffer']
+            })
+        ],
         resolve: {
             fallback: {
-                stream: require.resolve('stream-browserify'),
+                assert: require.resolve('assert'),
+                buffer: require.resolve('buffer'),
                 crypto: require.resolve('crypto-browserify'),
                 http: require.resolve('stream-http'),
-                https: require.resolve('https-browserify')
+                https: require.resolve('https-browserify'),
+                stream: require.resolve('stream-browserify'),
+                url: require.resolve('url')
             }
         }
     },

@@ -76,7 +76,11 @@ export default {
         },
         pdfjsWorkerSrc: {
             type: String,
-            required: true
+            required: false
+        },
+        pdfjsWorkerInstance: {
+            type: Worker,
+            required: false
         },
         pdfjsCMapUrl: {
             type: String,
@@ -118,6 +122,7 @@ export default {
     provide() {
         return {
             pdfjsWorkerSrc: this.pdfjsWorkerSrc,
+            pdfjsWorkerInstance: this.pdfjsWorkerInstance,
             pdfjsCMapUrl: this.pdfjsCMapUrl
         }
     },
