@@ -483,8 +483,6 @@ export default {
         }
     },
     async mounted() {
-        console.log(this.pdfReaderService, this.hashingService)
-
         if (this.digitalTwinInformation) {
             this.$emit('initialized', true)
             await this.processDigitalTwinUrl()
