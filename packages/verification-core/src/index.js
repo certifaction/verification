@@ -5,8 +5,6 @@ import CertifactionEthClient from './eth/CertifactionEthClient'
 import VerifierInterface from './verifier/VerifierInterface'
 import CertifactionEthVerifier from './verifier/CertifactionEthVerifier'
 import CertifactionClaimVerifier from './verifier/CertifactionClaimVerifier'
-import hashingService from './hashing/hashing.service'
-import PdfReaderService from './pdf/PdfReaderService'
 
 export const SIGNATURE_LEVEL_STANDARD = 'standard'
 export const SIGNATURE_LEVEL_QES = 'QES'
@@ -18,7 +16,5 @@ export {
     CertifactionEthClient,
     VerifierInterface,
     CertifactionEthVerifier,
-    CertifactionClaimVerifier,
-    hashingService,
-    PdfReaderService
+    CertifactionClaimVerifier
 }

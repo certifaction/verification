@@ -1,6 +1,6 @@
 import Bowser from 'bowser'
 import PdfReaderWasmWrapper from './pdf_reader.wasm.wrapper'
-import PdfReaderWorker from 'web-worker:./pdf_reader.worker'
+import PdfReaderWorker from './pdf_reader.worker'
 
 const maxWasmLoadingTime = 20 // in seconds
 

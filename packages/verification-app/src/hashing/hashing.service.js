@@ -1,4 +1,4 @@
-import HashingWorker from 'web-worker:./hashing.worker'
+import HashingWorker from './hashing.worker'
 
 export default {
     hashFile(pdfBytes) {
