@@ -38,13 +38,7 @@
 <script>
 import Vue from 'vue'
 import VueScrollTo from 'vue-scrollto'
-import {
-    CertifactionEthVerifier,
-    hashingService,
-    Interface,
-    PdfReaderService,
-    VerifierInterface
-} from '@certifaction/verification-core'
+import { CertifactionEthVerifier, Interface, VerifierInterface } from '@certifaction/verification-core'
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
@@ -70,8 +64,12 @@ export default {
             required: false,
             default: false
         },
-        pdfWasmUrl: {
-            type: URL,
+        hashingService: {
+            type: Object,
+            required: true
+        },
+        pdfReaderService: {
+            type: Object,
             required: true
         },
         pdfjsWorkerSrc: {
@@ -136,7 +134,6 @@ export default {
                 this.acceptedIssuerKey,
                 this.certifactionApiUrl
             ),
-            pdfReaderService: PdfReaderService.getInstance(this.pdfWasmUrl),
             verificationItems: [],
             draggingDemoDoc: undefined,
             dropbox: {
@@ -217,7 +214,7 @@ export default {
             const [isPadesDocument, metadata, fileHash] = await Promise.all([
                 this.pdfReaderService.hasCertifactionPadesSignatures(pdfBytes),
                 this.pdfReaderService.extractMetadata(pdfBytes),
-                hashingService.hashFile(pdfBytes)
+                this.hashingService.hashFile(pdfBytes)
             ])
 
             let verification = null
@@ -486,6 +483,8 @@ export default {
         }
     },
     async mounted() {
+        console.log(this.pdfReaderService, this.hashingService)
+
         if (this.digitalTwinInformation) {
             this.$emit('initialized', true)
             await this.processDigitalTwinUrl()

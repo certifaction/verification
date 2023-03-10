@@ -1,7 +1,8 @@
 <template>
     <div id="app" class="verification-app">
         <CertifactionVerification :demo="false"
-                                  :pdf-wasm-url="pdfReaderWasmUrl"
+                                  :hashing-service="hashingService"
+                                  :pdf-reader-service="pdfReaderService"
                                   :pdfjs-worker-instance="pdfjsWorker"
                                   :pdfjs-c-map-url="pdfjsCMapUrl"
                                   :provider-url="providerUrl"
@@ -16,6 +17,8 @@
 
 <script>
 import CertifactionOffchainVerifier from './lib/CertifactionOffchainVerifier'
+import hashingService from './hashing/hashing.service'
+import PdfReaderService from './pdf/PdfReaderService'
 import PdfjsWorker from '@certifaction/pdfjs/dist/pdfjs.worker.min'
 
 export default {
@@ -27,11 +30,12 @@ export default {
     },
     data() {
         const pdfWasmVersion = process.env.VUE_APP_PDF_WASM_VERSION
-        const cacheBuster = process.env.VUE_APP_CACHE_BUSTER
         const cdnBaseUrl = process.env.VUE_APP_CERTIFACTION_CDN_BASE_URL
+        const pdfReaderWasmUrl = new URL(`/wasm/pdf-${pdfWasmVersion}/pdf_reader.wasm`, cdnBaseUrl)
 
         return {
-            pdfReaderWasmUrl: new URL(`/wasm/pdf-${pdfWasmVersion}/pdf_reader.wasm?t=${cacheBuster}`, cdnBaseUrl),
+            hashingService,
+            pdfReaderService: PdfReaderService.getInstance(pdfReaderWasmUrl),
             pdfjsWorker: new PdfjsWorker(),
             pdfjsCMapUrl: 'pdf/cmaps/',
             providerUrl: process.env.VUE_APP_PROVIDER_URL,
