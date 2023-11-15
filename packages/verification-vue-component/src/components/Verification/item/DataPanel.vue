@@ -3,22 +3,23 @@
         <div v-if="hasHeaderContent" class="header" @click="onClickHeader">
             <slot name="header">
                 <div v-if="hasIcon" class="icon">
-                    <img v-if="iconSrc" :src="iconSrc" class="icon" alt="Icon"/>
-                    <MDIcon v-if="mdIcon" :icon="mdIcon"/>
+                    <img v-if="iconSrc" :src="iconSrc" class="icon" alt="Icon" />
+                    <MDIcon v-if="mdIcon" :icon="mdIcon" />
                 </div>
-                <div v-if="title" class="title" v-html="title"/>
+                <div v-if="title" class="title" v-html="title" />
             </slot>
 
             <div v-if="hasBody && bodyCollapsible" class="collapse-indicator">
-                <MDIcon :icon="mdiChevronUp"/>
+                <MDIcon :icon="mdiChevronUp" />
             </div>
         </div>
-        <transition name="collapse"
-                    @enter="onEnterTransition"
-                    @after-enter="onAfterEnterTransition"
-                    @leave="onLeaveTransition">
+        <transition
+            name="collapse"
+            @enter="onEnterTransition"
+            @after-enter="onAfterEnterTransition"
+            @leave="onLeaveTransition">
             <div v-if="hasBody && !isBodyCollapsed" class="body">
-                <slot/>
+                <slot />
             </div>
         </transition>
     </div>
@@ -31,27 +32,27 @@ import MDIcon from '../../MDIcon.vue'
 export default {
     name: 'DataPanel',
     components: {
-        MDIcon
+        MDIcon,
     },
     props: {
         iconSrc: {
-            type: String
+            type: String,
         },
         mdIcon: {
-            type: String
+            type: String,
         },
         title: {
-            type: String
+            type: String,
         },
         bodyCollapsible: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
     },
     data() {
         return {
             mdiChevronUp,
-            bodyCollapsed: true
+            bodyCollapsed: true,
         }
     },
     computed: {
@@ -70,7 +71,7 @@ export default {
             }
 
             return this.bodyCollapsed
-        }
+        },
     },
     methods: {
         onClickHeader() {
@@ -96,7 +97,7 @@ export default {
             window.setTimeout(() => {
                 el.style.height = 0
             })
-        }
-    }
+        },
+    },
 }
 </script>

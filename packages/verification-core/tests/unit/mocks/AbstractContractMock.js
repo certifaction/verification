@@ -14,21 +14,25 @@ export default class AbstractContractMock {
         const mockResultFilterMethods = this.getMockResultFilterMethods()
         this.methods = {}
 
-        jsonInterface.forEach(definition => {
+        jsonInterface.forEach((definition) => {
             if (
                 definition.type === 'function' &&
                 mockResults[definition.name] !== undefined &&
                 mockResultFilterMethods[definition.name] !== undefined
             ) {
-                const method = new MethodMock(definition.name, mockResults[definition.name], mockResultFilterMethods[definition.name])
+                const method = new MethodMock(
+                    definition.name,
+                    mockResults[definition.name],
+                    mockResultFilterMethods[definition.name],
+                )
 
                 this.methods[definition.name] = method.contractFunction.bind(method)
             }
         })
     }
 
-    getPastEvents(event, options, callback) {
-        return this.getMockEvents().filter(mockEvent => {
+    getPastEvents(event, options) {
+        return this.getMockEvents().filter((mockEvent) => {
             if (mockEvent.event !== event) {
                 return false
             }

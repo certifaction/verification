@@ -2,7 +2,7 @@
     <BaseCard class="file-declined-card">
         <template #body>
             <h3>{{ _$t('verification.digitalTwin.fileDeclined.title') }}</h3>
-            <p v-html="_$t('verification.digitalTwin.fileDeclined.copy')"/>
+            <p v-html="_$t('verification.digitalTwin.fileDeclined.copy')" />
             <button class="btn btn-primary" @click="toggleHelp('contact')">
                 <span>{{ _$t('verification.digitalTwin.error.btn.contactSupport') }}</span>
             </button>
@@ -18,18 +18,18 @@ export default {
     name: 'FileDeclinedCard',
     mixins: [i18nWrapperMixin],
     components: {
-        BaseCard
+        BaseCard,
     },
     props: {
         fileName: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         toggleHelp(type) {
             this.$emit('toggle-help', type)
-        }
-    }
+        },
+    },
 }
 </script>

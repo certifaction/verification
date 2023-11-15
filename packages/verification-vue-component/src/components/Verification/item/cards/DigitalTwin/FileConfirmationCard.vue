@@ -9,10 +9,10 @@
 
                 <div class="actions">
                     <div class="confirmation-action approve" @click="approveOrDecline(true)">
-                        <MDIcon :icon="mdiCheckCircle"/>
+                        <MDIcon :icon="mdiCheckCircle" />
                     </div>
                     <div class="confirmation-action decline" @click="approveOrDecline(false)">
-                        <MDIcon :icon="mdiCloseCircle"/>
+                        <MDIcon :icon="mdiCloseCircle" />
                     </div>
                 </div>
             </div>
@@ -25,11 +25,11 @@
 
                 <div class="actions">
                     <button class="btn btn-secondary decline" @click="approveOrDecline(false)">
-                        <MDIcon :icon="mdiCloseCircle"/>
+                        <MDIcon :icon="mdiCloseCircle" />
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.decline') }}
                     </button>
                     <button class="btn btn-secondary approve" @click="approveOrDecline(true)">
-                        <MDIcon :icon="mdiCheckCircle"/>
+                        <MDIcon :icon="mdiCheckCircle" />
                         {{ _$t('verification.digitalTwin.actionBox.confirmation.btn.approve') }}
                     </button>
                 </div>
@@ -49,24 +49,24 @@ export default {
     mixins: [i18nWrapperMixin],
     components: {
         MDIcon,
-        BaseCard
+        BaseCard,
     },
     props: {
         fileName: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
             mdiCheckCircle,
-            mdiCloseCircle
+            mdiCloseCircle,
         }
     },
     methods: {
         approveOrDecline(approved) {
             this.$emit('approve-or-decline', approved)
-        }
-    }
+        },
+    },
 }
 </script>

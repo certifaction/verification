@@ -55,7 +55,10 @@
 import EthCrypto from 'eth-crypto'
 import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
-import { SIGNATURE_LEVEL_QES, SIGNATURE_LEVEL_STANDARD } from '../index'
+import Buffer from 'buffer'
+
+export const SIGNATURE_LEVEL_STANDARD = 'standard'
+export const SIGNATURE_LEVEL_QES = 'QES'
 
 export default class CertifactionClaimVerifier {
     /**
@@ -98,25 +101,23 @@ export default class CertifactionClaimVerifier {
 
         const fileVerification = await this.resolveAndVerifyClaims(claims, decryptionKey, claimEvents)
 
-        if (
-            fileVerification !== null &&
-            fileVerification.issuerAddress &&
-            fileVerification.issuerVerified === false
-        ) {
+        if (fileVerification !== null && fileVerification.issuerAddress && fileVerification.issuerVerified === false) {
             console.log('Issuer not verified by claims, try to verify by legacy contract...')
-            const verifiedIssuer = await this.certifactionEthClient.verifyIssuerByLegacyContract(fileVerification.issuerAddress)
+            const verifiedIssuer = await this.certifactionEthClient.verifyIssuerByLegacyContract(
+                fileVerification.issuerAddress,
+            )
             if (verifiedIssuer.issuerVerified === true) {
                 fileVerification.issuerName = verifiedIssuer.issuerName
                 fileVerification.issuerImg = verifiedIssuer.issuerImg
                 fileVerification.issuerVerified = verifiedIssuer.issuerVerified
                 fileVerification.issuerVerifiedBy = 'Certifaction AG'
 
-                fileVerification.events = fileVerification.events.map(event => {
+                fileVerification.events = fileVerification.events.map((event) => {
                     const newEvent = { ...event }
                     newEvent.issuer.name = verifiedIssuer.issuerName
                     newEvent.issuer.verified = true
                     newEvent.issuer.verified_by = {
-                        name: 'Certifaction AG'
+                        name: 'Certifaction AG',
                     }
 
                     return newEvent
@@ -150,10 +151,12 @@ export default class CertifactionClaimVerifier {
 
             console.log('Event is for file.')
             console.log('File event:', claimEvent)
-            console.log(`Etherscan link to Tx: ${this.certifactionEthClient.ethScanUrl}/tx/${claimEvent.transactionHash}`)
+            console.log(
+                `Etherscan link to Tx: ${this.certifactionEthClient.ethScanUrl}/tx/${claimEvent.transactionHash}`,
+            )
             console.log(`File is associated with claim hash: ${claimHash}`)
 
-            let claim = await this.getClaim(claimHash)
+            const claim = await this.getClaim(claimHash)
 
             if (!claim) {
                 console.warn('No claim found')
@@ -161,7 +164,7 @@ export default class CertifactionClaimVerifier {
             }
 
             if (!this.verifyClaim(claim, claimHash, claimFileHash)) {
-                console.error('The claim couldn\'t be verified, discarding.')
+                console.error("The claim couldn't be verified, discarding.")
                 continue
             }
 
@@ -206,7 +209,10 @@ export default class CertifactionClaimVerifier {
         // Verify if the claim hash matches the claim hash from the blockchain
         const claimHash = this.getClaimHash(claim)
         if (claimHash !== validClaimHash) {
-            console.error(`The keccak256-hash from the claim (${claimHash}) doesn't match the valid claim hash (${validClaimHash}).`, claim)
+            console.error(
+                `The keccak256-hash from the claim (${claimHash}) doesn't match the valid claim hash (${validClaimHash}).`,
+                claim,
+            )
             return false
         }
         console.log('Claim hashes matching, claim is valid.', claim)
@@ -240,7 +246,7 @@ export default class CertifactionClaimVerifier {
             issuerVerifiedImg: null,
             revoked: false,
             events: [],
-            claims
+            claims,
         }
 
         for (let claim of claims) {
@@ -254,7 +260,7 @@ export default class CertifactionClaimVerifier {
                     }
 
                     try {
-                        console.log('It\'s an encrypted claim, trying to decrypt it...')
+                        console.log("It's an encrypted claim, trying to decrypt it...")
                         claim = await this.decryptClaim(claim, decryptionKey)
                         console.log('Decrypted claim:', claim)
                     } catch (e) {
@@ -267,7 +273,7 @@ export default class CertifactionClaimVerifier {
             // Get issuer address from signature
             const issuerAddress = await this.verifySignatureAndGetPubKey(claim)
             if (!issuerAddress) {
-                console.error('Signature couldn\'t be verified, discarding.')
+                console.error("Signature couldn't be verified, discarding.")
                 continue
             }
             console.log('Signer address matches Claim Creator attribute')
@@ -298,8 +304,8 @@ export default class CertifactionClaimVerifier {
                 ref: claimHash,
                 scope: claim.scope,
                 issuer: {
-                    id: issuerAddress
-                }
+                    id: issuerAddress,
+                },
             }
             if (issuerIdentity) {
                 fileEvent.issuer = issuerIdentity
@@ -319,23 +325,23 @@ export default class CertifactionClaimVerifier {
                 signature.jurisdiction = claim.jurisdiction
             }
             if (claim.level === SIGNATURE_LEVEL_QES && claim.jurisdiction && Array.isArray(claim.proof)) {
-                const proof = claim.proof.find(proof => proof.type === claim.level + '-' + claim.jurisdiction)
+                const proof = claim.proof.find((proof) => proof.type === claim.level + '-' + claim.jurisdiction)
                 signature.pkcs7_data = proof.signatureValue
             }
             if (Object.keys(signature).length > 0) {
                 fileEvent.signature = signature
             }
 
-            const claimEvent = (claimEvents) ? claimEvents.find(event => event.returnValues.hash === claimHash) : null
+            const claimEvent = claimEvents ? claimEvents.find((event) => event.returnValues.hash === claimHash) : null
             let claimBlock = null
             if (claimEvent) {
                 claimBlock = await this.certifactionEthClient.getBlock(claimEvent.blockHash)
 
-                fileEvent.date = new Date(claimBlock.timestamp * 1000).toISOString()
+                fileEvent.date = new Date(Number(claimBlock.timestamp) * 1000).toISOString()
                 fileEvent.on_blockchain = {
                     type: 'ethereum',
                     contract_address: claimEvent.address,
-                    tx_hash: claimEvent.transactionHash
+                    tx_hash: claimEvent.transactionHash,
                 }
             }
 
@@ -361,7 +367,7 @@ export default class CertifactionClaimVerifier {
                     break
             }
 
-            const duplicateEvent = fileVerification.events.find(event => event.ref === claimHash)
+            const duplicateEvent = fileVerification.events.find((event) => event.ref === claimHash)
 
             if (!duplicateEvent) {
                 fileVerification.events.push(fileEvent)
@@ -397,21 +403,24 @@ export default class CertifactionClaimVerifier {
      * @returns {Promise<Object>}
      */
     async decryptClaim(encryptedClaim, decryptionKey) {
-        switch (encryptedClaim['algorithm']) {
-            case 'ECIES':
+        switch (encryptedClaim.algorithm) {
+            case 'ECIES': {
                 const privateKey = Buffer.from(decryptionKey, 'hex')
-                const decryptedClaimJson = await eciesDecrypt(privateKey, Buffer.from(encryptedClaim['claim'], 'base64'))
+                const decryptedClaimJson = await eciesDecrypt(privateKey, Buffer.from(encryptedClaim.claim, 'base64'))
                 const decryptedClaim = JSON.parse(decryptedClaimJson.toString())
 
                 // Verify if the @id from the encrypted claim matches matches with the decrypted claim
                 if (decryptedClaim['@id'].toLowerCase() !== encryptedClaim['@id'].toLowerCase()) {
-                    throw new Error(`The @id from the decrypted claim (${decryptedClaim['@id']}) doesn't match with the encrypted claim (${encryptedClaim['@id']}).`)
+                    throw new Error(
+                        `The @id from the decrypted claim (${decryptedClaim['@id']}) doesn't match with the encrypted claim (${encryptedClaim['@id']}).`,
+                    )
                 }
 
                 return decryptedClaim
+            }
 
             default:
-                throw new Error(`Algorithm not supported: ${encryptedClaim['algorithm']}`)
+                throw new Error(`Algorithm not supported: ${encryptedClaim.algorithm}`)
         }
     }
 
@@ -424,11 +433,15 @@ export default class CertifactionClaimVerifier {
      * @returns {Promise<Issuer|null>}
      */
     async resolveAndVerifyIssuerIdentity(idClaims, claimIssuerAddress) {
-        let issuer = {}
+        const issuer = {}
 
         for (const idClaim of idClaims) {
             if (idClaim['@id'].toLowerCase() !== 'cert:addr:' + claimIssuerAddress.toLowerCase()) {
-                console.error('Addresses NOT matching, IdClaim is NOT for this claim issuer.', idClaim['@id'], claimIssuerAddress)
+                console.error(
+                    'Addresses NOT matching, IdClaim is NOT for this claim issuer.',
+                    idClaim['@id'],
+                    claimIssuerAddress,
+                )
                 continue
             }
 
@@ -495,7 +508,7 @@ export default class CertifactionClaimVerifier {
         if (Array.isArray(unsignedClaim.proof)) {
             const unsignedProofs = JSON.parse(JSON.stringify(unsignedClaim.proof))
             for (const key in unsignedProofs) {
-                if (unsignedProofs.hasOwnProperty(key)) {
+                if (Object.prototype.hasOwnProperty.call(unsignedProofs, key)) {
                     delete unsignedProofs[key].signatureValue
                 }
             }
@@ -513,12 +526,12 @@ export default class CertifactionClaimVerifier {
 
         for (const proof of proofs) {
             switch (proof.type) {
-                case 'ECDSA':
+                case 'ECDSA': {
                     // Transform standard ECDSA signature's recovery id to Ethereum standard for verification
                     const plainSignature = proof.signatureValue.slice(0, 128)
                     const recoveryId = proof.signatureValue.slice(128, 130)
                     const fixedRecoveryId = parseInt(recoveryId, 16) + 27
-                    const ethereuSignature = '0x' + plainSignature + (fixedRecoveryId.toString(16))
+                    const ethereuSignature = '0x' + plainSignature + fixedRecoveryId.toString(16)
                     console.log('Signature Value (Hex): ' + ethereuSignature)
                     console.log('Unsigned ClaimHash: ' + unsignedClaimHash)
 
@@ -526,10 +539,13 @@ export default class CertifactionClaimVerifier {
                     console.log('Recovered public key: ' + pubKey)
 
                     if (pubKey !== proof.creator) {
-                        console.error(`Public key (${pubKey}) does NOT match Claim creator attribute (${proof.creator}.`)
+                        console.error(
+                            `Public key (${pubKey}) does NOT match Claim creator attribute (${proof.creator}.`,
+                        )
                         return null
                     }
                     break
+                }
 
                 case 'QES-eIDAS':
                     // Ignore QES-eIDAS for the moment

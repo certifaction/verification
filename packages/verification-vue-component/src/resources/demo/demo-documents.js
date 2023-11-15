@@ -8,7 +8,7 @@ export default {
         issuerVerified: false,
         revoked: false,
         expiry: null,
-        loaded: true
+        loaded: true,
     },
     technicalProblem: {
         name: 'Demo_Document_TechnicalProblem.pdf',
@@ -20,7 +20,7 @@ export default {
         revoked: false,
         expiry: null,
         loaded: true,
-        offchainError: true
+        offchainError: true,
     },
     verifiedProcessing: {
         hashed: true,
@@ -34,7 +34,7 @@ export default {
         revoked: false,
         expiry: undefined,
         status: 'registering',
-        loaded: true
+        loaded: true,
     },
     verified: {
         hashed: true,
@@ -53,13 +53,13 @@ export default {
             blockNumber: 7937331,
             transactionHash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215 ',
             event: 'FileRegisteredEvent',
-            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11'
+            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11',
         },
         registrationBlock: {
             hash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
-            timestamp: 1560246087
+            timestamp: 1560246087,
         },
-        loaded: true
+        loaded: true,
     },
     verifiedSelfDeclared: {
         hashed: true,
@@ -78,13 +78,13 @@ export default {
             blockNumber: 7937331,
             transactionHash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215 ',
             event: 'FileRegisteredEvent',
-            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11'
+            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11',
         },
         registrationBlock: {
             hash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
-            timestamp: 1560246087
+            timestamp: 1560246087,
         },
-        loaded: true
+        loaded: true,
     },
     revokedVerified: {
         hashed: true,
@@ -103,11 +103,11 @@ export default {
             blockNumber: 7937331,
             transactionHash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
             event: 'FileRegisteredEvent',
-            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11'
+            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11',
         },
         registrationBlock: {
             hash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
-            timestamp: 1560246087
+            timestamp: 1560246087,
         },
         revocationEvent: {
             address: '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244',
@@ -115,12 +115,12 @@ export default {
             blockNumber: 7937331,
             transactionHash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
             event: 'FileRegisteredEvent',
-            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11'
+            signature: '0x98b03391b6b42a1d067881e3d2a22b2091e0412a0e2c40cf687d1c036beb6e11',
         },
         revocationBlock: {
             hash: '0x9b7e8f75ae271d8d659eb7bbd6d090fad3c784f862a5a83368fbc970bfa0a215',
-            timestamp: 1560346087
+            timestamp: 1560346087,
         },
-        loaded: true
-    }
+        loaded: true,
+    },
 }
