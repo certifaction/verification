@@ -14,6 +14,6 @@
 
 <script>
 export default {
-    name: 'ShadowItem'
+    name: 'ShadowItem',
 }
 </script>

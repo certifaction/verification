@@ -2,28 +2,29 @@
     <div class="result-detail" :class="[verificationStatus, { expanded: showDetails && showDropdownToggler }]">
         <div class="detail-header" @click="toggleDropdown">
             <div class="header-icon">
-                <img :src="headerIcon" alt="Icon"/>
+                <img :src="headerIcon" alt="Icon" />
             </div>
             <div class="header-label">
-                <div v-html="headerLabel"/>
+                <div v-html="headerLabel" />
             </div>
             <div v-if="showDropdownToggler" class="header-action">
                 <button type="button" class="btn-link advanced-toggler">
                     <span>{{ _$t('verification.result.meta.details') }}</span>
-                    <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler"/>
+                    <MDIcon :icon="showDetails ? mdiChevronUp : mdiChevronDown" class="toggler" />
                 </button>
             </div>
         </div>
         <transition name="collapse">
             <div v-if="showDetails" class="detail-body">
                 <ul>
-                    <li v-for="(item, index) in details"
+                    <li
+                        v-for="(item, index) in details"
                         :key="index"
                         class="detail"
                         :class="[item.class, { 'in-progress': item.inProgress }]">
-                        <MDIcon v-if="item.inProgress" class="in-progress" :icon="mdiCircleSlice7"/>
-                        <MDIcon v-else :icon="getDetailIcon(item.icon)"/>
-                        <span v-html="item.label"/>
+                        <MDIcon v-if="item.inProgress" class="in-progress" :icon="mdiCircleSlice7" />
+                        <MDIcon v-else :icon="getDetailIcon(item.icon)" />
+                        <span v-html="item.label" />
                     </li>
                 </ul>
             </div>
@@ -39,7 +40,7 @@ import {
     mdiChevronUp,
     mdiCircleSlice7,
     mdiCloseCircle,
-    mdiShieldCheck
+    mdiShieldCheck,
 } from '@mdi/js'
 import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
 import MDIcon from '../../MDIcon.vue'
@@ -52,67 +53,67 @@ export default {
     name: 'ResultDetail',
     mixins: [i18nWrapperMixin],
     components: {
-        MDIcon
+        MDIcon,
     },
     props: {
         verificationMode: {
             type: String,
-            required: true
+            required: true,
         },
         notFound: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasTechnicalProblem: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasUnverifiedIssuer: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasVerifiedIssuer: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRegistrationInProgress: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRevoked: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRetracted: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRevocationInProgress: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRetractionInProgress: {
             type: Boolean,
-            default: false
+            default: false,
         },
         documentRetractionDate: null,
         documentRevocationDate: null,
         signaturesInProgress: {
             type: Number,
-            default: 0
+            default: 0,
         },
         hasUnverifiedSigner: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasVerifiedSigner: {
             type: Boolean,
-            default: false
+            default: false,
         },
         signerCount: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
     },
     data() {
         return {
@@ -123,18 +124,24 @@ export default {
             headerSuccessShield,
             headerWarningShield,
             headerErrorShield,
-            showDetails: false
+            showDetails: false,
         }
     },
     computed: {
         showDropdownToggler() {
-            return (!this.notFound && !this.hasTechnicalProblem)
+            return !this.notFound && !this.hasTechnicalProblem
         },
         verificationStatus() {
             if (this.documentRevoked) {
                 return 'error'
             }
-            if (this.notFound || this.hasTechnicalProblem || this.hasUnverifiedIssuer || this.hasUnverifiedSigner || this.documentRetracted) {
+            if (
+                this.notFound ||
+                this.hasTechnicalProblem ||
+                this.hasUnverifiedIssuer ||
+                this.hasUnverifiedSigner ||
+                this.documentRetracted
+            ) {
                 return 'warning'
             }
 
@@ -177,7 +184,10 @@ export default {
             }
 
             if (this.hasUnverifiedSigner) {
-                return this._$tc(`verification.result.${this.verificationMode}.unverifiedSigner.status`, this.signerCount)
+                return this._$tc(
+                    `verification.result.${this.verificationMode}.unverifiedSigner.status`,
+                    this.signerCount,
+                )
             }
 
             if (this.hasVerifiedSigner) {
@@ -193,7 +203,7 @@ export default {
             details.push({
                 label: this._$t(`${langDetailsKeyPrefix}.tamperProof`),
                 class: 'tamper-proof',
-                icon: 'check'
+                icon: 'check',
             })
 
             const blockchainStatus = { class: 'blockchain', inProgress: true }
@@ -216,10 +226,9 @@ export default {
                 if (this.documentRevocationInProgress) {
                     documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.revoked.inProgress`)
                 } else {
-                    documentStatus.label = this._$t(
-                        `${langDetailsKeyPrefix}.document.revoked.processed`,
-                        { revocationDate: this.documentRevocationDate }
-                    )
+                    documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.revoked.processed`, {
+                        revocationDate: this.documentRevocationDate,
+                    })
                 }
                 documentStatus.class = 'document-revoked'
                 documentStatus.icon = 'close'
@@ -227,10 +236,9 @@ export default {
                 if (this.documentRetractionInProgress) {
                     documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.retracted.inProgress`)
                 } else {
-                    documentStatus.label = this._$t(
-                        `${langDetailsKeyPrefix}.document.retracted.processed`,
-                        { retractionDate: this.documentRetractionDate }
-                    )
+                    documentStatus.label = this._$t(`${langDetailsKeyPrefix}.document.retracted.processed`, {
+                        retractionDate: this.documentRetractionDate,
+                    })
                 }
                 documentStatus.class = 'document-retracted'
                 documentStatus.icon = 'alert'
@@ -244,13 +252,13 @@ export default {
                         details.push({
                             label: this._$t(`${langDetailsKeyPrefix}.issuer.unverified`),
                             class: 'unverified-issuer',
-                            icon: 'alert'
+                            icon: 'alert',
                         })
                     } else if (this.hasVerifiedIssuer) {
                         details.push({
                             label: this._$t(`${langDetailsKeyPrefix}.issuer.verified`),
                             class: 'verified-issuer',
-                            icon: 'check'
+                            icon: 'check',
                         })
                     }
 
@@ -266,20 +274,20 @@ export default {
                         details.push({
                             label: this._$tc(`${langDetailsKeyPrefix}.signer.unverified`, this.signerCount),
                             class: 'unverified-signer',
-                            icon: 'alert'
+                            icon: 'alert',
                         })
                     } else if (this.hasVerifiedSigner) {
                         details.push({
                             label: this._$tc(`${langDetailsKeyPrefix}.signer.verified`, this.signerCount),
                             class: 'verified-signer',
-                            icon: 'check'
+                            icon: 'check',
                         })
                     }
                     break
             }
 
             return details
-        }
+        },
     },
     methods: {
         toggleDropdown() {
@@ -295,7 +303,7 @@ export default {
                     return mdiCloseCircle
             }
             return null
-        }
-    }
+        },
+    },
 }
 </script>

@@ -2,7 +2,7 @@
     <BaseCard>
         <template v-if="verificationItem.name" #header>
             <div class="icon">
-                <MDIcon :icon="mdiFileDocument" class="icon-verified"/>
+                <MDIcon :icon="mdiFileDocument" class="icon-verified" />
             </div>
             <div class="title">
                 <div class="filename">{{ verificationItem.name }}</div>
@@ -21,8 +21,11 @@
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
 
                     <DataPanel :key="`expert-${signEvents[0].on_blockchain.contract_address}`">
-                        <a :href="`https://${net}/address/${signEvents[0].on_blockchain.contract_address}`"
-                           target="_blank">{{ signEvents[0].on_blockchain.contract_address }}</a>
+                        <a
+                            :href="`${ethScanUrl}/address/${signEvents[0].on_blockchain.contract_address}`"
+                            target="_blank">
+                            {{ signEvents[0].on_blockchain.contract_address }}
+                        </a>
                     </DataPanel>
                 </div>
                 <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id" class="section issuer-address">
@@ -32,27 +35,33 @@
                         {{ registerEvents[0].issuer.id }}
                     </DataPanel>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
-                     class="section registration-hash">
+                <div
+                    v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
+                    class="section registration-hash">
                     <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
 
                     <DataPanel :key="`expert-${registerEvents[0].ref}`">
-                        <a :href="`https://${net}/tx/${registerEvents[0].on_blockchain.tx_hash}`"
-                           target="_blank">{{ registerEvents[0].on_blockchain.tx_hash }}</a>
+                        <a :href="`${ethScanUrl}/tx/${registerEvents[0].on_blockchain.tx_hash}`" target="_blank">
+                            {{ registerEvents[0].on_blockchain.tx_hash }}
+                        </a>
                     </DataPanel>
                 </div>
                 <div v-if="signEvents.length > 0" class="section signature-details">
                     <div class="label">{{ _$t('verification.result.meta.signatureDetails') }}</div>
 
-                    <DataPanel v-for="signEvent in signEvents"
-                               :key="`expert-${signEvent.ref}`"
-                               :icon-src="iconSignature"
-                               :title="issuerDisplayName(signEvent)">
+                    <DataPanel
+                        v-for="signEvent in signEvents"
+                        :key="`expert-${signEvent.ref}`"
+                        :icon-src="iconSignature"
+                        :title="issuerDisplayName(signEvent)">
                         <div class="transaction-hash">
                             <div class="label">{{ _$t('verification.result.meta.txHash') }}</div>
-                            <a v-if="signEvent.on_blockchain"
-                               :href="`https://${net}/tx/${signEvent.on_blockchain.tx_hash}`"
-                               target="_blank">{{ signEvent.on_blockchain.tx_hash }}</a>
+                            <a
+                                v-if="signEvent.on_blockchain"
+                                :href="`${ethScanUrl}/tx/${signEvent.on_blockchain.tx_hash}`"
+                                target="_blank">
+                                {{ signEvent.on_blockchain.tx_hash }}
+                            </a>
                         </div>
                         <div v-if="signEvent.signature.level" class="signature-level">
                             <div class="label">{{ _$t('verification.result.meta.signatureLevel') }}</div>
@@ -64,9 +73,10 @@
                         </div>
                         <div v-if="signEvent.signature.level === SIGNATURE_LEVEL_QES" class="download-signature">
                             <button type="button" class="btn btn-secondary" @click="downloadQesSignature(signEvent)">
-                                <img src="../../../../assets/img/icon_signature_download.svg"
-                                     class="icon"
-                                     alt="Download"/>
+                                <img
+                                    src="../../../../assets/img/icon_signature_download.svg"
+                                    class="icon"
+                                    alt="Download" />
                                 {{ _$t('verification.result.meta.downloadSignature') }}
                             </button>
                         </div>
@@ -77,8 +87,9 @@
 
                     <DataPanel :key="`expert-${revokeEvents[0].ref}`">
                         <template #header>
-                            <a :href="`https://${net}/tx/${revokeEvents[0].on_blockchain.tx_hash}`"
-                               target="_blank">{{ revokeEvents[0].on_blockchain.tx_hash }}</a>
+                            <a :href="`${ethScanUrl}/tx/${revokeEvents[0].on_blockchain.tx_hash}`" target="_blank">
+                                {{ revokeEvents[0].on_blockchain.tx_hash }}
+                            </a>
                         </template>
                     </DataPanel>
                 </div>
@@ -87,25 +98,27 @@
 
                     <DataPanel :key="`expert-${retractEvents[0].ref}`">
                         <template #header>
-                            <a :href="`https://${net}/tx/${retractEvents[0].on_blockchain.tx_hash}`"
-                               target="_blank">{{ retractEvents[0].on_blockchain.tx_hash }}</a>
+                            <a :href="`${ethScanUrl}/tx/${retractEvents[0].on_blockchain.tx_hash}`" target="_blank">
+                                {{ retractEvents[0].on_blockchain.tx_hash }}
+                            </a>
                         </template>
                     </DataPanel>
                 </div>
             </div>
         </template>
         <template v-else #body>
-            <ResultDetail verification-mode="signing"
-                          :document-revoked="revokeEvents.length > 0"
-                          :document-revocation-in-progress="revocationInProgress"
-                          :document-revocation-date="revocationDate"
-                          :document-retracted="retractEvents.length > 0"
-                          :document-retraction-in-progress="retractionInProgress"
-                          :document-retraction-date="retractionDate"
-                          :signatures-in-progress="signaturesInProgress"
-                          :has-unverified-signer="hasUnverifiedSigner"
-                          :has-verified-signer="hasVerifiedSigner"
-                          :signer-count="signEvents.length"/>
+            <ResultDetail
+                verification-mode="signing"
+                :document-revoked="revokeEvents.length > 0"
+                :document-revocation-in-progress="revocationInProgress"
+                :document-revocation-date="revocationDate"
+                :document-retracted="retractEvents.length > 0"
+                :document-retraction-in-progress="retractionInProgress"
+                :document-retraction-date="retractionDate"
+                :signatures-in-progress="signaturesInProgress"
+                :has-unverified-signer="hasUnverifiedSigner"
+                :has-verified-signer="hasVerifiedSigner"
+                :signer-count="signEvents.length" />
 
             <div class="verification-info">
                 <div v-if="retractEvents.length > 0" class="section retraction-note">
@@ -117,11 +130,12 @@
                     <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
 
                     <div class="signature-list">
-                        <DataPanel v-for="signEvent in signEvents"
-                                   :key="signEvent.ref"
-                                   :icon-src="iconSignature"
-                                   :title="issuerDisplayName(signEvent)">
-                            <EventDetails :event="signEvent"/>
+                        <DataPanel
+                            v-for="signEvent in signEvents"
+                            :key="signEvent.ref"
+                            :icon-src="iconSignature"
+                            :title="issuerDisplayName(signEvent)">
+                            <EventDetails :event="signEvent" />
                         </DataPanel>
                     </div>
                 </div>
@@ -130,17 +144,18 @@
                     <span class="label">{{ _$t('verification.result.meta.signatureType') }}</span>
 
                     <DataPanel :key="signatureType.level" :icon-src="iconFingerprint" :title="signatureType.title">
-                        <p v-html="signatureType.description"/>
+                        <p v-html="signatureType.description" />
                     </DataPanel>
                 </div>
 
                 <div v-if="initiator" class="section initiator">
                     <span class="label">{{ _$t('verification.result.meta.initiator') }}</span>
 
-                    <DataPanel :key="`initiator-${initiator.ref}`"
-                               :icon-src="iconUser"
-                               :title="issuerDisplayName(initiator)">
-                        <EventDetails :event="initiator"/>
+                    <DataPanel
+                        :key="`initiator-${initiator.ref}`"
+                        :icon-src="iconUser"
+                        :title="issuerDisplayName(initiator)">
+                        <EventDetails :event="initiator" />
                     </DataPanel>
                 </div>
             </div>
@@ -185,7 +200,7 @@ export default {
         ResultDetail,
         MDIcon,
         DataPanel,
-        EventDetails
+        EventDetails,
     },
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
     data() {
@@ -197,35 +212,43 @@ export default {
             iconFingerprint,
             iconUser,
             SIGNATURE_LEVEL_QES,
-            showExpertInfo: false
+            showExpertInfo: false,
         }
     },
     props: {
         verificationItem: {
             type: Object,
-            required: true
+            required: true,
         },
-        net: {
+        ethScanUrl: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         registerEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'register') : []
+            return this.verificationItem.events
+                ? this.verificationItem.events.filter((event) => event.scope === 'register')
+                : []
         },
         revokeEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'revoke') : []
+            return this.verificationItem.events
+                ? this.verificationItem.events.filter((event) => event.scope === 'revoke')
+                : []
         },
         retractEvents() {
-            return this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'retract') : []
+            return this.verificationItem.events
+                ? this.verificationItem.events.filter((event) => event.scope === 'retract')
+                : []
         },
         signEvents() {
-            const signEvents = this.verificationItem.events ? this.verificationItem.events.filter(event => event.scope === 'sign') : []
+            const signEvents = this.verificationItem.events
+                ? this.verificationItem.events.filter((event) => event.scope === 'sign')
+                : []
             if (signEvents.length > 1) {
                 signEvents.sort((a, b) => {
-                    const aDate = (a.date) ? new Date(a.date) : null
-                    const bDate = (b.date) ? new Date(b.date) : null
+                    const aDate = a.date ? new Date(a.date) : null
+                    const bDate = b.date ? new Date(b.date) : null
 
                     if (aDate < bDate) {
                         return -1
@@ -271,19 +294,19 @@ export default {
             return this.retractEvents[0].note
         },
         revocationInProgress() {
-            return this.revokeEvents.filter(event => !event.on_blockchain).length > 0
+            return this.revokeEvents.filter((event) => !event.on_blockchain).length > 0
         },
         retractionInProgress() {
-            return this.retractEvents.filter(event => !event.on_blockchain).length > 0
+            return this.retractEvents.filter((event) => !event.on_blockchain).length > 0
         },
         signaturesInProgress() {
-            return this.signEvents.filter(event => !event.on_blockchain).length
+            return this.signEvents.filter((event) => !event.on_blockchain).length
         },
         hasUnverifiedSigner() {
-            return this.signEvents.filter(event => !event.issuer.verified).length > 0
+            return this.signEvents.filter((event) => !event.issuer.verified).length > 0
         },
         hasVerifiedSigner() {
-            return this.signEvents.filter(event => !!event.issuer.verified).length > 0
+            return this.signEvents.filter((event) => !!event.issuer.verified).length > 0
         },
         signatureType() {
             if (this.signEvents.length === 0) {
@@ -298,7 +321,7 @@ export default {
             const signatureType = {
                 level,
                 title: this._$t(`verification.result.signature.level.${level}.title`),
-                description: this._$t(`verification.result.signature.level.${level}.description`)
+                description: this._$t(`verification.result.signature.level.${level}.description`),
             }
 
             if (event.signature.jurisdiction) {
@@ -313,7 +336,7 @@ export default {
             }
 
             return null
-        }
+        },
     },
     methods: {
         downloadQesSignature(event) {
@@ -333,7 +356,7 @@ export default {
         },
         toggleHelp(type) {
             this.$emit('toggle-help', type)
-        }
-    }
+        },
+    },
 }
 </script>

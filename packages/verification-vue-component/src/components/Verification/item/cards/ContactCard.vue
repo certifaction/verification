@@ -7,20 +7,20 @@
         </template>
         <template #body>
             <form id="contact-form" @submit="checkForm" method="POST">
-                <div class="email-field" :class="{error: errors.email}">
+                <div class="email-field" :class="{ error: errors.email }">
                     <label for="email">{{ _$t('verification.card.contact.form.email') }}</label>
-                    <input id="email" type="email" name="email" v-model="email">
+                    <input id="email" type="email" name="email" v-model="email" />
                 </div>
-                <div class="question-field" :class="{error: errors.question}">
+                <div class="question-field" :class="{ error: errors.question }">
                     <label for="question">{{ _$t('verification.card.contact.form.question') }}</label>
                     <textarea id="question" name="question" v-model="question"></textarea>
                 </div>
-                <div class="consent-field" :class="{error: errors.consent}">
+                <div class="consent-field" :class="{ error: errors.consent }">
                     <label class="switch">
-                        <input id="consent" type="checkbox" v-model="consentAccepted">
+                        <input id="consent" type="checkbox" v-model="consentAccepted" />
                         <span class="slider round"></span>
                     </label>
-                    <label for="consent" class="consent" v-html="_$t('verification.card.contact.form.consent')"/>
+                    <label for="consent" class="consent" v-html="_$t('verification.card.contact.form.consent')" />
                 </div>
                 <span v-if="contactFormSuccessful" class="message-sent success">
                     {{ _$t('verification.card.contact.form.submitted') }}
@@ -38,10 +38,11 @@
             </div>
             <div class="right">
                 <button type="submit" form="contact-form" class="btn btn-primary" :disabled="contactFormSubmitting">
-                    <img v-if="contactFormSubmitting"
-                         class="loading-spinner"
-                         src="../../../../assets/img/loading_spinner.svg"
-                         alt="Spinner"/>
+                    <img
+                        v-if="contactFormSubmitting"
+                        class="loading-spinner"
+                        src="../../../../assets/img/loading_spinner.svg"
+                        alt="Spinner" />
                     <span v-else>{{ _$t('verification.card.contact.form.submit') }}</span>
                 </button>
             </div>
@@ -58,13 +59,13 @@ export default {
     name: 'ContactCard',
     mixins: [i18nWrapperMixin],
     components: {
-        BaseCard
+        BaseCard,
     },
     props: {
         certifactionApiUrl: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
@@ -78,32 +79,32 @@ export default {
             errors: {
                 email: false,
                 question: false,
-                consent: false
-            }
+                consent: false,
+            },
         }
     },
     watch: {
-        email: function() {
+        email: function () {
             if (this.reactiveValidation) {
                 this.validate()
             }
         },
-        question: function() {
+        question: function () {
             if (this.reactiveValidation) {
                 this.validate()
             }
         },
-        consentAccepted: function() {
+        consentAccepted: function () {
             if (this.reactiveValidation) {
                 this.validate()
             }
-        }
+        },
     },
     methods: {
         toggleHelp(type) {
             this.$emit('toggle-help', type)
         },
-        checkForm: function(e) {
+        checkForm: function (e) {
             e.preventDefault()
             this.reactiveValidation = true
             this.contactFormSuccessful = this.contactFormFailed = false
@@ -137,7 +138,7 @@ export default {
                     origin: 'Verification Tool',
                     contact_email: this.email,
                     subject: 'Support request',
-                    body: this.question
+                    body: this.question,
                 })
 
                 this.contactFormSuccessful = true
@@ -149,7 +150,7 @@ export default {
             }
 
             this.contactFormSubmitting = this.reactiveValidation = false
-        }
-    }
+        },
+    },
 }
 </script>

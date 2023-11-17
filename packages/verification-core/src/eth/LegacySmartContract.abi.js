@@ -4,12 +4,12 @@ export default [
             {
                 internalType: 'address',
                 name: '_owner',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'constructor'
+        type: 'constructor',
     },
     {
         anonymous: false,
@@ -18,11 +18,11 @@ export default [
                 indexed: true,
                 internalType: 'bytes32',
                 name: 'hash',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         name: 'FileRegisteredEvent',
-        type: 'event'
+        type: 'event',
     },
     {
         anonymous: false,
@@ -31,11 +31,11 @@ export default [
                 indexed: true,
                 internalType: 'bytes32',
                 name: 'hash',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         name: 'FileRevokedEvent',
-        type: 'event'
+        type: 'event',
     },
     {
         constant: false,
@@ -43,14 +43,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_admin',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'addAdmin',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -58,14 +58,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_transactor',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'addTransactor',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -73,19 +73,19 @@ export default [
             {
                 internalType: 'address',
                 name: '_address',
-                type: 'address'
+                type: 'address',
             },
             {
                 internalType: 'bytes32',
                 name: '_name',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         name: 'addVerifiedIssuer',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -93,14 +93,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_owner',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'changeOwner',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: true,
@@ -110,12 +110,12 @@ export default [
             {
                 internalType: 'contract EternalCertStorageInterface',
                 name: '',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         payable: false,
         stateMutability: 'view',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -123,19 +123,19 @@ export default [
             {
                 internalType: 'bytes32',
                 name: '_hash',
-                type: 'bytes32'
+                type: 'bytes32',
             },
             {
                 internalType: 'uint256',
                 name: '_expiry',
-                type: 'uint256'
-            }
+                type: 'uint256',
+            },
         ],
         name: 'registerFile',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -143,24 +143,24 @@ export default [
             {
                 internalType: 'bytes32',
                 name: '_hash',
-                type: 'bytes32'
+                type: 'bytes32',
             },
             {
                 internalType: 'uint256',
                 name: '_expiry',
-                type: 'uint256'
+                type: 'uint256',
             },
             {
                 internalType: 'bytes',
                 name: '_sign',
-                type: 'bytes'
-            }
+                type: 'bytes',
+            },
         ],
         name: 'registerFileWithSignature',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -168,14 +168,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_admin',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'removeAdmin',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -183,14 +183,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_transactor',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'removeTransactor',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -198,14 +198,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_address',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'removeVerifiedIssuer',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -213,14 +213,14 @@ export default [
             {
                 internalType: 'bytes32',
                 name: '_hash',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         name: 'revokeFile',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -228,19 +228,19 @@ export default [
             {
                 internalType: 'bytes32',
                 name: '_hash',
-                type: 'bytes32'
+                type: 'bytes32',
             },
             {
                 internalType: 'bytes',
                 name: '_sign',
-                type: 'bytes'
-            }
+                type: 'bytes',
+            },
         ],
         name: 'revokeFileWithSignature',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: false,
@@ -248,14 +248,14 @@ export default [
             {
                 internalType: 'address',
                 name: '_eternalCertStorage',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'setEternalCertStorage',
         outputs: [],
         payable: false,
         stateMutability: 'nonpayable',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: true,
@@ -263,45 +263,45 @@ export default [
             {
                 internalType: 'bytes32',
                 name: '_hash',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         name: 'verifyFile',
         outputs: [
             {
                 internalType: 'address',
                 name: 'issuer',
-                type: 'address'
+                type: 'address',
             },
             {
                 internalType: 'uint256',
                 name: 'expiry',
-                type: 'uint256'
+                type: 'uint256',
             },
             {
                 internalType: 'bool',
                 name: 'revoked',
-                type: 'bool'
+                type: 'bool',
             },
             {
                 internalType: 'bool',
                 name: 'issuerVerified',
-                type: 'bool'
+                type: 'bool',
             },
             {
                 internalType: 'bytes32',
                 name: 'issuerName',
-                type: 'bytes32'
+                type: 'bytes32',
             },
             {
                 internalType: 'bytes32',
                 name: 'issuerImg',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         payable: false,
         stateMutability: 'view',
-        type: 'function'
+        type: 'function',
     },
     {
         constant: true,
@@ -309,29 +309,29 @@ export default [
             {
                 internalType: 'address',
                 name: '_issuer',
-                type: 'address'
-            }
+                type: 'address',
+            },
         ],
         name: 'verifyIssuer',
         outputs: [
             {
                 internalType: 'bool',
                 name: 'issuerVerified',
-                type: 'bool'
+                type: 'bool',
             },
             {
                 internalType: 'bytes32',
                 name: 'issuerName',
-                type: 'bytes32'
+                type: 'bytes32',
             },
             {
                 internalType: 'bytes32',
                 name: 'issuerImg',
-                type: 'bytes32'
-            }
+                type: 'bytes32',
+            },
         ],
         payable: false,
         stateMutability: 'view',
-        type: 'function'
-    }
+        type: 'function',
+    },
 ]

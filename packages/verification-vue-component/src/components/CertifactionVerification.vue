@@ -1,35 +1,41 @@
 <template>
-    <div class="certifaction-verification"
-         :class="{ dragover: dropbox.draggingOver }"
-         @dragover.prevent="dragOver"
-         @dragleave="dragLeave"
-         @drop.prevent="handleDrop">
+    <div
+        class="certifaction-verification"
+        :class="{ dragover: dropbox.draggingOver }"
+        @dragover.prevent="dragOver"
+        @dragleave="dragLeave"
+        @drop.prevent="handleDrop">
+        <VerificationDropBox
+            v-if="!digitalTwinModeActive"
+            :first-verification="filteredVerificationItems.length === 0" />
 
-        <VerificationDropBox v-if="!digitalTwinModeActive"
-                             :first-verification="filteredVerificationItems.length === 0"/>
+        <VerificationDemo
+            v-if="demo !== false && !digitalTwinModeActive"
+            @verify-demo="verifyDemo"
+            @dragging-demo-doc="onDraggingDemoDoc" />
 
-        <VerificationDemo v-if="demo !== false && !digitalTwinModeActive"
-                          @verify-demo="verifyDemo"
-                          @dragging-demo-doc="onDraggingDemoDoc"/>
-
-        <div v-if="filteredVerificationItems.length"
-             class="verification-item-list"
-             :class="{ 'digital-twin': digitalTwinModeActive }"
-             ref="results">
-            <VerificationItem v-for="verificationItem in filteredVerificationItems"
-                              :key="verificationItem.hash"
-                              :verification-item="verificationItem"
-                              :verifier-information="verifierInformation"
-                              :digital-twin-information="digitalTwinStatus"/>
+        <div
+            v-if="filteredVerificationItems.length"
+            class="verification-item-list"
+            :class="{ 'digital-twin': digitalTwinModeActive }"
+            ref="results">
+            <VerificationItem
+                v-for="verificationItem in filteredVerificationItems"
+                :key="verificationItem.hash"
+                :verification-item="verificationItem"
+                :verifier-information="verifierInformation"
+                :digital-twin-information="digitalTwinStatus" />
         </div>
 
-        <VerificationFileSelector v-if="!digitalTwinModeActive" @files-selected="verify"
-                                  :first-verification="filteredVerificationItems.length === 0"/>
+        <VerificationFileSelector
+            v-if="!digitalTwinModeActive"
+            @files-selected="verify"
+            :first-verification="filteredVerificationItems.length === 0" />
 
         <div v-if="!digitalTwinModeActive" class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
             <a href="https://certifaction.com" target="_blank">
-                <img src="../assets/img/certifaction_logo.svg" alt="Certifaction"/>
+                <img src="../assets/img/certifaction_logo.svg" alt="Certifaction" />
             </a>
         </div>
     </div>
@@ -38,75 +44,78 @@
 <script>
 import Vue from 'vue'
 import VueScrollTo from 'vue-scrollto'
-import { CertifactionEthVerifier, Interface, VerifierInterface } from '@certifaction/verification-core'
+import axios from 'axios'
+import {
+    CertifactionEthVerifier,
+    Interface,
+    jsonStringifyReplacer,
+    VerifierInterface,
+} from '@certifaction/verification-core'
 import i18nWrapperMixin from '../mixins/i18n-wrapper'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/VerificationItem.vue'
 import demoDocuments from '../resources/demo/demo-documents'
-import axios from 'axios'
 
 export default {
     name: 'CertifactionVerification',
-    mixins: [
-        i18nWrapperMixin
-    ],
+    mixins: [i18nWrapperMixin],
     components: {
         VerificationDemo,
         VerificationFileSelector,
         VerificationDropBox,
-        VerificationItem
+        VerificationItem,
     },
     props: {
         demo: {
             type: Boolean,
             required: false,
-            default: false
+            default: false,
         },
         hashingService: {
             type: Object,
-            required: true
+            required: true,
         },
         pdfReaderService: {
             type: Object,
-            required: true
+            required: true,
         },
         pdfjsWorkerSrc: {
             type: String,
-            required: false
+            required: false,
         },
         pdfjsWorkerInstance: {
             type: Worker,
-            required: false
+            required: false,
         },
         pdfjsCMapUrl: {
             type: String,
-            required: true
+            required: true,
         },
         providerUrl: {
             type: String,
-            required: false
+            required: false,
         },
         legacyContractAddress: {
             type: String,
-            required: false
+            required: false,
         },
         legacyContractFallbackAddresses: {
             type: Array,
-            required: false
+            required: false,
         },
         claimContractAddress: {
             type: String,
-            required: false
+            required: false,
         },
         acceptedIssuerKey: {
             type: String,
-            required: false
+            required: false,
         },
         certifactionApiUrl: {
             type: String,
-            required: false
+            required: false,
         },
         offchainVerifier: {
             type: Object,
@@ -114,14 +123,14 @@ export default {
             validator(value) {
                 Interface.ensureImplements(value, VerifierInterface)
                 return true
-            }
-        }
+            },
+        },
     },
     provide() {
         return {
             pdfjsWorkerSrc: this.pdfjsWorkerSrc,
             pdfjsWorkerInstance: this.pdfjsWorkerInstance,
-            pdfjsCMapUrl: this.pdfjsCMapUrl
+            pdfjsCMapUrl: this.pdfjsCMapUrl,
         }
     },
     data() {
@@ -132,38 +141,38 @@ export default {
                 this.legacyContractFallbackAddresses,
                 this.claimContractAddress,
                 this.acceptedIssuerKey,
-                this.certifactionApiUrl
+                this.certifactionApiUrl,
             ),
             verificationItems: [],
             draggingDemoDoc: undefined,
             dropbox: {
                 draggingOver: false,
-                dragLeaveLocked: false
+                dragLeaveLocked: false,
             },
             digitalTwin: {
                 error: false,
-                fileUrl: null
-            }
+                fileUrl: null,
+            },
         }
     },
     computed: {
         filteredVerificationItems() {
-            return this.verificationItems.map(item => {
+            return this.verificationItems.map((item) => {
                 if (item.hash === undefined && !item.error) {
                     return {
-                        hashed: false
+                        hashed: false,
                     }
                 }
                 return {
                     hashed: true,
-                    ...item
+                    ...item,
                 }
             })
         },
         verifierInformation() {
             return {
-                net: this.certifactionEthVerifier.certifactionEthClient.eth.currentProvider.host.indexOf('goerli') >= 0 ? 'goerli.etherscan.io' : 'etherscan.io',
-                certifactionApiUrl: this.certifactionApiUrl
+                ethScanUrl: this.certifactionEthVerifier.certifactionEthClient.ethScanUrl,
+                certifactionApiUrl: this.certifactionApiUrl,
             }
         },
         digitalTwinInformation() {
@@ -171,7 +180,7 @@ export default {
             if (searchParams.has('file') && window.location.hash.length > 1) {
                 return {
                     fileUrl: searchParams.get('file'),
-                    decryptionKey: window.location.hash.split('#')[1]
+                    decryptionKey: window.location.hash.split('#')[1],
                 }
             }
 
@@ -182,7 +191,7 @@ export default {
         },
         digitalTwinStatus() {
             return { ...this.digitalTwin, ...{ active: this.digitalTwinModeActive } }
-        }
+        },
     },
     methods: {
         async verify(files) {
@@ -214,7 +223,7 @@ export default {
             const [isPadesDocument, metadata, fileHash] = await Promise.all([
                 this.pdfReaderService.hasCertifactionPadesSignatures(pdfBytes),
                 this.pdfReaderService.extractMetadata(pdfBytes),
-                this.hashingService.hashFile(pdfBytes)
+                this.hashingService.hashFile(pdfBytes),
             ])
 
             let verification = null
@@ -223,7 +232,7 @@ export default {
                 verification = {
                     pades: true,
                     hash: fileHash,
-                    name: item.name
+                    name: item.name,
                 }
             } else {
                 let decryptionKey = null
@@ -238,8 +247,8 @@ export default {
                 verification.pades = false
             }
 
-            const oldResult = JSON.stringify(this.verificationItems[key])
-            const newResult = JSON.stringify({ ...item, ...verification })
+            const oldResult = JSON.stringify(this.verificationItems[key], jsonStringifyReplacer)
+            const newResult = JSON.stringify({ ...item, ...verification }, jsonStringifyReplacer)
 
             if (oldResult !== newResult) {
                 verification.loaded = true
@@ -253,14 +262,25 @@ export default {
                 const offchainVerification = await this.offchainVerifier.verify(verification.hash)
 
                 if (offchainVerification) {
-                    if (offchainVerification.encrypted && offchainVerification.claims && offchainVerification.claims.length > 0) {
-                        const claimVerification = await this.certifactionEthVerifier.certifactionClaimVerifier.resolveAndVerifyClaims(offchainVerification.claims, decryptionKey)
+                    if (
+                        offchainVerification.encrypted &&
+                        offchainVerification.claims &&
+                        offchainVerification.claims.length > 0
+                    ) {
+                        const claimVerification =
+                            await this.certifactionEthVerifier.certifactionClaimVerifier.resolveAndVerifyClaims(
+                                offchainVerification.claims,
+                                decryptionKey,
+                            )
                         offchainVerification.claims = claimVerification.claims
 
                         if (!offchainVerification.revoked) {
                             offchainVerification.revoked = claimVerification.revoked
                         }
-                        if (!offchainVerification.issuerVerified && typeof claimVerification.issuerVerified === 'boolean') {
+                        if (
+                            !offchainVerification.issuerVerified &&
+                            typeof claimVerification.issuerVerified === 'boolean'
+                        ) {
                             offchainVerification.issuerVerified = claimVerification.issuerVerified
                         }
                         if (!offchainVerification.issuerAddress && claimVerification.issuerAddress) {
@@ -277,8 +297,10 @@ export default {
                         }
 
                         // Merge events from decrypted claims with the events from the verify endpoint
-                        offchainVerification.events = claimVerification.events.map(claimEvent => {
-                            const offchainEvent = offchainVerification.events.find(offchainEvent => offchainEvent.ref === claimEvent.ref)
+                        offchainVerification.events = claimVerification.events.map((claimEvent) => {
+                            const offchainEvent = offchainVerification.events.find(
+                                (offchainEvent) => offchainEvent.ref === claimEvent.ref,
+                            )
                             const newEvent = { ...claimEvent }
 
                             if (offchainEvent.date) {
@@ -292,7 +314,11 @@ export default {
                         })
                     }
 
-                    if (verification.events && verification.events.length > 0 && offchainVerification.status !== 'registering') {
+                    if (
+                        verification.events &&
+                        verification.events.length > 0 &&
+                        offchainVerification.status !== 'registering'
+                    ) {
                         // If it's already verified on blockchain, do not override all values;
                         // just issuerName & issuer verifier can be taken from off-chain information
                         if (!verification.issuerName && offchainVerification.issuerName) {
@@ -318,8 +344,10 @@ export default {
                         if (offchainVerification.events.length > 0) {
                             const mergedEvents = []
 
-                            verification.events = verification.events.map(event => {
-                                const offchainEvent = offchainVerification.events.find(offchainEvent => offchainEvent.ref === event.ref)
+                            verification.events = verification.events.map((event) => {
+                                const offchainEvent = offchainVerification.events.find(
+                                    (offchainEvent) => offchainEvent.ref === event.ref,
+                                )
 
                                 if (!offchainEvent) {
                                     return event
@@ -335,13 +363,19 @@ export default {
                                     if (!issuer.name && offchainEvent.issuer.name) {
                                         issuer.name = offchainEvent.issuer.name
                                     }
-                                    if (!issuer.name_verified && typeof offchainEvent.issuer.name_verified === 'boolean') {
+                                    if (
+                                        !issuer.name_verified &&
+                                        typeof offchainEvent.issuer.name_verified === 'boolean'
+                                    ) {
                                         issuer.name_verified = offchainEvent.issuer.name_verified
                                     }
                                     if (!issuer.email && offchainEvent.issuer.email) {
                                         issuer.email = offchainEvent.issuer.email
                                     }
-                                    if (!issuer.email_verified && typeof offchainEvent.issuer.email_verified === 'boolean') {
+                                    if (
+                                        !issuer.email_verified &&
+                                        typeof offchainEvent.issuer.email_verified === 'boolean'
+                                    ) {
                                         issuer.email_verified = offchainEvent.issuer.email_verified
                                     }
 
@@ -378,23 +412,22 @@ export default {
                                 return newEvent
                             })
 
-                            const unknownOffchainEvents = offchainVerification.events.filter(offchainEvent => mergedEvents.indexOf(offchainEvent.ref) < 0)
-                            verification.events = [
-                                ...verification.events,
-                                ...unknownOffchainEvents
-                            ]
+                            const unknownOffchainEvents = offchainVerification.events.filter(
+                                (offchainEvent) => mergedEvents.indexOf(offchainEvent.ref) < 0,
+                            )
+                            verification.events = [...verification.events, ...unknownOffchainEvents]
                         }
                     } else {
                         // File not found on blockchain and offchain status is registering
                         verification = {
                             ...verification,
-                            ...offchainVerification
+                            ...offchainVerification,
                         }
                     }
 
                     // Use legacy issuerVerifiedImg to support encrypted claims in progress (https://certifaction.atlassian.net/browse/BP-2741)
                     if (verification.issuerVerifiedImg && verification.events && verification.events.length > 0) {
-                        verification.events = verification.events.map(event => {
+                        verification.events = verification.events.map((event) => {
                             if (event.issuer.verified_by && !event.issuer.verified_by.image) {
                                 event.issuer.verified_by.image = verification.issuerVerifiedImg
                             }
@@ -408,7 +441,7 @@ export default {
                 verification.offchainError = true
             }
 
-            console.log(`Verification result for file ${verification.hash}:`, JSON.parse(JSON.stringify(verification)))
+            console.log(`Verification result for file ${verification.hash}:`, verification)
 
             return verification
         },
@@ -427,7 +460,7 @@ export default {
 
                 if (fetchedDocumentObject.pdfBytes instanceof Uint8Array && fetchedDocumentObject.pdfBytes.length > 0) {
                     const decryptedFile = new File([fetchedDocumentObject.pdfBytes.buffer], '', {
-                        type: 'application/pdf'
+                        type: 'application/pdf',
                     })
 
                     await this.verify([decryptedFile])
@@ -437,10 +470,11 @@ export default {
                     this.digitalTwin.error = true
                 }
             } catch (e) {
-                if (!(e instanceof Error) && e.error?.message) {
-                    e = new Error(e.error.message)
+                let ex = e
+                if (!(ex instanceof Error) && ex.error?.message) {
+                    ex = new Error(ex.error.message)
                 }
-                console.error(`Error while processing digital twin url: ${e.name} - ${e.message}`)
+                console.error(`Error while processing digital twin url: ${ex.name} - ${ex.message}`)
                 this.digitalTwin.error = true
             }
         },
@@ -480,7 +514,7 @@ export default {
             if (!this.dropbox.dragLeaveLocked) {
                 this.dropbox.draggingOver = false
             }
-        }
+        },
     },
     async mounted() {
         if (this.digitalTwinInformation) {
@@ -489,6 +523,6 @@ export default {
         } else {
             this.$emit('initialized', false)
         }
-    }
+    },
 }
 </script>

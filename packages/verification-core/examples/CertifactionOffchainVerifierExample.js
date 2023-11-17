@@ -24,7 +24,7 @@ class CertifactionOffchainVerifierExample {
                     issuerVerified: data.issuer_verified,
                     status: data.file.status,
                     encrypted: data.encrypted,
-                    revoked: data.revoked
+                    revoked: data.revoked,
                 }
 
                 if (data.issuer_address) {

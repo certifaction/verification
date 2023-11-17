@@ -12,26 +12,23 @@ The verification tool takes PDF files from a clients local file system, hashes t
 * [Development](#development)
     * [Requirements](#requirements)
     * [Getting started](#getting-started)
-    * [Publishing](#publishing)
+    * [Publishing](#create-new-release--publish-to-github-packages)
 * [License](#license)
 
 ## Packages
 
 This monorepo contains these packages:
 
-| Project | Package | Version |
-|---|---|---|
-| Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-core/latest.svg)](https://npmjs.com/package/@certifaction/verification-core) |
-| Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-vue-component/latest.svg)](https://npmjs.com/package/@certifaction/verification-vue-component) |
-| Verification App (Demo) | [@certifaction/verification-app](https://github.com/certifaction/verification/tree/master/packages/verification-app) | - |
+| Project | Package |
+|---|---|
+| Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) |
+| Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) |
 
 ## Development
 
 ### Requirements
 
-* [NodeJS](https://nodejs.org) >= 17
-* [Yarn](https://yarnpkg.com)
-* [Lerna](https://lerna.js.org/)
+* [NodeJS](https://nodejs.org) >= 21
 
 ### Getting started
 
@@ -39,30 +36,23 @@ Clone the git repo and install dependencies.
 ```shell script
 git clone https://github.com/certifaction/verification
 cd verification
-yarn install
-yarn run bootstrap
+npm install
 ```
 
 Check and fix linting errors
 ```shell script
-yarn run lint
+npm run lint
 ```
 
-Build libraries
-```shell script
-yarn run build
-```
+### Create new release / publish to GitHub Packages
 
-### Publishing
+1. Create release branch (has to start with `releases/`). It's best to name the branch according to the version you want to release (ex. `releases/v1.2.3`, or `releases/v2.0.0-rc.0`). The branch name isn't used for the actual release tough.
 
-To publish a new version please commit your changes to master and then execute
+2. Execute `npm run create-version` and follow the prompts. You can use `npm run force-create-version` to force a new version to be published.
 
-```shell script
-yarn run build
-yarn run publish
-```
+3. Commit and push the changes created by Lerna.
 
-This will start the wizard to publish a new version to NPM.
+4. Create PR based on the release branch and merge it. This will automatically publish the release to GitHub Packages.
 
 ## License
 

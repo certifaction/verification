@@ -1,4 +1,5 @@
-import Eth from 'web3-eth'
+import { Web3Eth } from 'web3-eth'
+import { Contract } from 'web3-eth-contract'
 import LegacySmartContractABI from '../eth/LegacySmartContract.abi'
 import ClaimSmartContractABI from '../eth/ClaimSmartContract.abi'
 import CertifactionEthClient from '../eth/CertifactionEthClient'
@@ -20,28 +21,31 @@ export default class CertifactionEthVerifier {
     constructor(
         providerUrl = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
         legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
-        legacyContractFallbackAddresses = ['0xf73e27c5008ff487803d2337fc3ac4016f6526e4', '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244'],
+        legacyContractFallbackAddresses = [
+            '0xf73e27c5008ff487803d2337fc3ac4016f6526e4',
+            '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244',
+        ],
         claimContractAddress = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
         acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
-        certifactionApiUrl = 'https://api.certifaction.io'
+        certifactionApiUrl = 'https://api.certifaction.io',
     ) {
-        const eth = new Eth(providerUrl)
-        const legacyContract = new eth.Contract(LegacySmartContractABI, legacyContractAddress)
+        const eth = new Web3Eth(providerUrl)
+        const legacyContract = new Contract(LegacySmartContractABI, legacyContractAddress, eth)
         const fallbackLegacyContracts = legacyContractFallbackAddresses.map(
-            legacyContractFallbackAddress => new eth.Contract(LegacySmartContractABI, legacyContractFallbackAddress)
+            (legacyContractFallbackAddress) => new Contract(LegacySmartContractABI, legacyContractFallbackAddress, eth),
         )
-        const claimContract = new eth.Contract(ClaimSmartContractABI, claimContractAddress)
+        const claimContract = new Contract(ClaimSmartContractABI, claimContractAddress, eth)
 
         this.certifactionEthClient = new CertifactionEthClient(
             eth,
             legacyContract,
             fallbackLegacyContracts,
-            claimContract
+            claimContract,
         )
         this.certifactionClaimVerifier = new CertifactionClaimVerifier(
             acceptedIssuerKey,
             this.certifactionEthClient,
-            certifactionApiUrl
+            certifactionApiUrl,
         )
     }
 
@@ -55,7 +59,7 @@ export default class CertifactionEthVerifier {
      */
     async verify(fileHash, decryptionKey) {
         let verification = {
-            hash: fileHash
+            hash: fileHash,
         }
 
         try {
@@ -75,9 +79,9 @@ export default class CertifactionEthVerifier {
 
             verification = { ...verification, ...fileVerification }
 
-            console.log(`Consolidated verification result for file ${fileHash}:`, JSON.parse(JSON.stringify(verification)))
+            console.log(`Consolidated verification result for file ${fileHash}:`, verification)
         } catch (e) {
-            console.error(`Error while verifying file hash "${fileHash}": ${e.name} - ${e.message}`)
+            console.error(`Error while verifying file hash "${fileHash}": ${e.name} - ${e.message}`, e)
             verification.error = e
         }
 

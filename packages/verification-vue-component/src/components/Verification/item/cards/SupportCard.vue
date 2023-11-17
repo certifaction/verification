@@ -7,15 +7,20 @@
         </template>
         <template #body>
             <div class="faq-items accordion">
-                <div class="item" v-for="(item, index) in _$t('verification.card.faq.items', { returnObjects: true })" :key="index" :class="{ open: isItemOpen(index) }">
+                <div
+                    class="item"
+                    v-for="(item, index) in _$t('verification.card.faq.items', { returnObjects: true })"
+                    :key="index"
+                    :class="{ open: isItemOpen(index) }">
                     <div class="item-title" @click="toggleItem(index)">
                         <span>{{ item.title }}</span>
-                        <MDIcon :icon="mdiChevronDown" class="chevron"/>
+                        <MDIcon :icon="mdiChevronDown" class="chevron" />
                     </div>
-                    <transition name="collapse"
-                                @enter="onEnterTransition"
-                                @after-enter="onAfterEnterTransition"
-                                @leave="onLeaveTransition">
+                    <transition
+                        name="collapse"
+                        @enter="onEnterTransition"
+                        @after-enter="onAfterEnterTransition"
+                        @leave="onLeaveTransition">
                         <div v-if="isItemOpen(index)" class="content">
                             <div class="inside" v-html="item.content"></div>
                         </div>
@@ -49,12 +54,12 @@ export default {
     mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
-        MDIcon
+        MDIcon,
     },
     data() {
         return {
             mdiChevronDown,
-            openItems: []
+            openItems: [],
         }
     },
     methods: {
@@ -65,11 +70,11 @@ export default {
             if (!this.isItemOpen(index)) {
                 this.openItems.push(index)
             } else {
-                this.openItems = this.openItems.filter(item => item !== index)
+                this.openItems = this.openItems.filter((item) => item !== index)
             }
         },
         isItemOpen(index) {
-            return (this.openItems.indexOf(index) >= 0)
+            return this.openItems.indexOf(index) >= 0
         },
         onEnterTransition(el) {
             el.style.height = 'auto'
@@ -89,7 +94,7 @@ export default {
             window.setTimeout(() => {
                 el.style.height = 0
             })
-        }
-    }
+        },
+    },
 }
 </script>

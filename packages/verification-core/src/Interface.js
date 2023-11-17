@@ -6,9 +6,11 @@ export default class Interface {
         this.name = name
         this.methods = []
 
-        methods.forEach(method => {
+        methods.forEach((method) => {
             if (typeof method !== 'string') {
-                throw new Error(`Interface expects all the method names to be passed as as a string ${method} is a ${typeof method}`)
+                throw new Error(
+                    `Interface expects all the method names to be passed as as a string ${method} is a ${typeof method}`,
+                )
             }
             this.methods.push(method)
         }, this)
@@ -16,7 +18,9 @@ export default class Interface {
 
     static ensureImplements(object) {
         if (arguments.length < 2) {
-            throw new Error(`Function Interface.ensureImplements called with ${arguments.length} arguments, but expected at least 2.`)
+            throw new Error(
+                `Function Interface.ensureImplements called with ${arguments.length} arguments, but expected at least 2.`,
+            )
         }
 
         for (let i = 1, len = arguments.length; i < len; i++) {
@@ -28,7 +32,9 @@ export default class Interface {
             for (let j = 0, methodsLen = interf.methods.length; j < methodsLen; j++) {
                 const method = interf.methods[j]
                 if (!object[method] || !typeof object[method] === 'function') {
-                    throw new Error(`Does not implement the method the interface${interf.name}Interface.Method ${method} not found`)
+                    throw new Error(
+                        `Does not implement the method the interface${interf.name}Interface.Method ${method} not found`,
+                    )
                 }
             }
         }
