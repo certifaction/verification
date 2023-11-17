@@ -20,9 +20,6 @@ It returns a full verification object and meta information regarding the registr
 
 ```shell script
 npm install @certifaction/verification-core
-
-# or if using yarn
-yarn add @certifaction/verification-core
 ```
 
 ## Usage

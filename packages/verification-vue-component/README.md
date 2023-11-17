@@ -30,8 +30,8 @@ The verification vue-component enables you to easily integrate the Certifaction 
 
 ## Requirements
 
-* [Vue.js](https://vuejs.org/) (^2.6)
-* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^8.21)
+* [Vue.js](https://vuejs.org/) (^2.7)
+* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^8.28)
 
 ## Install
 
@@ -39,9 +39,6 @@ The verification vue-component enables you to easily integrate the Certifaction 
 
 ```shell script
 npm install @certifaction/verification-vue-component
-
-# or if using yarn
-yarn add @certifaction/verification-vue-component
 ```
 
 ## Usage

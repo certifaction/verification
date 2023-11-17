@@ -12,17 +12,17 @@ The verification tool takes PDF files from a clients local file system, hashes t
 * [Development](#development)
     * [Requirements](#requirements)
     * [Getting started](#getting-started)
-    * [Publishing](#publishing)
+    * [Publishing](#create-new-release--publish-to-github-packages)
 * [License](#license)
 
 ## Packages
 
 This monorepo contains these packages:
 
-| Project | Package | Version |
-|---|---|---|
-| Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-core/latest.svg)](https://npmjs.com/package/@certifaction/verification-core) |
-| Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) | [![latest](https://img.shields.io/npm/v/%40certifaction%2Fverification-vue-component/latest.svg)](https://npmjs.com/package/@certifaction/verification-vue-component) |
+| Project | Package |
+|---|---|
+| Verification Core | [@certifaction/verification-core](https://github.com/certifaction/verification/tree/master/packages/verification-core) |
+| Verification Vue-Component | [@certifaction/verification-vue-component](https://github.com/certifaction/verification/tree/master/packages/verification-vue-component) |
 
 ## Development
 
