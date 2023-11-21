@@ -55,7 +55,7 @@
 import EthCrypto from 'eth-crypto'
 import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
-import Buffer from 'buffer'
+import { Buffer } from 'node:buffer'
 
 export const SIGNATURE_LEVEL_STANDARD = 'standard'
 export const SIGNATURE_LEVEL_QES = 'QES'
