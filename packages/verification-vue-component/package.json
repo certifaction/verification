@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "@certifaction/verification-core": "^4.0.2",
-        "@certifaction/vue-pdf-viewer": "^1.8.2",
+        "@certifaction/vue-pdf-viewer": "^1.8.3",
         "@mdi/js": "^7.4.47",
         "axios": "^1.6.7",
         "v-tooltip": "^2.1.3",
