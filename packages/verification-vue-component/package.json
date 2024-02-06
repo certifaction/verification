@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "description": "Vue component for Certifaction verification",
     "homepage": "https://certifaction.com",
     "license": "MIT",
@@ -22,7 +22,7 @@
         "lint": "eslint --fix --ext .js,.vue ."
     },
     "dependencies": {
-        "@certifaction/verification-core": "^4.0.2",
+        "@certifaction/verification-core": "^4.0.3",
         "@certifaction/vue-pdf-viewer": "^1.8.3",
         "@mdi/js": "^7.4.47",
         "axios": "^1.6.7",
