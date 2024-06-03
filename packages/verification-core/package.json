@@ -24,17 +24,16 @@
         "test": "jest --verbose"
     },
     "dependencies": {
-        "axios": "^1.6.8",
+        "axios": "^1.7.2",
         "ecies-geth": "^1.7.1",
         "eth-crypto": "^2.6.0",
-        "web3-eth": "^4.6.0",
-        "web3-eth-contract": "^4.4.0",
-        "web3-utils": "^4.2.3"
+        "web3-eth": "^4.7.0",
+        "web3-eth-contract": "^4.5.0",
+        "web3-utils": "^4.3.0"
     },
     "devDependencies": {
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
-        "eslint-config-standard": "^17.1.0",
         "eslint-plugin-jest": "^28.5.0",
         "jest": "^29.7.0"
     }
