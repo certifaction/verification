@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-core",
-    "version": "4.1.0",
+    "version": "4.1.1",
     "description": "Provides a client that can verify a hash against the certifaction Ethereum smart contract.",
     "homepage": "https://certifaction.com",
     "license": "MIT",
