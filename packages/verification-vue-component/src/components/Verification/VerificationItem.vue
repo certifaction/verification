@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <PDFViewer
+        <PdfViewer
             v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
             :source="digitalTwinInformation.fileUrl"
             :pdfjs-worker-src="pdfjsWorkerSrc"
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import PDFViewer from '@certifaction/vue-pdf-viewer'
+import { PdfViewer } from '@certifaction/vue-pdf-viewer'
 import i18nWrapperMixin from '../../mixins/i18n-wrapper'
 import ShadowCard from './item/cards/ShadowCard.vue'
 import NotFoundCard from './item/cards/NotFoundCard.vue'
@@ -107,7 +107,7 @@ export default {
         FileConfirmationCard,
         FileDeclinedCard,
         FileErrorCard,
-        PDFViewer,
+        PdfViewer,
     },
     props: {
         verificationItem: {
