@@ -19,3 +19,6 @@ lerna-debug.log*
 
 .DS_Store
 node_modules
+
+certifaction-verification-core-*.tgz
+certifaction-verification-vue-component-*.tgz
