@@ -1,6 +1,7 @@
 {
     "name": "@certifaction/verification",
     "private": true,
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/certifaction/verification.git"
@@ -12,16 +13,20 @@
         "packages/*"
     ],
     "scripts": {
-        "lint": "lerna run lint",
+        "lint": "eslint .",
         "create-version": "lerna version --no-git-tag-version --no-push && npm install",
         "force-create-version": "lerna version --force-publish --no-git-tag-version --no-push && npm install"
     },
     "devDependencies": {
-        "@certifaction/prettier-config": "^7.0.0",
-        "lerna": "^8.1.8",
+        "@certifaction/prettier-config": "^8.0.0",
+        "@vue/eslint-config-prettier": "^10.1.0",
+        "eslint": "^9.14.0",
+        "eslint-plugin-jest": "^28.9.0",
+        "eslint-plugin-vue": "^9.30.0",
+        "lerna": "^8.1.9",
         "prettier": "^3.3.3"
     },
     "volta": {
-        "node": "22.8.0"
+        "node": "23.1.0"
     }
 }
