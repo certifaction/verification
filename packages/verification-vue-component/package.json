@@ -1,6 +1,6 @@
 {
     "name": "@certifaction/verification-vue-component",
-    "version": "4.1.5",
+    "version": "4.2.0",
     "description": "Vue component for Certifaction verification",
     "type": "module",
     "repository": {
@@ -13,7 +13,7 @@
         "/src"
     ],
     "dependencies": {
-        "@certifaction/verification-core": "^4.1.5",
+        "@certifaction/verification-core": "^4.2.0",
         "@certifaction/vue-pdf-viewer": "^1.14.0",
         "@mdi/js": "^7.4.47",
         "axios": "^1.7.7",
