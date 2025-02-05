@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "axios": "^1.7.9",
-        "ecies-geth": "^1.7.3",
+        "ecies-geth": "^1.7.4",
         "eth-crypto": "^2.7.0",
         "web3-eth": "^4.11.1",
         "web3-eth-contract": "^4.7.2",
