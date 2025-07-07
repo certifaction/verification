@@ -73,7 +73,9 @@
             :source="digitalTwinInformation.fileUrl"
             :pdfjs-worker-src="pdfjsWorkerSrc"
             :pdfjs-worker-instance="pdfjsWorkerInstance"
-            :pdfjs-c-map-url="pdfjsCMapUrl" />
+            :pdfjs-c-map-url="pdfjsCMapUrl"
+            :pdfjs-icc-url="pdfjsIccUrl"
+            :pdfjs-wasm-url="pdfjsWasmUrl" />
     </div>
 </template>
 
@@ -149,7 +151,7 @@ export default {
             return event.issuer.name
         },
     },
-    inject: ['pdfjsWorkerSrc', 'pdfjsWorkerInstance', 'pdfjsCMapUrl'],
+    inject: ['pdfjsWorkerSrc', 'pdfjsWorkerInstance', 'pdfjsCMapUrl', 'pdfjsIccUrl', 'pdfjsWasmUrl'],
     data() {
         return {
             showSupport: false,
