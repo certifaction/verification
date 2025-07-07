@@ -93,6 +93,14 @@ export default {
             type: String,
             required: true,
         },
+        pdfjsIccUrl: {
+            type: String,
+            required: true,
+        },
+        pdfjsWasmUrl: {
+            type: String,
+            required: true,
+        },
         providerUrl: {
             type: String,
             required: false,
@@ -131,6 +139,8 @@ export default {
             pdfjsWorkerSrc: this.pdfjsWorkerSrc,
             pdfjsWorkerInstance: this.pdfjsWorkerInstance,
             pdfjsCMapUrl: this.pdfjsCMapUrl,
+            pdfjsIccUrl: this.pdfjsIccUrl,
+            pdfjsWasmUrl: this.pdfjsWasmUrl,
         }
     },
     data() {
