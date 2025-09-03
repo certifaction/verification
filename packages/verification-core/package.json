@@ -25,6 +25,6 @@
         "web3-utils": "^4.3.3"
     },
     "devDependencies": {
-        "jest": "^30.0.5"
+        "jest": "^30.1.3"
     }
 }

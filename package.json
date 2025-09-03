@@ -18,7 +18,7 @@
         "force-create-version": "lerna version --force-publish --no-git-tag-version --no-push && npm install"
     },
     "devDependencies": {
-        "@certifaction/prettier-config": "^10.1.0",
+        "@certifaction/prettier-config": "^11.0.0",
         "@vue/eslint-config-prettier": "^10.2.0",
         "eslint": "^9.34.0",
         "eslint-plugin-jest": "^29.0.1",
@@ -27,6 +27,6 @@
         "prettier": "^3.6.2"
     },
     "volta": {
-        "node": "24.6.0"
+        "node": "24.7.0"
     }
 }
