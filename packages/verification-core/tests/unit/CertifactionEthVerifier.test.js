@@ -25,7 +25,9 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()
         expect(verification.registrationEvent).toBeInstanceOf(Object)
-        expect(verification.registrationEvent.transactionHash).toMatch('0x34527c091a0af292da38f5fc24855efcc6c4d57bbbb21138e5462429eab3cd7f')
+        expect(verification.registrationEvent.transactionHash).toMatch(
+            '0x34527c091a0af292da38f5fc24855efcc6c4d57bbbb21138e5462429eab3cd7f',
+        )
         expect(verification.registrationBlock).toBeInstanceOf(Object)
         expect(verification.registrationBlock.timestamp).toBe(1576769918)
     })
@@ -39,7 +41,9 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()
         expect(verification.registrationEvent).toBeInstanceOf(Object)
-        expect(verification.registrationEvent.transactionHash).toMatch('0xc84b2134a39007781fa20424b54040585226dacf55a2f22ad4fd533d9f3b1aae')
+        expect(verification.registrationEvent.transactionHash).toMatch(
+            '0xc84b2134a39007781fa20424b54040585226dacf55a2f22ad4fd533d9f3b1aae',
+        )
         expect(verification.registrationBlock).toBeInstanceOf(Object)
         expect(verification.registrationBlock.timestamp).toBe(1590137985)
     })
@@ -53,7 +57,9 @@ describe('Integration tests: CertifactionEthVerifier.verify()', () => {
         expect(verification.issuerAddress).toMatch('0xD5Eb698e839a4890Cb80FfD527ea813C7a7964B0')
         expect(verification.issuerVerified).toBeTruthy()
         expect(verification.registrationEvent).toBeInstanceOf(Object)
-        expect(verification.registrationEvent.transactionHash).toMatch('0xb57b1fface58b7d224b230daeaf09216faab9a9ef91b1180f914f68238616241')
+        expect(verification.registrationEvent.transactionHash).toMatch(
+            '0xb57b1fface58b7d224b230daeaf09216faab9a9ef91b1180f914f68238616241',
+        )
         expect(verification.registrationBlock).toBeInstanceOf(Object)
         expect(verification.registrationBlock.timestamp).toBe(1599507881)
     })

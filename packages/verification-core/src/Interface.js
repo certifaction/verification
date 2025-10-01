@@ -31,7 +31,7 @@ export default class Interface {
 
             for (let j = 0, methodsLen = interf.methods.length; j < methodsLen; j++) {
                 const method = interf.methods[j]
-                if (!object[method] || !typeof object[method] === 'function') {
+                if (!object[method] || typeof object[method] !== 'function') {
                     throw new Error(
                         `Does not implement the method the interface${interf.name}Interface.Method ${method} not found`,
                     )
