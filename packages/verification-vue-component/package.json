@@ -14,9 +14,9 @@
     ],
     "dependencies": {
         "@certifaction/verification-core": "^4.5.1",
-        "@certifaction/vue-pdf-viewer": "^1.19.0",
+        "@certifaction/vue-pdf-viewer": "^1.20.0",
         "@mdi/js": "^7.4.47",
-        "axios": "^1.12.2",
+        "axios": "^1.13.1",
         "v-tooltip": "^2.1.3",
         "vue-scrollto": "^2.20.0",
         "vue-simple-spinner": "^1.2.10"

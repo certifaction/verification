@@ -7,6 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -17,8 +24,16 @@ lerna-debug.log*
 *.sln
 *.sw?
 
-.DS_Store
-node_modules
+*.tsbuildinfo
+
+.eslintcache
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Vitest
+__screenshots__/
 
 certifaction-verification-core-*.tgz
 certifaction-verification-vue-component-*.tgz
