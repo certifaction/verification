@@ -2,6 +2,7 @@ import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
+import pluginOxlint from 'eslint-plugin-oxlint'
 import skipPrettierFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
 export default defineConfig([
@@ -19,8 +20,8 @@ export default defineConfig([
     },
 
     js.configs.recommended,
-
     ...pluginVue.configs['flat/vue2-essential'],
+    ...pluginOxlint.configs['flat/recommended'],
 
     {
         name: 'certifaction/verification/jest-test',

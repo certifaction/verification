@@ -200,7 +200,7 @@ export default {
             return this.digitalTwinInformation !== null
         },
         digitalTwinStatus() {
-            return { ...this.digitalTwin, ...{ active: this.digitalTwinModeActive } }
+            return { ...this.digitalTwin, active: this.digitalTwinModeActive }
         },
     },
     methods: {
