@@ -14,7 +14,7 @@
     ],
     "dependencies": {
         "@certifaction/verification-core": "^4.6.0",
-        "@certifaction/vue-pdf-viewer": "^1.20.0",
+        "@certifaction/vue-pdf-viewer": "^1.21.0",
         "@mdi/js": "^7.4.47",
         "axios": "^1.13.2",
         "v-tooltip": "^2.1.3",
