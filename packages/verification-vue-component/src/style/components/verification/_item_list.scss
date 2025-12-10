@@ -1,10 +1,16 @@
+@use "../../abstracts/variables";
+
 .verification-item-list {
-    width: 100%;
     display: flex;
-    align-items: stretch;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
+    width: 100%;
     padding-bottom: 24px;
+
+    .item-container {
+        max-width: 100%;
+    }
 
     &.digital-twin {
         justify-content: initial;
@@ -12,43 +18,46 @@
         padding: 0;
 
         .item-container {
+            width: 100%;
             margin: 0;
             padding: 0;
-            width: 100%;
 
             .action-box {
                 display: flex;
                 justify-content: space-between;
                 position: fixed;
                 bottom: 0;
+                width: 100%;
+                height: 70px;
                 padding: 8px 16px;
                 background-color: var(--cf-verification-action-box-bg-color);
-                height: 70px;
-                width: 100%;
 
                 .text {
                     color: var(--cf-verification-primary-color);
 
                     h4 {
+                        margin-top: 0;
                         margin-bottom: 0.25rem;
-                        font-size: $font-size-normal;
-                        line-height: $line-height;
+                        font-size: variables.$font-size-normal;
+                        line-height: variables.$line-height;
                     }
 
                     p {
-                        font-size: $font-size-medium;
+                        margin-top: 0;
+                        margin-bottom: 1rem;
                         color: var(--cf-verification-action-box-text-color);
+                        font-size: variables.$font-size-medium;
                     }
                 }
 
                 .actions {
                     display: flex;
-                    align-items: center;
                     justify-content: flex-end;
+                    align-items: center;
 
                     &.navigate {
-                        width: 100%;
                         justify-content: space-between;
+                        width: 100%;
                     }
                 }
 
@@ -72,29 +81,29 @@
                             right: 0;
                             bottom: 0;
                             left: 0;
-                            margin: auto;
                             width: 24px;
                             height: 24px;
+                            margin: auto;
                             border-radius: 50%;
                             background-color: white;
                         }
 
                         .md-icon {
-                            height: 30px;
                             width: 30px;
+                            height: 30px;
                         }
 
                         &.approve {
                             margin-right: 20px;
 
                             .md-icon {
-                                color: $verification-result-success-dark;
+                                color: variables.$verification-result-success-dark;
                             }
                         }
 
                         &.decline {
                             .md-icon {
-                                color: $verification-result-error-dark;
+                                color: variables.$verification-result-error-dark;
                             }
                         }
                     }
@@ -137,7 +146,7 @@
                     &.file-declined-card {
                         h3 {
                             padding-top: 12px;
-                            color: $verification-result-error-dark;
+                            color: variables.$verification-result-error-dark;
                             font-size: 1.25rem;
                         }
                     }
@@ -168,21 +177,21 @@
 
                     .base-card {
                         margin: 0 auto;
-                        padding-top: 20px;
                         box-shadow: none;
+                        padding-top: 20px;
 
                         .card-header .title {
                             width: 100%;
                         }
 
                         .error-message {
-                            padding: 12px;
                             margin: 35px 16px 24px;
                             border-radius: 8px;
+                            padding: 12px;
                             background-color: #fdecf0;
+                            color: variables.$verification-result-error-dark;
+                            font-size: variables.$font-size-medium;
                             text-align: left;
-                            font-size: $font-size-medium;
-                            color: $verification-result-error-dark;
                         }
                     }
                 }
@@ -193,27 +202,23 @@
             }
         }
     }
-
-    .item-container {
-        max-width: 100%;
-    }
 }
 
 .verification-shadow-card {
     .lines {
-        padding: $spacer * 2;
+        padding: variables.$spacer * 2;
 
         .divider {
             width: 100%;
             height: 1px;
-            margin: $spacer 0;
-            border-bottom: 1px solid $gray-100;
+            margin: variables.$spacer 0;
+            border-bottom: 1px solid variables.$gray-100;
         }
 
         .line {
-            background: $gray-100;
             height: 20px;
             margin-bottom: 9px;
+            background: variables.$gray-100;
 
             &.long {
                 width: 100%;
@@ -243,8 +248,8 @@
                 .action-box {
                     position: absolute;
                     right: 12px;
-                    left: 12px;
                     bottom: 20px;
+                    left: 12px;
                     width: auto;
                     border-radius: 8px;
 
@@ -277,21 +282,21 @@
                                     top: 0;
                                     bottom: 0;
                                     left: 10px;
+                                    width: 14px;
+                                    height: 14px;
                                     margin-top: auto;
                                     margin-bottom: auto;
-                                    height: 14px;
-                                    width: 14px;
                                 }
 
                                 &.decline {
                                     .md-icon {
-                                        color: $verification-result-error-dark;
+                                        color: variables.$verification-result-error-dark;
                                     }
                                 }
 
                                 &.approve {
                                     .md-icon {
-                                        color: $verification-result-success-dark;
+                                        color: variables.$verification-result-success-dark;
                                     }
                                 }
                             }
@@ -300,8 +305,8 @@
                 }
 
                 .card-container {
-                    height: 100%;
                     width: 400px;
+                    height: 100%;
 
                     .base-card {
                         width: 100%;

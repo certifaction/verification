@@ -38,19 +38,20 @@
     </BaseCard>
 </template>
 
-<script>
-import BaseCard from '../BaseCard.vue'
-import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
-import MDIcon from '../../../../MDIcon.vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiCheckCircle, mdiCloseCircle } from '@mdi/js'
+import BaseCard from '../BaseCard.vue'
+import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper.ts'
+import MDIcon from '../../../../MDIcon.vue'
 
-export default {
+export default defineComponent({
     name: 'FileConfirmationCard',
-    mixins: [i18nWrapperMixin],
     components: {
         MDIcon,
         BaseCard,
     },
+    mixins: [i18nWrapperMixin],
     props: {
         fileName: {
             type: String,
@@ -68,5 +69,5 @@ export default {
             this.$emit('approve-or-decline', approved)
         },
     },
-}
+})
 </script>

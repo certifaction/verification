@@ -1,15 +1,17 @@
+@use "../../abstracts/variables";
+
 .verification-demo {
     text-align: center;
 
     .sample-docs {
         h3 {
-            font-weight: 500 !important;
             padding-bottom: 0;
+            font-weight: 500 !important;
         }
 
         .click-to-verify {
-            color: $text-muted;
-            font-size: $font-size-small;
+            color: variables.$text-muted;
+            font-size: variables.$font-size-small;
         }
     }
 
@@ -18,30 +20,30 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        margin: 0 auto $spacer * 2;
         width: 270px;
+        margin: 0 auto variables.$spacer * 2;
 
         .paper {
             cursor: pointer;
-            margin: $spacer * .5;
             width: 72px;
             height: 100px;
-            box-shadow: 1px 3px 15px rgba($black, .2);
+            margin: variables.$spacer * .5;
+            box-shadow: 1px 3px 15px rgba(variables.$black, .2);
             padding-top: 10px;
-            background-color: $white;
+            background-color: variables.$white;
             text-align: center;
 
             &:hover {
-                box-shadow: 1px 3px 20px rgba($black, .3);
+                box-shadow: 1px 3px 20px rgba(variables.$black, .3);
             }
 
             .md-icon {
-                margin-right: auto;
-                margin-bottom: $spacer * .5;
-                margin-left: auto;
                 width: 18px;
                 height: 18px;
-                color: $gray-400;
+                margin-right: auto;
+                margin-bottom: variables.$spacer * .5;
+                margin-left: auto;
+                color: variables.$gray-400;
             }
 
             .lines {
@@ -50,10 +52,10 @@
 
             .line-short,
             .line-long {
+                height: 7px;
                 margin-bottom: 4px;
                 margin-left: 10px;
-                height: 7px;
-                background: $gray-200;
+                background: variables.$gray-200;
             }
 
             .line-short {
@@ -68,20 +70,20 @@
             &.paper-technical-problem,
             &.paper-revoked-verified {
                 .md-icon {
-                    color: $red;
+                    color: variables.$red;
                 }
             }
 
             &.paper-verified-processing,
             &.paper-verified-self-declared {
                 .md-icon {
-                    color: $orange;
+                    color: variables.$orange;
                 }
             }
 
             &.paper-verified {
                 .md-icon {
-                    color: $green;
+                    color: variables.$green;
                 }
             }
         }

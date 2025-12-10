@@ -127,7 +127,7 @@
                 </div>
 
                 <div v-if="signEvents.length > 0" class="section signatures">
-                    <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
+                    <span class="label">{{ _$t('verification.result.meta.signature', signEvents.length) }}</span>
 
                     <div class="signature-list">
                         <DataPanel
@@ -178,23 +178,22 @@
     </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
-import { SIGNATURE_LEVEL_QES } from '@certifaction/verification-core'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import BaseCard from './BaseCard.vue'
+import { SIGNATURE_LEVEL_QES } from '@certifaction/verification-core/src/verifier/CertifactionClaimVerifier.ts'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
 import DataPanel from '../DataPanel.vue'
 import EventDetails from '../EventDetails.vue'
-
 import iconSignature from '../../../../assets/img/icon_signature.svg'
 import iconFingerprint from '../../../../assets/img/icon_fingerprint.svg'
 import iconUser from '../../../../assets/img/icon_user.svg'
+import BaseCard from './BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'SigningCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
         ResultDetail,
@@ -202,7 +201,18 @@ export default {
         DataPanel,
         EventDetails,
     },
+    mixins: [i18nWrapperMixin],
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
+    props: {
+        verificationItem: {
+            type: Object,
+            required: true,
+        },
+        ethScanUrl: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             mdiShieldCheck,
@@ -214,16 +224,6 @@ export default {
             SIGNATURE_LEVEL_QES,
             showExpertInfo: false,
         }
-    },
-    props: {
-        verificationItem: {
-            type: Object,
-            required: true,
-        },
-        ethScanUrl: {
-            type: String,
-            required: true,
-        },
     },
     computed: {
         registerEvents() {
@@ -358,5 +358,5 @@ export default {
             this.$emit('toggle-help', type)
         },
     },
-}
+})
 </script>

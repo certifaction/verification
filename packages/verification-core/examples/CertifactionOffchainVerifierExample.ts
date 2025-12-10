@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { type FileVerification } from '../src/verifier/CertifactionClaimVerifier.ts'
 
 // This is an example of an offchain VerifierInterface's implementation
 class CertifactionOffchainVerifierExample {
@@ -19,7 +20,7 @@ class CertifactionOffchainVerifierExample {
                     issuerName = data.issuer_title + ' ' + issuerName
                 }
 
-                const fileVerification = {
+                const fileVerification: FileVerification = {
                     on_blockchain: data.on_blockchain,
                     issuerVerified: data.issuer_verified,
                     status: data.file.status,

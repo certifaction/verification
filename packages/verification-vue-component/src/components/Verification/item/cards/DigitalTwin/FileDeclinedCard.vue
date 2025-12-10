@@ -10,16 +10,17 @@
     </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import BaseCard from '../BaseCard.vue'
-import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
+import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper.ts'
 
-export default {
+export default defineComponent({
     name: 'FileDeclinedCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
     },
+    mixins: [i18nWrapperMixin],
     props: {
         fileName: {
             type: String,
@@ -31,5 +32,5 @@ export default {
             this.$emit('toggle-help', type)
         },
     },
-}
+})
 </script>

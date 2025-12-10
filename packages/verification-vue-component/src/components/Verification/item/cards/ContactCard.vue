@@ -6,18 +6,18 @@
             </div>
         </template>
         <template #body>
-            <form id="contact-form" @submit="checkForm" method="POST">
+            <form id="contact-form" method="POST" @submit="checkForm">
                 <div class="email-field" :class="{ error: errors.email }">
                     <label for="email">{{ _$t('verification.card.contact.form.email') }}</label>
-                    <input id="email" type="email" name="email" v-model="email" />
+                    <input id="email" v-model="email" type="email" name="email" />
                 </div>
                 <div class="question-field" :class="{ error: errors.question }">
                     <label for="question">{{ _$t('verification.card.contact.form.question') }}</label>
-                    <textarea id="question" name="question" v-model="question"></textarea>
+                    <textarea id="question" v-model="question" name="question"></textarea>
                 </div>
                 <div class="consent-field" :class="{ error: errors.consent }">
                     <label class="switch">
-                        <input id="consent" type="checkbox" v-model="consentAccepted" />
+                        <input id="consent" v-model="consentAccepted" type="checkbox" />
                         <span class="slider round"></span>
                     </label>
                     <label for="consent" class="consent" v-html="_$t('verification.card.contact.form.consent')" />
@@ -50,17 +50,18 @@
     </BaseCard>
 </template>
 
-<script>
-import BaseCard from './BaseCard.vue'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import axios from 'axios'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
+import BaseCard from './BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'ContactCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
     },
+    mixins: [i18nWrapperMixin],
     props: {
         certifactionApiUrl: {
             type: String,
@@ -152,5 +153,5 @@ export default {
             this.contactFormSubmitting = this.reactiveValidation = false
         },
     },
-}
+})
 </script>

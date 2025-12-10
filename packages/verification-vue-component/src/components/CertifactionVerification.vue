@@ -16,9 +16,9 @@
 
         <div
             v-if="filteredVerificationItems.length"
+            ref="resultsRef"
             class="verification-item-list"
-            :class="{ 'digital-twin': digitalTwinModeActive }"
-            ref="results">
+            :class="{ 'digital-twin': digitalTwinModeActive }">
             <VerificationItem
                 v-for="verificationItem in filteredVerificationItems"
                 :key="verificationItem.hash"
@@ -29,8 +29,8 @@
 
         <VerificationFileSelector
             v-if="!digitalTwinModeActive"
-            @files-selected="verify"
-            :first-verification="filteredVerificationItems.length === 0" />
+            :first-verification="filteredVerificationItems.length === 0"
+            @files-selected="verify" />
 
         <div v-if="!digitalTwinModeActive" class="powered-by">
             <span class="label">{{ _$t('verification.poweredBy.label') }}</span>
@@ -41,31 +41,38 @@
     </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import VueScrollTo from 'vue-scrollto'
+<script lang="ts">
+import { defineComponent, type PropType, ref } from 'vue'
+import { useScroll } from '@vueuse/core'
 import axios from 'axios'
-import {
-    CertifactionEthVerifier,
-    Interface,
-    jsonStringifyReplacer,
-    VerifierInterface,
-} from '@certifaction/verification-core'
-import i18nWrapperMixin from '../mixins/i18n-wrapper'
+import CertifactionEthVerifier from '@certifaction/verification-core/src/verifier/CertifactionEthVerifier.ts'
+import Interface from '@certifaction/verification-core/src/Interface.ts'
+import { jsonStringifyReplacer } from '@certifaction/verification-core/src/utils/json.ts'
+import VerifierInterface from '@certifaction/verification-core/src/verifier/VerifierInterface.ts'
+import i18nWrapperMixin from '../mixins/i18n-wrapper.ts'
+import demoDocuments from '../resources/demo/demo-documents.ts'
 import VerificationDemo from './Verification/VerificationDemo.vue'
 import VerificationFileSelector from './Verification/VerificationFileSelector.vue'
 import VerificationDropBox from './Verification/VerificationDropBox.vue'
 import VerificationItem from './Verification/VerificationItem.vue'
-import demoDocuments from '../resources/demo/demo-documents'
 
-export default {
+export default defineComponent({
     name: 'CertifactionVerification',
-    mixins: [i18nWrapperMixin],
     components: {
         VerificationDemo,
         VerificationFileSelector,
         VerificationDropBox,
         VerificationItem,
+    },
+    mixins: [i18nWrapperMixin],
+    provide() {
+        return {
+            pdfjsWorkerSrc: this.pdfjsWorkerSrc,
+            pdfjsWorkerInstance: this.pdfjsWorkerInstance,
+            pdfjsCMapUrl: this.pdfjsCMapUrl,
+            pdfjsIccUrl: this.pdfjsIccUrl,
+            pdfjsWasmUrl: this.pdfjsWasmUrl,
+        }
     },
     props: {
         demo: {
@@ -110,7 +117,7 @@ export default {
             required: false,
         },
         legacyContractFallbackAddresses: {
-            type: Array,
+            type: Array as PropType<string[]>,
             required: false,
         },
         claimContractAddress: {
@@ -134,14 +141,12 @@ export default {
             },
         },
     },
-    provide() {
-        return {
-            pdfjsWorkerSrc: this.pdfjsWorkerSrc,
-            pdfjsWorkerInstance: this.pdfjsWorkerInstance,
-            pdfjsCMapUrl: this.pdfjsCMapUrl,
-            pdfjsIccUrl: this.pdfjsIccUrl,
-            pdfjsWasmUrl: this.pdfjsWasmUrl,
-        }
+    setup() {
+        const resultsRef = ref<HTMLDivElement>()
+
+        const { y: resultsScrollY } = useScroll(resultsRef)
+
+        return { resultsScrollY }
     },
     data() {
         return {
@@ -203,6 +208,14 @@ export default {
             return { ...this.digitalTwin, active: this.digitalTwinModeActive }
         },
     },
+    async mounted() {
+        if (this.digitalTwinInformation) {
+            this.$emit('initialized', true)
+            await this.processDigitalTwinUrl()
+        } else {
+            this.$emit('initialized', false)
+        }
+    },
     methods: {
         async verify(files) {
             this.$emit('verificationStart')
@@ -220,7 +233,7 @@ export default {
 
                 await this.$nextTick()
 
-                VueScrollTo.scrollTo(this.$refs.results, 400)
+                this.resultsScrollY = 400
             } catch (e) {
                 console.error(`Error while verifying files: ${e.name} - ${e.message}`)
             }
@@ -262,7 +275,7 @@ export default {
 
             if (oldResult !== newResult) {
                 verification.loaded = true
-                Vue.set(this.verificationItems, key, { ...item, ...verification })
+                this.verificationItems[key] = { ...item, ...verification }
             }
         },
         async offchainVerification(verification, decryptionKey) {
@@ -495,7 +508,7 @@ export default {
             if (demoDocuments[type]) {
                 this.verificationItems = [demoDocuments[type]]
                 await this.$nextTick()
-                VueScrollTo.scrollTo(this.$refs.results, 400)
+                this.resultsScrollY = 400
             }
         },
         handleDrop(e) {
@@ -526,13 +539,5 @@ export default {
             }
         },
     },
-    async mounted() {
-        if (this.digitalTwinInformation) {
-            this.$emit('initialized', true)
-            await this.processDigitalTwinUrl()
-        } else {
-            this.$emit('initialized', false)
-        }
-    },
-}
+})
 </script>

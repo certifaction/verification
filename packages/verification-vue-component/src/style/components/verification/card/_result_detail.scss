@@ -1,3 +1,5 @@
+@use "../../../abstracts/variables";
+
 .result-detail {
     position: relative;
     margin: 12px 0;
@@ -7,8 +9,8 @@
         flex-direction: row;
         align-items: center;
         cursor: pointer;
-        padding: 12px;
         border-radius: 8px;
+        padding: 12px;
 
         .header-icon {
             display: flex;
@@ -16,10 +18,10 @@
         }
 
         .header-label {
+            width: 100%;
             font-size: 14px;
             font-weight: 600;
             line-height: 1.5em;
-            width: 100%;
         }
 
         .header-action {
@@ -30,20 +32,20 @@
             .advanced-toggler {
                 display: flex;
                 align-items: center;
-                padding-left: 4px;
-                border-radius: 4px;
                 outline: none;
+                border-radius: 4px;
+                padding-left: 4px;
 
                 span {
-                    font-size: 12px;
                     color: white;
+                    font-size: 12px;
                 }
 
                 .md-icon {
-                    padding-top: 1px;
-                    height: 16px;
                     width: 16px;
-                    color: $white;
+                    height: 16px;
+                    padding-top: 1px;
+                    color: variables.$white;
                 }
             }
         }
@@ -52,20 +54,20 @@
     .detail-body {
         position: absolute;
         z-index: 100;
-        padding: 0 12px 12px 12px;
-        border-radius: 0 0 8px 8px;
         backdrop-filter: blur(0.5px);
         width: 100%;
+        border-radius: 0 0 8px 8px;
+        padding: 0 12px 12px 12px;
 
         ul {
-            padding: 0;
             margin: 0;
+            padding: 0;
 
             li {
                 display: flex;
                 position: relative;
-                list-style-type: none;
                 padding-bottom: 10px;
+                list-style-type: none;
 
                 &:last-child {
                     padding-bottom: 0;
@@ -84,8 +86,8 @@
 
                     &.detail-footnote {
                         display: block;
-                        color: rgba(#14213d, 50%);
                         padding-top: 5px;
+                        color: rgba(#14213d, 50%);
                     }
                 }
 
@@ -96,7 +98,7 @@
                 &.verified-signer,
                 &.in-progress {
                     .md-icon {
-                        color: $verification-result-success-dark;
+                        color: variables.$verification-result-success-dark;
                     }
                 }
 
@@ -104,13 +106,13 @@
                 &.unverified-signer,
                 &.document-retracted {
                     .md-icon {
-                        color: $verification-result-warning-dark;
+                        color: variables.$verification-result-warning-dark;
                     }
                 }
 
                 &.document-revoked {
                     .md-icon {
-                        color: $verification-result-error-dark;
+                        color: variables.$verification-result-error-dark;
                     }
                 }
             }
@@ -120,23 +122,23 @@
     &.success {
         .detail-header,
         .detail-body {
-            background-color: $verification-result-success-light;
+            background-color: variables.$verification-result-success-light;
         }
 
         .detail-header {
             .header-icon {
                 .md-icon {
-                    color: $verification-result-success-dark;
+                    color: variables.$verification-result-success-dark;
                 }
             }
 
             .header-label {
-                color: $verification-result-success-dark;
+                color: variables.$verification-result-success-dark;
             }
 
             .header-action {
                 button {
-                    background-color: $verification-result-success-dark;
+                    background-color: variables.$verification-result-success-dark;
                 }
             }
         }
@@ -145,23 +147,23 @@
     &.warning {
         .detail-header,
         .detail-body {
-            background-color: $verification-result-warning-light;
+            background-color: variables.$verification-result-warning-light;
         }
 
         .detail-header {
             .header-icon {
                 .md-icon {
-                    color: $verification-result-warning-dark;
+                    color: variables.$verification-result-warning-dark;
                 }
             }
 
             .header-label {
-                color: $verification-result-warning-dark;
+                color: variables.$verification-result-warning-dark;
             }
 
             .header-action {
                 button {
-                    background-color: $verification-result-warning-dark;
+                    background-color: variables.$verification-result-warning-dark;
                 }
             }
         }
@@ -170,23 +172,23 @@
     &.error {
         .detail-header,
         .detail-body {
-            background-color: $verification-result-error-light;
+            background-color: variables.$verification-result-error-light;
         }
 
         .detail-header {
             .header-icon {
                 .md-icon {
-                    color: $verification-result-error-dark;
+                    color: variables.$verification-result-error-dark;
                 }
             }
 
             .header-label {
-                color: $verification-result-error-dark;
+                color: variables.$verification-result-error-dark;
             }
 
             .header-action {
                 button {
-                    background-color: $verification-result-error-dark;
+                    background-color: variables.$verification-result-error-dark;
                 }
             }
         }
@@ -205,7 +207,7 @@
 
     .collapse-enter,
     .collapse-leave-to {
-        max-height: 0;
         overflow: hidden;
+        max-height: 0;
     }
 }

@@ -1,0 +1,11 @@
+{
+    "extends": "@certifaction/ts-config/tsconfig.app.json",
+    "include": ["env.d.ts", "src/**/*", "src/**/*.json", "test/**/*", "examples/**/*"],
+    "exclude": ["test/**/*", "src/**/*.test.ts"],
+    "compilerOptions": {
+        "baseUrl": "../..",
+        "jsxImportSource": "",
+        "strict": false,
+        "noImplicitAny": false
+    }
+}

@@ -8,12 +8,12 @@
         <template #body>
             <div class="faq-items accordion">
                 <div
-                    class="item"
-                    v-for="(item, index) in _$t('verification.card.faq.items', { returnObjects: true })"
+                    v-for="(item, index) in _$tm('verification.card.faq.items')"
                     :key="index"
+                    class="item"
                     :class="{ open: isItemOpen(index) }">
                     <div class="item-title" @click="toggleItem(index)">
-                        <span>{{ item.title }}</span>
+                        <span>{{ _$rt(item.title) }}</span>
                         <MDIcon :icon="mdiChevronDown" class="chevron" />
                     </div>
                     <transition
@@ -22,7 +22,7 @@
                         @after-enter="onAfterEnterTransition"
                         @leave="onLeaveTransition">
                         <div v-if="isItemOpen(index)" class="content">
-                            <div class="inside" v-html="item.content"></div>
+                            <div class="inside">{{ _$rt(item.content) }}</div>
                         </div>
                     </transition>
                 </div>
@@ -43,19 +43,20 @@
     </BaseCard>
 </template>
 
-<script>
-import BaseCard from './BaseCard.vue'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiChevronDown } from '@mdi/js'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
 import MDIcon from '../../../MDIcon.vue'
+import BaseCard from './BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'SupportCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
         MDIcon,
     },
+    mixins: [i18nWrapperMixin],
     data() {
         return {
             mdiChevronDown,
@@ -96,5 +97,5 @@ export default {
             })
         },
     },
-}
+})
 </script>

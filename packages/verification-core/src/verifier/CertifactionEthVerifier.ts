@@ -1,33 +1,36 @@
 import { Web3Eth } from 'web3-eth'
 import { Contract } from 'web3-eth-contract'
-import LegacySmartContractABI from '../eth/LegacySmartContract.abi'
-import ClaimSmartContractABI from '../eth/ClaimSmartContract.abi'
-import CertifactionEthClient from '../eth/CertifactionEthClient'
-import CertifactionClaimVerifier from './CertifactionClaimVerifier'
+import { LegacySmartContractABI } from '../eth/LegacySmartContract.abi.ts'
+import { ClaimSmartContractABI } from '../eth/ClaimSmartContract.abi.ts'
+import CertifactionEthClient from '../eth/CertifactionEthClient.ts'
+import CertifactionClaimVerifier from './CertifactionClaimVerifier.ts'
 
 export default class CertifactionEthVerifier {
+    certifactionEthClient: CertifactionEthClient
+    certifactionClaimVerifier: CertifactionClaimVerifier
+
     /**
      * Certifaction Ethereum Verifier
      *
      * @constructor
      *
-     * @param {string} providerUrl
-     * @param {string} legacyContractAddress contract address in HEX format (ex. 0x010...)
-     * @param {string[]} legacyContractFallbackAddresses
-     * @param {string} claimContractAddress claim contract address in HEX format (ex. 0x010...)
-     * @param {string} acceptedIssuerKey in HEX format (ex. 0x010...)
-     * @param {string} certifactionApiUrl
+     * @param providerUrl
+     * @param legacyContractAddress contract address in HEX format (ex. 0x010...)
+     * @param legacyContractFallbackAddresses
+     * @param claimContractAddress claim contract address in HEX format (ex. 0x010...)
+     * @param acceptedIssuerKey in HEX format (ex. 0x010...)
+     * @param certifactionApiUrl
      */
     constructor(
-        providerUrl = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
-        legacyContractAddress = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
-        legacyContractFallbackAddresses = [
+        providerUrl: string = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
+        legacyContractAddress: string = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
+        legacyContractFallbackAddresses: string[] = [
             '0xf73e27c5008ff487803d2337fc3ac4016f6526e4',
             '0x5ee4ec3cbee909050e68c7ff7a8b422cfbd72244',
         ],
-        claimContractAddress = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
-        acceptedIssuerKey = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
-        certifactionApiUrl = 'https://api.certifaction.io',
+        claimContractAddress: string = '0x5532ba4add77dd25fa11acc5a84e5f183f57525e',
+        acceptedIssuerKey: string = '0x3f647d9f6a22768EA9c91C299d0AD5924c6164Be',
+        certifactionApiUrl: string = 'https://api.certifaction.io',
     ) {
         const eth = new Web3Eth(providerUrl)
         const legacyContract = new Contract(LegacySmartContractABI, legacyContractAddress, eth)
@@ -51,13 +54,8 @@ export default class CertifactionEthVerifier {
 
     /**
      * Verify the given file hash using claims and legacy contract
-     *
-     * @param {string} fileHash
-     * @param {string} decryptionKey
-     *
-     * @returns {Promise<Object>}
      */
-    async verify(fileHash, decryptionKey) {
+    async verify(fileHash: string, decryptionKey: string): Promise<object> {
         let verification = {
             hash: fileHash,
         }

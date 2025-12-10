@@ -1,5 +1,5 @@
 import { numberToHex, padLeft } from 'web3-utils'
-import MethodMock from './MethodMock'
+import MethodMock from './MethodMock.ts'
 
 const abstractClassError = new Error('Cannot instanciate abstract class')
 const abstractMethodError = new Error('Cannot call abstract method')

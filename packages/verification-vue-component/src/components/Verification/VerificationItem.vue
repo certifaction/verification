@@ -13,8 +13,8 @@
 
             <ContactCard
                 v-else-if="showContact"
-                @toggle-help="toggleHelp"
-                :certifaction-api-url="verifierInformation.certifactionApiUrl" />
+                :certifaction-api-url="verifierInformation.certifactionApiUrl"
+                @toggle-help="toggleHelp" />
 
             <TechnicalProblemCard
                 v-else-if="isTechnicalProblem"
@@ -28,8 +28,8 @@
 
                 <FileConfirmationCard
                     v-else-if="digitalTwinInformation.active && digitalTwin.confirmationStep"
-                    @approve-or-decline="digitalTwinApproveOrDecline"
-                    :file-name="verificationItem.name" />
+                    :file-name="verificationItem.name"
+                    @approve-or-decline="digitalTwinApproveOrDecline" />
 
                 <template v-else>
                     <FileDeclinedCard
@@ -71,6 +71,7 @@
         <PdfViewer
             v-if="digitalTwinInformation.active && !digitalTwinInformation.error && !isLoading"
             :source="digitalTwinInformation.fileUrl"
+            :translate="translate"
             :pdfjs-worker-src="pdfjsWorkerSrc"
             :pdfjs-worker-instance="pdfjsWorkerInstance"
             :pdfjs-c-map-url="pdfjsCMapUrl"
@@ -79,9 +80,10 @@
     </div>
 </template>
 
-<script>
-import { PdfViewer } from '@certifaction/vue-pdf-viewer'
-import i18nWrapperMixin from '../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import PdfViewer from '@certifaction/vue-pdf-viewer/src/components/PdfViewer.vue'
+import i18nWrapperMixin from '../../mixins/i18n-wrapper.ts'
 import ShadowCard from './item/cards/ShadowCard.vue'
 import NotFoundCard from './item/cards/NotFoundCard.vue'
 import TechnicalProblemCard from './item/cards/TechnicalProblemCard.vue'
@@ -94,9 +96,8 @@ import FileConfirmationCard from './item/cards/DigitalTwin/FileConfirmationCard.
 import FileDeclinedCard from './item/cards/DigitalTwin/FileDeclinedCard.vue'
 import FileErrorCard from './item/cards/DigitalTwin/FileErrorCard.vue'
 
-export default {
+export default defineComponent({
     name: 'VerificationItem',
-    mixins: [i18nWrapperMixin],
     components: {
         ShadowCard,
         NotFoundCard,
@@ -111,20 +112,7 @@ export default {
         FileErrorCard,
         PdfViewer,
     },
-    props: {
-        verificationItem: {
-            type: Object,
-            required: true,
-        },
-        verifierInformation: {
-            type: Object,
-            required: true,
-        },
-        digitalTwinInformation: {
-            type: Object,
-            required: false,
-        },
-    },
+    mixins: [i18nWrapperMixin],
     provide: {
         isBeforeDetailedVerifiedMigration(event) {
             const eventDate = new Date(event.date)
@@ -152,6 +140,20 @@ export default {
         },
     },
     inject: ['pdfjsWorkerSrc', 'pdfjsWorkerInstance', 'pdfjsCMapUrl', 'pdfjsIccUrl', 'pdfjsWasmUrl'],
+    props: {
+        verificationItem: {
+            type: Object,
+            required: true,
+        },
+        verifierInformation: {
+            type: Object,
+            required: true,
+        },
+        digitalTwinInformation: {
+            type: Object,
+            required: false,
+        },
+    },
     data() {
         return {
             showSupport: false,
@@ -210,6 +212,9 @@ export default {
         },
     },
     methods: {
+        translate(key) {
+            return this._$t(key)
+        },
         toggleHelp(type) {
             switch (type) {
                 case 'support':
@@ -232,5 +237,5 @@ export default {
             this.showContact = false
         },
     },
-}
+})
 </script>

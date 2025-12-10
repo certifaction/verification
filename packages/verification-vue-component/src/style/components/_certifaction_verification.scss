@@ -1,4 +1,6 @@
-@import "../abstracts/variables";
+@use "sass:meta";
+@use "../abstracts/variables";
+@use "../abstracts/functions";
 
 .certifaction-verification {
     --cf-verification-primary-color: #0669f2;
@@ -8,8 +10,9 @@
     --cf-verification-action-box-text-color: #0d6efd;
     --cf-verification-logo-url: url("../../assets/img/certifaction_logo.svg");
 
-    font-family: $font-family-sans-serif;
-    font-size: $font-size-normal;
+    font-family: variables.$font-family-sans-serif;
+    font-size: variables.$font-size-normal;
+    line-height: variables.$line-height;
 
     *,
     :before,
@@ -42,40 +45,39 @@
 
     .btn-link {
         cursor: pointer;
-        padding: 0;
         border: none;
+        padding: 0;
         background: none;
-        font-size: $font-size-small;
+        font-size: variables.$font-size-small;
     }
 
     a {
         color: var(--cf-verification-primary-color);
     }
 
-    @import "buttons";
-    @import "verification/demo";
-    @import "verification/file_selection";
-    @import "verification/item_list";
-    @import "verification/data_panel";
-    @import "verification/card/all";
-    @import "verification/pdf_viewer";
+    @include meta.load-css("buttons");
+    @include meta.load-css("verification/demo");
+    @include meta.load-css("verification/file_selection");
+    @include meta.load-css("verification/item_list");
+    @include meta.load-css("verification/data_panel");
+    @include meta.load-css("verification/card/all");
 
     .powered-by {
         display: flex;
         justify-content: space-between;
-        margin: 24px auto $spacer;
-        background-color: $white;
-        width: 205px;
-        font-size: $font-size-small;
         align-items: center;
-        padding: 12px;
+        width: 205px;
+        margin: 24px auto variables.$spacer;
         border: 1px solid #ebedf1;
         border-radius: 4px;
+        padding: 12px;
+        background-color: variables.$white;
+        font-size: variables.$font-size-small;
         font-weight: 500;
         line-height: 14px;
 
         .label {
-            color: $verification-dark-blue-50;
+            color: variables.$verification-dark-blue-50;
         }
 
         a {

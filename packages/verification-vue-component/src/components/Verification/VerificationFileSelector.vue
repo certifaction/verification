@@ -19,10 +19,11 @@
     </div>
 </template>
 
-<script>
-import i18nWrapperMixin from '../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import i18nWrapperMixin from '../../mixins/i18n-wrapper.ts'
 
-export default {
+export default defineComponent({
     name: 'VerificationFileSelector',
     mixins: [i18nWrapperMixin],
     props: {
@@ -43,5 +44,5 @@ export default {
             this.$emit('files-selected', files)
         },
     },
-}
+})
 </script>

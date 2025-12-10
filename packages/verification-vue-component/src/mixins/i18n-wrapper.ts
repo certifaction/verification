@@ -6,17 +6,17 @@ export default {
             }
             return key
         },
-        _$tc(key, choice, ...values) {
-            if (typeof this.$tc === 'function') {
-                return this.$tc(key, choice, ...values)
+        _$tm(key) {
+            if (typeof this.$tm === 'function') {
+                return this.$tm(key)
+            }
+            return []
+        },
+        _$rt(key) {
+            if (typeof this.$rt === 'function') {
+                return this.$rt(key)
             }
             return key
-        },
-        _$te(key, locale) {
-            if (typeof this.$te === 'function') {
-                return this.$te(key, locale)
-            }
-            return false
         },
         _$d(value, ...args) {
             if (typeof this.$d === 'function') {

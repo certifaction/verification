@@ -1,14 +1,17 @@
+@use "../abstracts/variables";
+
 .btn {
     display: inline-block;
     outline: none;
     box-shadow: 0 1px 2px rgba(#001384, 0.08);
-    border: 1px solid $gray-100;
+    border: 1px solid variables.$gray-100;
     border-radius: 3px;
     padding: 8px 16px;
-    font-size: $font-size-medium;
+    font-size: variables.$font-size-medium;
     font-weight: 600;
-    text-decoration: none;
     text-align: center;
+    text-decoration: none;
+    line-height: inherit;
 
     + .btn {
         margin-left: 12px;
@@ -20,12 +23,12 @@
 }
 
 .btn-primary {
-    background-color: var(--cf-verification-primary-color);
-    color: $white;
     border: var(--cf-verification-primary-color);
+    background-color: var(--cf-verification-primary-color);
+    color: variables.$white;
 }
 
 .btn-secondary {
-    background-color: $white;
+    background-color: variables.$white;
     color: var(--cf-verification-primary-color);
 }

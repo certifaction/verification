@@ -4,8 +4,10 @@
     </svg>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
     name: 'MDIcon',
     props: {
         icon: {
@@ -13,5 +15,5 @@ export default {
             required: true,
         },
     },
-}
+})
 </script>

@@ -1,4 +1,4 @@
-export default [
+export const ClaimSmartContractABI = [
     {
         anonymous: false,
         inputs: [
@@ -36,4 +36,4 @@ export default [
         stateMutability: 'nonpayable',
         type: 'function',
     },
-]
+] as const

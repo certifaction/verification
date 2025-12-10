@@ -3,12 +3,12 @@
         <div v-for="detail in details" :key="detail.label" class="data-row">
             <div
                 v-if="detail.verifiable"
-                :class="detail.verified === true ? 'verified' : 'unverified'"
                 v-tooltip.right="
                     detail.verified === true
                         ? _$t('verification.result.meta.attributeVerified')
                         : _$t('verification.result.meta.attributeUnverified')
-                ">
+                "
+                :class="detail.verified === true ? 'verified' : 'unverified'">
                 <img v-if="detail.verified" src="../../../assets/img/verified_icon.svg" alt="Blue checkmark icon" />
                 <img v-else src="../../../assets/img/unverified_icon.svg" alt="Orange question mark icon" />
             </div>
@@ -21,24 +21,25 @@
     </div>
 </template>
 
-<script>
-import { VTooltip } from 'v-tooltip'
-import { removeNullBytes } from '@certifaction/verification-core'
-import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { vTooltip } from 'floating-vue'
+import { removeNullBytes } from '@certifaction/verification-core/src/utils/string.ts'
+import i18nWrapperMixin from '../../../mixins/i18n-wrapper.ts'
 
-export default {
+export default defineComponent({
     name: 'EventDetails',
+    directives: {
+        tooltip: vTooltip,
+    },
     mixins: [i18nWrapperMixin],
+    inject: ['isBeforeDetailedVerifiedMigration'],
     props: {
         event: {
             type: Object,
             required: true,
         },
     },
-    directives: {
-        tooltip: VTooltip,
-    },
-    inject: ['isBeforeDetailedVerifiedMigration'],
     data() {
         return {}
     },
@@ -98,5 +99,5 @@ export default {
             return details
         },
     },
-}
+})
 </script>

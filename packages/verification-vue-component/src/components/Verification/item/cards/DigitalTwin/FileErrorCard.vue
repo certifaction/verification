@@ -12,20 +12,21 @@
     </BaseCard>
 </template>
 
-<script>
-import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import i18nWrapperMixin from '../../../../../mixins/i18n-wrapper.ts'
 import BaseCard from '../BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'FileErrorCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
     },
+    mixins: [i18nWrapperMixin],
     methods: {
         toggleHelp(type) {
             this.$emit('toggle-help', type)
         },
     },
-}
+})
 </script>
