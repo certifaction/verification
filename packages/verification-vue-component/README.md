@@ -195,7 +195,7 @@ If you want to double check, add information, or simply make sure the user gets 
 
 The class should only contain the method `verify(fileHash)`. The method should return the attributes you want to override.
 
-For an example on how to do that, check [`@certifaction/verification-core/examples/CertifactionOffchainVerifierExample.ts`](https://github.com/certifaction/verification/blob/master/packages/verification-core/examples/CertifactionOffchainVerifierExample.js)
+For an example on how to do that, check [`@certifaction/verification-core/examples/CertifactionOffchainVerifierExample.ts`](https://github.com/certifaction/verification/blob/master/packages/verification-core/examples/CertifactionOffchainVerifierExample.ts)
 
 ## License
 

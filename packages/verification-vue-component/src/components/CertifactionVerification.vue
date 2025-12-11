@@ -42,8 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType, ref } from 'vue'
-import { useScroll } from '@vueuse/core'
+import { defineComponent, type PropType } from 'vue'
 import axios from 'axios'
 import CertifactionEthVerifier from '@certifaction/verification-core/src/verifier/CertifactionEthVerifier.ts'
 import Interface from '@certifaction/verification-core/src/Interface.ts'
@@ -141,13 +140,6 @@ export default defineComponent({
             },
         },
     },
-    setup() {
-        const resultsRef = ref<HTMLDivElement>()
-
-        const { y: resultsScrollY } = useScroll(resultsRef)
-
-        return { resultsScrollY }
-    },
     data() {
         return {
             certifactionEthVerifier: new CertifactionEthVerifier(
@@ -233,7 +225,7 @@ export default defineComponent({
 
                 await this.$nextTick()
 
-                this.resultsScrollY = 400
+                this.$refs.resultsRef.scrollIntoView()
             } catch (e) {
                 console.error(`Error while verifying files: ${e.name} - ${e.message}`)
             }
@@ -508,7 +500,7 @@ export default defineComponent({
             if (demoDocuments[type]) {
                 this.verificationItems = [demoDocuments[type]]
                 await this.$nextTick()
-                this.resultsScrollY = 400
+                this.$refs.resultsRef.scrollIntoView()
             }
         },
         handleDrop(e) {
