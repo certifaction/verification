@@ -54,7 +54,7 @@
                         :key="`expert-${signEvent.ref}`"
                         :icon-src="iconSignature"
                         :title="issuerDisplayName(signEvent)">
-                        <div class="transaction-hash">
+                        <div v-if="signEvent.on_blockchain?.tx_hash" class="transaction-hash">
                             <div class="label">{{ _$t('verification.result.meta.txHash') }}</div>
                             <a
                                 v-if="signEvent.on_blockchain"
@@ -63,15 +63,15 @@
                                 {{ signEvent.on_blockchain.tx_hash }}
                             </a>
                         </div>
-                        <div v-if="signEvent.signature.level" class="signature-level">
+                        <div v-if="signEvent.signature?.level" class="signature-level">
                             <div class="label">{{ _$t('verification.result.meta.signatureLevel') }}</div>
                             <div class="value">{{ signEvent.signature.level }}</div>
                         </div>
-                        <div v-if="signEvent.signature.jurisdiction" class="jurisdiction">
+                        <div v-if="signEvent.signature?.jurisdiction" class="jurisdiction">
                             <div class="label">{{ _$t('verification.result.meta.jurisdiction') }}</div>
                             <div class="value">{{ signEvent.signature.jurisdiction }}</div>
                         </div>
-                        <div v-if="signEvent.signature.level === SIGNATURE_LEVEL_QES" class="download-signature">
+                        <div v-if="signEvent.signature?.level === SIGNATURE_LEVEL_QES" class="download-signature">
                             <button type="button" class="btn btn-secondary" @click="downloadQesSignature(signEvent)">
                                 <img
                                     src="../../../../assets/img/icon_signature_download.svg"
@@ -309,14 +309,15 @@ export default defineComponent({
             return this.signEvents.filter((event) => !!event.issuer.verified).length > 0
         },
         signatureType() {
-            if (this.signEvents.length === 0) {
-                return null
-            }
-            if (!this.signEvents[0].signature) {
+            if (this.signEvents.length === 0 || !this.signEvents[0]) {
                 return null
             }
 
             const event = this.signEvents[0]
+            if (!event.signature) {
+                return null
+            }
+
             const level = event.signature.level
             const signatureType = {
                 level,
