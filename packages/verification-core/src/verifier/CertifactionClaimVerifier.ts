@@ -1,66 +1,61 @@
-/**
- * @typedef {Object} FileVerification
- *
- * @property {string} issuerAddress
- * @property {string} issuerName
- * @property {string} issuerImg
- * @property {boolean} issuerVerified
- * @property {string} issuerVerifiedBy
- * @property {string} issuerVerifiedImg
- * @property {boolean} revoked
- * @property {Object} registrationEvent
- * @property {Object} registrationBlock
- * @property {Object} revocationEvent
- * @property {Object} revocationBlock
- * @property {FileEvent[]} events
- * @property {Array} claims
- */
-
-/**
- * @typedef {Object} FileEvent
- *
- * @property {string} ref
- * @property {string} scope
- * @property {string} rfc3339 date
- * @property {Issuer} issuer
- * @property {OnBlockchain} on_blockchain
- */
-
-/**
- * @typedef {Object} Issuer
- *
- * @property {string} id
- * @property {string} name
- * @property {boolean} name_verified
- * @property {string} email
- * @property {boolean} email_verified
- * @property {VerifiedBy} verified_by
- */
-
-/**
- * @typedef {Object} VerifiedBy
- *
- * @property {string} name
- * @property {string} image
- */
-
-/**
- * @typedef {Object} OnBlockchain
- *
- * @property {string} type
- * @property {string} contract_address
- * @property {string} tx_hash
- */
-
+import { Buffer } from 'node:buffer'
 import EthCrypto from 'eth-crypto'
 import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
-import { Buffer } from 'node:buffer'
+import type CertifactionEthClient from '../eth/CertifactionEthClient.ts'
+
+export interface FileVerification {
+    issuerAddress: string
+    issuerName: string
+    issuerImg: string
+    issuerVerified: boolean
+    issuerVerifiedBy: string
+    issuerVerifiedImg: string
+    revoked: boolean
+    registrationEvent: object
+    registrationBlock: object
+    revocationEvent: object
+    revocationBlock: object
+    events: FileEvent[]
+    claims: object[]
+}
+
+export interface FileEvent {
+    ref: string
+    scope: string
+    rfc3339: string
+    issuer: Issuer
+    on_blockchain: OnBlockchain
+}
+
+export interface Issuer {
+    id: string
+    name: string
+    name_verified: boolean
+    email: string
+    email_verified: boolean
+    verified_by: VerifiedBy
+}
+
+export interface VerifiedBy {
+    name: string
+    image: string
+}
+
+export interface OnBlockchain {
+    type: string
+    contract_address: string
+    tx_hash: string
+}
 
 export const SIGNATURE_LEVEL_STANDARD = 'standard'
 export const SIGNATURE_LEVEL_QES = 'QES'
 
 export default class CertifactionClaimVerifier {
+    acceptedIssuerKey: string
+    certifactionEthClient: CertifactionEthClient
+    certifactionApiUrl: string | null
+
     /**
      * Certifaction Claim Verifier
      *
@@ -68,11 +63,15 @@ export default class CertifactionClaimVerifier {
      *
      * @constructor
      *
-     * @param {string} acceptedIssuerKey in HEX format (ex. 0x010...)
-     * @param {CertifactionEthClient} certifactionEthClient (optional) Instance of the CertifactionEthClient
-     * @param {string|null} certifactionApiUrl (optional)
+     * @param acceptedIssuerKey in HEX format (ex. 0x010...)
+     * @param certifactionEthClient
+     * @param certifactionApiUrl
      */
-    constructor(acceptedIssuerKey, certifactionEthClient = null, certifactionApiUrl = null) {
+    constructor(
+        acceptedIssuerKey: string,
+        certifactionEthClient: CertifactionEthClient = null,
+        certifactionApiUrl: string | null = null,
+    ) {
         this.acceptedIssuerKey = acceptedIssuerKey
         this.certifactionEthClient = certifactionEthClient
         this.certifactionApiUrl = certifactionApiUrl
@@ -80,13 +79,8 @@ export default class CertifactionClaimVerifier {
 
     /**
      * Verify the given file hash with claims
-     *
-     * @param {string} fileHash
-     * @param {string} decryptionKey
-     *
-     * @returns {Promise<FileVerification|null>}
      */
-    async verify(fileHash, decryptionKey) {
+    async verify(fileHash: string, decryptionKey: string): Promise<FileVerification | null> {
         const claimEvents = await this.certifactionEthClient.getClaimEvents(fileHash)
         if (claimEvents === null) {
             return null
@@ -131,12 +125,10 @@ export default class CertifactionClaimVerifier {
     /**
      * Get the claims for the given claim events and file hash
      *
-     * @param {Object[]} claimEvents Claim events from the blockchain
-     * @param {string} fileHash
-     *
-     * @returns {Promise<Object[]>}
+     * @param claimEvents Claim events from the blockchain
+     * @param fileHash
      */
-    async getClaims(claimEvents, fileHash) {
+    async getClaims(claimEvents: object[], fileHash: string): Promise<object[]> {
         const claims = []
 
         for (const claimEvent of claimEvents) {
@@ -176,12 +168,8 @@ export default class CertifactionClaimVerifier {
 
     /**
      * Get the claim from the Certifaction API for the given claim hash
-     *
-     * @param claimHash
-     *
-     * @returns {Promise<Object>}
      */
-    async getClaim(claimHash) {
+    async getClaim(claimHash: string): Promise<object> {
         try {
             const res = await axios.get(`${this.certifactionApiUrl}/claim/${claimHash}`)
             if (res.status === 200) {
@@ -199,13 +187,11 @@ export default class CertifactionClaimVerifier {
     /**
      * Validates the given claim
      *
-     * @param {Object} claim
-     * @param {string} validClaimHash Only use the claim hash coming from the blockchain
-     * @param {string} validFileHash Only use the file hash coming from the blockchain
-     *
-     * @returns {boolean}
+     * @param claim
+     * @param validClaimHash Only use the claim hash coming from the blockchain
+     * @param validFileHash Only use the file hash coming from the blockchain
      */
-    verifyClaim(claim, validClaimHash, validFileHash) {
+    verifyClaim(claim: object, validClaimHash: string, validFileHash: string): boolean {
         // Verify if the claim hash matches the claim hash from the blockchain
         const claimHash = this.getClaimHash(claim)
         if (claimHash !== validClaimHash) {
@@ -230,13 +216,15 @@ export default class CertifactionClaimVerifier {
     /**
      * Resolve and verify the given claims
      *
-     * @param {Object[]} claims
-     * @param {string} decryptionKey Private key from the PDF file (if available)
-     * @param {Object[]} claimEvents (optional) Claim events from the blockchain
-     *
-     * @returns {Promise<FileVerification|null>}
+     * @param claims
+     * @param decryptionKey Private key from the PDF file (if available)
+     * @param claimEvents Claim events from the blockchain
      */
-    async resolveAndVerifyClaims(claims, decryptionKey, claimEvents) {
+    async resolveAndVerifyClaims(
+        claims: object[],
+        decryptionKey: string,
+        claimEvents?: object[],
+    ): Promise<FileVerification | null> {
         const fileVerification = {
             issuerAddress: null,
             issuerName: null,
@@ -384,11 +372,9 @@ export default class CertifactionClaimVerifier {
     /**
      * Calculate the hash for the given claim
      *
-     * @param {Object} claim
-     *
-     * @returns {string} keccak256 hash
+     * @returns keccak256 hash
      */
-    getClaimHash(claim) {
+    getClaimHash(claim: object): string {
         const claimJsonString = JSON.stringify(claim)
 
         return EthCrypto.hash.keccak256(claimJsonString)
@@ -396,13 +382,8 @@ export default class CertifactionClaimVerifier {
 
     /**
      * Decrypt and verify the given claim
-     *
-     * @param {Object} encryptedClaim
-     * @param {string} decryptionKey
-     *
-     * @returns {Promise<Object>}
      */
-    async decryptClaim(encryptedClaim, decryptionKey) {
+    async decryptClaim(encryptedClaim: object, decryptionKey: string): Promise<object> {
         switch (encryptedClaim.algorithm) {
             case 'ECIES': {
                 const privateKey = Buffer.from(decryptionKey, 'hex')
@@ -426,14 +407,9 @@ export default class CertifactionClaimVerifier {
 
     /**
      * Finds the issuer in the given idClaims and verifies it
-     *
-     * @param idClaims
-     * @param claimIssuerAddress
-     *
-     * @returns {Promise<Issuer|null>}
      */
-    async resolveAndVerifyIssuerIdentity(idClaims, claimIssuerAddress) {
-        const issuer = {}
+    async resolveAndVerifyIssuerIdentity(idClaims: object[], claimIssuerAddress: string): Promise<Issuer | null> {
+        const issuer: Issuer = {}
 
         for (const idClaim of idClaims) {
             if (idClaim['@id'].toLowerCase() !== 'cert:addr:' + claimIssuerAddress.toLowerCase()) {
@@ -491,12 +467,8 @@ export default class CertifactionClaimVerifier {
 
     /**
      * Verify signature and get public key from given claim
-     *
-     * @param {Object} claim
-     *
-     * @returns {string|null}
      */
-    verifySignatureAndGetPubKey(claim) {
+    verifySignatureAndGetPubKey(claim: object): string | null {
         console.log('Verifying Signature...')
 
         let proofs = claim.proof

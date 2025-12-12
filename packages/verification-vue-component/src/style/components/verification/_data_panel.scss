@@ -1,6 +1,8 @@
+@use "../../abstracts/variables";
+
 .data-panel {
     box-shadow: 0 1px 2px rgba(#001384, 0.08);
-    border: 1px solid $gray-100;
+    border: 1px solid variables.$gray-100;
     border-radius: 8px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -18,8 +20,8 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background-color: $verification-light-blue;
-            color: $verification-blue;
+            background-color: variables.$verification-light-blue;
+            color: variables.$verification-blue;
 
             > img,
             > .md-icon {
@@ -29,9 +31,9 @@
                 right: 0;
                 bottom: 0;
                 left: 0;
-                margin: auto;
                 width: 20px;
                 height: auto;
+                margin: auto;
             }
         }
 
@@ -42,8 +44,8 @@
             width: 16px;
             height: 16px;
             border-radius: 4px;
-            background-color: $gray-200;
-            color: $verification-dark-blue;
+            background-color: variables.$gray-200;
+            color: variables.$verification-dark-blue;
 
             .md-icon {
                 width: 16px;
@@ -56,7 +58,7 @@
         overflow: hidden;
         padding-right: 12px;
         padding-left: 12px;
-        font-size: $font-size-medium;
+        font-size: variables.$font-size-medium;
 
         p {
             margin: 0;

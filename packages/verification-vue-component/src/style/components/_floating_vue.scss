@@ -1,0 +1,11 @@
+@use "floating-vue/dist/style.css";
+
+.v-popper--theme-tooltip {
+    .v-popper__inner {
+        background-color: #052b50;
+    }
+
+    .v-popper__arrow-outer {
+        border-color: #052b50;
+    }
+}

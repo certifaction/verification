@@ -54,7 +54,7 @@
                         :key="`expert-${signEvent.ref}`"
                         :icon-src="iconSignature"
                         :title="issuerDisplayName(signEvent)">
-                        <div class="transaction-hash">
+                        <div v-if="signEvent.on_blockchain?.tx_hash" class="transaction-hash">
                             <div class="label">{{ _$t('verification.result.meta.txHash') }}</div>
                             <a
                                 v-if="signEvent.on_blockchain"
@@ -63,15 +63,15 @@
                                 {{ signEvent.on_blockchain.tx_hash }}
                             </a>
                         </div>
-                        <div v-if="signEvent.signature.level" class="signature-level">
+                        <div v-if="signEvent.signature?.level" class="signature-level">
                             <div class="label">{{ _$t('verification.result.meta.signatureLevel') }}</div>
                             <div class="value">{{ signEvent.signature.level }}</div>
                         </div>
-                        <div v-if="signEvent.signature.jurisdiction" class="jurisdiction">
+                        <div v-if="signEvent.signature?.jurisdiction" class="jurisdiction">
                             <div class="label">{{ _$t('verification.result.meta.jurisdiction') }}</div>
                             <div class="value">{{ signEvent.signature.jurisdiction }}</div>
                         </div>
-                        <div v-if="signEvent.signature.level === SIGNATURE_LEVEL_QES" class="download-signature">
+                        <div v-if="signEvent.signature?.level === SIGNATURE_LEVEL_QES" class="download-signature">
                             <button type="button" class="btn btn-secondary" @click="downloadQesSignature(signEvent)">
                                 <img
                                     src="../../../../assets/img/icon_signature_download.svg"
@@ -127,7 +127,7 @@
                 </div>
 
                 <div v-if="signEvents.length > 0" class="section signatures">
-                    <span class="label">{{ _$tc('verification.result.meta.signature', signEvents.length) }}</span>
+                    <span class="label">{{ _$t('verification.result.meta.signature', signEvents.length) }}</span>
 
                     <div class="signature-list">
                         <DataPanel
@@ -178,23 +178,22 @@
     </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiAlertCircle, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
-import { SIGNATURE_LEVEL_QES } from '@certifaction/verification-core'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import BaseCard from './BaseCard.vue'
+import { SIGNATURE_LEVEL_QES } from '@certifaction/verification-core/src/verifier/CertifactionClaimVerifier.ts'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
 import DataPanel from '../DataPanel.vue'
 import EventDetails from '../EventDetails.vue'
-
 import iconSignature from '../../../../assets/img/icon_signature.svg'
 import iconFingerprint from '../../../../assets/img/icon_fingerprint.svg'
 import iconUser from '../../../../assets/img/icon_user.svg'
+import BaseCard from './BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'SigningCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
         ResultDetail,
@@ -202,7 +201,18 @@ export default {
         DataPanel,
         EventDetails,
     },
+    mixins: [i18nWrapperMixin],
     inject: ['isBeforeDetailedVerifiedMigration', 'issuerDisplayName'],
+    props: {
+        verificationItem: {
+            type: Object,
+            required: true,
+        },
+        ethScanUrl: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             mdiShieldCheck,
@@ -214,16 +224,6 @@ export default {
             SIGNATURE_LEVEL_QES,
             showExpertInfo: false,
         }
-    },
-    props: {
-        verificationItem: {
-            type: Object,
-            required: true,
-        },
-        ethScanUrl: {
-            type: String,
-            required: true,
-        },
     },
     computed: {
         registerEvents() {
@@ -309,14 +309,15 @@ export default {
             return this.signEvents.filter((event) => !!event.issuer.verified).length > 0
         },
         signatureType() {
-            if (this.signEvents.length === 0) {
-                return null
-            }
-            if (!this.signEvents[0].signature) {
+            if (this.signEvents.length === 0 || !this.signEvents[0]) {
                 return null
             }
 
             const event = this.signEvents[0]
+            if (!event.signature) {
+                return null
+            }
+
             const level = event.signature.level
             const signatureType = {
                 level,
@@ -358,5 +359,5 @@ export default {
             this.$emit('toggle-help', type)
         },
     },
-}
+})
 </script>

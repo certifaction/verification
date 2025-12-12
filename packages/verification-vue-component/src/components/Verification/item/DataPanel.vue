@@ -25,11 +25,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiChevronUp } from '@mdi/js'
 import MDIcon from '../../MDIcon.vue'
 
-export default {
+export default defineComponent({
     name: 'DataPanel',
     components: {
         MDIcon,
@@ -99,5 +100,5 @@ export default {
             })
         },
     },
-}
+})
 </script>

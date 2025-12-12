@@ -1,21 +1,32 @@
+import { type Web3Eth } from 'web3-eth'
+import { type Contract } from 'web3-eth-contract'
 import { hexToBytes, hexToUtf8 } from 'web3-utils'
+import { type FileVerification } from '../verifier/CertifactionClaimVerifier.ts'
+import { type LegacySmartContractABI } from './LegacySmartContract.abi.ts'
+import { type ClaimSmartContractABI } from './ClaimSmartContract.abi.ts'
 
 // Let's nullify all empty hex strings for beauty
 const nullValue40 = '0x0000000000000000000000000000000000000000'
 const nullValue64 = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
 export default class CertifactionEthClient {
+    eth: Web3Eth
+    legacyContract: Contract<typeof LegacySmartContractABI>
+    fallbackLegacyContracts: Contract<typeof LegacySmartContractABI>[]
+    claimContract: Contract<typeof ClaimSmartContractABI>
+    ethScanUrl: string
+
     /**
      * Represents a Certifaction Ethereum smart contract client
      *
      * @constructor
-     *
-     * @param {Object} eth Instance of web3.eth
-     * @param {Object} legacyContract Instance of web3.eth.Contract
-     * @param {Object[]} fallbackLegacyContracts An array of web3.eth.Contract instances
-     * @param {Object} claimContract Instance of web3.eth.Contract
      */
-    constructor(eth, legacyContract, fallbackLegacyContracts, claimContract) {
+    constructor(
+        eth: Web3Eth,
+        legacyContract: Contract<typeof LegacySmartContractABI>,
+        fallbackLegacyContracts: Contract<typeof LegacySmartContractABI>[],
+        claimContract: Contract<typeof ClaimSmartContractABI>,
+    ) {
         this.eth = eth
         this.legacyContract = legacyContract
         this.fallbackLegacyContracts = fallbackLegacyContracts
@@ -30,12 +41,8 @@ export default class CertifactionEthClient {
 
     /**
      * Verifies a file hash on the legacy smart contract
-     *
-     * @param {string} fileHash
-     *
-     * @return {Promise<FileVerification|null>}
      */
-    async verifyFileByLegacyContract(fileHash) {
+    async verifyFileByLegacyContract(fileHash: string): Promise<FileVerification | null> {
         const result = await this.legacyContract.methods.verifyFile(fileHash).call()
 
         let { issuer, issuerName, issuerImg, issuerVerified, revoked, expiry } = result
@@ -128,12 +135,8 @@ export default class CertifactionEthClient {
 
     /**
      * Verifies an issuer on the legacy smart contract
-     *
-     * @param {string} issuerAddress
-     *
-     * @returns {Promise<Object>}
      */
-    async verifyIssuerByLegacyContract(issuerAddress) {
+    async verifyIssuerByLegacyContract(issuerAddress: string): Promise<object> {
         const result = await this.legacyContract.methods.verifyIssuer(issuerAddress).call()
 
         let { issuerVerified, issuerName, issuerImg } = result
@@ -147,12 +150,8 @@ export default class CertifactionEthClient {
 
     /**
      * Get the claim events for the given file hash
-     *
-     * @param {string} fileHash
-     *
-     * @returns {Promise<Object[]|null>}
      */
-    async getClaimEvents(fileHash) {
+    async getClaimEvents(fileHash: string): Promise<object[] | null> {
         // Get Events for file hash
         const claimEvents = await this.claimContract.getPastEvents('Claim', {
             filter: { file: fileHash },
@@ -169,12 +168,9 @@ export default class CertifactionEthClient {
     /**
      * Gets the past events from the legacy contract, also checks the fallback contracts
      *
-     * @param {string} event
-     * @param {Object} options (optional)
-     *
-     * @returns {Promise<Array>} events
+     * @returns events
      */
-    async legacyContractGetPastEvents(event, options) {
+    async legacyContractGetPastEvents(event: string, options?: object): Promise<object[]> {
         let events = await this.legacyContract.getPastEvents(event, options)
         if (events.length === 0) {
             console.log(
@@ -195,12 +191,8 @@ export default class CertifactionEthClient {
 
     /**
      * Returns information about the transaction that registered the credential from the legacy contract
-     *
-     * @param {string} fileHash
-     *
-     * @return {Promise<Object|null>}
      */
-    async getRegistrationEvent(fileHash) {
+    async getRegistrationEvent(fileHash: string): Promise<object | null> {
         const events = await this.legacyContractGetPastEvents('FileRegisteredEvent', {
             filter: { hash: fileHash },
             fromBlock: 0,
@@ -211,12 +203,8 @@ export default class CertifactionEthClient {
 
     /**
      * Returns information about the transaction that registered the credential from the legacy contract
-     *
-     * @param {string} fileHash
-     *
-     * @return {Promise<Object|null>}
      */
-    async getRevocationEvent(fileHash) {
+    async getRevocationEvent(fileHash: string): Promise<object | null> {
         const events = await this.legacyContractGetPastEvents('FileRevokedEvent', {
             filter: { hash: fileHash },
             fromBlock: 0,
@@ -227,12 +215,8 @@ export default class CertifactionEthClient {
 
     /**
      * Returns a block matching the block hash
-     *
-     * @param {string} blockHash
-     *
-     * @returns {Promise<Object>}
      */
-    async getBlock(blockHash) {
+    async getBlock(blockHash: string): Promise<object> {
         return await this.eth.getBlock(blockHash)
     }
 

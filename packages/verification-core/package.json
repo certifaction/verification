@@ -8,12 +8,12 @@
         "url": "git+https://github.com/certifaction/verification.git",
         "directory": "packages/verification-core"
     },
-    "main": "src/index.js",
     "files": [
         "/examples",
         "/src"
     ],
     "scripts": {
+        "type-check": "vue-tsc --build --force",
         "test": "jest --verbose"
     },
     "dependencies": {
@@ -25,6 +25,8 @@
         "web3-utils": "^4.3.3"
     },
     "devDependencies": {
+        "@types/jsdom": "^27.0.0",
+        "happy-dom": "^20.0.11",
         "jest": "^30.2.0"
     }
 }

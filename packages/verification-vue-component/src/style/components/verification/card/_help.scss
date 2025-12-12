@@ -1,3 +1,5 @@
+@use "../../../abstracts/variables";
+
 .help-card {
     .card-header {
         padding: 7px 4px;
@@ -16,23 +18,25 @@
                 display: inline-block;
                 color: rgba(#14213D, 0.5);
                 font-size: 13px;
-                line-height: 1.5em;
                 font-weight: 600;
                 text-transform: uppercase;
+                line-height: 1.5em;
 
                 &.consent {
-                    font-size: $font-size-medium;
+                    font-size: variables.$font-size-medium;
                     text-transform: initial;
                 }
             }
 
-            input[type="email"], textarea {
+            input[type="email"],
+            textarea {
                 width: 100%;
-                padding: 5px;
-                background: $white;
                 border: 1px solid #e5e5e5;
-                box-sizing: border-box;
                 border-radius: 4px;
+                padding: 5px;
+                background: variables.$white;
+                box-sizing: border-box;
+                line-height: inherit;
 
                 &:focus {
                     outline: none;
@@ -45,8 +49,8 @@
             }
 
             .switch {
-                position: relative;
                 display: inline-block;
+                position: relative;
                 width: 30px;
                 height: 16px;
                 margin: 3px 8px 0 0;
@@ -74,24 +78,24 @@
                 }
 
                 .slider {
+                    transition: .4s;
                     position: absolute;
-                    cursor: pointer;
                     top: 0;
-                    left: 0;
                     right: 0;
                     bottom: 0;
+                    left: 0;
+                    cursor: pointer;
                     background-color: #cccccc;
-                    transition: .4s;
 
                     &:before {
-                        position: absolute;
                         content: "";
-                        height: 14px;
-                        width: 14px;
-                        left: 1px;
-                        bottom: 1px;
-                        background-color: white;
                         transition: .4s;
+                        position: absolute;
+                        bottom: 1px;
+                        left: 1px;
+                        width: 14px;
+                        height: 14px;
+                        background-color: white;
                     }
 
                     &.round {
@@ -106,33 +110,33 @@
 
             .error {
                 label {
-                    color: $red;
+                    color: variables.$red;
                 }
 
                 input[type="email"], textarea {
-                    border-color: $red;
+                    border-color: variables.$red;
                 }
             }
 
             .validation-error {
-                color: $red;
+                color: variables.$red;
             }
 
             .message-sent {
                 display: block;
-                padding: 5px 10px;
                 border-radius: 4px;
+                padding: 5px 10px;
 
                 &.success {
-                    color: $verification-result-success-dark;
-                    background-color: $verification-result-success-light;
-                    border: 1px solid $verification-result-success-dark;
+                    border: 1px solid variables.$verification-result-success-dark;
+                    background-color: variables.$verification-result-success-light;
+                    color: variables.$verification-result-success-dark;
                 }
 
                 &.failed {
-                    color: $verification-result-error-dark;
-                    background-color: $verification-result-error-light;
-                    border: 1px solid $verification-result-error-dark;
+                    border: 1px solid variables.$verification-result-error-dark;
+                    background-color: variables.$verification-result-error-light;
+                    color: variables.$verification-result-error-dark;
                 }
             }
         }
@@ -140,13 +144,13 @@
         .faq-items.accordion {
             .item {
                 margin: 4px;
-                box-shadow: 0 2px 12px rgba($gray-700, 0.09), 0 1px 4px rgba($gray-700, 0.04);
+                box-shadow: 0 2px 12px rgba(variables.$gray-700, 0.09), 0 1px 4px rgba(variables.$gray-700, 0.04);
 
                 .item-title {
-                    cursor: pointer;
                     position: relative;
+                    cursor: pointer;
                     padding: 10px 12px;
-                    font-size: $font-size-medium;
+                    font-size: variables.$font-size-medium;
 
                     .chevron {
                         position: absolute;
@@ -158,8 +162,8 @@
 
                 .content {
                     .inside {
+                        padding: 0 12px 12px;
                         font-size: 12px;
-                        padding: 0 12px 12px
                     }
 
                     &.collapse-enter-active,

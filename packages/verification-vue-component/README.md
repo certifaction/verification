@@ -30,8 +30,8 @@ The verification vue-component enables you to easily integrate the Certifaction 
 
 ## Requirements
 
-* [Vue.js](https://vuejs.org/) (^2.7)
-* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^8.28)
+* [Vue.js](https://vuejs.org/) (^3.5)
+* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^11.2)
 
 ## Install
 
@@ -195,7 +195,7 @@ If you want to double check, add information, or simply make sure the user gets 
 
 The class should only contain the method `verify(fileHash)`. The method should return the attributes you want to override.
 
-For an example on how to do that, check [`@certifaction/verification-core/examples/CertifactionOffchainVerifierExample.js`](https://github.com/certifaction/verification/blob/master/packages/verification-core/examples/CertifactionOffchainVerifierExample.js)
+For an example on how to do that, check [`@certifaction/verification-core/examples/CertifactionOffchainVerifierExample.ts`](https://github.com/certifaction/verification/blob/master/packages/verification-core/examples/CertifactionOffchainVerifierExample.ts)
 
 ## License
 

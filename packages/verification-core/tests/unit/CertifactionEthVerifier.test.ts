@@ -1,4 +1,4 @@
-import CertifactionEthVerifier from '../../src/verifier/CertifactionEthVerifier'
+import CertifactionEthVerifier from '../../src/verifier/CertifactionEthVerifier.ts'
 
 const certifactionEthVerifier = new CertifactionEthVerifier()
 

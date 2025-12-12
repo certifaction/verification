@@ -1,19 +1,21 @@
+@use "../../../abstracts/variables";
+
 .item-container {
     margin: 0 0.75rem;
     padding-top: 1.5rem;
-    color: $verification-dark-blue;
+    color: variables.$verification-dark-blue;
 }
 
 .base-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
     width: 380px;
-    background-color: $white;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(variables.$black, 0.05);
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba($black, 0.05);
     padding: 8px 12px 12px 12px;
+    background-color: variables.$white;
 
     &.digital-twin {
         width: 100%;
@@ -29,9 +31,9 @@
             padding-right: 5px;
 
             .md-icon {
-                color: $verification-dark-blue-50;
-                height: 16px;
                 width: 16px;
+                height: 16px;
+                color: variables.$verification-dark-blue-50;
             }
         }
 
@@ -39,9 +41,9 @@
             width: calc(100% - 26px);
 
             .filename {
-                color: $verification-dark-blue-50;
-                font-size: $font-size-medium;
-                line-height: $line-height;
+                color: variables.$verification-dark-blue-50;
+                font-size: variables.$font-size-medium;
+                line-height: variables.$line-height;
                 overflow-wrap: break-word;
             }
         }
@@ -53,8 +55,8 @@
         .verification-info {
             .label {
                 display: inline-block;
-                color: $verification-dark-blue-60;
-                font-size: $font-size-small;
+                color: variables.$verification-dark-blue-60;
+                font-size: variables.$font-size-small;
                 font-weight: 600;
                 text-transform: uppercase;
             }
@@ -72,7 +74,7 @@
 
                 > .value {
                     overflow-wrap: break-word;
-                    font-size: $font-size-medium;
+                    font-size: variables.$font-size-medium;
                 }
 
                 + .section {
@@ -82,18 +84,18 @@
                 &.retraction-note {
                     display: flex;
                     flex-direction: column;
-                    padding: 12px;
                     border-radius: 8px;
-                    background-color: $verification-light-blue;
+                    padding: 12px;
+                    background-color: variables.$verification-light-blue;
 
                     .label {
                         margin-bottom: 5px;
-                        color: $verification-pure-blue;
+                        color: variables.$verification-pure-blue;
                     }
 
                     .value {
+                        color: variables.$verification-dark-blue-80;
                         font-size: 1rem;
-                        color: $verification-dark-blue-80;
                     }
                 }
             }
@@ -116,8 +118,8 @@
 
                         img {
                             display: block;
-                            height: auto;
                             width: 100%;
+                            height: auto;
                         }
                     }
 
@@ -129,8 +131,8 @@
 
                     .value {
                         overflow-wrap: break-word;
-                        color: $verification-dark-blue-80;
-                        font-size: $font-size-medium;
+                        color: variables.$verification-dark-blue-80;
+                        font-size: variables.$font-size-medium;
 
                         img {
                             display: inline-block;

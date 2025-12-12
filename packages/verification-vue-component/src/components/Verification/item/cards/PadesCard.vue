@@ -33,19 +33,20 @@
     </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mdiFileDocument } from '@mdi/js'
-import i18nWrapperMixin from '../../../../mixins/i18n-wrapper'
-import BaseCard from './BaseCard.vue'
+import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
 import MDIcon from '../../../MDIcon.vue'
+import BaseCard from './BaseCard.vue'
 
-export default {
+export default defineComponent({
     name: 'PadesCard',
-    mixins: [i18nWrapperMixin],
     components: {
         BaseCard,
         MDIcon,
     },
+    mixins: [i18nWrapperMixin],
     props: {
         verificationItem: {
             type: Object,
@@ -62,5 +63,5 @@ export default {
             this.$emit('toggle-help', type)
         },
     },
-}
+})
 </script>

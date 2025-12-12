@@ -1,4 +1,4 @@
-export default [
+export const LegacySmartContractABI = [
     {
         inputs: [
             {
@@ -334,4 +334,4 @@ export default [
         stateMutability: 'view',
         type: 'function',
     },
-]
+] as const

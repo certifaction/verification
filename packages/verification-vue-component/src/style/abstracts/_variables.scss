@@ -1,27 +1,22 @@
+@use "sass:color";
+
 // COLORS
-$gray-50: #f8f9fa;
-$gray-100: #f2f4f6 !default;
-$gray-110: #f9fafb !default;
-$gray-150: #eff2f6 !default;
-$gray-180: #edf0f3 !default;
-$gray-200: #ebedf1 !default;
-$gray-250: #e7e9ec !default;
-$gray-300: #d1d7dd !default;
-$gray-350: #d9dbdf !default;
-$gray-400: #bec4ca !default;
-$gray-450: #c1c3c6 !default;
-$gray-500: #90939a !default;
-$gray-550: #8b8d95 !default;
-$gray-600: #808993 !default;
-$gray-700: #203346 !default;
-$gray-800: #343435 !default;
-$gray-900: #212122 !default;
+$gray-50: #fbfbfc;
+$gray-100: #eff3f6;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #1e293b;
+$gray-900: #0f172a;
 $white: #ffffff !default;
 $black: #000000 !default;
 $red: #f21a25 !default;
 $orange: #fea534 !default;
 $green: #32c264 !default;
-$primary: #0062c7 !default;
+$primary: #0669f2 !default;
 $body-color: $gray-900 !default;
 $text-muted: $gray-600 !default;
 
@@ -52,9 +47,9 @@ $verification-blue: #0669f2 !default;
 $verification-pure-blue: #0551bb !default;
 $verification-light-blue: #e8f1fe !default;
 $verification-dark-blue: #14213d !default;
-$verification-dark-blue-50: mix($verification-dark-blue, white, 50%);
-$verification-dark-blue-60: mix($verification-dark-blue, white, 60%);
-$verification-dark-blue-80: mix($verification-dark-blue, white, 80%);
+$verification-dark-blue-50: color.mix($verification-dark-blue, white, 50%);
+$verification-dark-blue-60: color.mix($verification-dark-blue, white, 60%);
+$verification-dark-blue-80: color.mix($verification-dark-blue, white, 80%);
 
 $verification-result-success-light: rgba(#e6f9f3, 0.95);
 $verification-result-success-dark: #00bf86;

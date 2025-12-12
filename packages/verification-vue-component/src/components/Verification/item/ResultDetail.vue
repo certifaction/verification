@@ -32,7 +32,8 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import {
     mdiAlertCircle,
     mdiCheckCircle,
@@ -42,19 +43,18 @@ import {
     mdiCloseCircle,
     mdiShieldCheck,
 } from '@mdi/js'
-import i18nWrapperMixin from '../../../mixins/i18n-wrapper'
+import i18nWrapperMixin from '../../../mixins/i18n-wrapper.ts'
 import MDIcon from '../../MDIcon.vue'
-
 import headerSuccessShield from '../../../assets/img/shield_success.svg'
 import headerWarningShield from '../../../assets/img/shield_warning.svg'
 import headerErrorShield from '../../../assets/img/shield_error.svg'
 
-export default {
+export default defineComponent({
     name: 'ResultDetail',
-    mixins: [i18nWrapperMixin],
     components: {
         MDIcon,
     },
+    mixins: [i18nWrapperMixin],
     props: {
         verificationMode: {
             type: String,
@@ -184,14 +184,14 @@ export default {
             }
 
             if (this.hasUnverifiedSigner) {
-                return this._$tc(
+                return this._$t(
                     `verification.result.${this.verificationMode}.unverifiedSigner.status`,
                     this.signerCount,
                 )
             }
 
             if (this.hasVerifiedSigner) {
-                return this._$tc(`verification.result.${this.verificationMode}.verifiedSigner.status`, this.signerCount)
+                return this._$t(`verification.result.${this.verificationMode}.verifiedSigner.status`, this.signerCount)
             }
 
             return null
@@ -272,13 +272,13 @@ export default {
 
                     if (this.hasUnverifiedSigner) {
                         details.push({
-                            label: this._$tc(`${langDetailsKeyPrefix}.signer.unverified`, this.signerCount),
+                            label: this._$t(`${langDetailsKeyPrefix}.signer.unverified`, this.signerCount),
                             class: 'unverified-signer',
                             icon: 'alert',
                         })
                     } else if (this.hasVerifiedSigner) {
                         details.push({
-                            label: this._$tc(`${langDetailsKeyPrefix}.signer.verified`, this.signerCount),
+                            label: this._$t(`${langDetailsKeyPrefix}.signer.verified`, this.signerCount),
                             class: 'verified-signer',
                             icon: 'check',
                         })
@@ -305,5 +305,5 @@ export default {
             return null
         },
     },
-}
+})
 </script>

@@ -1,5 +1,8 @@
 export default class Interface {
-    constructor(name, methods) {
+    name: string
+    methods: string[]
+
+    constructor(name: string, methods: string[]) {
         if (arguments.length < 2) {
             throw new Error(`An Interface expects atleast 2 arguments ${arguments.length} arguments passed`)
         }
