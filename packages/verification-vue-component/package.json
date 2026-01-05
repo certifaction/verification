@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@certifaction/verification-core": "^5.0.0",
-        "@certifaction/vue-pdf-viewer": "^6.6.1",
+        "@certifaction/vue-pdf-viewer": "^6.7.0",
         "@mdi/js": "^7.4.47",
         "axios": "^1.13.2",
         "floating-vue": "^5.2.2"
@@ -29,7 +29,7 @@
         "@types/jsdom": "^27.0.0",
         "happy-dom": "^20.0.11",
         "vite": "^7.3.0",
-        "vue": "^3.5.25",
-        "vue-tsc": "^3.1.8"
+        "vue": "^3.5.26",
+        "vue-tsc": "^3.2.1"
     }
 }
