@@ -13,18 +13,18 @@
         "packages/*"
     ],
     "scripts": {
-        "lint:oxlint": "oxlint . -D correctness --ignore-path .gitignore",
+        "lint:oxlint": "oxlint .",
         "lint:eslint": "eslint . --cache",
         "lint": "run-s lint:*",
         "create-version": "lerna version --no-git-tag-version --no-push && npm install",
         "force-create-version": "lerna version --force-publish --no-git-tag-version --no-push && npm install"
     },
     "devDependencies": {
-        "@certifaction/vue3-webapp-config": "^13.0.0",
-        "lerna": "^9.0.3",
+        "@certifaction/vue3-webapp-config": "^14.0.0",
+        "lerna": "^9.0.5",
         "npm-run-all2": "^8.0.4"
     },
     "volta": {
-        "node": "25.5.0"
+        "node": "25.8.0"
     }
 }
