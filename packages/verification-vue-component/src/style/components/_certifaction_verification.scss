@@ -5,7 +5,7 @@
 .certifaction-verification {
     --cf-verification-primary-color: #0669f2;
     --cf-verification-secondary-color: #e5e3d6;
-    --cf-verification-default-btn-bg-color: #ffffff;
+    --cf-verification-default-btn-bg-color: #fff;
     --cf-verification-action-box-bg-color: #e6f0fe;
     --cf-verification-action-box-text-color: #0d6efd;
     --cf-verification-logo-url: url("../../assets/img/certifaction_logo.svg");
@@ -15,8 +15,8 @@
     line-height: variables.$line-height;
 
     *,
-    :before,
-    :after {
+    ::before,
+    ::after {
         box-sizing: border-box;
     }
 

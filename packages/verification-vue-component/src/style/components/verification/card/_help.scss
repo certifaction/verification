@@ -63,7 +63,7 @@
                     &:checked + .slider {
                         background-color: rgba(#00BF86, 0.25);
 
-                        &:before {
+                        &::before {
                             background-color: #00bf86;
                         }
                     }
@@ -72,7 +72,7 @@
                         box-shadow: 0 0 1px #2196f3;
                     }
 
-                    &:checked + .slider:before {
+                    &:checked + .slider::before {
                         transform: translateX(14px);
                     }
                 }
@@ -80,14 +80,11 @@
                 .slider {
                     transition: .4s;
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     cursor: pointer;
-                    background-color: #cccccc;
+                    background-color: #ccc;
 
-                    &:before {
+                    &::before {
                         content: "";
                         transition: .4s;
                         position: absolute;
@@ -101,7 +98,7 @@
                     &.round {
                         border-radius: 34px;
 
-                        &:before {
+                        &::before {
                             border-radius: 50%;
                         }
                     }

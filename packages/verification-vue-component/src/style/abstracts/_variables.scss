@@ -11,8 +11,8 @@ $gray-600: #475569;
 $gray-700: #334155;
 $gray-800: #1e293b;
 $gray-900: #0f172a;
-$white: #ffffff !default;
-$black: #000000 !default;
+$white: #fff !default;
+$black: #000 !default;
 $red: #f21a25 !default;
 $orange: #fea534 !default;
 $green: #32c264 !default;
@@ -25,13 +25,13 @@ $font-family-sans-serif:
     // Safari for OS X and iOS (San Francisco)
     -apple-system,
     // Chrome < 56 for OS X (San Francisco)
-    BlinkMacSystemFont,
+    blinkmacsystemfont,
     // Windows
     "Segoe UI",
     // Android
     "Roboto",
     // Basic web fallback
-    "Helvetica Neue", Arial, sans-serif,
+    "Helvetica Neue", arial, sans-serif,
     // Emoji fonts
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-normal: 1rem !default;
