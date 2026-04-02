@@ -1,5 +1,6 @@
 @use "floating-vue/dist/style.css";
 
+/* stylelint-disable selector-class-pattern */
 .v-popper--theme-tooltip {
     .v-popper__inner {
         background-color: #052b50;

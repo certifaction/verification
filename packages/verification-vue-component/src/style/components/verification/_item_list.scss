@@ -73,14 +73,11 @@
                         position: relative;
                         cursor: pointer;
 
-                        &:before {
+                        &::before {
                             content: '';
                             position: absolute;
                             z-index: -1;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            left: 0;
+                            inset: 0;
                             width: 24px;
                             height: 24px;
                             margin: auto;
@@ -156,10 +153,7 @@
             .pdf-viewer {
                 display: none;
                 position: absolute;
-                top: 65px;
-                right: 0;
-                bottom: 70px;
-                left: 0;
+                inset: 65px 0 70px;
                 width: auto;
                 height: auto;
             }
@@ -239,7 +233,7 @@
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
     .verification-item-list {
         &.digital-twin {
             .item-container {
@@ -317,10 +311,7 @@
                     display: block;
                     flex: 1 1 auto;
                     position: relative;
-                    top: auto;
-                    right: auto;
-                    bottom: auto;
-                    left: auto;
+                    inset: auto;
                     max-width: calc(100% - 400px);
                     height: 100vh;
                 }
