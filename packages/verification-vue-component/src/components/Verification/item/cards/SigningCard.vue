@@ -109,10 +109,10 @@
         <template v-else #body>
             <ResultDetail
                 verification-mode="signing"
-                :document-revoked="revokeEvents.length > 0"
+                :document-revoked="documentRevoked"
                 :document-revocation-in-progress="revocationInProgress"
                 :document-revocation-date="revocationDate"
-                :document-retracted="retractEvents.length > 0"
+                :document-retracted="documentRetracted"
                 :document-retraction-in-progress="retractionInProgress"
                 :document-retraction-date="retractionDate"
                 :signatures-in-progress="signaturesInProgress"
@@ -240,6 +240,21 @@ export default defineComponent({
             return this.verificationItem.events
                 ? this.verificationItem.events.filter((event) => event.scope === 'retract')
                 : []
+        },
+        documentRevoked() {
+            // The claim verifier (in verification-core) is responsible for deciding
+            // whether the document is currently revoked. It accounts for re-registration
+            // after revoke and rejects revoke claims from non-issuers on the permissionless
+            // contract. Trust its result instead of re-deriving from the events list.
+            return this.verificationItem.revoked === true
+        },
+        documentRetracted() {
+            // TODO: retract handling in verification-core is not yet issuer-locked
+            // (mirrors a TODO in go-claim-validation `hasBeenRetracted`). Until
+            // that lands, fall back to the events list. A retract event from the
+            // initiator marks the document retracted; this can be spoofed on the
+            // permissionless contract today.
+            return this.retractEvents.length > 0
         },
         signEvents() {
             const signEvents = this.verificationItem.events

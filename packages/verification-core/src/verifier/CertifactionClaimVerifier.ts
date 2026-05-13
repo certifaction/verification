@@ -237,6 +237,13 @@ export default class CertifactionClaimVerifier {
             claims,
         }
 
+        // The address of the issuer who first published a register-scope claim.
+        // Mirrors go-claim-validation: subsequent revoke / re-register claims are
+        // only honored when their proof.creator matches this address. Without
+        // this, anyone with a wallet could publish a revoke or un-revoke on the
+        // permissionless claim contract.
+        let registerIssuer: string | null = null
+
         for (let claim of claims) {
             const claimHash = this.getClaimHash(claim)
 
@@ -336,8 +343,37 @@ export default class CertifactionClaimVerifier {
             console.log(`Claim scope: ${claim.scope}`)
             switch (claim.scope) {
                 case 'register':
+                    // First register-scope claim sets the issuer lock.
+                    // Subsequent register claims from the same issuer un-revoke;
+                    // foreign register claims are ignored.
+                    if (registerIssuer === null) {
+                        registerIssuer = issuerAddress
+                        fileVerification.revoked = false
+                        delete fileVerification.revocationEvent
+                        delete fileVerification.revocationBlock
+                    } else if (registerIssuer.toLowerCase() === issuerAddress.toLowerCase()) {
+                        fileVerification.revoked = false
+                        delete fileVerification.revocationEvent
+                        delete fileVerification.revocationBlock
+                    } else {
+                        console.log(
+                            `Ignoring register claim from non-issuer (creator=${issuerAddress}, registerIssuer=${registerIssuer})`,
+                        )
+                        break
+                    }
+                    // TODO(Cyrill): Remove when using only events
+                    if (claimEvent) {
+                        fileVerification.registrationEvent = claimEvent
+                        fileVerification.registrationBlock = claimBlock
+                    }
+                    break
+
                 case 'sign': // BP-2450: Handle "sign" claims like "register" claims for the moment
                 case 'certify': // BP-2457: Verification Tool: Update the verification tool to accept "certify" claims as valid
+                    // Sign and certify scopes are not gated by registerIssuer:
+                    // they live on permissioned contracts where the contract itself
+                    // restricts who can publish. Mirrors go-claim-validation which
+                    // only locks RegisterScope on the permissionless v2 contract.
                     // TODO(Cyrill): Remove when using only events
                     if (claimEvent) {
                         fileVerification.registrationEvent = claimEvent
@@ -346,6 +382,20 @@ export default class CertifactionClaimVerifier {
                     break
 
                 case 'revoke':
+                    // Only honor a revoke when there is an established register-issuer
+                    // and the revoke creator matches it. Prevents a stranger publishing
+                    // a revoke claim on the permissionless contract from poisoning the
+                    // verification result.
+                    if (registerIssuer === null) {
+                        console.log('Ignoring revoke claim with no prior register-issuer')
+                        break
+                    }
+                    if (registerIssuer.toLowerCase() !== issuerAddress.toLowerCase()) {
+                        console.log(
+                            `Ignoring revoke claim from non-issuer (revoker=${issuerAddress}, registerIssuer=${registerIssuer})`,
+                        )
+                        break
+                    }
                     fileVerification.revoked = true
                     // TODO(Cyrill): Remove when using only events
                     if (claimEvent) {

@@ -65,7 +65,7 @@
                 :has-unverified-issuer="hasUnverifiedIssuer"
                 :has-verified-issuer="hasVerifiedIssuer"
                 :document-registration-in-progress="registrationInProgress"
-                :document-revoked="revokeEvents.length > 0"
+                :document-revoked="documentRevoked"
                 :document-revocation-in-progress="revocationInProgress"
                 :document-revocation-date="revocationDate" />
 
@@ -169,6 +169,13 @@ export default defineComponent({
             return this.verificationItem.events
                 ? this.verificationItem.events.filter((event) => event.scope === 'revoke')
                 : []
+        },
+        documentRevoked() {
+            // The claim verifier (in verification-core) is responsible for deciding
+            // whether the document is currently revoked. It accounts for re-registration
+            // after revoke and rejects revoke claims from non-issuers on the permissionless
+            // contract. Trust its result instead of re-deriving from the events list.
+            return this.verificationItem.revoked === true
         },
         registrationInProgress() {
             return this.registerEvents.filter((event) => !event.on_blockchain).length > 0
