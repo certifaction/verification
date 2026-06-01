@@ -31,7 +31,7 @@ The verification vue-component enables you to easily integrate the Certifaction 
 ## Requirements
 
 * [Vue.js](https://vuejs.org/) (^3.5)
-* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^11.2)
+* [Vue I18n](https://kazupon.github.io/vue-i18n/) (^11.4)
 
 ## Install
 
