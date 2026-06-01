@@ -4,7 +4,6 @@ allowBuilds:
   nx: false
   secp256k1: false
   unrs-resolver: false
-lockfileIncludeTarballUrl: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@certifaction/*'
