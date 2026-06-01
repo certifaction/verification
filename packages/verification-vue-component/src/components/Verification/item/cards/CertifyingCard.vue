@@ -203,7 +203,11 @@ export default defineComponent({
             return this.revokeEvents.filter((event) => !event.on_blockchain).length > 0
         },
         documentRevoked() {
-            return this.revokeEvents.length > 0 && this.latestRegisterEvent.date < this.latestRevokeEvent.date
+            if (!this.latestRegisterEvent || !this.latestRevokeEvent) {
+                return false
+            }
+
+            return this.latestRegisterEvent.date < this.latestRevokeEvent.date
         },
         revocationDate() {
             if (!this.documentRevoked || !this.latestRevokeEvent) {
