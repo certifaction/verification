@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer'
+import { type EventLog } from 'web3-eth-contract'
 import EthCrypto from 'eth-crypto'
 import { decrypt as eciesDecrypt } from 'ecies-geth'
 import axios from 'axios'
@@ -128,10 +129,14 @@ export default class CertifactionClaimVerifier {
      * @param claimEvents Claim events from the blockchain
      * @param fileHash
      */
-    async getClaims(claimEvents: object[], fileHash: string): Promise<object[]> {
-        const claims = []
+    async getClaims(claimEvents: (string | EventLog)[], fileHash: string): Promise<object[]> {
+        const claims: object[] = []
 
         for (const claimEvent of claimEvents) {
+            if (typeof claimEvent !== 'object') {
+                continue
+            }
+
             console.log('---------')
 
             const claimFileHash = claimEvent.returnValues.file

@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@certifaction/verification-core": "workspace:*",
-        "@certifaction/vue-pdf-viewer": "^6.11.0",
+        "@certifaction/vue-pdf-viewer": "^7.0.0",
         "@mdi/js": "^7.4.47",
         "axios": "^1.16.1",
         "floating-vue": "^5.2.2"

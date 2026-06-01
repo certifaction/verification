@@ -18,42 +18,42 @@
                     </DataPanel>
                 </div>
                 <div
-                    v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
+                    v-if="latestRegisterEvent && latestRegisterEvent.on_blockchain"
                     class="section smart-contract-address">
                     <div class="label">{{ _$t('verification.result.meta.smartContractAddress') }}</div>
 
-                    <DataPanel :key="`expert-${registerEvents[0].on_blockchain.contract_address}`">
+                    <DataPanel :key="`expert-${latestRegisterEvent.on_blockchain.contract_address}`">
                         <a
-                            :href="`${ethScanUrl}/address/${registerEvents[0].on_blockchain.contract_address}`"
+                            :href="`${ethScanUrl}/address/${latestRegisterEvent.on_blockchain.contract_address}`"
                             target="_blank">
-                            {{ registerEvents[0].on_blockchain.contract_address }}
+                            {{ latestRegisterEvent.on_blockchain.contract_address }}
                         </a>
                     </DataPanel>
                 </div>
-                <div v-if="registerEvents.length > 0 && registerEvents[0].issuer.id" class="section issuer-address">
+                <div v-if="latestRegisterEvent && latestRegisterEvent.issuer.id" class="section issuer-address">
                     <div class="label">{{ _$t('verification.result.meta.issuerAddress') }}</div>
 
-                    <DataPanel :key="`expert-${registerEvents[0].issuer.id}`">
-                        {{ registerEvents[0].issuer.id }}
+                    <DataPanel :key="`expert-${latestRegisterEvent.issuer.id}`">
+                        {{ latestRegisterEvent.issuer.id }}
+                    </DataPanel>
+                </div>
+                <div v-if="latestRegisterEvent && latestRegisterEvent.on_blockchain" class="section registration-hash">
+                    <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
+
+                    <DataPanel :key="`expert-${latestRegisterEvent.ref}`">
+                        <a :href="`${ethScanUrl}/tx/${latestRegisterEvent.on_blockchain.tx_hash}`" target="_blank">
+                            {{ latestRegisterEvent.on_blockchain.tx_hash }}
+                        </a>
                     </DataPanel>
                 </div>
                 <div
-                    v-if="registerEvents.length > 0 && registerEvents[0].on_blockchain"
-                    class="section registration-hash">
-                    <div class="label">{{ _$t('verification.result.meta.registrationTransaction') }}</div>
-
-                    <DataPanel :key="`expert-${registerEvents[0].ref}`">
-                        <a :href="`${ethScanUrl}/tx/${registerEvents[0].on_blockchain.tx_hash}`" target="_blank">
-                            {{ registerEvents[0].on_blockchain.tx_hash }}
-                        </a>
-                    </DataPanel>
-                </div>
-                <div v-if="revokeEvents.length > 0 && revokeEvents[0].on_blockchain" class="section revocation-hash">
+                    v-if="documentRevoked && latestRevokeEvent && latestRevokeEvent.on_blockchain"
+                    class="section revocation-hash">
                     <div class="label">{{ _$t('verification.result.meta.revocationTransaction') }}</div>
 
-                    <DataPanel :key="`expert-${revokeEvents[0].ref}`">
-                        <a :href="`${ethScanUrl}/tx/${revokeEvents[0].on_blockchain.tx_hash}`" target="_blank">
-                            {{ revokeEvents[0].on_blockchain.tx_hash }}
+                    <DataPanel :key="`expert-${latestRevokeEvent.ref}`">
+                        <a :href="`${ethScanUrl}/tx/${latestRevokeEvent.on_blockchain.tx_hash}`" target="_blank">
+                            {{ latestRevokeEvent.on_blockchain.tx_hash }}
                         </a>
                     </DataPanel>
                 </div>
@@ -65,36 +65,36 @@
                 :has-unverified-issuer="hasUnverifiedIssuer"
                 :has-verified-issuer="hasVerifiedIssuer"
                 :document-registration-in-progress="registrationInProgress"
-                :document-revoked="revokeEvents.length > 0"
+                :document-revoked="documentRevoked"
                 :document-revocation-in-progress="revocationInProgress"
                 :document-revocation-date="revocationDate" />
 
             <div class="verification-info">
-                <div v-if="registerEvents.length > 0" class="section issuer">
+                <div v-if="latestRegisterEvent" class="section issuer">
                     <span class="label">{{ _$t('verification.result.meta.issuer') }}</span>
 
                     <DataPanel
-                        :key="registerEvents[0].ref"
-                        :icon-src="registerEvents[0].scope !== 'certify' ? iconUser : null"
-                        :md-icon="registerEvents[0].scope === 'certify' ? mdiDomain : null"
-                        :title="registerEvents[0].issuer.name">
-                        <EventDetails :event="registerEvents[0]" />
+                        :key="latestRegisterEvent.ref"
+                        :icon-src="latestRegisterEvent.scope !== 'certify' ? iconUser : null"
+                        :md-icon="latestRegisterEvent.scope === 'certify' ? mdiDomain : null"
+                        :title="latestRegisterEvent.issuer.name">
+                        <EventDetails :event="latestRegisterEvent" />
                     </DataPanel>
                 </div>
 
-                <div v-if="registerEvents.length > 0 && registerEvents[0].date" class="section registration-date">
+                <div v-if="latestRegisterEvent && latestRegisterEvent.date" class="section registration-date">
                     <span class="label">{{ _$t('verification.result.meta.registrationDate') }}</span>
 
                     <DataPanel
-                        :key="registerEvents[0].date"
+                        :key="latestRegisterEvent.date"
                         :md-icon="mdiCalendarClock"
-                        :title="_$d(new Date(registerEvents[0].date), 'long')" />
+                        :title="_$d(new Date(latestRegisterEvent.date), 'long')" />
                 </div>
 
-                <div v-if="revokeEvents.length > 0 && revocationDate" class="section revocation-date">
+                <div v-if="documentRevoked && revocationDate" class="section revocation-date">
                     <span class="label">{{ _$t('verification.result.meta.revocationDate') }}</span>
 
-                    <DataPanel :key="revokeEvents[0].date" :md-icon="mdiClose" :title="revocationDate" />
+                    <DataPanel :key="latestRevokeEvent.date" :md-icon="mdiClose" :title="revocationDate" />
                 </div>
             </div>
         </template>
@@ -161,14 +161,40 @@ export default defineComponent({
     },
     computed: {
         registerEvents() {
-            return this.verificationItem.events
-                ? this.verificationItem.events.filter((event) => ['register', 'certify'].indexOf(event.scope) >= 0)
-                : []
+            if (!Array.isArray(this.verificationItem.events)) {
+                return []
+            }
+
+            const events = this.verificationItem.events.filter(
+                (event) => ['register', 'certify'].indexOf(event.scope) >= 0,
+            )
+            events.sort((a, b) => (a.date > b.date ? 1 : -1))
+
+            return events
+        },
+        latestRegisterEvent() {
+            if (!this.registerEvents.length) {
+                return null
+            }
+
+            return this.registerEvents[this.registerEvents.length - 1]
         },
         revokeEvents() {
-            return this.verificationItem.events
-                ? this.verificationItem.events.filter((event) => event.scope === 'revoke')
-                : []
+            if (!Array.isArray(this.verificationItem.events)) {
+                return []
+            }
+
+            const events = this.verificationItem.events.filter((event) => event.scope === 'revoke')
+            events.sort((a, b) => (a.date > b.date ? 1 : -1))
+
+            return events
+        },
+        latestRevokeEvent() {
+            if (!this.revokeEvents.length) {
+                return null
+            }
+
+            return this.revokeEvents[this.revokeEvents.length - 1]
         },
         registrationInProgress() {
             return this.registerEvents.filter((event) => !event.on_blockchain).length > 0
@@ -176,17 +202,20 @@ export default defineComponent({
         revocationInProgress() {
             return this.revokeEvents.filter((event) => !event.on_blockchain).length > 0
         },
+        documentRevoked() {
+            return this.revokeEvents.length > 0 && this.latestRegisterEvent.date < this.latestRevokeEvent.date
+        },
         revocationDate() {
-            if (this.revokeEvents.length === 0) {
+            if (!this.documentRevoked || !this.latestRevokeEvent) {
                 return null
             }
 
-            const revocationDate = new Date(this.revokeEvents[0].date)
-            if (!isNaN(revocationDate)) {
+            const revocationDate = new Date(this.latestRevokeEvent.date)
+            if (!isNaN(revocationDate.valueOf())) {
                 return this._$d(revocationDate, 'long')
             }
 
-            return this.revokeEvents[0].date
+            return this.latestRevokeEvent.date
         },
         hasUnverifiedIssuer() {
             return (

@@ -116,7 +116,7 @@ export default defineComponent({
     provide: {
         isBeforeDetailedVerifiedMigration(event) {
             const eventDate = new Date(event.date)
-            if (!(eventDate instanceof Date) || isNaN(eventDate)) {
+            if (!(eventDate instanceof Date) || isNaN(eventDate.valueOf())) {
                 return false
             }
             const migrationDate = new Date('2021-04-22')
