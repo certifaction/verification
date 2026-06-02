@@ -1,5 +1,5 @@
 import { type Web3Eth } from 'web3-eth'
-import { type Contract } from 'web3-eth-contract'
+import { type Contract, type EventLog } from 'web3-eth-contract'
 import { hexToBytes, hexToUtf8 } from 'web3-utils'
 import { type FileVerification } from '../verifier/CertifactionClaimVerifier.ts'
 import { type LegacySmartContractABI } from './LegacySmartContract.abi.ts'
@@ -151,7 +151,7 @@ export default class CertifactionEthClient {
     /**
      * Get the claim events for the given file hash
      */
-    async getClaimEvents(fileHash: string): Promise<object[] | null> {
+    async getClaimEvents(fileHash: string): Promise<(string | EventLog)[] | null> {
         // Get Events for file hash
         const claimEvents = await this.claimContract.getPastEvents('Claim', {
             filter: { file: fileHash },
