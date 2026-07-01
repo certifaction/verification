@@ -1,6 +1,5 @@
 # @certifaction/verification-vue-component
 
-[![npm][npm]][npm-url]
 [![lerna][lerna]][lerna-url]
 
 The verification vue-component enables you to easily integrate the Certifaction Verification Tool into your VueJS project.
@@ -203,7 +202,5 @@ For an example on how to do that, check [`@certifaction/verification-core/exampl
 
 Released by [Certifaction AG](https://certifaction.com)
 
-[npm]: https://img.shields.io/npm/v/@certifaction/verification-vue-component.svg
-[npm-url]: https://www.npmjs.com/package/@certifaction/verification-vue-component
 [lerna]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [lerna-url]: https://lerna.js.org/

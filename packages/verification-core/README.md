@@ -1,6 +1,5 @@
 # @certifaction/verification-core
 
-[![npm][npm]][npm-url]
 [![lerna][lerna]][lerna-url]
 
 The verification-core contains everything needed verify a filehash on the Ethereum Smart Contract of Certifaction.
@@ -49,7 +48,5 @@ const verification = certifactionEthVerifier.verify(fileHash)
 
 Released by [Certifaction AG](https://certifaction.com)
 
-[npm]: https://img.shields.io/npm/v/@certifaction/verification-core.svg
-[npm-url]: https://www.npmjs.com/package/@certifaction/verification-core
 [lerna]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
 [lerna-url]: https://lerna.js.org/
