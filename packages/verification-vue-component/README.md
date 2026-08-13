@@ -164,7 +164,7 @@ chainWebpack: config => {
 
 #### providerUrl
 
-Type: `string` | Required: `false` | Default: `https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0`
+Type: `string` | Required: `false` | Default: `https://eth-mainnet.g.alchemy.com/v2/alch_JbdRvqDwaZtIctAtRwxaz`
 
 #### legacyContractAddress
 
