@@ -22,7 +22,7 @@ export default class CertifactionEthVerifier {
      * @param certifactionApiUrl
      */
     constructor(
-        providerUrl: string = 'https://mainnet.infura.io/v3/4559d381898847c0b13ced86a45a4ec0',
+        providerUrl: string = 'https://eth-mainnet.g.alchemy.com/v2/alch_JbdRvqDwaZtIctAtRwxaz',
         legacyContractAddress: string = '0xdc1d2c136cad73e10ae367d075995185edd68cae',
         legacyContractFallbackAddresses: string[] = [
             '0xf73e27c5008ff487803d2337fc3ac4016f6526e4',
