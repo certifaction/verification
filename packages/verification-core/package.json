@@ -17,7 +17,7 @@
         "test": "jest --verbose"
     },
     "dependencies": {
-        "axios": "^1.18.1",
+        "axios": "^1.19.0",
         "ecies-geth": "^1.8.0",
         "eth-crypto": "^4.1.0",
         "web3-eth": "^4.11.1",
@@ -25,8 +25,8 @@
         "web3-utils": "^4.3.3"
     },
     "devDependencies": {
-        "@types/jsdom": "^28.0.3",
-        "happy-dom": "^20.10.6",
+        "@types/jsdom": "^30.0.0",
+        "happy-dom": "^20.11.2",
         "jest": "^30.4.2"
     }
 }
