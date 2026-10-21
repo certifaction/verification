@@ -119,6 +119,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mdiAlertCircle, mdiCalendarClock, mdiClose, mdiDomain, mdiFileDocument, mdiShieldCheck } from '@mdi/js'
+import { isEventAfter } from '@certifaction/verification-core/src/utils/event.ts'
 import i18nWrapperMixin from '../../../../mixins/i18n-wrapper.ts'
 import ResultDetail from '../ResultDetail.vue'
 import MDIcon from '../../../MDIcon.vue'
@@ -168,7 +169,7 @@ export default defineComponent({
             const events = this.verificationItem.events.filter(
                 (event) => ['register', 'certify'].indexOf(event.scope) >= 0,
             )
-            events.sort((a, b) => (a.date > b.date ? 1 : -1))
+            events.sort((a, b) => (isEventAfter(a, b) ? 1 : -1))
 
             return events
         },
@@ -185,7 +186,7 @@ export default defineComponent({
             }
 
             const events = this.verificationItem.events.filter((event) => event.scope === 'revoke')
-            events.sort((a, b) => (a.date > b.date ? 1 : -1))
+            events.sort((a, b) => (isEventAfter(a, b) ? 1 : -1))
 
             return events
         },
@@ -207,7 +208,7 @@ export default defineComponent({
                 return false
             }
 
-            return this.latestRegisterEvent.date < this.latestRevokeEvent.date
+            return !isEventAfter(this.latestRegisterEvent, this.latestRevokeEvent)
         },
         revocationDate() {
             if (!this.documentRevoked || !this.latestRevokeEvent) {
