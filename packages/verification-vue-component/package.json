@@ -16,9 +16,9 @@
     },
     "dependencies": {
         "@certifaction/verification-core": "workspace:*",
-        "@certifaction/vue-pdf-viewer": "^7.4.0",
+        "@certifaction/vue-pdf-viewer": "^7.5.0",
         "@mdi/js": "^7.4.47",
-        "axios": "^1.20.0",
+        "axios": "^1.21.0",
         "floating-vue": "^5.4.0"
     },
     "peerDependencies": {
@@ -27,9 +27,9 @@
     },
     "devDependencies": {
         "@types/jsdom": "^30.0.0",
-        "happy-dom": "^20.14.6",
-        "vite": "^8.3.4",
-        "vue": "^3.5.43",
-        "vue-tsc": "^3.3.13"
+        "happy-dom": "^21.0.4",
+        "vite": "^8.3.5",
+        "vue": "^3.5.44",
+        "vue-tsc": "^3.3.14"
     }
 }
