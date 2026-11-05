@@ -25,6 +25,7 @@ export interface FileEvent {
     ref: string
     scope: string
     rfc3339: string
+    date?: string
     issuer: Issuer
     on_blockchain: OnBlockchain
 }
@@ -47,6 +48,8 @@ export interface OnBlockchain {
     type: string
     contract_address: string
     tx_hash: string
+    block_number?: number
+    log_index?: number
 }
 
 export const SIGNATURE_LEVEL_STANDARD = 'standard'
@@ -335,6 +338,8 @@ export default class CertifactionClaimVerifier {
                     type: 'ethereum',
                     contract_address: claimEvent.address,
                     tx_hash: claimEvent.transactionHash,
+                    block_number: Number(claimEvent.blockNumber),
+                    log_index: Number(claimEvent.logIndex),
                 }
             }
 
